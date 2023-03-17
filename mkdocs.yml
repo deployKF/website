@@ -1,0 +1,86 @@
+site_name: deployKF
+site_description: Official website of the deployKF project
+
+copyright: "© 2023 deployKF Authors"
+
+repo_url: https://github.com/deployKF/deployKF
+edit_uri: https://github.com/deployKF/website/edit/main/content
+docs_dir: content
+
+nav:
+  ## NOTE: navigation is managed by `awesome-pages` plugin, see `.pages` files for configs
+  - ...
+
+theme:
+  name: material
+  custom_dir: overrides
+
+  icon:
+    repo: fontawesome/brands/github
+  logo: assets/images/logo.svg
+  favicon: assets/images/favicon.ico
+
+  features:
+    - content.action.edit
+    - content.action.view
+    - content.code.copy
+    - navigation.indexes
+    - navigation.instant
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+
+  palette:
+    ## Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: deep-orange
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+
+    ## Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: deep-orange
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to light mode
+
+extra_css:
+  - assets/stylesheets/tables.css
+
+plugins:
+  - awesome-pages
+  - git-revision-date-localized:
+      type: timeago
+      enable_creation_date: true
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+        remove_comments: true
+      cache_safe: true
+      js_files: []
+      css_files:
+        - assets/stylesheets/tables.css
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
