@@ -25,23 +25,22 @@
         display: none;
     }
 
-    /* prevent main section from taking up any space */
-    .md-main__inner > .md-content {
-        display: none;
-    }
-    .md-main__inner > .md-sidebar--secondary {
-        display: none;
+    /* prevent unused main section from taking up space */
+    .md-main {
+        flex-grow: 0;
     }
 
-    /* we use this on a div at the top of the `md-container` flexbox */
-    .mdx-top {
+    /* ensure our primary div takes up the full screen, and align its contents in the center */
+    .mdx-container {
         flex-grow: 1;
+        display: grid;
+        align-items: center;
     }
 
     /* styling for hero content */
     .mdx-hero {
         display: block;
-        padding-top: 1rem;
+        padding-top: 1.25rem;
         padding-left: 1rem;
         padding-right: 1rem;
     }
@@ -105,9 +104,6 @@
     }
 </style>
 
-<!-- Flexbox Padding -->
-<div class="mdx-top"></div>
-
 <!-- Hero for Home Page -->
 <div class="mdx-container">
   <div class="mdx-hero md-typeset">
@@ -115,12 +111,10 @@
     <!-- Hero Content-->
     <div class="mdx-hero__content">
       <div class="mdx-hero__content_inner">
-        <h1>Deploy Kubeflow with ArgoCD</h1>
+        <h1>Compose your open ML platform</h1>
         <p>
-          <b>deployKF</b> is a reference distribution of <a href="https://www.kubeflow.org/">Kubeflow</a>
-          that uses <a href="https://argoproj.github.io/cd/">ArgoCD</a> to deploy the
-          <a href="https://github.com/kubeflow/manifests"><code>kubeflow/manifests</code></a> (and more)
-          in a maintainable way.
+          <b>deployKF</b> is your open-source helper for deploying MLOps tools on <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a>,
+          with support for <a href="https://www.kubeflow.org/docs/components/" target="_blank" rel="noopener">Kubeflow Components</a> and more
         </p>
         <div class="mdx-actions">
           <a href="{{ 'guides/quickstart'| url }}"
