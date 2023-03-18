@@ -1,5 +1,6 @@
 site_name: deployKF
 site_description: Official website of the deployKF project
+site_url: https://www.deploykf.org/
 
 copyright: "© 2023 deployKF Authors"
 
@@ -31,6 +32,8 @@ theme:
     - navigation.tabs.sticky
     - navigation.top
     - navigation.tracking
+    - search.highlight
+    - search.suggest
 
   palette:
     ## Palette toggle for light mode
@@ -70,6 +73,7 @@ plugins:
       css_files:
         - assets/stylesheets/tables.css
   - search
+  - social
 
 markdown_extensions:
   - admonition
@@ -84,6 +88,8 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
   - tables
+  - toc:
+      permalink: true
 
 extra:
   analytics:

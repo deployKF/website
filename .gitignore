@@ -40,4 +40,5 @@ Sessionx.vim
 ._*
 
 ## MkDocs
+.cache/
 site/
