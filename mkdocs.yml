@@ -22,6 +22,7 @@ theme:
   favicon: assets/images/favicon.ico
 
   features:
+    - announce.dismiss
     - content.action.edit
     - content.action.view
     - content.code.copy
@@ -55,6 +56,7 @@ theme:
         name: Switch to light mode
 
 extra_css:
+  - assets/stylesheets/banner.css
   - assets/stylesheets/tables.css
 
 plugins:
