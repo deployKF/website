@@ -111,3 +111,14 @@ extra:
           note: >-
             Sorry to hear that. 
             Please help us improve by <a href="https://github.com/deployKF/website/issues/new/?title=[Feedback]+{title}+-+{url}" target="_blank" rel="noopener">raising an issue</a>.
+
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/deployKF/deployKF
+      name: deployKF on GitHub
+    - icon: fontawesome/brands/twitter
+      link: https://www.youtube.com/@deployKF
+      name: deployKF on Twitter
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/@deployKF
+      name: deployKF on YouTube
