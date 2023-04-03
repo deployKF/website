@@ -2,7 +2,7 @@ site_name: deployKF
 site_description: deployKF is your open-source helper for deploying MLOps tools on Kubernetes, with support for Kubeflow Components and more
 site_url: https://www.deploykf.org/
 
-copyright: "© 2023 deployKF Authors"
+copyright: "© 2023 deployKF Authors | <a href='/privacy-policy/website/'>Privacy Policy</a>"
 
 repo_url: https://github.com/deployKF/deployKF
 edit_uri: https://github.com/deployKF/website/edit/main/content
@@ -64,6 +64,8 @@ plugins:
   - git-revision-date-localized:
       type: timeago
       enable_creation_date: true
+      exclude:
+        - privacy-policy/*
   - minify:
       minify_html: true
       minify_js: true
