@@ -2,47 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://www.deploykf.org/</loc>
-         <lastmod>2023-04-09</lastmod>
+         <lastmod>2023-04-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/quickstart/</loc>
-         <lastmod>2023-04-09</lastmod>
+         <lastmod>2023-04-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/uninstall/</loc>
-         <lastmod>2023-04-09</lastmod>
+         <lastmod>2023-04-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/upgrade/</loc>
-         <lastmod>2023-04-09</lastmod>
+         <lastmod>2023-04-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/privacy-policy/website/</loc>
-         <lastmod>2023-04-09</lastmod>
+         <lastmod>2023-04-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/reference/values/</loc>
-         <lastmod>2023-04-09</lastmod>
+         <lastmod>2023-04-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/reference/version-compatibility-matrix/</loc>
-         <lastmod>2023-04-09</lastmod>
+         <lastmod>2023-04-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/topics/production-usage/external-mysql-database/</loc>
-         <lastmod>2023-04-09</lastmod>
+         <lastmod>2023-04-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/topics/production-usage/external-object-store/</loc>
-         <lastmod>2023-04-09</lastmod>
+         <lastmod>2023-04-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
