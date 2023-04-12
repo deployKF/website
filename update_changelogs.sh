@@ -10,6 +10,7 @@ python ./dev/generate_changelog.py \
   --source-repo deployKF/deployKF \
   --output-path ./content/releases/changelogs/changelog-deploykf.md \
   --output-heading "Changelog for deployKF" \
+  --output-description 'This changelog includes all final releases of the deployKF generator source that are found in the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repository.' \
   --include-headings "Significant Changes" "New Features" "Improvements" "Bug Fixes" "Documentation" "Miscellaneous" \
   --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?' \
   --exclude-pre-releases
@@ -19,6 +20,7 @@ python ./dev/generate_changelog.py \
   --source-repo deployKF/deployKF \
   --output-path ./content/releases/changelogs/full-changelog-deploykf.md \
   --output-heading "Full changelog for deployKF" \
+  --output-description 'This changelog includes all releases (including pre-releases) of the deployKF generator source that are found in the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repository.' \
   --include-headings "Significant Changes" "New Features" "Improvements" "Bug Fixes" "Documentation" "Miscellaneous" \
   --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?'
 
@@ -27,6 +29,7 @@ python ./dev/generate_changelog.py \
   --source-repo deployKF/cli \
   --output-path ./content/releases/changelogs/changelog-cli.md \
   --output-heading "Changelog for CLI" \
+  --output-description 'This changelog includes all final releases of the deployKF CLI that are found in the [`deployKF/cli`](https://github.com/deployKF/cli) repository.' \
   --include-headings "Significant Changes" "New Features" "Improvements" "Bug Fixes" "Documentation" "Miscellaneous" \
   --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?' \
   --exclude-pre-releases
@@ -36,6 +39,7 @@ python ./dev/generate_changelog.py \
   --source-repo deployKF/cli \
   --output-path ./content/releases/changelogs/full-changelog-cli.md \
   --output-heading "Full changelog for CLI" \
+  --output-description 'This changelog includes all releases (including pre-releases) of the deployKF CLI that are found in the [`deployKF/cli`](https://github.com/deployKF/cli) repository.' \
   --include-headings "Significant Changes" "New Features" "Improvements" "Bug Fixes" "Documentation" "Miscellaneous" \
   --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?'
 

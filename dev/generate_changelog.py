@@ -161,7 +161,7 @@ def filter_content(content: str, include_headings: List[str]) -> str:
 
 
 def format_release(release: Dict[str, str], include_headings: List[str]) -> str:
-    version = release["tag_name"]
+    version = release["tag_name"].lstrip("v")
     date = release["published_at"][:10]
     url = release["html_url"]
     content = filter_content(release["body"], include_headings)
@@ -196,6 +196,9 @@ def main():
         "--output-heading", default="Changelog", help="H1 heading for the output file"
     )
     parser.add_argument(
+        "--output-description", default="", help="Description for the output file"
+    )
+    parser.add_argument(
         "--include-headings",
         nargs="+",
         required=True,
@@ -217,7 +220,10 @@ def main():
     releases = get_releases(
         args.source_repo, args.include_tag_names, args.exclude_pre_releases
     )
-    changelog = [f"# {args.output_heading}\n"]
+    changelog = [
+        f"# {args.output_heading}\n",
+        f"{args.output_description}\n",
+    ]
 
     for release in releases:
         formatted_release = format_release(release, args.include_headings)
