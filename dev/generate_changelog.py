@@ -1,9 +1,72 @@
 import argparse
 import re
 import time
+from functools import cmp_to_key
 from typing import List, Dict
 
 import requests
+
+
+def parse_semantic_version(version_string):
+    version_pattern = re.compile(
+        r"^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)"
+        r"(-(?P<pre_release>[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*))?"
+        r"(\+(?P<build>[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*))?$"
+    )
+    match = version_pattern.match(version_string)
+    if not match:
+        raise ValueError(f"'{version_string}' is not a valid semantic version string")
+
+    major, minor, patch = (
+        int(match.group("major")),
+        int(match.group("minor")),
+        int(match.group("patch")),
+    )
+    pre_release = match.group("pre_release") or ""
+    build = match.group("build") or ""
+    return major, minor, patch, pre_release, build
+
+
+def compare_semantic_versions(a, b):
+    major_a, minor_a, patch_a, pre_release_a, build_a = parse_semantic_version(a)
+    major_b, minor_b, patch_b, pre_release_b, build_b = parse_semantic_version(b)
+
+    if major_a != major_b:
+        return major_a - major_b
+    if minor_a != minor_b:
+        return minor_a - minor_b
+    if patch_a != patch_b:
+        return patch_a - patch_b
+
+    if pre_release_a == pre_release_b:
+        return 0
+
+    if not pre_release_a:
+        return 1
+    if not pre_release_b:
+        return -1
+
+    pre_release_a_parts = pre_release_a.split(".")
+    pre_release_b_parts = pre_release_b.split(".")
+
+    for part_a, part_b in zip(pre_release_a_parts, pre_release_b_parts):
+        if part_a == part_b:
+            continue
+
+        is_digit_a = part_a.isdigit()
+        is_digit_b = part_b.isdigit()
+
+        if is_digit_a != is_digit_b:
+            return -1 if is_digit_a else 1
+
+        if is_digit_a and is_digit_b:
+            num_a = int(part_a)
+            num_b = int(part_b)
+            return num_a - num_b
+
+        return (part_a > part_b) - (part_a < part_b)
+
+    return len(pre_release_a_parts) - len(pre_release_b_parts)
 
 
 def get_releases(
@@ -51,6 +114,12 @@ def get_releases(
             break
 
         page += 1
+
+    # Sort the releases by semantic version number
+    releases.sort(
+        key=lambda r: cmp_to_key(compare_semantic_versions)(r["tag_name"].lstrip("v")),
+        reverse=True,
+    )
 
     return releases
 
