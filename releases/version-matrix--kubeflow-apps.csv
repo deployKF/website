@@ -1,0 +1,11 @@
+deployKF,`0.1`
+---,---
+[Kubeflow Pipelines](https://github.com/kubeflow/kubeflow/tree/master/components/notebook-controller),(`2.0.0-alpha.5`)
+[Kubeflow Notebooks: Web App](https://github.com/kubeflow/kubeflow/tree/master/components/crud-web-apps/jupyter),(`1.6`)
+[Kubeflow Notebooks: Controller](https://github.com/kubeflow/kubeflow/tree/master/components/notebook-controller),(`1.6`)
+[Volumes: Web App](https://github.com/kubeflow/kubeflow/tree/master/components/crud-web-apps/volumes),(`1.6`)
+[Katib](https://github.com/kubeflow/katib),(`0.14.0`)
+[Kubeflow Training Operator](https://github.com/kubeflow/training-operator),(`1.5.0`)
+[PodDefaults Webhook](https://github.com/kubeflow/kubeflow/tree/master/components/admission-webhook),(`1.6`)
+[TensorBoards: Web App](https://github.com/kubeflow/kubeflow/tree/master/components/crud-web-apps/tensorboards),(`1.6`)
+[TensorBoards: Controller](https://github.com/kubeflow/kubeflow/tree/master/components/tensorboard-controller),(`1.6`)
