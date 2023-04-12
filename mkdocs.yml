@@ -78,6 +78,7 @@ plugins:
         - assets/stylesheets/tables.css
   - search
   - social
+  - table-reader
 
 markdown_extensions:
   - admonition
