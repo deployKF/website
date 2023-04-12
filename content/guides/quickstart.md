@@ -21,7 +21,7 @@
 
 ### Remote Dependencies
 
-- Kubernetes ([version compatability matrix](../reference/version-compatibility-matrix.md#kubernetes))
+- Kubernetes ([version compatability matrix](../releases/version-matrix.md#cluster-dependencies))
 - ArgoCD ([deploying ArgoCD](https://argo-cd.readthedocs.io/en/stable/getting_started/))
 - (Optional) an external MySQL database ([connecting your database](../topics/production-usage/external-mysql-database.md))
 - (Optional) an external S3-compatible object store ([connecting your object store](../topics/production-usage/external-object-store.md))
