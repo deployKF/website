@@ -1,0 +1,35 @@
+{%- if page.title and not page.is_homepage %}
+    {%- set ns = namespace(breadcrumbs=[]) %}
+
+    {#- use URL path segments to build the crumb trail (ignore final segement, because that is this page) #}
+    {%- set path_segments = page.abs_url.strip('/').split('/')[:-1] %}
+    {%- for segment in path_segments %}
+        {%- if segment %}
+            {%- set ns.breadcrumbs = ns.breadcrumbs + [{
+                "@type": "ListItem",
+                "position": loop.index,
+                "name": segment | replace('_', ' ') | replace('-', ' ') | title,
+                "item": config.site_url.rstrip('/') ~ "/" ~ (path_segments[:loop.index] | join('/'))
+            }] %}
+        {%- endif %}
+    {%- endfor %}
+
+    {#- add the current page as the last crumb #}
+    {%- set ns.breadcrumbs = ns.breadcrumbs + [{
+        "@type": "ListItem",
+        "position": path_segments|length + 1,
+        "name": page.title
+    }] %}
+
+    {%- set breadcrumb_schema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": ns.breadcrumbs
+    } %}
+
+<script type="application/ld+json">{{ breadcrumb_schema | tojson }}</script>
+{%- endif %}
+
+{%- if page.meta and page.meta.schema %}
+<script type="application/ld+json">{{ page.meta.schema | tojson }}</script>
+{%- endif %}
