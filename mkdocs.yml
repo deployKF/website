@@ -72,9 +72,11 @@ plugins:
       minify_css: true
       htmlmin_opts:
         remove_comments: true
-      cache_safe: true
+      cache_safe: false
       js_files: []
       css_files:
+        - assets/stylesheets/banner.css
+        - assets/stylesheets/home.css
         - assets/stylesheets/tables.css
   - search
   - social
