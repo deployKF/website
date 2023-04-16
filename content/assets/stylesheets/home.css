@@ -39,17 +39,26 @@
 }
 
 .mdx-hero h1 {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     color: currentcolor;
     font-weight: 700;
 }
 
-.mdx-hero__content {
-    max-width: 26rem;
+.mdx-hero .mdx-hero__content {
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 1.5rem;
     text-align: center;
+}
+
+.mdx-hero .mdx-hero__content_inner {
+    max-width: 25rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mdx-hero .mdx-hero__tag_text {
+    opacity: 0.7;
+    font-size: 75%
 }
 
 .mdx-hero__video {
@@ -59,6 +68,10 @@
 }
 
 /* styles for action buttons */
+.mdx-hero .mdx-actions {
+    margin-bottom: 3rem;
+}
+
 .mdx-hero .md-button {
     margin: .3rem .25rem;
 }
