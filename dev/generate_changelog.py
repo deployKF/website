@@ -177,7 +177,7 @@ def format_release(release: Dict[str, str], include_headings: List[str]) -> str:
     # Replace @mentions with markdown links
     content = re.sub(r"@(\w+)", r"[@\1](https://github.com/\1)", content)
 
-    return f"\n## [{version}]({url}) - {date}\n{content}"
+    return f"## [{version}]({url}) - {date}\n{content}"
 
 
 def main():
@@ -197,6 +197,14 @@ def main():
     )
     parser.add_argument(
         "--output-description", default="", help="Description for the output file"
+    )
+    parser.add_argument(
+        "--output-tip", default="", help="A tip admonition for the output file"
+    )
+    parser.add_argument(
+        "--output-hide-sections",
+        nargs="+",
+        help="MKDocs sections to hide in the output file (using page metadata)",
     )
     parser.add_argument(
         "--include-headings",
@@ -220,14 +228,30 @@ def main():
     releases = get_releases(
         args.source_repo, args.include_tag_names, args.exclude_pre_releases
     )
-    changelog = [
-        f"# {args.output_heading}\n",
-        f"{args.output_description}\n",
-    ]
+
+    changelog = []
+
+    if args.output_hide_sections:
+        changelog.append("---")
+        changelog.append("hide:")
+        changelog.extend([f"  - {section}" for section in args.output_hide_sections])
+        changelog.append("---")
+        changelog.append("")
+
+    changelog.append(f"# {args.output_heading}")
+    changelog.append("")
+    changelog.append(f"{args.output_description}")
+    changelog.append("")
+
+    if args.output_tip:
+        changelog.append("!!! tip")
+        changelog.append(f"    {args.output_tip}")
+        changelog.append("")
 
     for release in releases:
         formatted_release = format_release(release, args.include_headings)
         changelog.append(formatted_release)
+        changelog.append("")
 
     with open(args.output_path, "w") as f:
         f.write("\n".join(changelog))

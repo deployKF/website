@@ -13,4 +13,4 @@ The website for [deployKF](https://github.com/deployKF/deployKF).
        - you may need to run `export DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib` for cairo to work (make it permanent by adding to your `~/.zshrc` file)
     - __Ubuntu__ 
        - run `apt-get install libcairo2-dev libfreetype6-dev libffi-dev libjpeg-dev libpng-dev libz-dev`
-5. serve a local version of the website: `mkdocs serve`
+5. serve a local version of the website: `mkdocs serve --watch-theme`
