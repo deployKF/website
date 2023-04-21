@@ -10,18 +10,38 @@ The following tables are a summary of which dependency versions are supported by
 !!! tip
     The version wrapped with `()` is the default version included with `deployKF`.
 
-## Cluster Dependencies
+## deployKF Dependencies
 
-{{ read_csv("./version-matrix--cluster-dependencies.csv", colalign=("right",)) }}
+Dependencies of deployKF.
 
-## Kubeflow Common
+{{ read_csv("./version-matrix--deploykf-dependencies.csv", colalign=("right",)) }}
 
-{{ read_csv("./version-matrix--kubeflow-common.csv", colalign=("right",)) }}
+## deployKF Core
 
-## Kubeflow Apps
+Applications that are used in core components like `deploykf-auth` and `deploykf-dashboard`.
 
-{{ read_csv("./version-matrix--kubeflow-apps.csv", colalign=("right",)) }}
+{{ read_csv("./version-matrix--deploykf-core.csv", colalign=("right",)) }}
 
-## Kubeflow Contrib
+## deployKF Opt
 
-{{ read_csv("./version-matrix--kubeflow-contrib.csv", colalign=("right",)) }}
+Optional embedded applications that are used when external alternatives are not configured.
+
+{{ read_csv("./version-matrix--deploykf-opt.csv", colalign=("right",)) }}
+
+## deployKF Tools
+
+MLOps tools from the deployKF ecosystem.
+
+{{ read_csv("./version-matrix--deploykf-tools.csv", colalign=("right",)) }}
+
+## Kubeflow Dependencies
+
+Dependencies of Kubeflow tools.
+
+{{ read_csv("./version-matrix--kubeflow-dependencies.csv", colalign=("right",)) }}
+
+## Kubeflow Tools
+
+MLOps tools from the Kubeflow ecosystem.
+
+{{ read_csv("./version-matrix--kubeflow-tools.csv", colalign=("right",)) }}
