@@ -31,27 +31,27 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://www.deploykf.org/releases/changelog-deploykf-cli/</loc>
+         <lastmod>2023-04-21</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://www.deploykf.org/releases/changelog-deploykf/</loc>
+         <lastmod>2023-04-21</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://www.deploykf.org/releases/full-changelog-deploykf-cli/</loc>
+         <lastmod>2023-04-21</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://www.deploykf.org/releases/full-changelog-deploykf/</loc>
+         <lastmod>2023-04-21</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://www.deploykf.org/releases/version-matrix/</loc>
-         <lastmod>2023-04-21</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://www.deploykf.org/releases/changelogs/changelog-cli/</loc>
-         <lastmod>2023-04-21</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://www.deploykf.org/releases/changelogs/changelog-deploykf/</loc>
-         <lastmod>2023-04-21</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://www.deploykf.org/releases/changelogs/full-changelog-cli/</loc>
-         <lastmod>2023-04-21</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://www.deploykf.org/releases/changelogs/full-changelog-deploykf/</loc>
          <lastmod>2023-04-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
