@@ -1,8 +1,6 @@
 deployKF,`0.1`
----,---
 [Kubernetes](https://kubernetes.io/),"`1.22`, `1.23`, `1.24`, `1.25`"
+[Argo CD](https://argoproj.github.io/cd/),`2.3+`
 [Istio](https://istio.io/),"(`1.14`), `1.15`, `1.16`"
 [cert-manager](https://cert-manager.io/),(`1.11`)
 [Kyverno](https://kyverno.io/),(`1.9`)
-[Knative: Eventing](https://knative.dev/docs/eventing/),(`1.2.4`)
-[Knative: Serving](https://knative.dev/docs/serving/),(`1.2.5`)

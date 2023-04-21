@@ -1,0 +1,6 @@
+deployKF,`0.1`
+[Dex](https://dexidp.io/)<sub><br>`deploykf-auth`</sub>,(`2.35`)
+[OAuth2 Proxy](https://oauth2-proxy.github.io/oauth2-proxy/)<sub><br>`deploykf-auth`</sub>,(`7.4`)
+[KF: Central Dashboard](https://github.com/kubeflow/kubeflow/tree/master/components/centraldashboard)<sub><br>`deploykf-dashboard`</sub>,(`1.6`)
+[KF: Access Management API](https://github.com/kubeflow/kubeflow/tree/master/components/access-management)<sub><br>`deploykf-dashboard`</sub>,(`1.6`)
+[KF: Profile Controller](https://github.com/kubeflow/kubeflow/tree/master/components/profile-controller)<sub><br>`deploykf-dashboard`</sub>,(`1.6`)
