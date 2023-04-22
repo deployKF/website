@@ -1,0 +1,11 @@
+Value,Default
+[`deploykf_opt.deploykf_mysql.enabled`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L165),`true`
+[`deploykf_opt.deploykf_mysql.namespace`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L166),"`""deploykf-mysql""`"
+[`deploykf_opt.deploykf_mysql.rootUser.password`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L171),"`""password""`"
+[`deploykf_opt.deploykf_mysql.rootUser.existingSecret`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L172),"`""""`"
+[`deploykf_opt.deploykf_mysql.rootUser.existingSecretPasswordKey`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L173),"`""password""`"
+[`deploykf_opt.deploykf_mysql.kubeflowUser.username`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L178),"`""kubeflow""`"
+[`deploykf_opt.deploykf_mysql.kubeflowUser.password`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L179),"`""password""`"
+[`deploykf_opt.deploykf_mysql.kubeflowUser.existingSecret`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L180),"`""""`"
+[`deploykf_opt.deploykf_mysql.kubeflowUser.existingSecretUsernameKey`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L181),"`""username""`"
+[`deploykf_opt.deploykf_mysql.kubeflowUser.existingSecretPasswordKey`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L182),"`""password""`"

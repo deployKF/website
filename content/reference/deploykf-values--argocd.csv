@@ -1,0 +1,7 @@
+Value,Default
+[`argocd.namespace`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L11),"`""argocd""`"
+[`argocd.project`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L12),"`""default""`"
+[`argocd.source.repo.url`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L15),"`""""`"
+[`argocd.source.repo.revision`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L16),"`""""`"
+[`argocd.source.repo.path`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L17),"`""""`"
+[`argocd.destination.server`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L19),"`""https://kubernetes.default.svc""`"

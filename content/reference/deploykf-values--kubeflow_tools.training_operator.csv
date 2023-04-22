@@ -1,0 +1,2 @@
+Value,Default
+[`kubeflow_tools.training_operator.enabled`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L298),`true`
