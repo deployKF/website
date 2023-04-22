@@ -1,0 +1,10 @@
+Value,Default
+[`kubeflow_tools.katib.enabled`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L220),`true`
+[`kubeflow_tools.katib.mysql.host`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L225),"`""mysql.example.com""`"
+[`kubeflow_tools.katib.mysql.port`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L226),`3306`
+[`kubeflow_tools.katib.mysql.auth.username`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L228),"`""kubeflow""`"
+[`kubeflow_tools.katib.mysql.auth.password`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L229),"`""password""`"
+[`kubeflow_tools.katib.mysql.auth.existingSecret`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L230),"`""""`"
+[`kubeflow_tools.katib.mysql.auth.existingSecretUsernameKey`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L231),"`""username""`"
+[`kubeflow_tools.katib.mysql.auth.existingSecretPasswordKey`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L232),"`""password""`"
+[`kubeflow_tools.katib.mysqlDatabase`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L234),"`""katib""`"
