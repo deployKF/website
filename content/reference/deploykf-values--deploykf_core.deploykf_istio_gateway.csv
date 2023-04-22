@@ -1,0 +1,15 @@
+Value,Default
+[`deploykf_core.deploykf_istio_gateway.enabled`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L91),`true`
+[`deploykf_core.deploykf_istio_gateway.namespace`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L92),"`""deploykf-istio-gateway""`"
+[`deploykf_core.deploykf_istio_gateway.gateway.name`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L95),"`""deploykf-gateway""`"
+[`deploykf_core.deploykf_istio_gateway.gateway.selectorLabels.app`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L98),"`""deploykf-gateway""`"
+[`deploykf_core.deploykf_istio_gateway.gateway.selectorLabels.istio`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L99),"`""deploykf-gateway""`"
+[`deploykf_core.deploykf_istio_gateway.gateway.hostname`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L101),"`""deploykf.example.com""`"
+[`deploykf_core.deploykf_istio_gateway.gateway.ports.http`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L104),`8080`
+[`deploykf_core.deploykf_istio_gateway.gateway.ports.https`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L105),`8443`
+[`deploykf_core.deploykf_istio_gateway.gateway.tls.enabled`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L108),`true`
+[`deploykf_core.deploykf_istio_gateway.gateway.enableProxyProtocol`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L114),`false`
+[`deploykf_core.deploykf_istio_gateway.gateway.xffNumTrustedHops`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L120),`1`
+[`deploykf_core.deploykf_istio_gateway.service.name`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L123),"`""deploykf-gateway""`"
+[`deploykf_core.deploykf_istio_gateway.serviceAccount.name`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L127),"`""deploykf-gateway""`"
+[`deploykf_core.deploykf_istio_gateway.deployment.replicaCount`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L131),`1`

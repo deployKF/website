@@ -1,0 +1,9 @@
+Value,Default
+[`deploykf_dependencies.cert_manager.enabled`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L33),`true`
+[`deploykf_dependencies.cert_manager.namespace`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L34),"`""cert-manager""`"
+[`deploykf_dependencies.cert_manager.clusterIssuer.enabled`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L37),`true`
+[`deploykf_dependencies.cert_manager.clusterIssuer.issuerName`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L38),"`""deploykf-gateway-issuer""`"
+[`deploykf_dependencies.cert_manager.clusterIssuer.type`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L41),"`""SELF_SIGNED""`"
+[`deploykf_dependencies.cert_manager.clusterIssuer.selfSigned.caIssuerName`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L44),"`""selfsigned-ca-issuer""`"
+[`deploykf_dependencies.cert_manager.clusterIssuer.selfSigned.caSecretName`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L45),"`""selfsigned-ca-issuer-root-cert""`"
+[`deploykf_dependencies.cert_manager.clusterIssuer.selfSigned.injectedConfigMapName`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L50),"`""deploykf-gateway-issuer-root-ca-cert""`"

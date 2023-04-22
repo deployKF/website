@@ -80,6 +80,10 @@ plugins:
   - search
   - social
   - table-reader
+  ## NOTE: `macros` must be last plugin
+  - macros:
+      module_name: macros
+      on_error_fail: true
 
 markdown_extensions:
   - admonition
