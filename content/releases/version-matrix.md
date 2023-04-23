@@ -1,14 +1,9 @@
----
-hide:
-  - toc
----
-
 # Version Matrix
 
-The following tables are a summary of which dependency versions are supported by each version of `deployKF`.
+The following tables are a summary of which dependency versions are supported by each version of __deployKF__.
 
 !!! tip
-    The version wrapped with `()` is the default version included with `deployKF`.
+    The version wrapped with `()` is the default version included with __deployKF__.
 
 ## deployKF Dependencies
 

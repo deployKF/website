@@ -58,6 +58,9 @@ extra_css:
   - assets/stylesheets/banner.css
   - assets/stylesheets/tables.css
 
+hooks:
+  - custom_filters.py
+
 plugins:
   - awesome-pages
   - git-revision-date-localized:
@@ -82,7 +85,7 @@ plugins:
   - table-reader
   ## NOTE: `macros` must be last plugin
   - macros:
-      module_name: macros
+      module_name: custom_macros
       on_error_fail: true
 
 markdown_extensions:

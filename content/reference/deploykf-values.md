@@ -1,6 +1,6 @@
 # deployKF Values (Configs)
 
-The following is a summary of the __values (configs)__ available in `deployKF`.
+The following is a summary of the __values (configs)__ available in __deployKF__.
 
 !!! tip
     The full list of __values__ and their defaults can be found in the [`default_values.yaml` file in the source code](https://github.com/deployKF/deployKF/blob/main/generator/default_values.yaml).

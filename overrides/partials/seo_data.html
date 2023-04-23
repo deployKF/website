@@ -1,3 +1,6 @@
+{#- ================ #}
+{#- BREADCRUMBS: https://developers.google.com/search/docs/appearance/structured-data/breadcrumb #}
+{#- ================ #}
 {%- if page.title and not page.is_homepage %}
     {%- set ns = namespace(breadcrumbs=[]) %}
 
@@ -9,7 +12,7 @@
                 "@type": "ListItem",
                 "position": loop.index,
                 "name": segment | replace('_', ' ') | replace('-', ' ') | title,
-                "item": config.site_url.rstrip('/') ~ "/" ~ (path_segments[:loop.index] | join('/'))
+                "item": config.site_url.rstrip('/') ~ "/" ~ (path_segments[:loop.index] | join('/')),
             }] %}
         {%- endif %}
     {%- endfor %}
@@ -17,19 +20,51 @@
     {#- add the current page as the last crumb #}
     {%- set ns.breadcrumbs = ns.breadcrumbs + [{
         "@type": "ListItem",
-        "position": path_segments|length + 1,
-        "name": page.title
+        "position": path_segments | length + 1,
+        "name": page.title,
     }] %}
 
     {%- set breadcrumb_schema = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
-        "itemListElement": ns.breadcrumbs
+        "itemListElement": ns.breadcrumbs,
     } %}
 
-<script type="application/ld+json">{{ breadcrumb_schema | tojson }}</script>
+<script type="application/ld+json">{{ breadcrumb_schema | custom_to_json }}</script>
 {%- endif %}
 
+{#- ================ #}
+{#- FAQ PAGE: https://developers.google.com/search/docs/appearance/structured-data/faqpage #}
+{#- ================ #}
+{%- if page.meta and page.meta.faq_schema %}
+    {%- set ns = namespace(questions=[]) %}
+
+    {%- for question in page.meta.faq_schema %}
+        {%- if question.include_in_schema %}
+            {%- set ns.questions = ns.questions + [{
+                "@type": "Question",
+                "name": question.question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": question.answer | md_to_html,
+                }
+            }] %}
+        {%- endif %}
+    {%- endfor %}
+
+    {%- set faq_schema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": ns.questions,
+    } %}
+
+{#- NOTE: we use a custom `tojson` filter, so that non-ascii characters are not replaced with \uXXX #}
+<script type="application/ld+json">{{ faq_schema | custom_to_json }}</script>
+{%- endif %}
+
+{#- ================ #}
+{#- OTHER DATA       #}
+{#- ================ #}
 {%- if page.meta and page.meta.schema %}
-<script type="application/ld+json">{{ page.meta.schema | tojson }}</script>
+<script type="application/ld+json">{{ page.meta.schema | custom_to_json }}</script>
 {%- endif %}
