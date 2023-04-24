@@ -38,11 +38,11 @@ faq_schema:
     include_in_schema: false
     pre_expand_answer: false
     answer: |-
-      __deployKF__ is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+      __deployKF__ is licensed under the [Apache License 2.0](https://github.com/deployKF/deployKF/blob/main/LICENSE).
       However, some of the tools that deployKF can help deploy are licensed differently.
       Please ensure you are aware of the licenses of the tools you are deploying.
 ---
 
 # Frequently Asked Questions
 
-{{ render_faq_schema(page.meta.faq_schema) }}
+{{ render_faq_schema(faq_schema) }}
