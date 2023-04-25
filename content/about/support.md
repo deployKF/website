@@ -22,9 +22,11 @@ If you have found a bug, or have a feature request, you can raise an issue on th
 
 ## Get Commercial Support
 
-If you are interested in US-based commercial support, please reach out to [Mathew Wicks](https://www.linkedin.com/in/mathewwicks/), the founder of deployKF, on LinkedIn or via Email at [mathew@aranui.solutions](mailto:mathew@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT).
+If you are interested in US-based commercial support, reach out to __Mathew Wicks__, the founder of deployKF, on [LinkedIn](https://www.linkedin.com/in/mathewwicks/) or via email at [mathew@aranui.solutions](mailto:mathew@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT).
 
-!!! note
+!!! note "Are you a vendor?"
     
-    If you are a vendor who would like to offer commercial support for deployKF, or would like use deployKF in your product, let's work together! 
-    Please reach out to [Mathew Wicks](https://www.linkedin.com/in/mathewwicks/) on LinkedIn or at [mathew@aranui.solutions](mailto:mathew@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT).
+    Are you are a vendor who wants to support deployKF or use it in your product?
+    Let's work together! 
+
+    Reach out to __Mathew Wicks__ on [LinkedIn](https://www.linkedin.com/in/mathewwicks/) or at [mathew@aranui.solutions](mailto:mathew@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT).

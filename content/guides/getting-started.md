@@ -21,8 +21,12 @@ Before starting, you should read a little about what __deployKF__ is and how it 
 !!! warning "Dedicated Kubernetes Cluster"
 
     deployKF is a complex tool, and only __one instance__ can be deployed on a Kubernetes cluster at a time.
-
     It is strongly recommended that you create a __dedicated Kubernetes cluster__ for your deployment of deployKF.
+
+!!! tip "Virtual Kubernetes Clusters"
+
+    If you are unable to create a new Kubernetes cluster, you may consider using [vcluster](https://github.com/loft-sh/vcluster) to create a virtual Kubernetes cluster within an existing one.
+    This approach has additional benefits because deployKF uses cluster-wide components (e.g. Istio) and namespaces for user/team profiles, so is not well suited to multi-tenant clusters.
 
 ??? info "Distributions of Kubernetes"
 
@@ -45,7 +49,6 @@ Before starting, you should read a little about what __deployKF__ is and how it 
 !!! warning "MinIO License"
   
     If you choose to not connect an external S3-compatible object store, deployKF will use [MinIO](https://github.com/minio/minio), ensure you are familiar with MinIO's licence, which at the time of writing is [AGPLv3](https://github.com/minio/minio/blob/master/LICENSE).
-
     However, rest assured that deployKF __does NOT contain any code from MinIO__, and is licensed under the [Apache 2.0 License](https://github.com/deployKF/deployKF/blob/main/LICENSE).
 
 ??? info "Managed MySQL Services"
@@ -75,4 +78,4 @@ Before starting, you should read a little about what __deployKF__ is and how it 
 
 ## Step 3: TBA
 
-TBA
+deployKF is currently in development, this guide will be updated when it is ready for use.

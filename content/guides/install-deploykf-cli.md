@@ -1,7 +1,6 @@
 # Install the deployKF CLI
 
-The deployKF command line tool (CLI) is used in deployKF to generate GitOps-ready Kubernetes manifests from a set of values config files.
-
+The deployKF command line tool (CLI) is used to generate GitOps-ready Kubernetes manifests from one or more [values files](../reference/deploykf-values.md).
 The CLI binaries are distributed via [GitHub releases](https://github.com/deployKF/cli/releases), you will need to download the appropriate binary for your operating system.
 
 === "macOS"
