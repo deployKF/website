@@ -27,15 +27,6 @@ faq_schema:
       
       For more details, see our [comparison between __deployKF__ and __Kubeflow__](/about/kubeflow-vs-deploykf/). 
 
-  - question: What are the components of deployKF?
-    include_in_schema: false
-    pre_expand_answer: false
-    answer: |-
-      __deployKF__ has two main components:
-      
-      1. [deployKF CLI](https://github.com/deployKF/cli): a command line tool for generating GitOps-ready Kubernetes manifests
-      2. [deployKF Generator](https://github.com/deployKF/deployKF): a package of templated Kubernetes manifests for use with the deployKF CLI
-
   - question: How is deployKF licensed?
     include_in_schema: false
     pre_expand_answer: false
@@ -43,6 +34,17 @@ faq_schema:
       __deployKF__ is licensed under the [Apache License 2.0](https://github.com/deployKF/deployKF/blob/main/LICENSE).
       However, some of the tools that deployKF can help deploy are licensed differently.
       Please ensure you are aware of the licenses of the tools you are deploying.
+
+  - question: How does deployKF work under the hood?
+    include_in_schema: false
+    pre_expand_answer: false
+    answer: |-
+      __deployKF__ has two user-facing components:
+      
+      1. __deployKF CLI:__ a command line program who's primary purpose is to generate a set of folders containing GitOps-ready Kubernetes manifests, from configs provided in one or more values files
+      2. __deployKF Generator:__ a versioned `.zip` package which contains all the templates and helpers needed to generate the output folders
+
+      For more details, see our [architecture page](/about/architecture/).
 ---
 
 # Frequently Asked Questions

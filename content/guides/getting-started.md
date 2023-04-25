@@ -8,7 +8,8 @@ This guide will help you get started with __deployKF__.
 
 ## Step 1: understand deployKF
 
-Before starting, you should read a little about what __deployKF__ is and how it works, a great place to start is the [Frequently Asked Questions (FAQ)](../faq.md) page.
+Before starting, you should read a little about what __deployKF__ is and how it works, a great place to start is the [Frequently Asked Questions](../faq.md) page.
+For a more detailed understanding, you can read the [Architecture](../about/architecture.md) page.
 
 ## Step 2: prepare requirements
 

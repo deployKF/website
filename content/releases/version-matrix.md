@@ -13,7 +13,7 @@ Dependencies of deployKF.
 
 ## deployKF Core
 
-Applications that are used in core components like `deploykf-auth` and `deploykf-dashboard`.
+Core components of deployKF like `deploykf-auth` and `deploykf-dashboard`.
 
 {{ read_csv("./version-matrix--deploykf-core.csv", colalign=("right",)) }}
 
@@ -31,7 +31,7 @@ MLOps tools from the deployKF ecosystem.
 
 ## Kubeflow Dependencies
 
-Dependencies of Kubeflow tools.
+Dependencies of Kubeflow's MLOps tools.
 
 {{ read_csv("./version-matrix--kubeflow-dependencies.csv", colalign=("right",)) }}
 
