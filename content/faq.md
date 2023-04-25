@@ -17,13 +17,15 @@ faq_schema:
 
   - question: What is the difference between Kubeflow and deployKF?
     include_in_schema: true
-    pre_expand_answer: false
+    pre_expand_answer: true
     answer: |-
       __deployKF__ and __Kubeflow__ are two different projects, but they are related:
       
-      - deployKF is a tool for deploying Kubeflow and other MLOps tools on Kubernetes.
-      - Kubeflow is a project made up of many different tools, including Kubeflow Pipelines, Kubeflow Notebooks, Katib, and more.
-      - deployKF is NOT a fork of Kubeflow, but it does allow you to deploy the Kubeflow MLOps components.
+      - _deployKF_ is a tool for deploying Kubeflow and other MLOps tools on Kubernetes.
+      - _Kubeflow_ is a project that develops many MLOps tools, including Kubeflow Pipelines, Kubeflow Notebooks, Katib, and more.
+      - _deployKF_ is NOT a fork of Kubeflow, but it does allow you to deploy Kubeflow's MLOps tools.
+      
+      For more details, see our [comparison between __deployKF__ and __Kubeflow__](/about/kubeflow-vs-deploykf/). 
 
   - question: What are the components of deployKF?
     include_in_schema: false
