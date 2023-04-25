@@ -37,7 +37,7 @@ Values for configuring MLOps tools from the deployKF ecosystem.
 
 ## Kubeflow Dependencies
 
-Values for configuring dependencies of Kubeflow tools.
+Values for configuring dependencies of Kubeflow's MLOps tools.
 
 {{ render_values_csv_files(values_prefix="kubeflow_dependencies.") }}
 
