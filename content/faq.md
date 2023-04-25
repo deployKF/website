@@ -6,7 +6,11 @@ faq_schema:
     include_in_schema: true
     pre_expand_answer: true
     answer: |-
-      __deployKF__ is the best way to deploy KF (Kubeflow) and other MLOps tools on Kubernetes to create custom, open, and cohesive ML Platforms.
+      __deployKF__ is the best way build reliable ML Platforms on Kubernetes.
+        
+      - _deployKF_ supports all the top ML tools from both Kubeflow (KF), and other projects
+      - _deployKF_ has a Helm-like interface, with central [values (configs)](/reference/deploykf-values/) for configuring all aspects of the deployment (no need to edit Kubernetes YAML directly)
+      - _deployKF_ does NOT install resources into your cluster, instead it generates [Argo CD Applications](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#applications) which you apply to your cluster and then [sync with the Argo CD UI](https://argo-cd.readthedocs.io/en/stable/getting_started/#syncing-via-ui)
 
   - question: Who created deployKF?
     include_in_schema: true

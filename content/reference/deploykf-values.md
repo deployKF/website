@@ -7,7 +7,7 @@ The following is a summary of the __values (configs)__ available in __deployKF__
 
 ## Argo CD
 
-Values for configuring ArgoCD.
+Values for configuring Argo CD.
 
 {{ render_values_csv_files(values_prefix="argocd") }}
 
