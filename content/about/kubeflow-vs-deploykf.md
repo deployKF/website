@@ -23,9 +23,9 @@ comparison_data:
       - Less customizable, and requires difficult patching of YAML manifests.
   - aspect: GitOps
     deploykf:
-      - GitOps-native application with built-in support for ArgoCD.
+      - GitOps-native application with built-in support for Argo CD.
     kubeflow_manifests:
-      - Lacks native support for ArgoCD or other GitOps tools.
+      - Lacks native support for Argo CD or other GitOps tools.
   - aspect: Security
     deploykf:
       - Reduced attack vectors compared to Kubeflow Manifests, particularly in Istio configurations.

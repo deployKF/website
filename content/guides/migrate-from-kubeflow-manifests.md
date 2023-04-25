@@ -2,11 +2,11 @@
 
 This guide will help you migrate from an existing deployment of __Kubeflow Manifests__ to __deployKF__.
 
-## Step 1: understand the differences
+## 1. Understand the Differences
 
 Before migrating, you may wish to review our detailed [comparison between __deployKF__ and  __Kubeflow__](../about/kubeflow-vs-deploykf.md).
 
-## Step 2: create a new deployment
+## 2. Create a New Deployment
 
 The best way to migrate from __Kubeflow Manifests__ to __deployKF__ is to create a new deployment of deployKF alongside your existing Kubeflow Manifests deployment, in a separate Kubernetes cluster.
 
@@ -21,7 +21,7 @@ The best way to migrate from __Kubeflow Manifests__ to __deployKF__ is to create
 
 To create a new deployment of deployKF, follow the [Getting Started](getting-started.md) guide.
 
-## Step 3: migrate your data
+## 3. Migrate your data
 
 Once you have a new deployment of deployKF, you can migrate the data from specific Kubeflow tools to their deployKF equivalents.
 

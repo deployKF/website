@@ -6,16 +6,45 @@ This guide will help you get started with __deployKF__.
     
     If you have an existing deployment of __Kubeflow Manifests__, there is a [migration guide](migrate-from-kubeflow-manifests.md) for you.
 
-## Step 1: understand deployKF
+## 1. Understand deployKF
 
-Before starting, you should read a little about what __deployKF__ is and how it works, a great place to start is the [Frequently Asked Questions](../faq.md) page.
-For a more detailed understanding, you can read the [Architecture](../about/architecture.md) page.
+Before starting, you should learn a little about __deployKF__ and how it works.
 
-## Step 2: prepare requirements
+### What is deployKF?
+
+__deployKF__ is the best way build reliable ML Platforms on Kubernetes.
+  
+- _deployKF_ supports all the top ML tools from both Kubeflow (KF), and other projects
+- _deployKF_ has a Helm-like interface, with central [values (configs)](../reference/deploykf-values.md) for configuring all aspects of the deployment (no need to edit Kubernetes YAML directly)
+- _deployKF_ does NOT install resources into your cluster, instead it generates [Argo CD Applications](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#applications){target=_blank} which you apply to your cluster and then [sync with the Argo CD UI](https://argo-cd.readthedocs.io/en/stable/getting_started/#syncing-via-ui){target=_blank}
+
+### Why use Argo CD?
+
+ML Platforms are made up of many components and interconnected dependencies,
+attempting to install (let alone upgrade) all these components with `kubectl` or `helm` is a recipe for disaster.
+
+This is where GitOps comes in, it allows us to define the state (i.e. Kubernetes manifests) of all the components in a single place (Git), and then use a tool to reconcile the actual state of our cluster to match the defined state.
+
+[__Argo CD__](https://argo-cd.readthedocs.io/en/stable/){target=_blank} is a great tool for this job, it is [__widely used__](https://github.com/argoproj/argo-cd/blob/master/USERS.md){target=_blank}, [__part of the CNCF__](https://www.cncf.io/projects/argo/){target=_blank}, and has a [__great Web UI__](/assets/images/argocd-ui.gif){target=_blank} for visualizing and managing the current state of your cluster.
+
+!!! note "Argo CD vs Argo Workflows"
+
+    It's important to note that [Argo CD](https://argo-cd.readthedocs.io/en/stable/){target=_blank} is __NOT__ the same as [Argo Workflows](https://argoproj.github.io/argo-workflows/){target=_blank}.
+    
+    - __Argo CD__ is a __GitOps__ tool for Kubernetes, which means it uses Git as the source of truth for your cluster's state, rather than manually applying Kubernetes YAML with `kubectl` or `helm`.
+    - __Argo Workflows__ is a __workflow engine__ for Kubernetes, which means it allows you to define and run DAG workflows in Pods on Kubernetes.
+
+### Other Resources
+
+- [Frequently Asked Questions](../faq.md)
+- [Kubeflow vs deployKF](../about/kubeflow-vs-deploykf.md)
+- [Architecture of deployKF](../about/architecture.md)
+
+## 2. Prepare Requirements
 
 ### Minimum Requirements
 
-- a Kubernetes cluster with [ArgoCD](https://argo-cd.readthedocs.io/en/stable/getting_started/) installed (see [Kubernetes version compatability](../releases/version-matrix.md#deploykf-dependencies))
+- a Kubernetes cluster with [Argo CD](https://argo-cd.readthedocs.io/en/stable/getting_started/) installed (see [Kubernetes version compatability](../releases/version-matrix.md#deploykf-dependencies))
 - the `deploykf` cli tool (see [Install the deployKF CLI](install-deploykf-cli.md))
 - a private git repo in which to store your generated manifests
 
@@ -77,6 +106,6 @@ For a more detailed understanding, you can read the [Architecture](../about/arch
     IBM Cloud | [IBM Cloud Object Storage](https://www.ibm.com/cloud/object-storage)
     Other | [MinIO](https://min.io/), [Ceph](https://ceph.io/), [Wasabi](https://wasabi.com/)
 
-## Step 3: TBA
+## 3. TBA
 
 deployKF is currently in development, this guide will be updated when it is ready for use.

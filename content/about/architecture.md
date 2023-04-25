@@ -91,19 +91,19 @@ it is developed in the [`deployKF/deployKF` GitHub repo](https://github.com/depl
 ### Purpose of each item under `templates/`
 
 - `.gomplateignore_template` is used to generate the `.gomplateignore` files in the first phase of the `deploykf generate` command
-- `app-of-apps.yaml` a template for an ArgoCD [app of apps](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/#app-of-apps-pattern), which points to `./argocd/kustomization.yaml` (this is the only manifest which is manually applied by the user)
-- `argocd/` a folder with templates of ArgoCD applications
+- `app-of-apps.yaml` a template for an Argo CD [app of apps](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/#app-of-apps-pattern), which points to `./argocd/kustomization.yaml` (this is the only manifest which is manually applied by the user)
+- `argocd/` a folder with templates of Argo CD applications
 - `manifests/` a folder with templates of Kubernetes manifests
 
 ### Purpose of each item under `templates/argocd/`
 
-- `kustomization.yaml` a [Kustomize](https://kustomize.io/) file pointing to the other ArgoCD applications and namespaces (this is the target of the `app-of-apps.yaml`)
-- `deploykf-core/` a folder with templates of ArgoCD applications for "core components of deployKF"
-- `deploykf-dependencies/` a folder with templates of ArgoCD applications for "dependencies of deployKF"
-- `deploykf-opt/` a folder with templates of ArgoCD applications for "optional embedded applications that are used when external alternatives are not configured"
-- `deploykf-tools/` a folder with templates of ArgoCD applications for "MLOps tools from the deployKF ecosystem"
-- `kubeflow-dependencies/` a folder with templates of ArgoCD applications for "dependencies of Kubeflow's MLOps tools"
-- `kubeflow-tools/` a folder with templates of ArgoCD applications for "MLOps tools from the Kubeflow ecosystem"
+- `kustomization.yaml` a [Kustomize](https://kustomize.io/) file pointing to the other Argo CD applications and namespaces (this is the target of the `app-of-apps.yaml`)
+- `deploykf-core/` a folder with templates of Argo CD applications for "core components of deployKF"
+- `deploykf-dependencies/` a folder with templates of Argo CD applications for "dependencies of deployKF"
+- `deploykf-opt/` a folder with templates of Argo CD applications for "optional embedded applications that are used when external alternatives are not configured"
+- `deploykf-tools/` a folder with templates of Argo CD applications for "MLOps tools from the deployKF ecosystem"
+- `kubeflow-dependencies/` a folder with templates of Argo CD applications for "dependencies of Kubeflow's MLOps tools"
+- `kubeflow-tools/` a folder with templates of Argo CD applications for "MLOps tools from the Kubeflow ecosystem"
 - `namespaces/` a folder with the templates for Kubernetes Namespaces
 
 ### Purpose of each item under `templates/manifests/`
