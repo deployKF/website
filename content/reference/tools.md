@@ -99,6 +99,10 @@ This page lists the ML & Data tools which are __currently supported__ by __deplo
     
     __deployKF__ is always growing, for a list of tools that are coming soon, please see the [Future Tools](future-tools.md) page.
 
+!!! note "Tool Versions"
+    
+    For information about which versions of each tool are supported by deployKF, please refer to the [deployKF Tools](../releases/version-matrix.md#deploykf-tools) and [Kubeflow Tools](../releases/version-matrix.md#kubeflow-tools) sections of the Version Matrix page.
+
 ## Index
 
 {{ render_current_tools_index(tools_current) }}
