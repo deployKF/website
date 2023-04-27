@@ -11,11 +11,11 @@ comparison_data:
       - Upgrades are difficult because new versions require starting from scratch with the new manifests.
   - aspect: Capabilities
     deploykf:
-      - Supports other [widely used MLOps tools](../releases/version-matrix.md#deploykf-tools) in addition to [Kubeflow's MLOps tools](../releases/version-matrix.md#kubeflow-tools).
+      - Supports [many ML & Data tools](../reference/tools.md) in addition to Kubeflow's tools.
       - Includes Argo Workflows UI with integrated single sign-on.
       - Optionally includes MinIO Console UI with integrated single sign-on.
     kubeflow_manifests:
-      - Limited to Kubeflow's MLOps tools.
+      - Limited to Kubeflow's tools.
   - aspect: Customization
     deploykf:
       - Allows selective deployment of MLOps tools through simple config values.
