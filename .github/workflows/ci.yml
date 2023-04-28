@@ -27,3 +27,5 @@ jobs:
           path: .cache
 
       - run: mkdocs gh-deploy --force
+        env:
+          GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID }}
