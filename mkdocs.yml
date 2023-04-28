@@ -107,7 +107,7 @@ markdown_extensions:
 extra:
   analytics:
     provider: google
-    property: G-SN033DKN82
+    property: !ENV GA_MEASUREMENT_ID
     feedback:
       title: Was this page helpful?
       ratings:
