@@ -25,7 +25,8 @@ python ./dev/generate_changelog.py \
   --output-tip 'For a changelog that hides pre-releases, see [this page](../changelog-deploykf).' \
   --output-hide-sections 'navigation' \
   --include-headings 'Significant Changes' 'New Features' 'Improvements' 'Bug Fixes' 'Documentation' 'Miscellaneous' \
-  --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?'
+  --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?' \
+  --write-version-file-path ./overrides/variables/latest_deploykf_version.txt
 
 # generate the changelog for the deployKF/cli repo (excluding pre-releases)
 python ./dev/generate_changelog.py \
@@ -47,5 +48,6 @@ python ./dev/generate_changelog.py \
   --output-tip 'For a changelog that hides pre-releases, see [this page](../changelog-deploykf-cli).' \
   --output-hide-sections 'navigation' \
   --include-headings 'Significant Changes' 'New Features' 'Improvements' 'Bug Fixes' 'Documentation' 'Miscellaneous' \
-  --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?'
+  --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?' \
+  --write-version-file-path ./overrides/variables/latest_deploykf_cli_version.txt
 

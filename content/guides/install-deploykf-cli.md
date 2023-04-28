@@ -19,7 +19,7 @@ The CLI binaries are distributed via [GitHub releases](https://github.com/deploy
     The following commands will download the CLI for macOS and place it in `/usr/local/bin`:
 
     ```bash
-    DKF_CLI_VERSION=0.1.0-alpha.1
+    DKF_CLI_VERSION="{{ latest_deploykf_cli_version }}"
     DKF_CLI_ARCH="$(uname -m)"
     DFK_CLI_DEST=/usr/local/bin/deploykf
     
@@ -49,7 +49,7 @@ The CLI binaries are distributed via [GitHub releases](https://github.com/deploy
     The following commands will download the CLI for Linux and place it in `/usr/local/bin`:
 
     ```bash
-    DKF_CLI_VERSION=0.1.0-alpha.1
+    DKF_CLI_VERSION="{{ latest_deploykf_cli_version }}"
     DKF_CLI_ARCH="$(uname -m)"
     DFK_CLI_DEST=/usr/local/bin/deploykf
 
@@ -88,7 +88,7 @@ The CLI binaries are distributed via [GitHub releases](https://github.com/deploy
     The following PowerShell commands will download the CLI for Windows and place it in `C:\Windows\System32`:
 
     ```powershell 
-    $DKF_CLI_VERSION="0.1.0-alpha.1"
+    $DKF_CLI_VERSION="{{ latest_deploykf_cli_version }}"
     $DFK_CLI_DEST="C:\Windows\System32\deploykf.exe"
     
     # download the binary

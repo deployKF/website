@@ -222,12 +222,27 @@ def main():
         action="store_true",
         help="Exclude prerelease GitHub releases",
     )
+    parser.add_argument(
+        "--write-version-file-path",
+        default="",
+        help="A path at which a text file containing the latest release version will be written",
+    )
 
     args = parser.parse_args()
 
     releases = get_releases(
         args.source_repo, args.include_tag_names, args.exclude_pre_releases
     )
+
+    if releases and args.write_version_file_path:
+        with open(args.write_version_file_path, "w") as f:
+            # look for the first release that is not a pre-release,
+            # but if there are none, use the first release (which will be a pre-release)
+            latest_version = next(
+                (r["tag_name"].lstrip("v") for r in releases if not r["prerelease"]),
+                releases[0]["tag_name"].lstrip("v"),
+            )
+            f.write(latest_version)
 
     changelog = []
 

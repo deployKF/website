@@ -59,7 +59,7 @@ extra_css:
   - assets/stylesheets/tables.css
 
 hooks:
-  - custom_filters.py
+  - overrides/custom_filters.py
 
 plugins:
   - awesome-pages
@@ -85,8 +85,12 @@ plugins:
   - table-reader
   ## NOTE: `macros` must be last plugin
   - macros:
-      module_name: custom_macros
+      module_name: overrides/custom_macros
+      include_yaml:
+        - latest_deploykf_version: overrides/variables/latest_deploykf_version.txt
+        - latest_deploykf_cli_version: overrides/variables/latest_deploykf_cli_version.txt
       on_error_fail: true
+      on_undefined: strict
 
 markdown_extensions:
   - admonition

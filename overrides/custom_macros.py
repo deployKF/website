@@ -65,9 +65,7 @@ def _render_current_tools_index(current_tools_data):
         tool_link = f"[{tool_name}](#{__gen_md_anchor(tool_name)})"
         tool_purpose = row["purpose"]
         dkf_version = row["deploykf_version"]
-        output_lines.append(
-            f"| {tool_link} | {tool_purpose} | `>= {dkf_version}` |"
-        )
+        output_lines.append(f"| {tool_link} | {tool_purpose} | `>= {dkf_version}` |")
 
     return "\n".join(output_lines)
 
@@ -103,7 +101,9 @@ def _render_current_tools_details(current_tools_data):
         output_lines.append(f"| Purpose | {row['purpose']} |")
         output_lines.append(f"| deployKF Version | `>= {row['deploykf_version']}` |")
         output_lines.append(f"| deployKF Values | {dkf_values_link} |")
-        output_lines.append(f"| Upstream Repo | [`{row['github_repo']}`](https://github.com/{row['github_repo']}) |")
+        output_lines.append(
+            f"| Upstream Repo | [`{row['github_repo']}`](https://github.com/{row['github_repo']}) |"
+        )
         output_lines.append(f"| Upstream Docs | [Documentation]({row['docs_url']}) |")
         output_lines.append("")
 
@@ -118,14 +118,15 @@ def _render_planned_tools_index(planned_tools_data):
     output_lines.append("| --- | --- | --- |")
 
     # Render the table body
-    for row in sorted(planned_tools_data, key=lambda t: (t["deploykf_priority"], t["purpose"], t["name"])):
+    for row in sorted(
+        planned_tools_data,
+        key=lambda t: (t["deploykf_priority"], t["purpose"], t["name"]),
+    ):
         tool_name = row["name"]
         tool_link = f"[{tool_name}](#{__gen_md_anchor(tool_name)})"
         tool_purpose = row["purpose"]
         dkf_priority = row["deploykf_priority"]
-        output_lines.append(
-            f"| {tool_link} | {tool_purpose} | `P{dkf_priority}` |"
-        )
+        output_lines.append(f"| {tool_link} | {tool_purpose} | `P{dkf_priority}` |")
 
     return "\n".join(output_lines)
 
@@ -133,7 +134,10 @@ def _render_planned_tools_index(planned_tools_data):
 def _render_planned_tools_details(planned_tools_data):
     output_lines = []
 
-    for row in sorted(planned_tools_data, key=lambda t: (t["deploykf_priority"], t["purpose"], t["name"])):
+    for row in sorted(
+        planned_tools_data,
+        key=lambda t: (t["deploykf_priority"], t["purpose"], t["name"]),
+    ):
         tool_name = row["name"]
 
         # Render tool header
@@ -158,7 +162,9 @@ def _render_planned_tools_details(planned_tools_data):
         output_lines.append(f"| Owner | {row['owner']} |")
         output_lines.append(f"| Purpose | {row['purpose']} |")
         output_lines.append(f"| deployKF Priority | `P{row['deploykf_priority']}` |")
-        output_lines.append(f"| Upstream Repo | [`{row['github_repo']}`](https://github.com/{row['github_repo']}) |")
+        output_lines.append(
+            f"| Upstream Repo | [`{row['github_repo']}`](https://github.com/{row['github_repo']}) |"
+        )
         output_lines.append(f"| Upstream Docs | [Documentation]({row['docs_url']}) |")
         output_lines.append("")
 
