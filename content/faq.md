@@ -18,6 +18,8 @@ faq_schema:
     answer: |-
       __deployKF__ was originally created by [Mathew Wicks](https://www.linkedin.com/in/mathewwicks/) ([GitHub: @thesuperzapper](https://github.com/thesuperzapper)).
       However, deployKF is now a community owned project, and welcomes contributions from anyone who wants to help.
+      
+      For commercial services related to deployKF, please see the [support page](/about/support/#commercial-support).
 
   - question: What is the difference between Kubeflow and deployKF?
     include_in_schema: true

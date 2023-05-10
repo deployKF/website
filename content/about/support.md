@@ -20,13 +20,13 @@ If you have found a bug, or have a feature request, you can raise an issue on th
 | __deployKF CLI__       | [`deployKF/cli`](https://github.com/deployKF/cli/issues)           |
 | __deployKF Website__   | [`deployKF/website`](https://github.com/deployKF/website/issues)   |
 
-## Get Commercial Support
+## Commercial Support
 
-If you are interested in US-based commercial support, reach out to __Mathew Wicks__, the founder of deployKF, on [LinkedIn](https://www.linkedin.com/in/mathewwicks/) or via email at [mathew@aranui.solutions](mailto:mathew@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT).
+If you are interested in US-based commercial support, __Mathew Wicks__ (the creator of deployKF), operates an MLOps company called [Aranui Solutions](https://www.aranui.solutions).
+Feel free to [connect on LinkedIn](https://www.linkedin.com/in/mathewwicks/) or [send an email](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) and learn more.
 
 !!! note "Are you a vendor?"
     
     Are you are a vendor who wants to support deployKF or use it in your product?
-    Let's work together! 
 
-    Reach out to __Mathew Wicks__ on [LinkedIn](https://www.linkedin.com/in/mathewwicks/) or at [mathew@aranui.solutions](mailto:mathew@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT).
+    Let's work together! Reach out on [LinkedIn](https://www.linkedin.com/in/mathewwicks/) or [send an email](mailto:mathew@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT).
