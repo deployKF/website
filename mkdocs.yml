@@ -19,7 +19,7 @@ theme:
   icon:
     repo: fontawesome/brands/github
   logo: assets/images/logo.svg
-  favicon: assets/images/favicon.ico
+  favicon: favicon.ico
 
   features:
     - announce.dismiss
