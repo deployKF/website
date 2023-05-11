@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg version="1.1" viewBox="0 0 276.93 274.55" xmlns="http://www.w3.org/2000/svg">
- <g data-name="Layer 2">
+<svg width="256" height="256" version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+ <g transform="matrix(.93773 0 0 .93773 -1.8455 -.7289)" data-name="Layer 2">
   <g transform="matrix(.97936 0 0 .97936 3.8584 4.6611)">
    <path d="m137.83 15.898-98.66 47.068-24.328 105.9 67.946 86.057 112.73-0.52148 64.532-84.544-23.364-105.53zm0.0684 5.5195 94.291 46.193 22.237 100.68-61.505 80.616-107.52 0.4961-64.934-82.121 23.33-100.96z" fill="#fd7e14" fill-opacity=".99608" stroke-width="1.0016"/>
    <g transform="matrix(.90773 0 0 .90773 12.776 12.666)" data-name="Layer 1">
-    <g transform="matrix(1.265 0 0 1.265 -34.724 21.538)">
+    <g transform="matrix(1.265,0,0,1.265,-34.724,21.538)">
      <path d="m95.9 62.15 4.1 102.1 73.75-94.12a6.79 6.79 0 0 1 9.6-1.11l46 36.92-15-65.61z" fill="#4279f4"/>
      <path d="m102.55 182.98h65.42l-40.17-32.23z" fill="#fd7e14"/>
      <path d="m180.18 83.92-44 56.14 46.88 37.61 44.47-55.76z" fill="#014bd1"/>
