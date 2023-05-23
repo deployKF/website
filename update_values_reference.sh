@@ -6,7 +6,7 @@ THIS_SCRIPT_PATH=$(cd "$(dirname "$0")" && pwd)
 cd "$THIS_SCRIPT_PATH"
 
 # configs
-VALUES_GIT_REF="fad47d82d19c8443b887b40ca93bd0a493f9e60e"
+VALUES_GIT_REF="729f06c744e1ef1000df7f6268f0959f047f6db9"
 VALUES_GIT_URL="https://github.com/deployKF/deployKF/blob/${VALUES_GIT_REF}/generator/default_values.yaml"
 VALUES_GIT_URL_RAW="https://raw.githubusercontent.com/deployKF/deployKF/${VALUES_GIT_REF}/generator/default_values.yaml"
 VALUES_LOCAL_PATH="./.cache/default_values-${VALUES_GIT_REF}.yaml"
