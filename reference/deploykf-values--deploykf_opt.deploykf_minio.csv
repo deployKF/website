@@ -1,8 +1,8 @@
 Value,Default
-[`deploykf_opt.deploykf_minio.enabled`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L151),`true`
-[`deploykf_opt.deploykf_minio.namespace`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L152),"`""deploykf-minio""`"
-[`deploykf_opt.deploykf_minio.rootUser.username`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L155),"`""minioadmin""`"
-[`deploykf_opt.deploykf_minio.rootUser.password`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L156),"`""minioadmin""`"
-[`deploykf_opt.deploykf_minio.rootUser.existingSecret`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L157),"`""""`"
-[`deploykf_opt.deploykf_minio.rootUser.existingSecretUsernameKey`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L158),"`""username""`"
-[`deploykf_opt.deploykf_minio.rootUser.existingSecretPasswordKey`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L159),"`""password""`"
+[`deploykf_opt.deploykf_minio.enabled`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L473),`true`
+[`deploykf_opt.deploykf_minio.namespace`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L474),"`""deploykf-minio""`"
+[`deploykf_opt.deploykf_minio.rootUser.username`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L477),"`""minioadmin""`"
+[`deploykf_opt.deploykf_minio.rootUser.password`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L478),"`""minioadmin""`"
+[`deploykf_opt.deploykf_minio.rootUser.existingSecret`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L479),"`""""`"
+[`deploykf_opt.deploykf_minio.rootUser.existingSecretUsernameKey`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L480),"`""username""`"
+[`deploykf_opt.deploykf_minio.rootUser.existingSecretPasswordKey`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L481),"`""password""`"
