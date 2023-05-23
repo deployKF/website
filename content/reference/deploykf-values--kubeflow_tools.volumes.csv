@@ -1,2 +1,2 @@
 Value,Default
-[`kubeflow_tools.volumes.enabled`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L304),`true`
+[`kubeflow_tools.volumes.enabled`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L626),`true`

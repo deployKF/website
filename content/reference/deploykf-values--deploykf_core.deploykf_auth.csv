@@ -1,3 +1,14 @@
 Value,Default
-[`deploykf_core.deploykf_auth.enabled`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L78),`true`
-[`deploykf_core.deploykf_auth.namespace`](https://github.com/deployKF/deployKF/blob/fad47d82d19c8443b887b40ca93bd0a493f9e60e/generator/default_values.yaml#L79),"`""deploykf-auth""`"
+[`deploykf_core.deploykf_auth.enabled`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L292),`true`
+[`deploykf_core.deploykf_auth.namespace`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L293),"`""deploykf-auth""`"
+[`deploykf_core.deploykf_auth.extraManifests`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L306),`[]`
+[`deploykf_core.deploykf_auth.images.dex.repository`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L312),"`""ghcr.io/dexidp/dex""`"
+[`deploykf_core.deploykf_auth.images.dex.tag`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L313),"`""v2.36.0""`"
+[`deploykf_core.deploykf_auth.images.dex.pullPolicy`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L314),"`""IfNotPresent""`"
+[`deploykf_core.deploykf_auth.images.oauth2Proxy.repository`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L317),"`""quay.io/oauth2-proxy/oauth2-proxy""`"
+[`deploykf_core.deploykf_auth.images.oauth2Proxy.tag`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L318),"`""v7.4.0""`"
+[`deploykf_core.deploykf_auth.images.oauth2Proxy.pullPolicy`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L319),"`""IfNotPresent""`"
+[`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L327),"`[{""email"": ""admin@example.com"", ""password"": {""value"": ""admin"", ""existingSecret"": """", ""existingSecretKey"": """", ""type"": ""plain""}}, {""email"": ""user1@example.com"", ""password"": {""value"": ""user1""}}, {""email"": ""user2@example.com"", ""password"": {""value"": ""user2""}}]`"
+[`deploykf_core.deploykf_auth.dex.expiry.idToken`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L345),"`""24h""`"
+[`deploykf_core.deploykf_auth.dex.expiry.refreshToken.idle`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L352),"`""72h""`"
+[`deploykf_core.deploykf_auth.dex.expiry.refreshToken.total`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L355),"`""720h""`"
