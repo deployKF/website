@@ -18,8 +18,8 @@ theme:
 
   icon:
     repo: fontawesome/brands/github
-  logo: assets/images/logo.svg
-  favicon: favicon.ico
+  logo: assets/images/logo_1/logo.svg
+  favicon: favicon_1.ico
 
   features:
     - announce.dismiss
