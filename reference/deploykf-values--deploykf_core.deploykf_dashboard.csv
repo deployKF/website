@@ -1,3 +1,14 @@
 Value,Default
-[`deploykf_core.deploykf_dashboard.enabled`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L362),`true`
-[`deploykf_core.deploykf_dashboard.namespace`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L363),"`""deploykf-dashboard""`"
+[`deploykf_core.deploykf_dashboard.enabled`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L446),`true`
+[`deploykf_core.deploykf_dashboard.namespace`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L447),"`""deploykf-dashboard""`"
+[`deploykf_core.deploykf_dashboard.extraManifests`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L460),`[]`
+[`deploykf_core.deploykf_dashboard.images.dashboard.repository`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L467),"`""ghcr.io/deploykf/ci/dashboard""`"
+[`deploykf_core.deploykf_dashboard.images.dashboard.tag`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L468),"`""sha-f7b4239""`"
+[`deploykf_core.deploykf_dashboard.images.dashboard.pullPolicy`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L469),"`""IfNotPresent""`"
+[`deploykf_core.deploykf_dashboard.images.profileController.repository`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L472),"`""kubeflownotebookswg/profile-controller""`"
+[`deploykf_core.deploykf_dashboard.images.profileController.tag`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L473),"`""v1.7.0""`"
+[`deploykf_core.deploykf_dashboard.images.profileController.pullPolicy`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L474),"`""IfNotPresent""`"
+[`deploykf_core.deploykf_dashboard.images.kfamApi.repository`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L477),"`""kubeflownotebookswg/kfam""`"
+[`deploykf_core.deploykf_dashboard.images.kfamApi.tag`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L478),"`""v1.7.0""`"
+[`deploykf_core.deploykf_dashboard.images.kfamApi.pullPolicy`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L479),"`""IfNotPresent""`"
+[`deploykf_core.deploykf_dashboard.navigation.externalLinks`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L494),`[]`

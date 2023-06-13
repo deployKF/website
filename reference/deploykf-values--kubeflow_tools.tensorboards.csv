@@ -1,2 +1,10 @@
 Value,Default
-[`kubeflow_tools.tensorboards.enabled`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L614),`true`
+[`kubeflow_tools.tensorboards.enabled`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1570),`true`
+[`kubeflow_tools.tensorboards.extraManifests`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1576),`[]`
+[`kubeflow_tools.tensorboards.images.tensorboardController.repository`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1582),"`""docker.io/kubeflownotebookswg/tensorboard-controller""`"
+[`kubeflow_tools.tensorboards.images.tensorboardController.tag`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1583),`nil`
+[`kubeflow_tools.tensorboards.images.tensorboardsWebApp.repository`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1586),"`""docker.io/kubeflownotebookswg/tensorboards-web-app""`"
+[`kubeflow_tools.tensorboards.images.tensorboardsWebApp.tag`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1587),`nil`
+[`kubeflow_tools.tensorboards.images.kubeRbacProxy.repository`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1590),"`""gcr.io/kubebuilder/kube-rbac-proxy""`"
+[`kubeflow_tools.tensorboards.images.kubeRbacProxy.tag`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1591),`nil`
+[`kubeflow_tools.tensorboards.tensorboardImage`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1596),"`""docker.io/tensorflow/tensorflow:2.5.1""`"
