@@ -1,2 +1,5 @@
 Value,Default
-[`kubeflow_tools.training_operator.enabled`](https://github.com/deployKF/deployKF/blob/729f06c744e1ef1000df7f6268f0959f047f6db9/generator/default_values.yaml#L620),`true`
+[`kubeflow_tools.training_operator.enabled`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1603),`true`
+[`kubeflow_tools.training_operator.extraManifests`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1609),`[]`
+[`kubeflow_tools.training_operator.images.trainingOperator.repository`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1615),"`""docker.io/kubeflow/training-operator""`"
+[`kubeflow_tools.training_operator.images.trainingOperator.tag`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1616),`nil`
