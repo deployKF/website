@@ -1,2 +1,2 @@
 deployKF,`0.1`
-[Argo Workflows](https://argoproj.github.io/argo-workflows/)<sub><br>`Kubeflow Pipelines`</sub>,(`3.3`)
+[Argo Workflows](https://argoproj.github.io/argo-workflows/)<sub><br>`Kubeflow Pipelines`</sub>,"(`3.3`), <s>`3.4`</s><sup>[[1]](https://github.com/kubeflow/pipelines/issues/8935)</sup> <sup>[[2]](https://github.com/kubeflow/pipelines/issues/8942)</sup>"

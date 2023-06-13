@@ -3,7 +3,9 @@
 The following tables are a summary of which dependency versions are supported by each version of __deployKF__.
 
 !!! tip
-    The version wrapped with `()` is the default version included with __deployKF__.
+    The version wrapped with `()` is the default version included with that version of deployKF.
+
+    Versions that are <s>`struck through`</s> do not work with that version of deployKF.
 
 ## deployKF Dependencies
 
