@@ -90,18 +90,16 @@ tools_current:
 
 This page lists the ML & Data tools which are __currently supported__ by __deployKF__.
 
-!!! tip "Build Your Platform"
+!!! note "Build Your Platform"
     
     You don't need to install all of the tools listed here, deployKF makes it easy to build your own platform by selecting only the tools you need,
     just toggle the tool's [`enabled` value](deploykf-values.md).
 
-!!! tip "Future Tools"
-    
-    __deployKF__ is always growing, for a list of tools that are coming soon, please see the [Future Tools](future-tools.md) page.
-
 !!! note "Tool Versions"
     
-    For information about which versions of each tool are supported by deployKF, please refer to the [deployKF Tools](../releases/version-matrix.md#deploykf-tools) and [Kubeflow Tools](../releases/version-matrix.md#kubeflow-tools) sections of the Version Matrix page.
+    For information about which versions of each tool are supported by deployKF, refer to the [Version Matrix](/releases/version-matrix) page.
+
+    deployKF is always growing, for a list of tools that are coming soon, see the [Future Tools](future-tools.md) page.
 
 ## Index
 

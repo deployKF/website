@@ -1,8 +1,9 @@
 # Version Matrix
 
-The following tables are a summary of which dependency versions are supported by each version of __deployKF__.
+The following tables summarize which tools and versions are supported by each version of __deployKF__.
 
 !!! tip
+
     The version wrapped with `()` is the default version included with that version of deployKF.
 
     Versions that are <s>`struck through`</s> do not work with that version of deployKF.
@@ -29,6 +30,10 @@ Optional embedded applications that are used when external alternatives are not 
 
 MLOps tools from the deployKF ecosystem.
 
+!!! tip
+
+    For detailed descriptions about the purpose of each tool, see the [Supported Tools](/reference/tools/) page.
+
 {{ read_csv("./version-matrix--deploykf-tools.csv", colalign=("right",)) }}
 
 ## Kubeflow Dependencies
@@ -40,5 +45,9 @@ Dependencies of Kubeflow's MLOps tools.
 ## Kubeflow Tools
 
 MLOps tools from the Kubeflow ecosystem.
+
+!!! tip
+
+    For detailed descriptions about the purpose of each tool, see the [Supported Tools](/reference/tools/) page.
 
 {{ read_csv("./version-matrix--kubeflow-tools.csv", colalign=("right",)) }}
