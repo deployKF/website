@@ -35,6 +35,7 @@ Sessionx.vim
 
 ## macOS
 .DS_Store
+*.DS_Store
 .AppleDouble
 .LSOverride
 ._*
@@ -42,3 +43,6 @@ Sessionx.vim
 ## MkDocs
 .cache/
 site/
+
+## Python
+__pycache__
