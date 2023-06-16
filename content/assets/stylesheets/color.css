@@ -1,0 +1,19 @@
+/* deployKF specific colors for branding and design */
+[data-md-color-primary="deploykf-indigo"] {
+    --md-primary-fg-color: #7e65e6;
+    --md-primary-fg-color--light: #ad99ff;
+    --md-primary-fg-color--dark: #382d66;
+    --md-primary-bg-color: #fff;
+    --md-primary-bg-color--light: #ffffffb3;
+}
+
+[data-md-color-accent="deploykf-orange"] {
+    --md-accent-fg-color: #ff8049;
+    --md-accent-fg-color--transparent: #fc885614;
+    --md-accent-bg-color: #fff;
+    --md-accent-bg-color--light: #ffffffb3;
+}
+
+[data-md-color-scheme=slate][data-md-color-primary="deploykf-indigo"] {
+    --md-typeset-a-color: #a38acf;
+}
