@@ -1,5 +1,5 @@
 Value,Default
-[`kubeflow_tools.poddefaults_webhook.enabled`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1550),`true`
-[`kubeflow_tools.poddefaults_webhook.extraManifests`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1556),`[]`
-[`kubeflow_tools.poddefaults_webhook.images.poddefaultsWebhook.repository`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1562),"`""docker.io/kubeflownotebookswg/poddefaults-webhook""`"
-[`kubeflow_tools.poddefaults_webhook.images.poddefaultsWebhook.tag`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1563),`nil`
+[`kubeflow_tools.poddefaults_webhook.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.0/generator/default_values.yaml#L1789),`false`
+[`kubeflow_tools.poddefaults_webhook.extraManifests`](https://github.com/deployKF/deployKF/blob/v0.1.0/generator/default_values.yaml#L1795),`[]`
+[`kubeflow_tools.poddefaults_webhook.images.poddefaultsWebhook.repository`](https://github.com/deployKF/deployKF/blob/v0.1.0/generator/default_values.yaml#L1801),"`""docker.io/kubeflownotebookswg/poddefaults-webhook""`"
+[`kubeflow_tools.poddefaults_webhook.images.poddefaultsWebhook.tag`](https://github.com/deployKF/deployKF/blob/v0.1.0/generator/default_values.yaml#L1802),`nil`

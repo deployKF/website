@@ -1,5 +1,5 @@
 Value,Default
-[`kubeflow_tools.volumes.enabled`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1623),`true`
-[`kubeflow_tools.volumes.extraManifests`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1629),`[]`
-[`kubeflow_tools.volumes.images.volumesWebApp.repository`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1635),"`""docker.io/kubeflownotebookswg/volumes-web-app""`"
-[`kubeflow_tools.volumes.images.volumesWebApp.tag`](https://github.com/deployKF/deployKF/blob/763486af753b08b7c4c1405da2bc9d5aa7eb3b36/generator/default_values.yaml#L1636),`nil`
+[`kubeflow_tools.volumes.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.0/generator/default_values.yaml#L1862),`false`
+[`kubeflow_tools.volumes.extraManifests`](https://github.com/deployKF/deployKF/blob/v0.1.0/generator/default_values.yaml#L1868),`[]`
+[`kubeflow_tools.volumes.images.volumesWebApp.repository`](https://github.com/deployKF/deployKF/blob/v0.1.0/generator/default_values.yaml#L1874),"`""docker.io/kubeflownotebookswg/volumes-web-app""`"
+[`kubeflow_tools.volumes.images.volumesWebApp.tag`](https://github.com/deployKF/deployKF/blob/v0.1.0/generator/default_values.yaml#L1875),`nil`
