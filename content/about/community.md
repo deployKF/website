@@ -1,7 +1,7 @@
 # Community
 
-The __deployKF__ community is a welcoming community of contributors and users.
-We welcome participation from anyone who shares our mission to make it easy to build open ML Platforms on Kubernetes.
+The __deployKF__ project is a welcoming community of contributors and users.
+We encourage participation from anyone who shares our mission of making it easy to build open ML Platforms on Kubernetes.
 
 ## Slack
 

@@ -6,51 +6,65 @@ faq_schema:
     include_in_schema: true
     pre_expand_answer: true
     answer: |-
-      __deployKF__ is the best way to build reliable ML Platforms on Kubernetes.
+      deployKF is the best way to build reliable ML Platforms on Kubernetes.
+
+      - deployKF supports leading [MLOps & Data tools](/reference/tools/) from both Kubeflow, and other projects
+      - deployKF has a Helm-like interface, with [values](/reference/deploykf-values/) for configuring all aspects of the deployment (no need to edit Kubernetes YAML)
+      - deployKF does NOT install resources directly in your cluster, instead it generates [ArgoCD Applications](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#applications) to provide native GitOps support
+
+  - question: What tools does deployKF support?
+    include_in_schema: true
+    pre_expand_answer: true
+    answer: |-
+      deployKF currently supports MLOps tools from the Kubeflow ecosystem like [Kubeflow Pipelines](/reference/tools/#kubeflow-pipelines) and [Kubeflow Notebooks](/reference/tools/#kubeflow-notebooks), for the full list of current tools, please see the [supported tools page](/reference/tools/).
       
-      - _deployKF_ supports all the top [ML & Data tools](/reference/tools/) from both Kubeflow, and other projects
-      - _deployKF_ has a Helm-like interface, with central [values (configs)](/reference/deploykf-values/) for configuring all aspects of the deployment (no need to edit Kubernetes YAML directly)
-      - _deployKF_ does NOT install resources into your cluster, instead it generates [Argo CD Applications](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#applications) which you apply to your cluster and then [sync with the Argo CD UI](https://argo-cd.readthedocs.io/en/stable/getting_started/#syncing-via-ui)
+      We are actively adding support for other popular tools such as [MLflow Model Registry](/reference/future-tools/#mlflow-model-registry), [Apache Airflow](/reference/future-tools/#apache-airflow), and [Feast](/reference/future-tools/#feast). 
+      For a more complete list of planned tools, please see the [future tools page](/reference/future-tools/).
 
   - question: Who created deployKF?
     include_in_schema: true
     pre_expand_answer: true
     answer: |-
-      __deployKF__ was originally created by [Mathew Wicks](https://www.linkedin.com/in/mathewwicks/) ([GitHub: @thesuperzapper](https://github.com/thesuperzapper)).
-      However, deployKF is now a community owned project, and welcomes contributions from anyone who wants to help.
+      deployKF was originally created by [Mathew Wicks](https://www.linkedin.com/in/mathewwicks/) ([GitHub: @thesuperzapper](https://github.com/thesuperzapper)), a Kubeflow lead and maintainer of the popular [Apache Airflow Helm Chart](https://github.com/airflow-helm/charts).
+      However, deployKF is now a community-led project that welcomes contributions from anyone who wants to help.
       
       For commercial services related to deployKF, please see the [support page](/about/support/#commercial-support).
+
+  - question: Who uses deployKF?
+    include_in_schema: false
+    pre_expand_answer: true
+    answer: |-
+      deployKF is a new project, and we are still building our community.
+      
+      If you are using deployKF, please consider adding your organization to our [list of adopters](https://github.com/deployKF/deployKF/blob/main/ADOPTERS.md).
 
   - question: What is the difference between Kubeflow and deployKF?
     include_in_schema: true
     pre_expand_answer: true
     answer: |-
-      __deployKF__ and __Kubeflow__ are two different projects, but they are related:
+      Kubeflow and deployKF are two different but related projects:
       
-      - _deployKF_ is a tool for deploying Kubeflow and other MLOps tools on Kubernetes.
-      - _Kubeflow_ is a project that develops many MLOps tools, including Kubeflow Pipelines, Kubeflow Notebooks, Katib, and more.
-      - _deployKF_ is NOT a fork of Kubeflow, but it does allow you to deploy Kubeflow's MLOps tools.
+      - deployKF is a tool for deploying Kubeflow and other MLOps tools on Kubernetes as a cohesive platform.
+      - Kubeflow is a project that develops MLOps tools, including Kubeflow Pipelines, Kubeflow Notebooks, Katib, and more.
       
-      For more details, see our [comparison between __deployKF__ and __Kubeflow__](/about/kubeflow-vs-deploykf/). 
+      For more details, see our [comparison between Kubeflow and deployKF](/about/kubeflow-vs-deploykf/).
+
+  - question: How can I get involved with deployKF?
+    include_in_schema: false
+    pre_expand_answer: true
+    answer: |-
+      The deployKF project is a welcoming community of contributors and users. 
+      We encourage participation from anyone who shares our mission of making it easy to build open ML Platforms on Kubernetes.
+      
+      For more details, see our [community page](/about/community/).
 
   - question: How is deployKF licensed?
     include_in_schema: false
-    pre_expand_answer: false
+    pre_expand_answer: true
     answer: |-
       __deployKF__ is licensed under the [Apache License 2.0](https://github.com/deployKF/deployKF/blob/main/LICENSE).
       However, some of the tools that deployKF can help deploy are licensed differently.
-      Please ensure you are aware of the licenses of the tools you are deploying.
-
-  - question: How does deployKF work under the hood?
-    include_in_schema: false
-    pre_expand_answer: false
-    answer: |-
-      __deployKF__ has two user-facing components:
-      
-      1. __deployKF CLI:__ a command line program who's primary purpose is to generate a set of folders containing GitOps-ready Kubernetes manifests, from configs provided in one or more values files
-      2. __deployKF Generator:__ a versioned `.zip` package which contains all the templates and helpers needed to generate the output folders
-
-      For more details, see our [architecture page](/about/architecture/).
+      Please ensure you are aware of how the tools you deploy are licenced.
 ---
 
 # Frequently Asked Questions

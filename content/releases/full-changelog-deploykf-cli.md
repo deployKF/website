@@ -10,6 +10,12 @@ This changelog lists ALL releases of the deployKF CLI (including pre-releases) t
 !!! tip
     For a changelog that hides pre-releases, see [this page](../changelog-deploykf-cli).
 
+## [0.1.0](https://github.com/deployKF/cli/releases/tag/v0.1.0) - 2023-07-09
+
+### Significant Changes
+* initial release 🎉 🎉 🎉 
+
+
 ## [0.1.0-alpha.3](https://github.com/deployKF/cli/releases/tag/v0.1.0-alpha.3) - 2023-05-23
 
 ### New Features
