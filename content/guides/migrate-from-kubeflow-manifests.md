@@ -14,7 +14,7 @@ The best way to migrate from __Kubeflow Manifests__ to __deployKF__ is to create
 
     Kubeflow Manifests and deployKF __can NOT be deployed concurrently__ in the same Kubernetes cluster, doing so will result in unexpected behavior.
 
-!!! tip "Virtual Kubernetes Clusters"
+??? tip "Virtual Kubernetes Clusters"
 
     If you are unable to create a new Kubernetes cluster, you may consider using [vcluster](https://github.com/loft-sh/vcluster) to create a virtual Kubernetes cluster within an existing one.
     This approach has additional benefits because deployKF uses cluster-wide components (e.g. Istio) and namespaces for user/team profiles, so is not well suited to multi-tenant clusters.
