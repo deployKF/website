@@ -20,11 +20,11 @@ The CLI binaries are distributed via [GitHub releases](https://github.com/deploy
 
     ```bash
     DKF_CLI_VERSION="{{ latest_deploykf_cli_version }}"
-    DKF_CLI_ARCH="$(uname -m)"
+    DKF_CLI_ARCH=$(uname -m | sed -e 's/x86_64/amd64/')
     DFK_CLI_DEST=/usr/local/bin/deploykf
     
     # download the binary
-    sudo curl -L "https://github.com/deploykf/cli/releases/download/v${DKF_CLI_VERSION}/deploykf-darwin-${DKF_CLI_ARCH}" -o "${DFK_CLI_DEST}"
+    sudo curl -fL "https://github.com/deploykf/cli/releases/download/v${DKF_CLI_VERSION}/deploykf-darwin-${DKF_CLI_ARCH}" -o "${DFK_CLI_DEST}"
     
     # make the binary executable
     sudo chmod +x "${DFK_CLI_DEST}"
@@ -50,11 +50,11 @@ The CLI binaries are distributed via [GitHub releases](https://github.com/deploy
 
     ```bash
     DKF_CLI_VERSION="{{ latest_deploykf_cli_version }}"
-    DKF_CLI_ARCH="$(uname -m)"
+    DKF_CLI_ARCH=$(uname -m | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/')
     DFK_CLI_DEST=/usr/local/bin/deploykf
 
     # download the binary
-    sudo curl -L "https://github.com/deploykf/cli/releases/download/v${DKF_CLI_VERSION}/deploykf-linux-${DKF_CLI_ARCH}" -o "${DFK_CLI_DEST}"
+    sudo curl -fL "https://github.com/deploykf/cli/releases/download/v${DKF_CLI_VERSION}/deploykf-linux-${DKF_CLI_ARCH}" -o "${DFK_CLI_DEST}"
 
     # make the binary executable
     sudo chmod +x "${DFK_CLI_DEST}"
