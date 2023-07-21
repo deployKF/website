@@ -2,107 +2,107 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://www.deploykf.org/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/faq/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/about/architecture/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/about/community/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/about/kubeflow-vs-deploykf/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/about/support/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/getting-started/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/install-deploykf-cli/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/migrate-from-kubeflow-manifests/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/privacy-policy/website/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/reference/deploykf-values/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/reference/future-tools/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/reference/tools/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/changelog-deploykf-cli/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/changelog-deploykf/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/full-changelog-deploykf-cli/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/full-changelog-deploykf/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/version-matrix/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/topics/production-usage/external-mysql-database/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/topics/production-usage/external-object-store/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/topics/production-usage/multiple-clusters/</loc>
-         <lastmod>2023-07-11</lastmod>
+         <lastmod>2023-07-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
