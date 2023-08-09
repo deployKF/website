@@ -45,10 +45,10 @@ This is where GitOps comes in, it allows us to define the state (i.e. Kubernetes
 
 ### Minimum Requirements
 
-- the `deploykf` cli tool (see [Install the deployKF CLI](install-deploykf-cli.md))
+- your local machine has the [`deploykf` CLI installed](install-deploykf-cli.md)
 - a Kubernetes cluster (see [version compatibility](../releases/version-matrix.md#deploykf-dependencies))
-- ArgoCD is [deployed on your cluster](https://argo-cd.readthedocs.io/en/stable/getting_started/)
-- a private git repo (in which to store your generated manifests)
+- the Kubernetes cluster has [ArgoCD installed](https://argo-cd.readthedocs.io/en/stable/getting_started/)
+- a private git repo, for manifests (optional if using the [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin))
 
 !!! warning "Dedicated Kubernetes Cluster"
 
@@ -91,7 +91,7 @@ deployKF has a very large number of configurable values (more than 1500), but yo
 
 We recommend you start by copying the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file, which includes reasonable defaults that should work on any Kubernetes cluster.
 
-The following values will always need to be changed to match your environment:
+If you are not using the [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin), you will need to set the following values:
 
 | Value                                                                                                                   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 |-------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -126,6 +126,10 @@ For information about other values, you can refer to the following resources:
 ## 4. Generate manifests
 
 You must generate your manifests and commit them to a git repo before ArgoCD can deploy them to your cluster.
+
+!!! tip "ArgoCD Plugin"
+
+    The [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) removes the need to generate and commit manifests to a git repo.
 
 The `generate` command of the [`deploykf` CLI](https://github.com/deployKF/cli) creates a manifests folder for a specific version of deployKF and one or more values files:
 
@@ -263,6 +267,23 @@ You should now see the deployKF dashboard at [https://deploykf.example.com:8443/
 | User 1                | `user1@example.com` | `user1`  |
 | User 2                | `user2@example.com` | `user2`  |
 
+!!! warning "Admin User (Profile Owner)"
+    
+    Changing the owner of a profile [requires manual steps](https://github.com/kubeflow/kubeflow/issues/6576)! 
+    Therefore, it's common to leave `admin@example.com` as the owner of all profiles and simply give it a strong password.
+    (Even once you integrate your identity provider)
+    
+    Also note, the `admin@example.com` user does not have access to the "MinIO Console" or "Argo Workflows Server" interfaces,
+    this is because it is not a "member" of any profile, in the default values.
+
+
+## 9. Use the platform
+
+Now that you have a working ML Platform, you might want to dive into some of the following topics:
+
+| Topic                         | Description                                                                                                                                                                                                                              |
+|-------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| GitOps for Kubeflow Pipelines | We provide a reference implementation for managing Kubeflow Pipelines (i.e. definitions, schedules) with GitOps, see [`deployKF/kubeflow-pipelines-gitops`](https://github.com/deployKF/kubeflow-pipelines-gitops) for more information. |
 
 ## Next Steps
 
