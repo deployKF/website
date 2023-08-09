@@ -1,7 +1,10 @@
 Value,Default
-[`argocd.namespace`](https://github.com/deployKF/deployKF/blob/v0.1.0/generator/default_values.yaml#L10),"`""argocd""`"
-[`argocd.project`](https://github.com/deployKF/deployKF/blob/v0.1.0/generator/default_values.yaml#L14),"`""default""`"
-[`argocd.source.repo.url`](https://github.com/deployKF/deployKF/blob/v0.1.0/generator/default_values.yaml#L27),"`""""`"
-[`argocd.source.repo.revision`](https://github.com/deployKF/deployKF/blob/v0.1.0/generator/default_values.yaml#L32),"`""""`"
-[`argocd.source.repo.path`](https://github.com/deployKF/deployKF/blob/v0.1.0/generator/default_values.yaml#L38),"`""""`"
-[`argocd.destination.server`](https://github.com/deployKF/deployKF/blob/v0.1.0/generator/default_values.yaml#L43),"`""https://kubernetes.default.svc""`"
+[`argocd.appNamePrefix`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L13),"`""""`"
+[`argocd.namespace`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L17),"`""argocd""`"
+[`argocd.project`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L21),"`""default""`"
+[`argocd.source.plugin.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L34),`false`
+[`argocd.source.repo.url`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L43),"`""""`"
+[`argocd.source.repo.revision`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L48),"`""""`"
+[`argocd.source.repo.path`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L54),"`""""`"
+[`argocd.destination.server`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L60),"`""https://kubernetes.default.svc""`"
+[`argocd.destination.name`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L61),"`""""`"
