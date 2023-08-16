@@ -9,7 +9,7 @@ comparison_data:
       - Upgrades are difficult because new versions require starting from scratch with the new manifests.
   - aspect: Capabilities
     deploykf:
-      - Supports leading [MLOps & Data tools](/reference/tools/) from both Kubeflow, and other projects.
+      - Supports leading [MLOps & Data tools](../reference/tools.md) from both Kubeflow, and other projects.
       - When a config or secret is changed, any affected components are automatically restarted.
       - Includes Argo Server UI with integrated single sign-on where access is aligned to profile membership.
       - Optionally includes MinIO Console UI with integrated single sign-on where access is aligned to profile membership.
@@ -19,7 +19,7 @@ comparison_data:
     deploykf:
       - Allows selective deployment of MLOps tools through simple config values.
       - Allows brining custom versions of dependencies like Istio, cert-manager, MySQL, S3, and more.
-      - Simplifies [multi-cluster configurations](../topics/production-usage/multiple-clusters.md) with support for shared common values and environment-specific overlays.
+      - Simplifies multi-cluster configurations with support for shared common values and environment-specific overlays.
     kubeflow_manifests:
       - Less customizable, and requires difficult patching of YAML manifests.
   - aspect: GitOps
@@ -43,7 +43,11 @@ comparison_data:
 
 # Kubeflow vs deployKF
 
-This page aims unpack the differences between __deployKF__ and __Kubeflow__.
+This page aims to unpack the differences between __deployKF__ and __Kubeflow__.
+
+!!! info "Packaged distributions of Kubeflow"
+    
+    Most other [distributions of Kubeflow](https://www.kubeflow.org/docs/started/installing-kubeflow/#packaged-distributions-of-kubeflow), are using __mostly unmodified__ versions of the Kubeflow Manifests, so the comparison is still relevant for them.
 
 ## Introduction
 
@@ -64,11 +68,9 @@ Before a more detailed comparison can be made, it is important to understand the
 
 Hopefully, it is now clear the most useful comparison is between __deployKF__ and __Kubeflow Manifests__ (not the Kubeflow project as a whole).
 
-{{ render_comparison_table(comparison_data) }}
+The following table compares the two projects across a number of different aspects:
 
-!!! tip "Packaged distributions of Kubeflow"
-    
-    Most [packaged distribution of Kubeflow](https://www.kubeflow.org/docs/started/installing-kubeflow/#packaged-distributions-of-kubeflow), are using __largely unmodified__ versions of the Kubeflow Manifests, so this comparison is still relevant for them.
+{{ render_comparison_table(comparison_data) }}
 
 ## Next Steps
 

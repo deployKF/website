@@ -2,7 +2,7 @@
 
 The following tables summarize which tools and versions are supported by each version of __deployKF__.
 
-!!! tip
+!!! info "Tool Versions"
 
     The version wrapped with `()` is the default version included with that version of deployKF.
 
@@ -32,7 +32,7 @@ MLOps tools from the deployKF ecosystem.
 
 !!! tip
 
-    For detailed descriptions about the purpose of each tool, see the [Supported Tools](/reference/tools/) page.
+    For detailed descriptions about the purpose of each tool, see the [Supported Tools](../reference/tools.md) page.
 
 {{ read_csv("./version-matrix--deploykf-tools.csv", colalign=("right",)) }}
 
@@ -48,6 +48,6 @@ MLOps tools from the Kubeflow ecosystem.
 
 !!! tip
 
-    For detailed descriptions about the purpose of each tool, see the [Supported Tools](/reference/tools/) page.
+    For detailed descriptions about the purpose of each tool, see the [Supported Tools](../reference/tools.md) page.
 
 {{ read_csv("./version-matrix--kubeflow-tools.csv", colalign=("right",)) }}

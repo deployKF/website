@@ -7,8 +7,9 @@ hide:
 
 This changelog lists ALL releases of deployKF (including pre-releases) that are found in the [`deployKF/deployKF`](https://github.com/deployKF/deployKF/releases) repository.
 
-!!! tip
-    For a changelog that hides pre-releases, see [this page](../changelog-deploykf).
+!!! info "Main Changelog"
+
+    For a changelog that hides pre-releases, see [the main changelog](./changelog-deploykf.md) page.
 
 ## [0.1.1](https://github.com/deployKF/deployKF/releases/tag/v0.1.1) - 2023-08-08
 

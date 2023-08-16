@@ -46,7 +46,7 @@
                 "name": question.question,
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": question.answer | md_to_html,
+                    "text": question.answer | md_to_html(page.file),
                 }
             }] %}
         {%- endif %}

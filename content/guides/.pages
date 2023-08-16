@@ -1,3 +1,7 @@
 nav:
   - getting-started.md
-  - ...
+  - troubleshooting.md
+  - Configurations (Platform): platform
+  - Configurations (Tools) : tools
+  - Other:
+     - ...

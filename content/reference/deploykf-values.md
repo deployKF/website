@@ -2,15 +2,16 @@
 
 The following is a summary of the generator __values__ (configs) available in __deployKF__.
 
+!!! info
+
+    The full list of values and their defaults can also be found in the [`generator/default_values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/generator/default_values.yaml) file.
+
 !!! tip
 
     The generator values are how you configure all aspects of deployKF.
     While there are many values available, you only need to specify the ones you want to change from their defaults.
-    For more information about creating your custom values files, see the [getting started](/guides/getting-started/) guide.
 
-!!! note
-
-    The full list of values and their defaults can be found in the [`default_values.yaml`](https://github.com/deployKF/deployKF/blob/main/generator/default_values.yaml) file in the source code.
+    For more information about creating your custom values files, see the [getting started](../guides/getting-started.md#3-values-configuration) guide.
 
 ## Argo CD
 

@@ -12,6 +12,9 @@ nav:
   ## NOTE: navigation is managed by `awesome-pages` plugin, see `.pages` files for configs
   - ...
 
+watch:
+  - overrides
+
 theme:
   name: material
   custom_dir: overrides
@@ -26,7 +29,6 @@ theme:
     - content.action.edit
     - content.action.view
     - content.code.copy
-    - navigation.expand
     - navigation.indexes
     - navigation.instant
     - navigation.tabs
@@ -55,11 +57,13 @@ theme:
         name: Switch to light mode
 
 extra_css:
+  - assets/stylesheets/admonitions.css
   - assets/stylesheets/banner.css
   - assets/stylesheets/tables.css
 
 hooks:
   - overrides/custom_filters.py
+  - overrides/external_links_md_extension.py
 
 plugins:
   - awesome-pages
@@ -77,9 +81,13 @@ plugins:
       cache_safe: false
       js_files: []
       css_files:
+        - assets/stylesheets/admonitions.css
         - assets/stylesheets/banner.css
         - assets/stylesheets/home.css
         - assets/stylesheets/tables.css
+  - redirects:
+      redirect_maps:
+        'guides/install-deploykf-cli.md': 'guides/deploykf-cli.md'
   - search
   - social
   - table-reader
@@ -125,7 +133,7 @@ extra:
           data: 0
           note: >-
             Sorry to hear that. 
-            Please help us improve by <a href="https://github.com/deployKF/website/issues/new/?title=[Feedback]+{title}+-+{url}" target="_blank" rel="noopener">raising an issue</a>.
+            Please help us improve by <a href="https://github.com/deployKF/website/issues/new/?title=[Feedback]+{title}" target="_blank" rel="noopener">raising an issue</a>.
 
   social:
     - icon: fontawesome/brands/github
