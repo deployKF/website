@@ -1,0 +1,4 @@
+nav:
+  - Kubeflow Pipelines:
+     - ... | *kubeflow-pipelines*.md
+  - ...

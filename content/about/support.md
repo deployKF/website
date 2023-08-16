@@ -22,11 +22,12 @@ If you have found a bug, or have a feature request, you can raise an issue on th
 
 ## Commercial Support
 
-If you are interested in US-based commercial support, __Mathew Wicks__ (the creator of deployKF), operates an MLOps company called [Aranui Solutions](https://www.aranui.solutions).
-Feel free to [connect on LinkedIn](https://www.linkedin.com/in/mathewwicks/) or [send an email](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) and learn more.
-
-!!! note "Are you a vendor?"
+For US-based commercial support, the creator of deployKF (Mathew Wicks), operates an MLOps company called [Aranui Solutions](https://www.aranui.solutions).
     
-    Are you are a vendor who wants to support deployKF or use it in your product?
+Connect on [LinkedIn](https://www.linkedin.com/in/mathewwicks/) or email [`sales@aranui.solutions`](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) to learn more!
 
-    Let's work together! Reach out on [LinkedIn](https://www.linkedin.com/in/mathewwicks/) or [send an email](mailto:mathew@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT).
+## Vendor Partnerships
+    
+Are you a vendor who wants to support deployKF or use it in your product?
+    
+Let's work together! Email [`mathew@aranui.solutions`](mailto:mathew@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) to discuss more.

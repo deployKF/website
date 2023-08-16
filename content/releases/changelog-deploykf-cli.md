@@ -2,8 +2,9 @@
 
 This changelog lists releases of the deployKF CLI that are found in the [`deployKF/cli`](https://github.com/deployKF/cli/releases) repository.
 
-!!! tip
-    For a changelog that shows pre-releases, see [this page](../full-changelog-deploykf-cli).
+!!! info "Pre-releases"
+
+    For a changelog that shows pre-releases, see [the full-changelog](./full-changelog-deploykf-cli.md) page.
 
 ## [0.1.2](https://github.com/deployKF/cli/releases/tag/v0.1.2) - 2023-08-09
 
