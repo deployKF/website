@@ -3,14 +3,14 @@
     background-image: url("/assets/images/moving-firefly.svg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: bottom center, 50%, 50%;
+    background-position: center;
 }
 
 [data-md-color-scheme=slate] .md-container {
     background-image: url("/assets/images/moving-firefly.svg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: bottom center, 50%, 50%;
+    background-position: center;
 }
 
 /* hide markdown content section */
@@ -92,8 +92,8 @@
     color: var(--md-primary-fg-color--light) !important;
 }
 
-.mdx-hero .md-button:focus, .mdx-hero .md-button:hover {
-    border-color: darkslategrey;
+[data-md-color-scheme=default] .mdx-hero .md-button:focus, [data-md-color-scheme=default] .mdx-hero .md-button:hover {
+    border-color: white;
 }
 
 [data-md-color-scheme=slate] .mdx-hero .md-button:focus, [data-md-color-scheme=slate] .mdx-hero .md-button:hover {

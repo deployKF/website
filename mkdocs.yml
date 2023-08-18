@@ -41,8 +41,8 @@ theme:
     ## Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: indigo
-      accent: deep-orange
+      primary: deploykf-primary
+      accent: deploykf-accent
       toggle:
         icon: material/toggle-switch
         name: Switch to dark mode
@@ -50,8 +50,8 @@ theme:
     ## Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: indigo
-      accent: deep-orange
+      primary: deploykf-primary
+      accent: deploykf-accent
       toggle:
         icon: material/toggle-switch-off-outline
         name: Switch to light mode
@@ -59,6 +59,7 @@ theme:
 extra_css:
   - assets/stylesheets/admonitions.css
   - assets/stylesheets/banner.css
+  - assets/stylesheets/color.css
   - assets/stylesheets/tables.css
 
 hooks:
@@ -83,6 +84,7 @@ plugins:
       css_files:
         - assets/stylesheets/admonitions.css
         - assets/stylesheets/banner.css
+        - assets/stylesheets/color.css
         - assets/stylesheets/home.css
         - assets/stylesheets/tables.css
   - redirects:

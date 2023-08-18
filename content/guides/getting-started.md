@@ -52,7 +52,7 @@ Before starting, let us briefly introduce the deployKF project.
     - The deployKF community uses the __Kubeflow Slack__ for informal discussions among users and contributors.
     - Find us on the [`#deploykf`](https://kubeflow.slack.com/archives/C054H6WLNCB) channel!
 
-    [:fontawesome-brands-slack: Join the Kubeflow Slack](https://invite.playplay.io/invite?team_id=T7QLHSH6U){ .md-button }
+    [:fontawesome-brands-slack: Join the Kubeflow Slack](https://invite.playplay.io/invite?team_id=T7QLHSH6U){ .md-button .md-button--secondary }
 
     ---
 
@@ -61,9 +61,9 @@ Before starting, let us briefly introduce the deployKF project.
     - The [deploykf-users](https://groups.google.com/g/deploykf-users) mailing list is for users of deployKF to ask questions and share ideas.
     - The [deploykf-dev](https://groups.google.com/g/deploykf-dev) mailing list is for contributors to deployKF to discuss development and design.
 
-    [:fontawesome-solid-envelope: Join the `deploykf-users` Mailing List](https://groups.google.com/g/deploykf-users){ .md-button }
+    [:fontawesome-solid-envelope: Join the User Mailing List](https://groups.google.com/g/deploykf-users){ .md-button .md-button--secondary }
 
-    [:fontawesome-solid-envelope: Join the `deploykf-dev` Mailing List](https://groups.google.com/g/deploykf-dev){ .md-button }
+    [:fontawesome-solid-envelope: Join the Contributor Mailing List](https://groups.google.com/g/deploykf-dev){ .md-button .md-button--secondary }
 
 ??? question_secondary "Why does deployKF use Argo CD?"
 
