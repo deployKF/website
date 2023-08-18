@@ -91,7 +91,10 @@ plugins:
       redirect_maps:
         'guides/install-deploykf-cli.md': 'guides/deploykf-cli.md'
   - search
-  - social
+  - social:
+      cards_layout_options:
+        color: "#fed1aa"
+        background_color: "#294275"
   - table-reader
   ## NOTE: `macros` must be last plugin
   - macros:
