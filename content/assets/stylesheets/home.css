@@ -1,13 +1,13 @@
 /* set background image for the main page */
 .md-container {
-    background-image: url("/assets/images/moving-firefly.svg");
+    background-image: url("/assets/images/moving-firefly-1.svg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
 
 [data-md-color-scheme=slate] .md-container {
-    background-image: url("/assets/images/moving-firefly.svg");
+    background-image: url("/assets/images/moving-firefly-1.svg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
