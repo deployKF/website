@@ -1,13 +1,13 @@
 /* set background image for the main page */
-.md-container {
-    background-image: url("/assets/images/moving-firefly-1.svg");
+[data-md-color-scheme=default] .md-container {
+    background-image: url("/assets/images/moving-firefly-2.svg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
 
 [data-md-color-scheme=slate] .md-container {
-    background-image: url("/assets/images/moving-firefly-1.svg");
+    background-image: url("/assets/images/moving-firefly-2.svg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -20,26 +20,30 @@
 
 /* prevent unused main section from taking up space */
 .md-main {
-    flex-grow: 0;
+    max-height: 0 !important;
 }
 
 /* ensure our primary div takes up the full screen, and align its contents in the center */
 .mdx-container {
+    display: flex;
     flex-grow: 1;
-    display: grid;
-    align-items: center;
+    flex-direction: column;
 }
 
 /* styling for hero content */
 .mdx-hero {
-    display: block;
-    padding-top: 1.25rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
 }
 
 .mdx-hero h1 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.0rem;
+    padding-bottom: 1.25rem;
     color: currentcolor;
     font-weight: 700;
 }
@@ -57,6 +61,7 @@
 }
 
 .mdx-hero .mdx-hero__tag_text {
+    padding-top: 0.7rem;
     opacity: 0.7;
     font-size: 75%
 }
@@ -69,7 +74,7 @@
 
 /* styles for action buttons */
 .mdx-hero .mdx-actions {
-    margin-bottom: 3rem;
+    padding-bottom: 2.5rem;
 }
 
 .mdx-hero .md-button {
