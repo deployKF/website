@@ -27,6 +27,11 @@ There are two main options to expose the deployKF Gateway Service:
     You should seriously consider the security implications of exposing the deployKF Gateway to the public internet.
     Given the nature of ML Platforms, most companies choose to expose the gateway on their private network, and then use a VPN or other secure connection to access it.
 
+!!! info "Include custom manifests in generated output"
+
+    deployKF provides an `extraManifests` value for each component which allows arbitrary YAML manifests to be added to the generated output.
+    For example, [`deploykf_core.deploykf_istio_gateway.extraManifests`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L575-L579) may be used to add a custom Ingress or Secret resource to the generated output of the `deploykf-istio-gateway` component.
+
 ### Expose with LoadBalancer Service
 
 ??? steps "Steps to Expose with LoadBalancer Service"
@@ -109,11 +114,6 @@ There are two main options to expose the deployKF Gateway Service:
     1. Set the [`deploykf_core.deploykf_istio_gateway.gatewayService.type`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L653) value to `"NodePort"` or `"ClusterIP"`
     2. Use the [`deploykf_core.deploykf_istio_gateway.gatewayService.annotations`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L654C7-L654C18) value to configure the Service
     3. Create an `Ingress` resource that points to the `deploykf-gateway` Service
-
-    !!! note "Extra Manifests Values"
-
-        deployKF provides an `extraManifests` value for each component which allows arbitrary YAML manifests to be added to the generated output.
-        For example, [`deploykf_core.deploykf_istio_gateway.extraManifests`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L575-L579) may be used to add an Ingress resource to the generated output.
 
     ---
 
@@ -273,9 +273,18 @@ Hostname | Description | Required By
 `minio-api.deploykf.example.com` | the MinIO API | MinIO
 `minio-console.deploykf.example.com` | the MinIO UI | MinIO
 
-!!! config "Base Domain"
+!!! info "Base Domain"
 
     The "base domain" is defined by [`deploykf_core.deploykf_istio_gateway.gateway.hostname`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L600), which has a default value of `"deploykf.example.com"`.
+
+!!! info "Wildcard DNS Records"
+
+    If you plan to manually create the records, we recommend using a [wildcard DNS record](https://en.wikipedia.org/wiki/Wildcard_DNS_record) to account for any future subdomains that may be added to the deployKF Gateway Service.
+
+    For example, you might set BOTH the following DNS records:
+
+    - `*.deploykf.example.com`
+    - `deploykf.example.com`
 
 ### Configure records with External-DNS
 
@@ -291,29 +300,48 @@ Hostname | Description | Required By
 
     __Step 1:__ Install External-DNS
 
-    The External-DNS documentation provides instructions for [installing External-DNS on various platforms](https://github.com/kubernetes-sigs/external-dns#running-externaldns).
+    The External-DNS documentation provides instructions for [installing External-DNS on various platforms](https://kubernetes-sigs.github.io/external-dns/latest/#deploying-to-a-cluster).
 
     Here are some popular platforms:
 
     Cloud Platform | DNS Provider
     --- | ---
-    Amazon Web Services | [Route53](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md)
-    Google Cloud | [Cloud DNS](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/gke.md)
-    Microsoft Azure | [Azure DNS](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md), [Azure Private DNS](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure-private-dns.md)
-    Any | [Cloudflare](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/cloudflare.md), [Akamai Edge DNS](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/akamai-edgedns.md)
+    Amazon Web Services | [Route53](https://kubernetes-sigs.github.io/external-dns/latest/tutorials/aws/)
+    Google Cloud | [Cloud DNS](https://kubernetes-sigs.github.io/external-dns/latest/tutorials/gke/)
+    Microsoft Azure | [Azure DNS](https://kubernetes-sigs.github.io/external-dns/latest/tutorials/azure/), [Azure Private DNS](https://kubernetes-sigs.github.io/external-dns/latest/tutorials/azure-private-dns/)
+    Any | [Cloudflare](https://kubernetes-sigs.github.io/external-dns/latest/tutorials/cloudflare/), [Akamai Edge DNS](https://kubernetes-sigs.github.io/external-dns/latest/tutorials/akamai-edgedns/)
 
     ---
 
     __Step 2:__ Configure External-DNS
 
-    There are two main ways to configure External-DNS so that it sets DNS records for the deployKF Gateway Service:
+    There are a few ways to configure External-DNS so that it sets DNS records for the deployKF Gateway Service.
 
-    1. Use the [`--source=istio-gateway`](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/istio.md) config:
-        - _In this case, a separate DNS record is created for [each domain selected by the Istio `Gateway`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/templates/manifests/deploykf-core/deploykf-istio-gateway/templates/gateway/Gateway.yaml#L14-L25)_
-    2. Annotate the Service or Ingress with [`external-dns.alpha.kubernetes.io/hostname`](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md#how-do-i-specify-a-dns-name-for-my-kubernetes-objects):
-        - _In this case, you may use a wildcard DNS record, or a separate record for each domain_
-        - _You may use the [`deploykf_core.deploykf_istio_gateway.gatewayService.annotations`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L654) value to annotate the Service (or if using an Ingress, you will need to set the annotations yourself)_
+    ??? config "Option 1: Automatically Extract Hostnames from Istio Gateway"
 
+        You may configure External-DNS to automatically extract the domain names from Istio `Gateway` resources.
+       
+        If you do this, a separate DNS record is created for each [domain selected by our Istio `Gateway`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/templates/manifests/deploykf-core/deploykf-istio-gateway/templates/gateway/Gateway.yaml#L14-L25).
+
+        To [connect External-DNS with Istio](https://kubernetes-sigs.github.io/external-dns/latest/tutorials/istio/), you will need to:
+
+        1. Update your `Deployment/external-dns` to set the `--source=istio-gateway` start argument
+        2. Update your `ClusterRole/external-dns` to allow access to Istio `Gateway` and `VirtualService` resources
+
+    ??? config "Option 2: Manually Annotate Service or Ingress"
+
+        You can manually configure External-DNS by annotating the `Service` or `Ingress` resource with the [`external-dns.alpha.kubernetes.io/hostname`](https://kubernetes-sigs.github.io/external-dns/latest/faq/#how-do-i-specify-a-dns-name-for-my-kubernetes-objects) annotation.
+        
+        If you do this, you need to add BOTH the __base domain__ AND __subdomains__.
+        You can avoid the need to specify each subdomain by using a wildcard DNS record, but you will still need to specify the base domain.
+        Multiple hostnames can be specified in a single annotation using a comma-separated list.
+
+        See the introduction of this section for a list of domains to configure.
+
+        Depending on if you are using a Service or Ingress, you will set the `external-dns.alpha.kubernetes.io/hostname` annotation by:
+
+        - __Service__: setting the [`deploykf_core.deploykf_istio_gateway.gatewayService.annotations`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L654) value
+        - __Ingress__: manually annotating your Ingress resource
 
 ### Configure records manually
 
@@ -337,16 +365,10 @@ Hostname | Description | Required By
 
     __Step 2:__ Configure DNS Records
 
-    See the previous section for information about which DNS records to configure.
+    You need to create records for BOTH the __base domain__ AND __subdomains__.
+    You can avoid the need to specify each subdomain by using a wildcard DNS record, but you will still need to specify the base domain.
 
-    !!! tip "Wildcard DNS Records"
-    
-        If possible, we recommend using a [wildcard DNS record](https://en.wikipedia.org/wiki/Wildcard_DNS_record) to account for any future subdomains that may be added to the deployKF Gateway Service.
-    
-        For example, you might set the following DNS records:
-    
-        - `*.deploykf.example.com`
-        - `deploykf.example.com`
+    See the introduction of this section for a list of domains to configure.
 
 ## 3. Configure HTTPS/TLS
 
@@ -458,6 +480,6 @@ Please refer to the documentation for your platform.
     In some cases, your Ingress can use the same TLS certificate as the Istio Gateway.
     By default, a Kubernetes `Secret` named `deploykf-istio-gateway-cert` which contains the certificate is found in the `deploykf-istio-gateway` namespace, managed by [this `Certificate`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/templates/manifests/deploykf-core/deploykf-istio-gateway/templates/gateway/Certificate.yaml) resource.
 
-??? warning "Ingress Considerations"
+!!! warning "Both Istio Gateway and Ingress need valid TLS"
     Pods which are in the [Istio mesh](https://istio.io/latest/about/service-mesh/) use hairpinning (via [this Istio `ServiceEntry`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/templates/manifests/deploykf-core/deploykf-istio-gateway/templates/gateway/ServiceEntry-gateway.yaml)) to access the gateway without leaving the cluster.
     This means that even if your Ingress has a valid TLS certificate, if you do not [Configure TLS for the Istio Gateway](#configure-tls-for-istio-gateway), you may see certificate errors when accessing services from within the cluster.
