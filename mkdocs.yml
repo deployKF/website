@@ -1,5 +1,5 @@
 site_name: deployKF
-site_description: deployKF effortlessly integrates Kubeflow and leading MLOps tools on Kubernetes, compose your open ML platform today!
+site_description: deployKF is a next-generation machine learning toolkit for Kubernetes which effortlessly integrates leading ML/AI tools.
 site_url: https://www.deploykf.org/
 
 copyright: "© 2023 deployKF Authors | <a href='/privacy-policy/website/'>Privacy Policy</a>"
@@ -22,6 +22,7 @@ theme:
   icon:
     repo: fontawesome/brands/github
   logo: assets/images/logo_1/logo.svg
+  logo_banner: assets/images/logo_1/logo_banner.svg
   favicon: favicon_1.ico
 
   features:
@@ -29,6 +30,7 @@ theme:
     - content.action.edit
     - content.action.view
     - content.code.copy
+    - content.tabs.link
     - navigation.indexes
     - navigation.instant
     - navigation.tabs
@@ -44,7 +46,7 @@ theme:
       primary: deploykf-primary
       accent: deploykf-accent
       toggle:
-        icon: material/toggle-switch
+        icon: material/toggle-switch-off-outline
         name: Switch to dark mode
 
     ## Palette toggle for dark mode
@@ -53,14 +55,13 @@ theme:
       primary: deploykf-primary
       accent: deploykf-accent
       toggle:
-        icon: material/toggle-switch-off-outline
+        icon: material/toggle-switch
         name: Switch to light mode
 
 extra_css:
   - assets/stylesheets/admonitions.css
-  - assets/stylesheets/banner.css
   - assets/stylesheets/color.css
-  - assets/stylesheets/tables.css
+  - assets/stylesheets/overrides.css
 
 hooks:
   - overrides/custom_filters.py
@@ -80,13 +81,13 @@ plugins:
       htmlmin_opts:
         remove_comments: true
       cache_safe: false
-      js_files: []
+      js_files:
+        - assets/javascript/home.js
       css_files:
         - assets/stylesheets/admonitions.css
-        - assets/stylesheets/banner.css
         - assets/stylesheets/color.css
         - assets/stylesheets/home.css
-        - assets/stylesheets/tables.css
+        - assets/stylesheets/overrides.css
   - redirects:
       redirect_maps:
         'guides/install-deploykf-cli.md': 'guides/deploykf-cli.md'
