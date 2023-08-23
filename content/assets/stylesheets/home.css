@@ -41,13 +41,6 @@
     padding-right: 1.25rem;
 }
 
-.mdx-hero h1 {
-    margin-bottom: 0.0rem;
-    padding-bottom: 1.25rem;
-    color: currentcolor;
-    font-weight: 700;
-}
-
 .mdx-hero .mdx-hero__content {
     margin-left: auto;
     margin-right: auto;
@@ -60,10 +53,35 @@
     margin-right: auto;
 }
 
-.mdx-hero .mdx-hero__tag_text {
-    padding-top: 0.7rem;
-    opacity: 0.7;
-    font-size: 75%
+.mdx-hero .mdx-hero__tag-line {
+    margin-bottom: 0.0rem;
+    padding-bottom: 2.0rem;
+    color: var(--md-typeset-color);
+    font-weight: 700;
+    font-size: 2.4rem;
+}
+
+.mdx-hero .mdx-hero__tag-highlight {
+    background: linear-gradient(60deg, #fd7e14, #014bd1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-size: 2.7rem;
+    transition: opacity 0.5s;
+}
+
+.mdx-hero .mdx-hero__tag-highlight--fade-out {
+    opacity: 0;
+}
+
+.mdx-hero .mdx-hero__tag-description {
+    padding-bottom: 1.0rem;
+}
+
+.mdx-hero .mdx-hero__crafted_by_text {
+    opacity: 0.6;
+    font-size: 70%
 }
 
 .mdx-hero__video {

@@ -1,5 +1,4 @@
 ---
-title: deployKF
 template: home.html
 hide:
   - toc

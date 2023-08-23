@@ -7,6 +7,9 @@
 <!-- Additional styles for landing page -->
 <link rel="stylesheet" href="assets/stylesheets/home.min.css">
 
+<!-- Additional scripts for landing page -->
+<script src="assets/javascript/home.min.js"></script>
+
 <!-- Hero for Home Page -->
 <div class="mdx-container">
   <div class="mdx-hero md-typeset">
@@ -14,7 +17,9 @@
     <!-- Hero Content-->
     <div class="mdx-hero__content">
       <div class="mdx-hero__content_inner">
-        <h1>Deploy the Machine Learning Toolkit for Kubernetes</h1>
+        <h1 class="mdx-hero__tag-line">
+          Your<br><span class="mdx-hero__tag-highlight">Open</span><br>ML Platform
+        </h1>
         <div class="mdx-actions">
           <a href="{{ 'guides/getting-started'| url }}"
              title="Getting Started"
@@ -35,12 +40,11 @@
             </span>
           </a>
         </div>
-        <div>
-          <b>deployKF</b> effortlessly integrates <a href="https://www.kubeflow.org/" target="_blank" rel="noopener">Kubeflow</a>
-          and leading MLOps tools on <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a>,
-          compose your open ML platform today!
+        <div class="mdx-hero__tag-description">
+          <b>deployKF</b> is a next-generation machine learning toolkit for <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a>
+          which effortlessly integrates <a href="https://www.kubeflow.org/" target="_blank" rel="noopener">Kubeflow</a> and other leading ML/AI tools.
         </div>
-        <div class="mdx-hero__tag_text">Crafted with ❤️ by the developers of Kubeflow.</div>
+        <div class="mdx-hero__crafted_by_text">Crafted with ❤️ by the developers of Kubeflow.</div>
       </div>
     </div>
 
