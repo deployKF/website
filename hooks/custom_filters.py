@@ -1,4 +1,5 @@
 import json
+from typing import Optional
 
 import markdown
 from jinja2 import Environment
@@ -37,7 +38,9 @@ def _md_to_html(
     return html
 
 
-def on_env(env: Environment, config: MkDocsConfig, files: Files, **kwargs):
+def on_env(
+    env: Environment, config: MkDocsConfig, files: Files, **kwargs
+) -> Optional[Environment]:
     # we define a wrapper here to access `config` and `files`
     def md_to_html(value: str, file: File):
         return _md_to_html(value, file, files, config)

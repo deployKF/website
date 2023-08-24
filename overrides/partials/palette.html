@@ -1,31 +1,19 @@
-<!-- Color palette toggle -->
+{#-
+  BASED ON:
+    - SRC: https://github.com/squidfunk/mkdocs-material/blob/9.2.3/src/partials/palette.html
+    - OUT: https://github.com/squidfunk/mkdocs-material/blob/9.2.3/material/partials/palette.html
+
+  CHANGES:
+    - add "Dark Mode" text to the dark mode toggle button
+-#}
 <form class="md-header__option" data-md-component="palette">
   {% for option in config.theme.palette %}
     {% set scheme  = option.scheme  | d("default", true) %}
     {% set primary = option.primary | d("indigo", true) %}
     {% set accent  = option.accent  | d("indigo", true) %}
-    <input
-      class="md-option"
-      data-md-color-media="{{ option.media }}"
-      data-md-color-scheme="{{ scheme | replace(' ', '-') }}"
-      data-md-color-primary="{{ primary | replace(' ', '-') }}"
-      data-md-color-accent="{{ accent | replace(' ', '-') }}"
-      {% if option.toggle %}
-        aria-label="{{ option.toggle.name }}"
-      {% else  %}
-        aria-hidden="true"
-      {% endif %}
-      type="radio"
-      name="__palette"
-      id="__palette_{{ loop.index }}"
-    />
+    <input class="md-option" data-md-color-media="{{ option.media }}" data-md-color-scheme="{{ scheme | replace(' ', '-') }}" data-md-color-primary="{{ primary | replace(' ', '-') }}" data-md-color-accent="{{ accent | replace(' ', '-') }}" {% if option.toggle %} aria-label="{{ option.toggle.name }}" {% else %} aria-hidden="true" {% endif %} type="radio" name="__palette" id="__palette_{{ loop.index }}">
     {% if option.toggle %}
-      <label
-        class="md-header__button md-icon"
-        title="{{ option.toggle.name }}"
-        for="__palette_{{ loop.index0 or loop.length }}"
-        hidden
-      >
+      <label class="md-header__button md-icon" title="{{ option.toggle.name }}" for="__palette_{{ loop.index0 or loop.length }}" hidden>
         {% include ".icons/" ~ option.toggle.icon ~ ".svg" %}
         <!-- ================ BEGIN CHANGE ================ -->
         Dark Mode

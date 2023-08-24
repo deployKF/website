@@ -13,7 +13,7 @@ faq_schema:
       - deployKF has a Helm-like interface, with [values](./reference/deploykf-values.md) for configuring all aspects of the deployment (no need to edit Kubernetes YAML)
       - deployKF does NOT install resources directly in your cluster, instead it generates [ArgoCD Applications](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#applications) to provide native GitOps support
 
-  - question: What AI/ML tools are in deployKF?
+  - question: What ML/AI tools are in deployKF?
     include_in_schema: true
     pre_expand_answer: false
     answer: |-
@@ -21,7 +21,14 @@ faq_schema:
       We are actively adding support for other popular tools such as [MLFlow (Model Registry)](./reference/future-tools.md#mlflow-model-registry), [Apache Airflow](./reference/future-tools.md#apache-airflow), and [Feast](./reference/future-tools.md#feast). 
       
       For more information, please see [supported tools](./reference/tools.md) and [future tools](./reference/future-tools.md)!
-      
+
+  - question: Who makes deployKF?
+    include_in_schema: true
+    pre_expand_answer: false
+    answer: |-
+      deployKF was originally created by [Mathew Wicks](https://www.linkedin.com/in/mathewwicks/) (GitHub: [@thesuperzapper](https://github.com/thesuperzapper)), a Kubeflow lead and maintainer of the popular [Apache Airflow Helm Chart](https://github.com/airflow-helm/charts).
+      However, deployKF is now a community-led project that welcomes contributions from anyone who wants to help.
+   
   - question: Is commercial support available for deployKF?
     include_in_schema: true
     pre_expand_answer: false
@@ -37,13 +44,6 @@ faq_schema:
       deployKF is a new project, and we are still building our community.
       
       Please consider adding your organization to our [list of adopters](https://github.com/deployKF/deployKF/blob/main/ADOPTERS.md).
-
-  - question: Who created deployKF?
-    include_in_schema: true
-    pre_expand_answer: false
-    answer: |-
-      deployKF was originally created by [Mathew Wicks](https://www.linkedin.com/in/mathewwicks/) (GitHub: [@thesuperzapper](https://github.com/thesuperzapper)), a Kubeflow lead and maintainer of the popular [Apache Airflow Helm Chart](https://github.com/airflow-helm/charts).
-      However, deployKF is now a community-led project that welcomes contributions from anyone who wants to help.
 
   - question: What is the difference between Kubeflow and deployKF?
     include_in_schema: true

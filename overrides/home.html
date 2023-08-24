@@ -1,16 +1,17 @@
+{#-
+  A custom template for deployKF homepage.
+  Used by the `index.md` page.
+-#}
+
 {% extends "main.html" %}
 
-<!-- Render hero under tabs -->
-{% block tabs %}
-{{ super() }}
+{% block htmltitle %}
+<title>deployKF</title>
+{% endblock %}
 
-<!-- Additional styles for landing page -->
-<link rel="stylesheet" href="assets/stylesheets/home.min.css">
-
-<!-- Additional scripts for landing page -->
-<script src="assets/javascript/home.min.js"></script>
-
-<!-- Hero for Home Page -->
+{% block container %}
+<!-- This style is on a single line because our minification does not work with inline css. */-->
+<style>.md-main { display: flex; flex-direction: column; } .md-main__inner { display: flex; flex-direction: column; flex-grow: 1; margin-top: 0 !important; width: 100%; max-width: none;}</style>
 <div class="mdx-container">
   <div class="mdx-hero md-typeset">
 
@@ -20,7 +21,13 @@
         <h1 class="mdx-hero__tag-line">
           Your<br><span class="mdx-hero__tag-highlight">Open</span><br>ML Platform
         </h1>
-        <div class="mdx-actions">
+        <div class="mdx-hero__tag-description">
+          <b>deployKF</b> is a next-generation machine learning toolkit for
+          <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a>
+          which effortlessly integrates <a href="https://www.kubeflow.org/" target="_blank" rel="noopener">Kubeflow</a>
+          and other leading ML/AI tools.
+        </div>
+        <div class="mdx-hero__actions">
           <a href="{{ 'guides/getting-started'| url }}"
              title="Getting Started"
              class="md-button md-button--primary"
@@ -40,30 +47,12 @@
             </span>
           </a>
         </div>
-        <div class="mdx-hero__tag-description">
-          <b>deployKF</b> is a next-generation machine learning toolkit for <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a>
-          which effortlessly integrates <a href="https://www.kubeflow.org/" target="_blank" rel="noopener">Kubeflow</a> and other leading ML/AI tools.
+        <div class="mdx-hero__crafted_by_text">
+          Crafted with ❤️ by the developers of Kubeflow.
         </div>
-        <div class="mdx-hero__crafted_by_text">Crafted with ❤️ by the developers of Kubeflow.</div>
       </div>
     </div>
-
-    <!-- Hero Video -->
-<!--    <div class="mdx-hero__video">-->
-<!--      <div class="mdx-hero__video_inner">-->
-<!--        <iframe-->
-<!--            src="https://www.youtube.com/embed/1fueZCTYkpA"-->
-<!--            title="YouTube video player"-->
-<!--            frameborder="0"-->
-<!--            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"-->
-<!--            allowfullscreen-->
-<!--        ></iframe>-->
-<!--      </div>-->
-<!--    </div>-->
 
   </div>
 </div>
 {% endblock %}
-
-<!-- Content -->
-{% block content %}{% endblock %}
