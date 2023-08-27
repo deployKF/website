@@ -16,7 +16,7 @@ Before starting, let us briefly introduce the deployKF project.
     - deployKF has a Helm-like interface, with [values](../reference/deploykf-values.md) for configuring all aspects of the deployment (no need to edit Kubernetes YAML)
     - deployKF does NOT install resources directly in your cluster, instead it generates [ArgoCD Applications](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#applications) to provide native GitOps support
 
-### What AI/ML tools are in deployKF?
+### What ML/AI tools are in deployKF?
 
 !!! question_secondary ""
 
@@ -24,6 +24,13 @@ Before starting, let us briefly introduce the deployKF project.
     We are actively adding support for other popular tools such as [MLFlow (Model Registry)](../reference/future-tools.md#mlflow-model-registry), [Apache Airflow](../reference/future-tools.md#apache-airflow), and [Feast](../reference/future-tools.md#feast). 
     
     For more information, please see [supported tools](../reference/tools.md) and [future tools](../reference/future-tools.md)!
+
+### Who makes deployKF?
+
+!!! question_secondary ""
+
+    deployKF was originally created by [Mathew Wicks](https://www.linkedin.com/in/mathewwicks/) (GitHub: [@thesuperzapper](https://github.com/thesuperzapper)), a Kubeflow lead and maintainer of the popular [Apache Airflow Helm Chart](https://github.com/airflow-helm/charts).
+    However, deployKF is now a community-led project that welcomes contributions from anyone who wants to help.
 
 ### Media Coverage
 

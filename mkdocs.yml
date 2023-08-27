@@ -13,6 +13,8 @@ nav:
   - ...
 
 watch:
+  - hooks
+  - macros
   - overrides
 
 theme:
@@ -23,12 +25,12 @@ theme:
     repo: fontawesome/brands/github
   logo: assets/images/logo_1/logo.svg
   logo_banner: assets/images/logo_1/logo_banner.svg
+  logo_wide: assets/images/logo_1/logo_wide.svg
   favicon: favicon_1.ico
 
   features:
     - announce.dismiss
     - content.action.edit
-    - content.action.view
     - content.code.copy
     - content.tabs.link
     - navigation.indexes
@@ -61,11 +63,15 @@ theme:
 extra_css:
   - assets/stylesheets/admonitions.css
   - assets/stylesheets/color.css
+  - assets/stylesheets/home.css
   - assets/stylesheets/overrides.css
 
+extra_javascript:
+  - assets/javascripts/home.js
+
 hooks:
-  - overrides/custom_filters.py
-  - overrides/external_links_md_extension.py
+  - hooks/custom_filters.py
+  - hooks/external_links_md_extension.py
 
 plugins:
   - awesome-pages
@@ -80,9 +86,9 @@ plugins:
       minify_css: true
       htmlmin_opts:
         remove_comments: true
-      cache_safe: false
+      cache_safe: true
       js_files:
-        - assets/javascript/home.js
+        - assets/javascripts/home.js
       css_files:
         - assets/stylesheets/admonitions.css
         - assets/stylesheets/color.css
@@ -99,10 +105,10 @@ plugins:
   - table-reader
   ## NOTE: `macros` must be last plugin
   - macros:
-      module_name: overrides/custom_macros
+      module_name: macros
       include_yaml:
-        - latest_deploykf_version: overrides/variables/latest_deploykf_version.txt
-        - latest_deploykf_cli_version: overrides/variables/latest_deploykf_cli_version.txt
+        - latest_deploykf_version: variables/latest_deploykf_version.txt
+        - latest_deploykf_cli_version: variables/latest_deploykf_cli_version.txt
       on_error_fail: true
       on_undefined: strict
 

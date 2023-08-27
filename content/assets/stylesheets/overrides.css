@@ -4,16 +4,41 @@ Banner Styling
 ========================================
 */
 
-/* set text color */
 .md-banner {
     color: var(--md-footer-fg-color--light);
+    background-color: #1D1D26 !important;
 }
 
-/* set link color and margin */
-.md-banner a {
-    color: #6c91d5;
-    margin-left: 0.25rem;
-    margin-right: 0.25rem;
+.md-banner .md-banner__inner {
+    font-size: 0.75rem;
+}
+
+.md-banner .md-banner__inner a {
+    color: #6c91d5 !important;
+}
+
+/*
+========================================
+Header Styling
+========================================
+*/
+
+@media screen and (min-width: 76.1875em) {
+    .md-header__button.mdx-logo {
+        display: none;
+    }
+}
+
+.md-header__button.mdx-logo {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.md-header__button.mdx-logo img, .md-header__button.mdx-logo svg {
+    fill: currentcolor;
+    display: block;
+    height: 1.2rem;
+    width: auto;
 }
 
 /*
