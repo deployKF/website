@@ -1,3 +1,7 @@
+---
+icon: material/rocket-launch
+---
+
 # Getting Started
 
 This guide will explain how to get started with __production usage__ of deployKF on __any Kubernetes cluster__.

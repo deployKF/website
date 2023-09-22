@@ -1,3 +1,7 @@
+---
+icon: material/table
+---
+
 # Version Matrix
 
 The following tables summarize which tools and versions are supported by each version of __deployKF__.

@@ -1,4 +1,6 @@
 ---
+icon: material/toolbox
+
 ## Tools in current deployKF versions
 tools_current:
   - name: Kubeflow Pipelines

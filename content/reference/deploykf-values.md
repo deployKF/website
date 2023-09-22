@@ -1,3 +1,7 @@
+---
+icon: material/cog
+---
+
 # Generator Values (Configs)
 
 The following is a summary of the generator __values__ (configs) available in __deployKF__.
