@@ -199,7 +199,13 @@ def main():
         "--output-description", default="", help="Description for the output file"
     )
     parser.add_argument(
-        "--output-tip", default="", help="A tip admonition for the output file"
+        "--output-admonition-type", default="info", help="The type of the output admonition"
+    )
+    parser.add_argument(
+        "--output-admonition-title", default="", help="The title for the output admonition"
+    )
+    parser.add_argument(
+        "--output-admonition-content", default="", help="The content for the output admonition"
     )
     parser.add_argument(
         "--output-hide-sections",
@@ -246,21 +252,26 @@ def main():
 
     changelog = []
 
+    changelog.append("---")
+    changelog.append("icon: material/script-text")
     if args.output_hide_sections:
-        changelog.append("---")
         changelog.append("hide:")
         changelog.extend([f"  - {section}" for section in args.output_hide_sections])
-        changelog.append("---")
-        changelog.append("")
+    changelog.append("---")
+    changelog.append("")
 
     changelog.append(f"# {args.output_heading}")
     changelog.append("")
     changelog.append(f"{args.output_description}")
     changelog.append("")
 
-    if args.output_tip:
-        changelog.append("!!! tip")
-        changelog.append(f"    {args.output_tip}")
+    if args.output_admonition_content:
+        if args.output_admonition_title:
+            changelog.append(f'!!! {args.output_admonition_type} "{args.output_admonition_title}"')
+        else:
+            changelog.append(f"!!! {args.output_admonition_type}")
+        changelog.append("")
+        changelog.append(f"    {args.output_admonition_content}")
         changelog.append("")
 
     for release in releases:
