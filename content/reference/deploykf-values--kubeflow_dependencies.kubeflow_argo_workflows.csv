@@ -1,18 +1,18 @@
 Value,Default
-[`kubeflow_dependencies.kubeflow_argo_workflows.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1133),`false`
-[`kubeflow_dependencies.kubeflow_argo_workflows.namespace`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1134),"`""kubeflow-argo-workflows""`"
-[`kubeflow_dependencies.kubeflow_argo_workflows.extraManifests`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1147),`[]`
-[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoCli.repository`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1153),"`""quay.io/argoproj/argocli""`"
-[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoCli.tag`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1159),"`""v3.4.8""`"
-[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoCli.pullPolicy`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1160),"`""IfNotPresent""`"
-[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoExecutor.repository`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1163),"`""quay.io/argoproj/argoexec""`"
-[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoExecutor.tag`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1164),"`""v3.3.10""`"
-[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoExecutor.pullPolicy`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1165),"`""IfNotPresent""`"
-[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoWorkflowController.repository`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1168),"`""quay.io/argoproj/workflow-controller""`"
-[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoWorkflowController.tag`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1169),"`""v3.3.10""`"
-[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoWorkflowController.pullPolicy`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1170),"`""IfNotPresent""`"
-[`kubeflow_dependencies.kubeflow_argo_workflows.artifactRepository.keyFormat`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1179),"`""artifacts/{{ workflow.namespace }}/{{ workflow.name }}/{{ workflow.creationTimestamp.Y }}/{{ workflow.creationTimestamp.m }}/{{ workflow.creationTimestamp.d }}/{{ pod.name }}""`"
-[`kubeflow_dependencies.kubeflow_argo_workflows.controller.serviceAccount.create`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1188),`true`
-[`kubeflow_dependencies.kubeflow_argo_workflows.controller.serviceAccount.name`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1189),"`""argo-workflow-controller""`"
-[`kubeflow_dependencies.kubeflow_argo_workflows.server.serviceAccount.create`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1199),`true`
-[`kubeflow_dependencies.kubeflow_argo_workflows.server.serviceAccount.name`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1200),"`""argo-server""`"
+[`kubeflow_dependencies.kubeflow_argo_workflows.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1134),`false`
+[`kubeflow_dependencies.kubeflow_argo_workflows.namespace`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1135),"`""kubeflow-argo-workflows""`"
+[`kubeflow_dependencies.kubeflow_argo_workflows.extraManifests`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1148),`[]`
+[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoCli.repository`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1154),"`""quay.io/argoproj/argocli""`"
+[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoCli.tag`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1160),"`""v3.4.8""`"
+[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoCli.pullPolicy`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1161),"`""IfNotPresent""`"
+[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoExecutor.repository`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1164),"`""quay.io/argoproj/argoexec""`"
+[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoExecutor.tag`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1165),"`""v3.3.10""`"
+[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoExecutor.pullPolicy`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1166),"`""IfNotPresent""`"
+[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoWorkflowController.repository`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1169),"`""quay.io/argoproj/workflow-controller""`"
+[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoWorkflowController.tag`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1170),"`""v3.3.10""`"
+[`kubeflow_dependencies.kubeflow_argo_workflows.images.argoWorkflowController.pullPolicy`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1171),"`""IfNotPresent""`"
+[`kubeflow_dependencies.kubeflow_argo_workflows.artifactRepository.keyFormat`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1180),"`""artifacts/{{ workflow.namespace }}/{{ workflow.name }}/{{ workflow.creationTimestamp.Y }}/{{ workflow.creationTimestamp.m }}/{{ workflow.creationTimestamp.d }}/{{ pod.name }}""`"
+[`kubeflow_dependencies.kubeflow_argo_workflows.controller.serviceAccount.create`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1189),`true`
+[`kubeflow_dependencies.kubeflow_argo_workflows.controller.serviceAccount.name`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1190),"`""argo-workflow-controller""`"
+[`kubeflow_dependencies.kubeflow_argo_workflows.server.serviceAccount.create`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1200),`true`
+[`kubeflow_dependencies.kubeflow_argo_workflows.server.serviceAccount.name`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1201),"`""argo-server""`"

@@ -11,7 +11,9 @@ python ./dev/generate_changelog.py \
   --output-path ./content/releases/changelog-deploykf.md \
   --output-heading 'Changelog for deployKF' \
   --output-description 'This changelog lists releases of deployKF that are found in the [`deployKF/deployKF`](https://github.com/deployKF/deployKF/releases) repository.' \
-  --output-tip 'For a changelog that shows pre-releases, see [this page](../full-changelog-deploykf).' \
+  --output-admonition-type 'info' \
+  --output-admonition-title 'Pre-releases' \
+  --output-admonition-content 'For a changelog that shows pre-releases, see [the full-changelog](./full-changelog-deploykf.md) page.' \
   --include-headings 'Significant Changes' 'New Features' 'Improvements' 'Bug Fixes' 'Documentation' 'Miscellaneous' \
   --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?' \
   --exclude-pre-releases
@@ -22,7 +24,9 @@ python ./dev/generate_changelog.py \
   --output-path ./content/releases/full-changelog-deploykf.md \
   --output-heading 'FULL Changelog for deployKF' \
   --output-description 'This changelog lists ALL releases of deployKF (including pre-releases) that are found in the [`deployKF/deployKF`](https://github.com/deployKF/deployKF/releases) repository.' \
-  --output-tip 'For a changelog that hides pre-releases, see [this page](../changelog-deploykf).' \
+  --output-admonition-type 'info' \
+  --output-admonition-title 'Main Changelog' \
+  --output-admonition-content 'For a changelog that hides pre-releases, see [the main changelog](./changelog-deploykf.md) page.' \
   --output-hide-sections 'navigation' \
   --include-headings 'Significant Changes' 'New Features' 'Improvements' 'Bug Fixes' 'Documentation' 'Miscellaneous' \
   --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?' \
@@ -34,7 +38,9 @@ python ./dev/generate_changelog.py \
   --output-path ./content/releases/changelog-deploykf-cli.md \
   --output-heading 'Changelog for deployKF CLI' \
   --output-description 'This changelog lists releases of the deployKF CLI that are found in the [`deployKF/cli`](https://github.com/deployKF/cli/releases) repository.' \
-  --output-tip 'For a changelog that shows pre-releases, see [this page](../full-changelog-deploykf-cli).' \
+  --output-admonition-type 'info' \
+  --output-admonition-title 'Pre-releases' \
+  --output-admonition-content 'For a changelog that shows pre-releases, see [the full-changelog](./full-changelog-deploykf-cli.md) page.' \
   --include-headings 'Significant Changes' 'New Features' 'Improvements' 'Bug Fixes' 'Documentation' 'Miscellaneous' \
   --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?' \
   --exclude-pre-releases
@@ -45,7 +51,9 @@ python ./dev/generate_changelog.py \
   --output-path ./content/releases/full-changelog-deploykf-cli.md \
   --output-heading "FULL Changelog for deployKF CLI" \
   --output-description 'This changelog lists ALL releases of the deployKF CLI (including pre-releases) that are found in the [`deployKF/cli`](https://github.com/deployKF/cli/releases) repository.' \
-  --output-tip 'For a changelog that hides pre-releases, see [this page](../changelog-deploykf-cli).' \
+  --output-admonition-type 'info' \
+  --output-admonition-title 'Main Changelog' \
+  --output-admonition-content 'For a changelog that hides pre-releases, see [the main changelog](./changelog-deploykf-cli.md) page.' \
   --output-hide-sections 'navigation' \
   --include-headings 'Significant Changes' 'New Features' 'Improvements' 'Bug Fixes' 'Documentation' 'Miscellaneous' \
   --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?' \

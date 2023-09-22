@@ -1,3 +1,7 @@
+---
+icon: material/bug
+---
+
 # Troubleshooting
 
 The following sections contain troubleshooting information for issues with deployKF.

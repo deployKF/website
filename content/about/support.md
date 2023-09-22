@@ -1,3 +1,7 @@
+---
+icon: material/hospital-box
+---
+
 # Get Support
 
 While we aim to make __deployKF__ as self-service as possible, sometimes things go wrong, or your use case is a little different to the norm. 

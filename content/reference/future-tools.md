@@ -1,4 +1,6 @@
 ---
+icon: material/toolbox-outline
+
 ## Tools planned for future deployKF versions
 tools_planned:
   - name: MLflow Model Registry

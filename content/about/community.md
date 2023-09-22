@@ -1,3 +1,7 @@
+---
+icon: material/account-group
+---
+
 # Community
 
 The __deployKF__ project is a welcoming community of contributors and users.
