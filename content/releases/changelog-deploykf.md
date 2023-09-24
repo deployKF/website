@@ -2,7 +2,7 @@
 icon: material/script-text
 ---
 
-# Changelog for deployKF
+# Changelog - deployKF
 
 This changelog lists releases of deployKF that are found in the [`deployKF/deployKF`](https://github.com/deployKF/deployKF/releases) repository.
 

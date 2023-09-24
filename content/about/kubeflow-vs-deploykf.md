@@ -45,11 +45,11 @@ comparison_data:
 
 This page aims to unpack the differences between __deployKF__ and __Kubeflow__.
 
-!!! info "Packaged distributions of Kubeflow"
+!!! warning "Packaged distributions of Kubeflow"
     
-    Most other [distributions of Kubeflow](https://www.kubeflow.org/docs/started/installing-kubeflow/#packaged-distributions-of-kubeflow), are using __mostly unmodified__ versions of the Kubeflow Manifests, so the comparison is still relevant for them.
+    The other [distributions of Kubeflow](https://www.kubeflow.org/docs/started/installing-kubeflow/#packaged-distributions-of-kubeflow), are using __mostly unmodified__ versions of the Kubeflow Manifests, so the following comparison is still relevant for them.
 
-## Introduction
+## Overview
 
 __Kubeflow__ and __deployKF__ are two different but related projects:
   
@@ -60,9 +60,24 @@ __Kubeflow__ and __deployKF__ are two different but related projects:
 
 Before a more detailed comparison can be made, it is important to understand the distinction between __Kubeflow__ and __Kubeflow Manifests__.
 
-| Kubeflow                                                                                                     | Kubeflow Manifests                                                                                                                                                |
-|--------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| A project that develops many MLOps tools, including Kubeflow Pipelines, Kubeflow Notebooks, Katib, and more. | A set of Kubernetes manifests that can be used to deploy Kubeflow's MLOps tools on Kubernetes, found in the [`kubeflow/manifests`](https://github.com/kubeflow/manifests) repo. |
+<table>
+  <tr>
+    <th>
+      Kubeflow
+    </th>
+    <td>
+      A project that develops many MLOps tools, including Kubeflow Pipelines, Kubeflow Notebooks, Katib, and more.
+    </td>
+  </tr>
+  <tr>
+    <th>
+      Kubeflow Manifests
+    </th>
+    <td>
+      A set of Kubernetes manifests that can be used to deploy Kubeflow's MLOps tools on Kubernetes, found in the <a href="https://github.com/kubeflow/manifests"><code>kubeflow/manifests</code></a> repo.
+    </td>
+  </tr>
+</table>
 
 ## deployKF vs Kubeflow Manifests
 
@@ -74,4 +89,4 @@ The following table compares the two projects across a number of different aspec
 
 ## Next Steps
 
- - If you're ready to start migrating from Kubeflow to deployKF, check out the [Migrate from Kubeflow Manifests](../guides/migrate-from-kubeflow-manifests.md) guide.
+- If you're ready to start migrating from Kubeflow to deployKF, check out the [Migrate from Kubeflow Manifests](../guides/migrate-from-kubeflow-manifests.md) guide.
