@@ -2,7 +2,7 @@
 icon: material/script-text
 ---
 
-# Changelog for deployKF CLI
+# Changelog - deployKF CLI
 
 This changelog lists releases of the deployKF CLI that are found in the [`deployKF/cli`](https://github.com/deployKF/cli/releases) repository.
 
