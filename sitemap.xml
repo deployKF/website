@@ -2,142 +2,142 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://www.deploykf.org/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/faq/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/about/architecture/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/about/community/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/about/kubeflow-vs-deploykf/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/about/support/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/deploykf-cli/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/getting-started/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/migrate-from-kubeflow-manifests/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/troubleshooting/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/deploykf-authentication/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/deploykf-dashboard/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/deploykf-gateway/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/deploykf-profiles/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/tools/external-mysql/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/tools/external-object-store/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/tools/kubeflow-notebooks/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/privacy-policy/website/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/reference/deploykf-values/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/reference/future-tools/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/reference/tools/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/changelog-deploykf-cli/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/changelog-deploykf/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/full-changelog-deploykf-cli/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/full-changelog-deploykf/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/version-matrix/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/user-guides/access-kubeflow-pipelines-api/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/user-guides/gitops-for-kubeflow-pipelines/</loc>
-         <lastmod>2023-09-22</lastmod>
+         <lastmod>2023-09-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
