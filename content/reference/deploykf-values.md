@@ -1,21 +1,18 @@
 ---
-icon: material/cog
+icon: material/tune
 ---
 
-# Generator Values (Configs)
+# Generator Values
 
-The following is a summary of the generator __values__ (configs) available in __deployKF__.
+The following is a summary of the __generator values__ (configs) available in __deployKF__.
 
-!!! info
+!!! question_secondary "What are Generator Values?"
 
-    The full list of values and their defaults can also be found in the [`generator/default_values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/generator/default_values.yaml) file.
+    The generator values are how you configure all aspects of deployKF, including which tools are deployed, how they are configured, and what versions are used.
+    
+    For more information, see the [getting started](../guides/getting-started.md) guide to learn how to configure the values to suit your needs.
 
-!!! tip
-
-    The generator values are how you configure all aspects of deployKF.
-    While there are many values available, you only need to specify the ones you want to change from their defaults.
-
-    For more information about creating your custom values files, see the [getting started](../guides/getting-started.md#3-values-configuration) guide.
+---
 
 ## Argo CD
 

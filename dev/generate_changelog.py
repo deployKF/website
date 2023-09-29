@@ -199,13 +199,19 @@ def main():
         "--output-description", default="", help="Description for the output file"
     )
     parser.add_argument(
-        "--output-admonition-type", default="info", help="The type of the output admonition"
+        "--output-admonition-type",
+        default="info",
+        help="The type of the output admonition",
     )
     parser.add_argument(
-        "--output-admonition-title", default="", help="The title for the output admonition"
+        "--output-admonition-title",
+        default="",
+        help="The title for the output admonition",
     )
     parser.add_argument(
-        "--output-admonition-content", default="", help="The content for the output admonition"
+        "--output-admonition-content",
+        default="",
+        help="The content for the output admonition",
     )
     parser.add_argument(
         "--output-hide-sections",
@@ -267,12 +273,17 @@ def main():
 
     if args.output_admonition_content:
         if args.output_admonition_title:
-            changelog.append(f'!!! {args.output_admonition_type} "{args.output_admonition_title}"')
+            changelog.append(
+                f'!!! {args.output_admonition_type} "{args.output_admonition_title}"'
+            )
         else:
             changelog.append(f"!!! {args.output_admonition_type}")
         changelog.append("")
         changelog.append(f"    {args.output_admonition_content}")
         changelog.append("")
+
+    changelog.append("---")
+    changelog.append("")
 
     for release in releases:
         formatted_release = format_release(release, args.include_headings)

@@ -22,33 +22,33 @@
           Your<br><span class="mdx-hero__tag-highlight">Open</span><br>ML Platform
         </h1>
         <div class="mdx-hero__tag-description">
-          <b>deployKF</b> is a next-generation machine learning toolkit for
-          <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes</a>
-          which effortlessly integrates <a href="https://www.kubeflow.org/" target="_blank" rel="noopener">Kubeflow</a>
-          and other leading ML/AI tools.
+          <div class="mdx-hero__tag-description_section">
+            deployKF builds world-class ML Platforms on <strong>any Kubernetes cluster</strong>, within <strong>any cloud or environment</strong>, in minutes.
+          </div>
+          <div class="mdx-hero__tag-description_section">
+            With <em>centralized configs</em>, in-place upgrades, and support for leading ML & Data tools like
+            <a href="{{ 'reference/tools/#kubeflow-ecosystem' | url }}"><strong>Kubeflow</strong></a>,
+            <a href="{{ 'reference/future-tools/#apache-airflow' | url }}"><strong>Airflow</strong><sup>†</sup></a>, and
+            <a href="{{ 'reference/future-tools/#mlflow-model-registry' | url }}"><strong>MLflow</strong><sup>†</sup></a>,
+            deployKF lets you focus on using the platform, not building it.
+          </div>
         </div>
         <div class="mdx-hero__actions">
-          <a href="{{ 'guides/getting-started'| url }}"
-             title="Getting Started"
-             class="md-button md-button--primary"
-          >
+          <a href="{{ 'guides/getting-started' | url }}" title="Getting Started" class="md-button md-button--primary md-button--primary-left">
             Get Started
             <span class="twemoji mdx-button-icon">
-              {% include ".icons/fontawesome/solid/plane-departure.svg" %}
+              {% include ".icons/material/rocket-launch.svg" %}
             </span>
           </a>
-          <a href="{{ config.repo_url | url }}"
-             title="Github Repository"
-             class="md-button md-button--secondary"
-          >
+          <a href="{{ config.repo_url | url }}" title="Github Repository" class="md-button md-button--secondary">
             Source Code
             <span class="twemoji mdx-button-icon">
               {% include ".icons/fontawesome/brands/github.svg" %}
             </span>
           </a>
         </div>
-        <div class="mdx-hero__crafted_by_text">
-          Crafted with ❤️ by the developers of Kubeflow.
+        <div class="mdx-hero__footnote">
+          <sub><sup>†</sup>Coming soon, see our <a href="{{ 'reference/tools' | url }}" target="_blank" rel="noopener">current</a> and <a href="{{ 'reference/future-tools' | url }}" target="_blank" rel="noopener">future</a> tools.</sub>
         </div>
       </div>
     </div>

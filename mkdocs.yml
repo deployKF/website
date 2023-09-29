@@ -1,5 +1,5 @@
 site_name: deployKF
-site_description: deployKF is a next-generation machine learning toolkit for Kubernetes which effortlessly integrates leading ML/AI tools.
+site_description: deployKF builds world-class ML Platforms on any Kubernetes cluster, within any cloud or environment, in minutes.
 site_url: https://www.deploykf.org/
 
 copyright: "© 2023 deployKF Authors | <a href='/privacy-policy/website/'>Privacy Policy</a>"
@@ -117,6 +117,7 @@ markdown_extensions:
   - attr_list
   - def_list
   - footnotes
+  - md_in_html
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji

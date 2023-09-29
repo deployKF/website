@@ -24,7 +24,7 @@
 }
 
 .mdx-hero .mdx-hero__content_inner {
-    padding: 2.0rem 0.75rem;
+    padding: 2.0rem 1.0rem;
     max-width: 25rem;
 }
 
@@ -51,19 +51,27 @@
 }
 
 .mdx-hero .mdx-hero__tag-description {
-    padding-bottom: 1.4rem;
+    border-top: 0.05rem solid var(--md-default-fg-color--lightest);
+    border-bottom: 0.05rem solid var(--md-default-fg-color--lightest);
+    padding-top: 0.75rem;
 }
 
-.mdx-hero .mdx-hero__crafted_by_text {
+.mdx-hero .mdx-hero__tag-description .mdx-hero__tag-description_section {
+    padding-bottom: 1.0rem;
+}
+
+.mdx-hero .mdx-hero__footnote {
     opacity: 0.6;
     font-size: 70%
 }
 
 .mdx-hero .mdx-hero__actions {
+    padding-top: 1.0rem;
     padding-bottom: 1.0rem;
 }
 
 .mdx-hero .mdx-hero__actions .md-button {
+    width: 10rem;
     margin: .3rem .25rem;
 }
 
@@ -71,16 +79,35 @@
     padding-left: .3rem;
 }
 
-.mdx-hero .mdx-hero__actions .md-button--primary {
-    background-color: var(--md-accent-fg-color) !important;
-    border-color: var(--md-accent-fg-color);
+[data-md-color-scheme=default] .mdx-hero .mdx-hero__actions .md-button--primary {
+    border-color: var(--md-primary-fg-color);
     color: white !important;
 }
 
-.mdx-hero .mdx-hero__actions .md-button--secondary {
-    background-color: var(--md-accent-fg-color--transparent) !important;
+[data-md-color-scheme=slate] .mdx-hero .mdx-hero__actions .md-button--primary {
     border-color: var(--md-primary-fg-color--light);
+    color: white !important;
+}
+
+.mdx-hero .mdx-hero__actions .md-button--primary-left {
+    background: linear-gradient(60deg, rgba(1, 75, 209, 0.8), rgba(253, 126, 20, 0.85));
+}
+
+.mdx-hero .mdx-hero__actions .md-button--primary-right {
+    background: linear-gradient(60deg, rgba(253, 126, 20, 0.85), rgba(1, 75, 209, 0.8));
+}
+
+.mdx-hero .mdx-hero__actions .md-button--secondary {
+    background: var(--md-accent-fg-color--transparent);
     color: var(--md-primary-fg-color--light) !important;
+}
+
+[data-md-color-scheme=default] .mdx-hero .mdx-hero__actions .md-button--secondary {
+    border-color: var(--md-primary-fg-color--light);
+}
+
+[data-md-color-scheme=slate] .mdx-hero .mdx-hero__actions .md-button--secondary {
+    border-color: var(--md-primary-fg-color);
 }
 
 [data-md-color-scheme=default] .mdx-hero .mdx-hero__actions .md-button:focus,

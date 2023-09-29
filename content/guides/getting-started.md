@@ -82,8 +82,7 @@ Before starting, let's briefly introduce the deployKF project.
 
 ## 0. Modes of Operation
 
-There are currently two "modes of operation" for deployKF.
-The modes differ in how manifests are generated and applied to your Kubernetes cluster.
+There are currently two "modes of operation" for deployKF, the modes differ by how manifests are generated and applied to your Kubernetes cluster.
 
 <table>
   <tr>
@@ -122,7 +121,7 @@ deployKF is designed to work on any Kubernetes cluster!
 
 Other requirements vary depending on the "mode of operation":
 
-Requirement<br><sub>:fontawesome-solid-star:: required</sub><br><sub>:fontawesome-solid-o:: optional</sub> | ArgoCD Plugin Mode | Manifests Repo Mode 
+Requirement | ArgoCD Plugin Mode | Manifests Repo Mode 
 --- | :---: | :---:
 a Kubernetes cluster ([version compatibility](../releases/version-matrix.md#deploykf-dependencies)) | :fontawesome-solid-star: | :fontawesome-solid-star:
 ArgoCD is [installed](https://argo-cd.readthedocs.io/en/stable/getting_started/) on your Kubernetes | :fontawesome-solid-star: | :fontawesome-solid-star:
@@ -131,6 +130,7 @@ deployKF's CLI is [installed](deploykf-cli.md) locally | - | :fontawesome-solid-
 a private git repo (for generated manifests) | - | :fontawesome-solid-star: 
 external MySQL database ([connecting guide](tools/external-mysql.md)) | :fontawesome-solid-o: | :fontawesome-solid-o:
 external S3-like object store ([connecting guide](tools/external-object-store.md)) | :fontawesome-solid-o: | :fontawesome-solid-o:
+:fontawesome-solid-star: → required<br>:fontawesome-solid-o: → optional | |
 
 !!! warning "Dedicated Kubernetes Cluster"
 
