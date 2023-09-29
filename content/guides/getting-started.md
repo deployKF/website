@@ -22,9 +22,9 @@ Before starting, let's briefly introduce the deployKF project.
 
     deployKF is the best way to build reliable ML Platforms on Kubernetes.
     
-    - deployKF supports leading [MLOps & Data tools](../reference/tools.md) from both Kubeflow, and other projects
-    - deployKF has a Helm-like interface, with [values](../reference/deploykf-values.md) for configuring all aspects of the deployment (no need to edit Kubernetes YAML)
-    - deployKF does NOT install resources directly in your cluster, instead it generates [ArgoCD Applications](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#applications) to provide native GitOps support
+    - deployKF supports leading [ML & Data tools](../reference/tools.md) from both Kubeflow, and other projects
+    - deployKF has a Helm-like interface, with [values](../reference/deploykf-values.md) for configuring all aspects of the deployment
+    - deployKF uses [ArgoCD Applications](#4-sync-argocd-applications) to provide native GitOps support
 
 ### Other Questions
 
