@@ -28,17 +28,17 @@ Before starting, let's briefly introduce the deployKF project.
 
 ### Other Questions
 
-??? question_secondary "What ML/AI tools are in deployKF?"
+??? question_secondary "What ML and AI tools are in deployKF?"
 
-    Currently, deployKF supports MLOps tools from the Kubeflow ecosystem like [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines) and [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks).
-    We are actively adding support for other popular tools such as [MLFlow (Model Registry)](../reference/future-tools.md#mlflow-model-registry), [Apache Airflow](../reference/future-tools.md#apache-airflow), and [Feast](../reference/future-tools.md#feast). 
-    
-    For more information, please see [supported tools](../reference/tools.md) and [future tools](../reference/future-tools.md)!
+    deployKF supports all tools from the [Kubeflow Ecosystem](../reference/tools.md#kubeflow-ecosystem) including [__Kubeflow Pipelines__](../reference/tools.md#kubeflow-pipelines) and [__Kubeflow Notebooks__](../reference/tools.md#kubeflow-notebooks).
+    We are actively adding support for other popular tools such as [__MLflow__](../reference/future-tools.md#mlflow-model-registry), [__Airflow__](../reference/future-tools.md#apache-airflow), and [__Feast__](../reference/future-tools.md#feast). 
+
+    For more information, please see our [current](../reference/tools.md) and [future](../reference/future-tools.md) tools!
 
 ??? question_secondary "Who makes deployKF?"
 
     deployKF was originally created by [Mathew Wicks](https://www.linkedin.com/in/mathewwicks/) (GitHub: [@thesuperzapper](https://github.com/thesuperzapper)), a Kubeflow lead and maintainer of the popular [Apache Airflow Helm Chart](https://github.com/airflow-helm/charts).
-    However, deployKF is now a community-led project that welcomes contributions from anyone who wants to help.
+    deployKF is a community-led project that welcomes contributions from anyone who wants to help.
 
 ??? question_secondary "Is commercial support available for deployKF?"
 
@@ -68,11 +68,9 @@ Before starting, let's briefly introduce the deployKF project.
 
 ??? question_secondary "Who uses deployKF?"
 
-    deployKF is a new project, and we are still building our community.
+    deployKF is a new project, and we are still building our community, consider [adding your organization](https://github.com/deployKF/deployKF/blob/main/ADOPTERS.md) to our list of adopters.
 
-    Please consider adding your organization to our [list of adopters](https://github.com/deployKF/deployKF/blob/main/ADOPTERS.md).
-
-### Media Coverage
+### Media
 
 ??? youtube "Intro / Demo - Kubeflow Community Call - July 2023"
 
@@ -538,6 +536,21 @@ After creating your custom values file(s), the method used to generate and apply
 
 Now that your deployKF app-of-apps has been applied, you must sync the ArgoCD applications that make up deployKF.
 
+??? question_secondary "Why does deployKF use Argo CD?"
+
+    ML Platforms are made up of many interconnected dependencies, and it can be difficult to manage the state of all these components manually.
+    This is where GitOps comes in, it allows us to define the desired state of all the components in a single place, and then use a tool to reconcile the actual state of our cluster to match the defined state.
+    
+    [__Argo CD__](https://argo-cd.readthedocs.io/en/stable/) is a great tool for this job given its [__widespread adoption__](https://github.com/argoproj/argo-cd/blob/master/USERS.md), and __well designed interface__ for visualizing and managing the current state of your cluster.
+    In the future, we plan to support other Kubernetes GitOps tools (like [Flux CD](https://fluxcd.io/)), but we have initially chosen to use Argo CD due to its overwhelming popularity.
+
+??? question_secondary "Argo CD vs Argo Workflows"
+
+    It's important to note that _Argo CD_ is NOT the same as _Argo Workflows_, they just have similar names:
+    
+    - [__Argo CD__](https://argo-cd.readthedocs.io/en/stable/) is a __GitOps Tool__, it manages the state of Kubernetes resources
+    - [__Argo Workflows__](https://argoproj.github.io/argo-workflows/) is a __Workflow Engine__, it defines and runs DAG workflows in Pods on Kubernetes
+
 ArgoCD supports syncing applications both _graphically (Web UI)_ and _programmatically (CLI)_.
 If you are new to ArgoCD, we recommend taking a look at the Web UI, as it provides a visual overview of each application and its sync status.
 
@@ -732,25 +745,6 @@ It is important to note that deployKF applications depend on each other, so you 
     # sync all applications in the "kubeflow-tools" group
     argocd app sync -l "app.kubernetes.io/component=kubeflow-tools"
     ```
-
-??? question_secondary "Why does deployKF use Argo CD?"
-
-    ML Platforms are made up of many components and interconnected dependencies, and it can be difficult to manage the state of all these components.
-    
-    This is where GitOps comes in, it allows us to define the state (i.e. Kubernetes manifests) of all the components in a single place (Git), and then use a tool to reconcile the actual state of our cluster to match the defined state.
-    
-    [Argo CD](https://argo-cd.readthedocs.io/en/stable/){target=_blank} is a great tool for this job, it is [widely used](https://github.com/argoproj/argo-cd/blob/master/USERS.md){target=_blank}, [part of the CNCF](https://www.cncf.io/projects/argo/){target=_blank}, and has a [great Web UI](../assets/images/argocd-ui.gif){target=_blank} for visualizing and managing the current state of your cluster.
-
-    ---
-
-    In the future, we plan to support other popular Kubernetes GitOps tools like [Flux CD](https://fluxcd.io/), but we have initially chosen to support Argo CD given its overwhelming popularity.
-
-    ---
-
-    It's important to note that [Argo CD](https://argo-cd.readthedocs.io/en/stable/){target=_blank} is __NOT__ the same as [Argo Workflows](https://argoproj.github.io/argo-workflows/){target=_blank}.
-    
-    - Argo CD is a __GitOps tool__ for Kubernetes, which means it uses Git as the source of truth for your cluster's state, rather than manually applying Kubernetes YAML with `kubectl apply` or `helm install`.
-    - Argo Workflows is a __workflow engine__ for Kubernetes, which means it allows you to define and run DAG workflows in Pods on Kubernetes.
 
 ## 5. Use the Platform
 
