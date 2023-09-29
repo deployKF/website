@@ -9,7 +9,7 @@ cd "$THIS_SCRIPT_PATH"
 python ./dev/generate_changelog.py \
   --source-repo 'deployKF/deployKF' \
   --output-path ./content/releases/changelog-deploykf.md \
-  --output-heading 'Changelog for deployKF' \
+  --output-heading 'Changelog - deployKF' \
   --output-description 'This changelog lists releases of deployKF that are found in the [`deployKF/deployKF`](https://github.com/deployKF/deployKF/releases) repository.' \
   --output-admonition-type 'info' \
   --output-admonition-title 'Pre-releases' \
@@ -22,7 +22,7 @@ python ./dev/generate_changelog.py \
 python ./dev/generate_changelog.py \
   --source-repo 'deployKF/deployKF' \
   --output-path ./content/releases/full-changelog-deploykf.md \
-  --output-heading 'FULL Changelog for deployKF' \
+  --output-heading 'Changelog (all releases) - deployKF' \
   --output-description 'This changelog lists ALL releases of deployKF (including pre-releases) that are found in the [`deployKF/deployKF`](https://github.com/deployKF/deployKF/releases) repository.' \
   --output-admonition-type 'info' \
   --output-admonition-title 'Main Changelog' \
@@ -36,7 +36,7 @@ python ./dev/generate_changelog.py \
 python ./dev/generate_changelog.py \
   --source-repo 'deployKF/cli' \
   --output-path ./content/releases/changelog-deploykf-cli.md \
-  --output-heading 'Changelog for deployKF CLI' \
+  --output-heading 'Changelog - deployKF CLI' \
   --output-description 'This changelog lists releases of the deployKF CLI that are found in the [`deployKF/cli`](https://github.com/deployKF/cli/releases) repository.' \
   --output-admonition-type 'info' \
   --output-admonition-title 'Pre-releases' \
@@ -49,7 +49,7 @@ python ./dev/generate_changelog.py \
 python ./dev/generate_changelog.py \
   --source-repo 'deployKF/cli' \
   --output-path ./content/releases/full-changelog-deploykf-cli.md \
-  --output-heading "FULL Changelog for deployKF CLI" \
+  --output-heading "Changelog (all releases) - deployKF CLI" \
   --output-description 'This changelog lists ALL releases of the deployKF CLI (including pre-releases) that are found in the [`deployKF/cli`](https://github.com/deployKF/cli/releases) repository.' \
   --output-admonition-type 'info' \
   --output-admonition-title 'Main Changelog' \

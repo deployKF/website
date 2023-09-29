@@ -6,7 +6,7 @@ function startHeroAnimation() {
         return;
     }
 
-    let words = ['Open', 'Effortless', 'Custom'];
+    let words = ['Open', 'Custom', 'Effortless'];
     let currentWordIndex = 0;
     const highlightElement = document.querySelector('.mdx-hero__tag-highlight');
 

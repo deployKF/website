@@ -10,6 +10,8 @@ This changelog lists releases of deployKF that are found in the [`deployKF/deplo
 
     For a changelog that shows pre-releases, see [the full-changelog](./full-changelog-deploykf.md) page.
 
+---
+
 ## [0.1.2](https://github.com/deployKF/deployKF/releases/tag/v0.1.2) - 2023-09-22
 
 ### Significant Changes
