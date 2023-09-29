@@ -34,4 +34,4 @@ Connect on [LinkedIn](https://www.linkedin.com/in/mathewwicks/) or email [`sales
     
 Are you a vendor who wants to support deployKF or use it in your product?
     
-Let's work together! Email [`mathew@aranui.solutions`](mailto:mathew@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) to discuss more.
+Let's work together! Email [`team@deploykf.org`](mailto:team@deploykf.org?subject=%5BPartnerships%5D%20MY_SUBJECT) to discuss more.
