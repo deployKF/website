@@ -1,6 +1,6 @@
 deployKF,`0.1`
-[Kubernetes](https://kubernetes.io/),"`1.22`, `1.23`, `1.24`, `1.25`, `1.26`"
+[Kubernetes](https://kubernetes.io/),"`1.22`, `1.23`, `1.24`, `1.25`, `1.26`, `1.27`"
 [Argo CD](https://argoproj.github.io/cd/),`2.3+`
 [Istio](https://istio.io/),"`1.14`, `1.15`, `1.16`, (`1.17`)"
 [cert-manager](https://cert-manager.io/),(`1.12`)
-[Kyverno](https://kyverno.io/),"<s>`1.9`</s>, (`1.10`)"
+[Kyverno](https://kyverno.io/),"<s>`1.9.X`</s>, (`1.10.0`), <s>`1.10.1+`</s><sup>[[1]](https://github.com/kyverno/kyverno/issues/8447)</sup>"
