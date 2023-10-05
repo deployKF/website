@@ -7,11 +7,12 @@ faq_schema:
     include_in_schema: true
     pre_expand_answer: false
     answer: |-
-      deployKF is the best way to build reliable ML Platforms on Kubernetes.
+      deployKF builds world-class ML Platforms on __any Kubernetes cluster__, within __any cloud or environment__, in minutes.
       
-      - deployKF supports leading [ML & Data tools](./reference/tools.md) from both Kubeflow, and other projects
-      - deployKF has a Helm-like interface, with [values](./reference/deploykf-values.md) for configuring all aspects of the deployment
-      - deployKF uses [ArgoCD Applications](./guides/getting-started.md#4-sync-argocd-applications) to provide native GitOps support
+      - deployKF includes [__leading ML & Data tools__](./reference/tools.md#tool-index) from Kubeflow and more
+      - deployKF has [__centralized configs__](./reference/deploykf-values.md) that manage all aspects of the platform
+      - deployKF supports __in-place upgrades__ and can __autonomously__ roll out config changes
+      - deployKF uses [__ArgoCD Applications__](./guides/getting-started.md#4-sync-argocd-applications) to provide native GitOps support
 
   - question: What ML and AI tools are in deployKF?
     include_in_schema: true
@@ -33,8 +34,8 @@ faq_schema:
     include_in_schema: true
     pre_expand_answer: false
     answer: |-
-      The creator of deployKF (Mathew Wicks), operates a US-based MLOps company called [Aranui Solutions](https://www.aranui.solutions) that provides commercial support and consulting for deployKF.
-    
+      The creator of deployKF (Mathew Wicks), operates a US-based ML & Data company named [__Aranui Solutions__](https://www.aranui.solutions) which provides __commercial support__ and __advisory services__.
+      
       Connect on [LinkedIn](https://www.linkedin.com/in/mathewwicks/) or email [`sales@aranui.solutions`](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) to learn more!
 
   - question: Who uses deployKF?

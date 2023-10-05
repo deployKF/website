@@ -4,11 +4,11 @@ icon: material/rocket-launch
 
 # Getting Started
 
-This guide will help you get started with __production usage__ of deployKF on __any__ Kubernetes cluster.
+This guide helps you build a __production-ready__ deployKF instance on __any__ Kubernetes cluster.
 
 !!! tip "Other Guides"
 
-    - [Migrate from Kubeflow Manifests](migrate-from-kubeflow-manifests.md) - migrate from an existing Kubeflow deployment
+    - [__Migrate from Kubeflow Manifests__](migrate-from-kubeflow-manifests.md) - migrate from an existing Kubeflow deployment
 
 ---
 
@@ -20,11 +20,12 @@ Before starting, let's briefly introduce the deployKF project.
 
 !!! question ""
 
-    deployKF is the best way to build reliable ML Platforms on Kubernetes.
+    deployKF builds world-class ML Platforms on __any Kubernetes cluster__, within __any cloud or environment__, in minutes.
     
-    - deployKF supports leading [ML & Data tools](../reference/tools.md) from both Kubeflow, and other projects
-    - deployKF has a Helm-like interface, with [values](../reference/deploykf-values.md) for configuring all aspects of the deployment
-    - deployKF uses [ArgoCD Applications](#4-sync-argocd-applications) to provide native GitOps support
+    - deployKF includes [__leading ML & Data tools__](../reference/tools.md#tool-index) from Kubeflow and more
+    - deployKF has [__centralized configs__](../reference/deploykf-values.md) that manage all aspects of the platform
+    - deployKF supports __in-place upgrades__ and can __autonomously__ roll out config changes
+    - deployKF uses [__ArgoCD Applications__](#4-sync-argocd-applications) to provide native GitOps support
 
 ### Other Questions
 
@@ -42,7 +43,7 @@ Before starting, let's briefly introduce the deployKF project.
 
 ??? question_secondary "Is commercial support available for deployKF?"
 
-    The creator of deployKF (Mathew Wicks), operates a US-based MLOps company called [Aranui Solutions](https://www.aranui.solutions) that provides commercial support and consulting for deployKF.
+    The creator of deployKF (Mathew Wicks), operates a US-based ML & Data company named [__Aranui Solutions__](https://www.aranui.solutions) which provides __commercial support__ and __advisory services__.
     
     Connect on [LinkedIn](https://www.linkedin.com/in/mathewwicks/) or email [`sales@aranui.solutions`](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) to learn more!
 
@@ -165,13 +166,13 @@ external S3-like object store ([connecting guide](tools/external-object-store.md
 
 ## 2. Values / Configuration
 
-deployKF is configured with YAML config files containing "values", which behave similarly to those in Helm.
-There are a very large number of values (more than 1500), but you can start by defining a few important ones, and then grow your values file over time.
+All aspects of your deployKF platform are configured with YAML-based configs named "values".
+There are a very large number of values (more than 1500), but as deployKF supports _in-place upgrades_ you can start with few important ones, and then grow your values file over time.
 
 We recommend using the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file as a starting point for your values.
-The sample values have all ML tools enabled, along with some sensible security defaults.
+These sample values (which are different for each deployKF version) have all ML & Data tools enabled, along with some sensible security defaults.
 
-You may also use the sample values as a base, and override specific values in a separate file.
+You may copy and make changes to the sample values, or directly use it as a base, and override specific values in a separate file.
 We provide the [`sample-values-overrides.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values-overrides.yaml) file as an example of this approach.
 
 For reference, ALL values and their defaults are listed on the [values reference](../reference/deploykf-values.md) page, which is generated from the full [`default_values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/generator/default_values.yaml) file.
@@ -468,7 +469,7 @@ After creating your custom values file(s), the method used to generate and apply
 
     1. generate the manifests
     2. commit the generated manifests to a git repo
-    3. manually apply the app-of-apps manifest
+    3. apply the generated app-of-apps manifest
 
     ---
 
@@ -541,7 +542,7 @@ Now that your deployKF app-of-apps has been applied, you must sync the ArgoCD ap
     ML Platforms are made up of many interconnected dependencies, and it can be difficult to manage the state of all these components manually.
     This is where GitOps comes in, it allows us to define the desired state of all the components in a single place, and then use a tool to reconcile the actual state of our cluster to match the defined state.
     
-    [__Argo CD__](https://argo-cd.readthedocs.io/en/stable/) is a great tool for this job given its [__widespread adoption__](https://github.com/argoproj/argo-cd/blob/master/USERS.md), and __well designed interface__ for visualizing and managing the current state of your cluster.
+    [__Argo CD__](https://argo-cd.readthedocs.io/) is a great tool for this job given its [__widespread adoption__](https://github.com/argoproj/argo-cd/blob/master/USERS.md), and __well designed interface__ for visualizing and managing the current state of your cluster.
     In the future, we plan to support other Kubernetes GitOps tools (like [Flux CD](https://fluxcd.io/)), but we have initially chosen to use Argo CD due to its overwhelming popularity.
 
 ??? question_secondary "Argo CD vs Argo Workflows"
@@ -569,28 +570,31 @@ It is important to note that deployKF applications depend on each other, so you 
 
     ??? question_secondary "How do I access the ArgoCD Web UI?"
     
-        If you have not publicly exposed the ArgoCD Web UI, you can access it by port-forwarding the `argocd-server` Service to your local machine.
-    
-        You can do this with the following `kubectl` command:
-    
-        ```shell
-        kubectl port-forward --namespace "argocd" svc/argocd-server 8090:https
-        ```
-    
-        You should now see the ArgoCD interface at [https://localhost:8090](https://localhost:8090).
-    
-        ---
-        
-        If this is the first time you are using ArgoCD, you will need to retrieve the initial password for the `admin` user.
-    
-        You can do this with the following `kubectl` command:
+        If this is the first time you are using ArgoCD, you will need to retrieve the initial password for the `admin` user:
         
         ```shell
         echo $(kubectl -n argocd get secret/argocd-initial-admin-secret \
           -o jsonpath="{.data.password}" | base64 -d)
         ```
+        
+        ---
+        
+        If you don't want to [expose ArgoCD with a `LoadBalancer` or `Ingress`](https://argo-cd.readthedocs.io/en/stable/getting_started/#3-access-the-argo-cd-api-server), you may use `kubectl` port-forwarding to access the ArgoCD Web UI:
     
-        You can now log in to ArgoCD with the `admin` user and the password you retrieved above.
+        ```shell
+        kubectl port-forward --namespace "argocd" svc/argocd-server 8090:https
+        ```
+        
+        You will now be able to access ArgoCD at [https://localhost:8090](https://localhost:8090) in your browser.
+        
+        Log in with the `admin` user, and the password you retrieved above.
+
+        ---
+
+        The ArgoCD Web UI will look like this:
+    
+        ![ArgoCD Web UI (Dark Mode)](/assets/images/argocd-ui-DARK.png#only-dark)
+        ![ArgoCD Web UI (Light Mode)](/assets/images/argocd-ui-LIGHT.png#only-light)
 
     ---
 

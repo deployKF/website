@@ -1,6 +1,8 @@
 # Install deployKF CLI
 
-This guide explains how to install the `deploykf` command line interface (CLI) on your local machine.
+This guide explains how to __install__ the deployKF __command line interface__.
+
+---
 
 ## About the CLI
 

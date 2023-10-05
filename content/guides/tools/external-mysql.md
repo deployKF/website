@@ -1,6 +1,8 @@
 # Connect an external MySQL Database
 
-This guide explains how to use an external MySQL database for tools that require a MySQL database in deployKF.
+This guide explains how to __use an external MySQL database__ with deployKF.
+
+---
 
 ## Overview
 

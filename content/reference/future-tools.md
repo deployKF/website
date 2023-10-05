@@ -183,7 +183,7 @@ tools_planned:
 
 # ML & Data Tools (Planned)
 
-This page lists the ML & Data tools which are __planned__ for future versions of __deployKF__.
+This page lists the __ML & Data tools__ which are __planned for future versions__ of deployKF.
 
 !!! question_secondary "How do I request or contribute a tool?"
     

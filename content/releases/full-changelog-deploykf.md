@@ -6,7 +6,7 @@ hide:
 
 # Changelog (all releases) - deployKF
 
-This changelog lists ALL releases of deployKF (including pre-releases) that are found in the [`deployKF/deployKF`](https://github.com/deployKF/deployKF/releases) repository.
+This changelog lists ALL releases of __deployKF__ (including pre-releases) that are found in the [`deployKF/deployKF`](https://github.com/deployKF/deployKF/releases) repository.
 
 !!! info "Main Changelog"
 

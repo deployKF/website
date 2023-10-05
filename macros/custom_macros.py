@@ -126,6 +126,9 @@ def define_env(env: MacrosPlugin):
                 _html_tr(["Source Code"], [upstream_repo_link]),
             )
             output_lines.append(_html_tr(["deployKF Configs"], [dkf_values_link]))
+            output_lines.append(
+                _html_tr(["Since deployKF"], [f'`{row["deploykf_version"]}`'])
+            )
             output_lines.append(f"</table>")
 
             # Render tool description
@@ -218,6 +221,12 @@ def define_env(env: MacrosPlugin):
                 _html_tr(
                     ["Source Code"],
                     [upstream_repo_link],
+                )
+            )
+            output_lines.append(
+                _html_tr(
+                    ["Roadmap Priority"],
+                    [PRIORITY_TO_WORD[row["deploykf_priority"]]],
                 )
             )
             output_lines.append(f"</table>")

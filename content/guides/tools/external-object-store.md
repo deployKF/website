@@ -1,6 +1,8 @@
 # Connect an external S3-like Object Store
 
-This guide explains how to use an external S3-compatible object store for tools that require an object store in deployKF.
+This guide explains how to __use an external S3-like object store__ with deployKF.
+
+---
 
 ## Overview
 

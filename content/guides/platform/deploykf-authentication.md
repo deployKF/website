@@ -1,6 +1,8 @@
 # User Authentication and External Identity Providers
 
-This guide explains how to configure deployKF user authentication, including connecting with external identity providers.
+This guide explains how to __configure user authentication__ and connect with __external identity providers__ in deployKF.
+
+---
 
 ## Overview
 

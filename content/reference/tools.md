@@ -105,7 +105,7 @@ tools_current:
 
 # ML & Data Tools (Current)
 
-This page lists ML & Data tools which are __currently supported__ by deployKF.
+This page lists __ML & Data tools__ which are __currently supported__ by deployKF.
 
 !!! question_secondary "What versions of each tool are supported?"
     
