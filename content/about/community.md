@@ -4,8 +4,16 @@ icon: material/account-group
 
 # Community
 
-The __deployKF__ project is a welcoming community of contributors and users.
+The deployKF project is a welcoming community of contributors and users.
 We encourage participation from anyone who shares our mission of making it easy to build open ML Platforms on Kubernetes.
+
+---
+
+## Vendor Partnerships
+    
+Are you a vendor who wants to support deployKF or use it in your product?
+    
+Let's work together! Email [`team@deploykf.org`](mailto:team@deploykf.org?subject=%5BPartnerships%5D%20MY_SUBJECT) to discuss more.
 
 ## Slack
 

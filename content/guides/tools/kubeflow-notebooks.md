@@ -1,6 +1,8 @@
 # Configure Kubeflow Notebooks
 
-This guide explains how to configure Kubeflow Notebooks in deployKF.
+This guide explains how to __configure Kubeflow Notebooks__ in deployKF.
+
+---
 
 ## Overview
 

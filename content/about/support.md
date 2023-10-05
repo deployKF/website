@@ -4,17 +4,27 @@ icon: material/hospital-box
 
 # Get Support
 
-While we aim to make __deployKF__ as self-service as possible, sometimes things go wrong, or your use case is a little different to the norm. 
+While we aim to make deployKF as self-service as possible, sometimes things go wrong, or your use-case is a little different to the norm. 
 In these cases, you have a few options.
 
-## Join the Community
+---
+
+## Commercial Support
+
+The creator of deployKF (Mathew Wicks), operates a US-based ML & Data company named [__Aranui Solutions__](https://www.aranui.solutions) which provides __commercial support__ and __advisory services__.
+
+Connect on [LinkedIn](https://www.linkedin.com/in/mathewwicks/) or email [`sales@aranui.solutions`](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) to learn more!
+
+## Open-Source Support
+
+### Join the Community
 
 If you have a question, or just want to chat, you can:
 
 1. Post a message on the [Slack](community.md#slack)
 2. Start a thread on the [Users Mailing List](community.md#users-mailing-list)
 
-## Raise an Issue
+### Raise an Issue
 
 If you have found a bug, or have a feature request, you can raise an issue on the relevant GitHub repository:
 
@@ -23,15 +33,3 @@ If you have found a bug, or have a feature request, you can raise an issue on th
 | __deployKF Generator__ | [`deployKF/deployKF`](https://github.com/deployKF/deployKF/issues) |
 | __deployKF CLI__       | [`deployKF/cli`](https://github.com/deployKF/cli/issues)           |
 | __deployKF Website__   | [`deployKF/website`](https://github.com/deployKF/website/issues)   |
-
-## Commercial Support
-
-For US-based commercial support, the creator of deployKF (Mathew Wicks), operates an MLOps company called [Aranui Solutions](https://www.aranui.solutions).
-    
-Connect on [LinkedIn](https://www.linkedin.com/in/mathewwicks/) or email [`sales@aranui.solutions`](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) to learn more!
-
-## Vendor Partnerships
-    
-Are you a vendor who wants to support deployKF or use it in your product?
-    
-Let's work together! Email [`team@deploykf.org`](mailto:team@deploykf.org?subject=%5BPartnerships%5D%20MY_SUBJECT) to discuss more.

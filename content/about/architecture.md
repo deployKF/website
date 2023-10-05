@@ -7,6 +7,8 @@ ignore_macros: true
 
 This document takes a detailed look at the __architecture of deployKF__ and its components.
 
+---
+
 ## Overview
 
 deployKF has two user-facing components:

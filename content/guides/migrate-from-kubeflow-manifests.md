@@ -1,6 +1,8 @@
 # Migrate from Kubeflow Manifests
 
-This guide explains how to migrate from an existing deployment of __Kubeflow__ to __deployKF__.
+This guide explains how to __migrate__ from __Kubeflow__ to __deployKF__.
+
+---
 
 ## 1. Understand the Differences
 

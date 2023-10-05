@@ -1,6 +1,8 @@
 # Manage Profiles and Assigning Users
 
-This guide explains how to manage deployKF Profiles (Namespaces) and assign Users to them.
+This guide explains how to __manage profiles__ and __assign users__ to them in deployKF.
+
+---
 
 ## Overview
 

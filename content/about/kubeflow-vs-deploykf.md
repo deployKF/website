@@ -49,6 +49,8 @@ This page aims to unpack the differences between __deployKF__ and __Kubeflow__.
     
     The other [distributions of Kubeflow](https://www.kubeflow.org/docs/started/installing-kubeflow/#packaged-distributions-of-kubeflow), are using __mostly unmodified__ versions of the Kubeflow Manifests, so the following comparison is still relevant for them.
 
+---
+
 ## Overview
 
 __Kubeflow__ and __deployKF__ are two different but related projects:
