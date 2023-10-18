@@ -8,6 +8,7 @@ This guide helps you build a __production-ready__ deployKF instance on __any__ K
 
 !!! tip "Other Guides"
 
+    - [__Local Quickstart__](local-quickstart.md) - quickly try deployKF on your local machine
     - [__Migrate from Kubeflow Manifests__](migrate-from-kubeflow-manifests.md) - migrate from an existing Kubeflow deployment
 
 ---
@@ -25,7 +26,8 @@ Before starting, let's briefly introduce the deployKF project.
     - deployKF includes [__leading ML & Data tools__](../reference/tools.md#tool-index) from Kubeflow and more
     - deployKF has [__centralized configs__](../reference/deploykf-values.md) that manage all aspects of the platform
     - deployKF supports __in-place upgrades__ and can __autonomously__ roll out config changes
-    - deployKF uses [__ArgoCD Applications__](#4-sync-argocd-applications) to provide native GitOps support
+    - deployKF lets you __bring your own__ cluster dependencies like __istio__ and __cert-manager__, if desired
+    - deployKF uses __ArgoCD Applications__ to provide native GitOps support
 
 ### Other Questions
 
@@ -118,7 +120,7 @@ deployKF is designed to work on any Kubernetes cluster!
     Google Cloud | [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine)
     IBM Cloud | [IBM Cloud Kubernetes Service (IKS)](https://www.ibm.com/cloud/kubernetes-service)
 
-Other requirements vary depending on the "mode of operation":
+Other requirements vary depending on the ["mode of operation"](#0-modes-of-operation) you have chosen:
 
 Requirement | ArgoCD Plugin Mode | Manifests Repo Mode 
 --- | :---: | :---:
@@ -164,10 +166,14 @@ external S3-like object store ([connecting guide](tools/external-object-store.md
          - [`deploykf_opt.deploykf_minio.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L853)
          - [`deploykf_opt.deploykf_mysql.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L993)
 
-## 2. Values / Configuration
+## 2. Platform Configuration
+
+### About Values
 
 All aspects of your deployKF platform are configured with YAML-based configs named "values".
-There are a very large number of values (more than 1500), but as deployKF supports _in-place upgrades_ you can start with few important ones, and then grow your values file over time.
+There are a very large number of values (more than 1500), but as deployKF supports _in-place upgrades_ you can start with a few important ones, and then grow your values file over time.
+
+### Create Values Files
 
 We recommend using the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file as a starting point for your values.
 These sample values (which are different for each deployKF version) have all ML & Data tools enabled, along with some sensible security defaults.
@@ -175,7 +181,7 @@ These sample values (which are different for each deployKF version) have all ML 
 You may copy and make changes to the sample values, or directly use it as a base, and override specific values in a separate file.
 We provide the [`sample-values-overrides.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values-overrides.yaml) file as an example of this approach.
 
-For reference, ALL values and their defaults are listed on the [values reference](../reference/deploykf-values.md) page, which is generated from the full [`default_values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/generator/default_values.yaml) file.
+For your reference, ALL values and their defaults are listed on the [values reference](../reference/deploykf-values.md) page, which is generated from the full [`default_values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/generator/default_values.yaml) file.
 
 !!! note "YAML Syntax"
 
@@ -184,28 +190,38 @@ For reference, ALL values and their defaults are listed on the [values reference
     - [Learn YAML in Y minutes](https://learnxinyminutes.com/docs/yaml/)
     - [YAML Multiline Strings](https://yaml-multiline.info/)
 
-### Required Values
+??? warning "Required Values (Manifests Repo Mode)"
 
-??? warning "Required Values - Manifests Repo Mode"
-
-    When using "manifests repo mode", the following values MUST be defined in your values file:
-
-    !!! value ""
-      
-        The [`argocd.source.repo.url`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L39-L43) value is the URL of the git repo where your generated manifests are stored.
-        For example, if you are using a GitHub repo named `deployKF/examples`, you might set this value to `"https://github.com/deployKF/examples"` or `"git@github.com:deployKF/examples.git"`
+    When using "manifests repo mode", the following values MUST be defined in your values file(s).
     
-    !!! value ""
+    <table markdown>
+      <tr>
+        <th>Value</th>
+        <th>Description</th>
+        <th>Example</th>
+      </tr>
+      <tr markdown>
+        <td markdown>[`argocd.source.repo.url`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L39-L43)</td>
+        <td>the URL of the git repo where your generated manifests are stored</td>
+        <td markdown>if you are using a GitHub repo named `deployKF/examples`, you might set this value to `"https://github.com/deployKF/examples"` or `"git@github.com:deployKF/examples.git"`</td>
+      </tr>
+      <tr markdown>
+        <td markdown>[`argocd.source.repo.revision`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L45-L48)</td>
+        <td>is the git branch/tag/commit that ArgoCD should sync the manifests from</td>
+        <td markdown>if you are using the `main` branch of your repo, you might set this value to `"main"`</td>
+      </tr>
+      <tr markdown>
+        <td markdown>[`argocd.source.repo.path`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L50-L54)</td>
+        <td>is the folder path under the git repo where your generated manifests are stored</td>
+        <td markdown>if you are using a folder named `GENERATOR_OUTPUT` at the root of your repo, you might set this value to `"./GENERATOR_OUTPUT/"`</td>
+      </tr>
+    </table>
 
-        The [`argocd.source.repo.revision`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L45-L48) value is the git branch/tag/commit that ArgoCD should sync the manifests from.
-        For example, if you are using the `main` branch of your repo, you might set this value to `"main"`.
- 
-    !!! value ""
+### Configuration Guides
 
-        The [`argocd.source.repo.path`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L50-L54) value is the folder path under the git repo where your generated manifests are stored.
-        For example, if you are using a folder named `GENERATOR_OUTPUT` at the root of your repo, you might set this value to `"./GENERATOR_OUTPUT/"`.
+deployKF is incredibly configurable, so we provide a number of guides to help you get started with common configuration tasks.
 
-### Configurations (Platform)
+#### Platform Setup
 
 ??? config "User Authentication and External Identity Providers"
 
@@ -216,7 +232,7 @@ For reference, ALL values and their defaults are listed on the [values reference
      - [connecting external identity providers](./platform/deploykf-authentication.md#external-identity-providers)
      - [defining static user accounts](./platform/deploykf-authentication.md#static-userpassword-combinations)
 
-??? config "Manage Profiles (Namespaces) and Assigning Users"
+??? config "Manage Profiles and Assigning Users"
 
     Each deployKF Profile corresponds to a Kubernetes Namespace.
     The profile(s) a user is assigned will determine their level of access to resources and tools in the cluster.
@@ -236,7 +252,7 @@ For reference, ALL values and their defaults are listed on the [values reference
 
     For more information about customizing the dashboard, see the [Customize the deployKF Dashboard](./platform/deploykf-dashboard.md) guide.
 
-### Configurations (Tools)
+#### ML Tool Setup
 
 ??? config "Connect an external MySQL Database"
 
@@ -258,13 +274,48 @@ For reference, ALL values and their defaults are listed on the [values reference
 
     For more information about configuring Kubeflow Notebooks, see the [Configure Kubeflow Notebooks](./tools/kubeflow-notebooks.md) guide.
 
-## 3. Generate & Apply Manifests
+## 3. Platform Deployment
 
-After creating your custom values file(s), the method used to generate and apply the deployKF manifests to your Kubernetes cluster will depend on the "mode of operation".
+### About ArgoCD
 
-??? steps "Generate & Apply Manifests - ArgoCD Plugin Mode"
+[ArgoCD](https://argo-cd.readthedocs.io/en/stable/) is an extremely widely-used tool that helps you programmatically manage the applications deployed on your cluster.
 
-    When using the "ArgoCD plugin" mode, you will need to:
+??? question_secondary "Why does deployKF use Argo CD?"
+
+    ML Platforms are made up of many interconnected dependencies, and it can be difficult to manage the state of all these components manually.
+    This is where GitOps comes in, it allows us to define the desired state of all the components in a single place, and then use a tool to reconcile the actual state of our cluster to match the defined state.
+    
+    [__Argo CD__](https://argo-cd.readthedocs.io/) is a great tool for this job given its [__widespread adoption__](https://github.com/argoproj/argo-cd/blob/master/USERS.md), and __well designed interface__ for visualizing and managing the current state of your cluster.
+    In the future, we plan to support other Kubernetes GitOps tools (like [Flux CD](https://fluxcd.io/)), but we have initially chosen to use Argo CD due to its overwhelming popularity.
+
+??? info "Argo CD vs Argo Workflows"
+
+    It's important to note that _Argo CD_ is NOT the same as _Argo Workflows_, they just have similar names:
+    
+    - [__Argo CD__](https://argo-cd.readthedocs.io/en/stable/) is a __GitOps Tool__, it manages the state of Kubernetes resources
+    - [__Argo Workflows__](https://argoproj.github.io/argo-workflows/) is a __Workflow Engine__, it defines and runs DAG workflows in Pods on Kubernetes
+
+### About ArgoCD Applications
+
+The main config for ArgoCD is the [`Application`](https://argo-cd.readthedocs.io/en/stable/user-guide/application-specification/), a Kubernetes [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) that specifies Kubernetes manifests that ArgoCD should deploy and manage (typically from a git repository).
+
+An _"app of apps"_ is a pattern where a single ArgoCD `Application` contains other `Application` definitions, this is typically done to make bootstrapping large applications easier.
+
+### deployKF Versions
+
+The "source version" chooses which version of the deployKF generator will be used.
+Each version may include different tools, and may support different versions of external dependencies (like Kubernetes, Istio and cert-manager).
+
+The [version matrix](../releases/version-matrix.md) lists which tools and dependency versions are supported by each deployKF release.
+Specific information about each release (including important upgrade notes), can be found in the [deployKF generator changelog](../releases/changelog-deploykf.md).
+
+### Generate & Apply Manifests
+
+How you generate and apply the deployKF manifests to your Kubernetes cluster will depend on the ["mode of operation"](#0-modes-of-operation) you have chosen.
+
+??? steps "Generate & Apply Manifests - _ArgoCD Plugin Mode_ :star:"
+
+    To generate and apply the manifests when using ["ArgoCD Plugin Mode"](#0-modes-of-operation), you will need to:
 
     1. install the [deployKF ArgoCD plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) on your ArgoCD instance
     2. create an app-of-apps which uses the plugin
@@ -302,7 +353,7 @@ After creating your custom values file(s), the method used to generate and apply
     `values_files` | Array | a list of paths to values files in your ArgoCD Application's `source` repo (relative to the `source.path`)
     `values` | String | a string containing the contents of a values file (these take precedence when being merged with values from `values_files`)
 
-    For example, this app-of-apps manifest will use deployKF `{{ latest_deploykf_version }}` and read the `sample-values.yaml` from the `v{{ latest_deploykf_version }}` tag of the `deploykf/deploykf` repo:
+    For example, the following _"app of apps"_ specification will use deployKF `{{ latest_deploykf_version }}` and read the `sample-values.yaml` (from the `v{{ latest_deploykf_version }}` tag of the `deploykf/deploykf` repo) while also showing how to set values with the `values` parameter:
 
     ```yaml
     apiVersion: argoproj.io/v1alpha1
@@ -463,9 +514,9 @@ After creating your custom values file(s), the method used to generate and apply
     kubectl apply --filename ./app-of-apps.yaml --namespace "argocd"
     ```
 
-??? steps "Generate & Apply Manifests - Manifests Repo Mode"
+??? steps "Generate & Apply Manifests - _Manifests Repo Mode_"
 
-    When using the "manifests repo" mode, you will need to:
+    To generate and apply the manifests when using ["Manifests Repo Mode"](#0-modes-of-operation), you will need to:
 
     1. generate the manifests
     2. commit the generated manifests to a git repo
@@ -533,31 +584,21 @@ After creating your custom values file(s), the method used to generate and apply
     kubectl apply --filename GENERATOR_OUTPUT/app-of-apps.yaml
     ```
 
-## 4. Sync ArgoCD Applications
+### Sync ArgoCD Applications
 
-Now that your deployKF app-of-apps has been applied, you must sync the ArgoCD applications that make up deployKF.
-
-??? question_secondary "Why does deployKF use Argo CD?"
-
-    ML Platforms are made up of many interconnected dependencies, and it can be difficult to manage the state of all these components manually.
-    This is where GitOps comes in, it allows us to define the desired state of all the components in a single place, and then use a tool to reconcile the actual state of our cluster to match the defined state.
-    
-    [__Argo CD__](https://argo-cd.readthedocs.io/) is a great tool for this job given its [__widespread adoption__](https://github.com/argoproj/argo-cd/blob/master/USERS.md), and __well designed interface__ for visualizing and managing the current state of your cluster.
-    In the future, we plan to support other Kubernetes GitOps tools (like [Flux CD](https://fluxcd.io/)), but we have initially chosen to use Argo CD due to its overwhelming popularity.
-
-??? question_secondary "Argo CD vs Argo Workflows"
-
-    It's important to note that _Argo CD_ is NOT the same as _Argo Workflows_, they just have similar names:
-    
-    - [__Argo CD__](https://argo-cd.readthedocs.io/en/stable/) is a __GitOps Tool__, it manages the state of Kubernetes resources
-    - [__Argo Workflows__](https://argoproj.github.io/argo-workflows/) is a __Workflow Engine__, it defines and runs DAG workflows in Pods on Kubernetes
+Now that your deployKF app-of-apps has been applied, you must sync the ArgoCD applications to deploy your platform.
+Syncing an application will cause ArgoCD to reconcile the actual state in the cluster, to match the state defined by the application resource.
 
 ArgoCD supports syncing applications both _graphically (Web UI)_ and _programmatically (CLI)_.
 If you are new to ArgoCD, we recommend taking a look at the Web UI, as it provides a visual overview of each application and its sync status.
 
-It is important to note that deployKF applications depend on each other, so you MUST sync them in the correct order.
+!!! warning "Sync Order"
 
-??? steps "Sync Applications - ArgoCD Web UI"
+    It is important to note that deployKF applications depend on each other, so you MUST sync them in the correct order.
+
+There are a few ways to sync the applications, but you only need to use one of them:
+
+??? steps "Sync Applications - _ArgoCD Web UI_"
 
     To sync the deployKF applications with the __ArgoCD Web UI__, you will need to:
 
@@ -593,8 +634,8 @@ It is important to note that deployKF applications depend on each other, so you 
 
         The ArgoCD Web UI will look like this:
     
-        ![ArgoCD Web UI (Dark Mode)](/assets/images/argocd-ui-DARK.png#only-dark)
-        ![ArgoCD Web UI (Light Mode)](/assets/images/argocd-ui-LIGHT.png#only-light)
+        ![ArgoCD Web UI (Dark Mode)](../assets/images/argocd-ui-DARK.png#only-dark)
+        ![ArgoCD Web UI (Light Mode)](../assets/images/argocd-ui-LIGHT.png#only-light)
 
     ---
 
@@ -659,13 +700,13 @@ It is important to note that deployKF applications depend on each other, so you 
         - `kf-tools--training-operator`
         - `kf-tools--volumes--volumes-web-app`
 
-??? steps "Sync Applications - ArgoCD CLI - Automated :star:"
+??? steps "Sync Applications - _ArgoCD CLI (Automated)_ :star:"
 
     We provide the [`sync_argocd_apps.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/sync_argocd_apps.sh) script to automatically sync the applications that make up deployKF.
 
     Learn more about the automated sync script from the [`scripts` folder README](https://github.com/deployKF/deployKF/tree/main/scripts) in the deployKF repo.
 
-??? steps "Sync Applications - ArgoCD CLI - Manual"
+??? steps "Sync Applications - _ArgoCD CLI (Manual)_"
 
     To sync the deployKF applications with the __ArgoCD CLI__, you will need to:
 
@@ -750,29 +791,45 @@ It is important to note that deployKF applications depend on each other, so you 
     argocd app sync -l "app.kubernetes.io/component=kubeflow-tools"
     ```
 
-## 5. Use the Platform
+## 4. Use the Platform
 
 Now that you have a working deployKF ML Platform, here are some things to try out!
 
-### Access the Dashboard
+### The Dashboard
 
-The deployKF dashboard is a web-based interface and is the primary way that users interact with the platform.
-You will need to expose its service (either publicly or privately) to access it.
+The _deployKF dashboard_ is the web-based interface for deployKF, it gives users [authenticated access](./platform/deploykf-authentication.md) to tools like [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines), [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks), and [Katib](../reference/tools.md#katib).
 
-??? steps "Expose Gateway Service with Local Port-Forwarding"
+![deployKF Dashboard (Dark Mode)](../assets/images/deploykf-dashboard-DARK.png#only-dark)
+![deployKF Dashboard (Light Mode)](../assets/images/deploykf-dashboard-LIGHT.png#only-light)
 
-    If you have not publicly [exposed the deployKF Gateway Service](./platform/deploykf-gateway.md), you may access it via port-forwarding by:
+!!! config "Customize the Dashboard"
 
-    1. adding some lines to your machine's `/etc/hosts` file
-    2. port-forwarding the `deploykf-gateway` Service with `kubectl`
+    If you would like to make changes to the _deployKF dashboard_, such as adding custom links to the sidebar or homepage, see the [dashboard customization guide](./platform/deploykf-dashboard.md).
+
+### Expose the Gateway
+
+All public deployKF services (including the dashboard) are accessed via your _deployKF Istio Gateway_, to use the gateway, you will need to expose its Kubernetes Service.
+
+??? steps "Expose Gateway - _Production Usage_"
+
+    To make effective use of your deployKF platform in the real-world, you should expose the _deployKF Istio Gateway_ using a method that is appropriate for your environment.
+
+    We provide a comprehensive guide named ["Expose deployKF Gateway and configure HTTPS"](./platform/deploykf-gateway.md) for your reference.
+
+??? steps "Expose Gateway - _Local Testing_"
+
+    If you are just testing deployKF, and don't want to [expose the gateway more widely](./platform/deploykf-gateway.md), you may use local `kubectl` port-forwarding with the following steps:
+
+    1. modify your __local__ machine's `/etc/hosts` file
+    2. port-forward the `deploykf-gateway` Service with `kubectl`
 
     ---
 
     __Step 1: Modify Hosts File__
 
-    You must add lines to your `/etc/hosts` file, this is because deployKF uses the "Host" header to route requests to the correct internal service, meaning that the IP address alone would NOT work.
-    
-    If the [`deploykf_core.deploykf_istio_gateway.gateway.hostname`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L600) value is set as `"deploykf.example.com"`, you would add the following lines:
+    You will need to add some lines to your __local__ `/etc/hosts` file.
+
+    If the `deploykf_core.deploykf_istio_gateway.gateway.hostname` value has been left as the default of [`"deploykf.example.com"`](https://github.com/deployKF/deployKF/blob/main/generator/default_values.yaml#L601), you should add the following lines to `/etc/hosts`:
     
     ```text
     127.0.0.1 deploykf.example.com
@@ -781,11 +838,15 @@ You will need to expose its service (either publicly or privately) to access it.
     127.0.0.1 minio-console.deploykf.example.com
     ```
     
+    !!! question_secondary "Why do I need these entries in my hosts file?"
+
+        The _deployKF Istio Gateway_ uses the HTTP `Host` header to route requests to the correct internal service, meaning that using `localhost` or `127.0.0.1` will NOT work.
+
     ---
 
     __Step 2: Port-Forward the Gateway Service__
 
-    You can port-forward the `deploykf-gateway` Service with the following `kubectl` command:
+    You may now port-forward the `deploykf-gateway` Service with the following `kubectl` command:
 
     ```shell
     kubectl port-forward \
@@ -793,45 +854,53 @@ You will need to expose its service (either publicly or privately) to access it.
       svc/deploykf-gateway 8080:http 8443:https
     ```
 
-    You should now see the deployKF dashboard at: [https://deploykf.example.com:8443/](https://deploykf.example.com:8443/)
+    ---
 
-??? note "Default Login Credentials"
-
-    The following table lists the default login credentials for the deployKF dashboard.
-
-    Account | Username | Password | Notes
-    --- | --- | --- | ---
-    Admin | `admin@example.com` | `admin` | not for normal use (owns all profiles)
-    User 1 | `user1@example.com` | `user1` |
-    User 2 | `user2@example.com` | `user2` |
-
-    !!! info "Dex StaticPasswords"
-
-        These default login credentials are Dex StaticPasswords defined by the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L378-L401) value.
-
-    !!! warning "Default Profile Owner"
+    The deployKF dashboard should now be available on your local machine at:
         
-        By default, [`"admin@example.com"` is the "owner" of all profiles](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L687-L693), but is not a "member" of any.
-        This means that it does NOT have access to the "MinIO Console" or "Argo Workflows Server" interfaces.
+      :material-arrow-right-bold: [https://deploykf.example.com:8443/](https://deploykf.example.com:8443/)
 
-### Additional Topics
+### Default Login Credentials
 
-Note, the intended audience for these next topics is __platform users__, rather than operators.
+The default values include [static user/password combinations](./platform/deploykf-authentication.md#static-userpassword-combinations) defined by the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L393-L402) value, which can be used for testing.
 
-??? abstract "GitOps for Kubeflow Pipelines (Pipeline Definitions, Schedules)"
+This table lists the default login credentials:
 
-    We provide a reference implementation for managing Kubeflow Pipelines (pipeline definitions, schedules) using GitOps.
+Username | Password | Notes
+--- | --- | ---
+`admin@example.com` | `admin` | The [default "owner"](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L688-L694) of all profiles, but a "member" of none, meaning it does NOT have access to "MinIO Console" or "Argo Workflows Server".<br><br>In production, we recommend leaving this account as the default "owner" but excluding its [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396), so it can't be used to log in. 
+`user1@example.com` | `user1` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
+`user2@example.com` | `user2` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
+
+### ML & Data Tools
+
+deployKF includes [many tools](../reference/tools.md#tool-index) that address different stages of the ML & Data lifecycle.
+The following links give more specific information about some of our most popular tools:
+
+- [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines):
+    - [Connect with External Object Store](./tools/external-object-store.md)
+    - [Connect with External MySQL Database](./tools/external-mysql.md)
+- [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks):
+    - [Configure Kubeflow Notebooks](./tools/kubeflow-notebooks.md)
+
+### User Reference Guides
+
+We also provide a number of user-focused reference guides to help them deliver value with the platform faster.
+You should share these guides with your users to help them get started.
+
+??? abstract "Manage Kubeflow Pipelines Schedules, with GitOps"
+
+    We provide a reference implementation for managing Kubeflow Pipelines (pipeline definitions, schedules) using GitOps principles.
     
     For more information, see the [GitOps for Kubeflow Pipelines](../user-guides/gitops-for-kubeflow-pipelines.md) user guide.
 
 ??? abstract "Access Kubeflow Pipelines API"
 
-    We provide information on how to authenticate with the Kubeflow Pipelines API from both inside and outside the cluster.
+    We provide information on _authenticating with the Kubeflow Pipelines API_, from both inside and outside the cluster.
     
     For more information, see the [Access the Kubeflow Pipelines API](../user-guides/access-kubeflow-pipelines-api.md) user guide.
 
 ## Next Steps
 
-- [Troubleshooting](troubleshooting.md)
-- [Join the deployKF community](../about/community.md)
+- [Join the deployKF community!](../about/community.md)
 - [Get Support](../about/support.md)

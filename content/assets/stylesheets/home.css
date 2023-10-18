@@ -86,7 +86,7 @@
 
 [data-md-color-scheme=slate] .mdx-hero .mdx-hero__actions .md-button--primary {
     border-color: var(--md-primary-fg-color--light);
-    color: white !important;
+    color: hsla(232, 75%, 95%, 1) !important;
 }
 
 .mdx-hero .mdx-hero__actions .md-button--primary-left {
@@ -107,7 +107,7 @@
 }
 
 [data-md-color-scheme=slate] .mdx-hero .mdx-hero__actions .md-button--secondary {
-    border-color: var(--md-primary-fg-color);
+    border-color: var(--md-primary-fg-color--light);
 }
 
 [data-md-color-scheme=default] .mdx-hero .mdx-hero__actions .md-button:focus,

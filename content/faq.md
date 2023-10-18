@@ -12,7 +12,8 @@ faq_schema:
       - deployKF includes [__leading ML & Data tools__](./reference/tools.md#tool-index) from Kubeflow and more
       - deployKF has [__centralized configs__](./reference/deploykf-values.md) that manage all aspects of the platform
       - deployKF supports __in-place upgrades__ and can __autonomously__ roll out config changes
-      - deployKF uses [__ArgoCD Applications__](./guides/getting-started.md#4-sync-argocd-applications) to provide native GitOps support
+      - deployKF lets you __bring your own__ cluster dependencies like __istio__ and __cert-manager__, if desired
+      - deployKF uses __ArgoCD Applications__ to provide native GitOps support
 
   - question: What ML and AI tools are in deployKF?
     include_in_schema: true
