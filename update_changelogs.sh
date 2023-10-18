@@ -14,7 +14,7 @@ python ./dev/generate_changelog.py \
   --output-admonition-type 'info' \
   --output-admonition-title 'Pre-releases' \
   --output-admonition-content 'For a changelog that shows pre-releases, see [the full-changelog](./full-changelog-deploykf.md) page.' \
-  --include-headings 'Significant Changes' 'New Features' 'Improvements' 'Bug Fixes' 'Documentation' 'Miscellaneous' \
+  --include-headings-h2 "Important Notes" "What's Changed" \
   --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?' \
   --exclude-pre-releases
 
@@ -28,7 +28,7 @@ python ./dev/generate_changelog.py \
   --output-admonition-title 'Main Changelog' \
   --output-admonition-content 'For a changelog that hides pre-releases, see [the main changelog](./changelog-deploykf.md) page.' \
   --output-hide-sections 'navigation' \
-  --include-headings 'Significant Changes' 'New Features' 'Improvements' 'Bug Fixes' 'Documentation' 'Miscellaneous' \
+  --include-headings-h2 "Important Notes" "What's Changed" \
   --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?' \
   --write-version-file-path ./variables/latest_deploykf_version.txt
 
@@ -41,7 +41,7 @@ python ./dev/generate_changelog.py \
   --output-admonition-type 'info' \
   --output-admonition-title 'Pre-releases' \
   --output-admonition-content 'For a changelog that shows pre-releases, see [the full-changelog](./full-changelog-deploykf-cli.md) page.' \
-  --include-headings 'Significant Changes' 'New Features' 'Improvements' 'Bug Fixes' 'Documentation' 'Miscellaneous' \
+  --include-headings-h2 "Important Notes" "What's Changed" \
   --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?' \
   --exclude-pre-releases
 
@@ -55,6 +55,6 @@ python ./dev/generate_changelog.py \
   --output-admonition-title 'Main Changelog' \
   --output-admonition-content 'For a changelog that hides pre-releases, see [the main changelog](./changelog-deploykf-cli.md) page.' \
   --output-hide-sections 'navigation' \
-  --include-headings 'Significant Changes' 'New Features' 'Improvements' 'Bug Fixes' 'Documentation' 'Miscellaneous' \
+  --include-headings-h2 "Important Notes" "What's Changed" \
   --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?' \
   --write-version-file-path ./variables/latest_deploykf_cli_version.txt

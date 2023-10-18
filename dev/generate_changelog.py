@@ -124,11 +124,11 @@ def get_releases(
     return releases
 
 
-def filter_content(content: str, include_headings: List[str]) -> str:
+def filter_content(content: str, include_headings_h2: List[str]) -> str:
     """
     Filter release content to only include the content under specified headings.
-     - The headings are expected to be H3 (##) in the release description.
-     - The content of a heading ends when the next heading is encountered OR two newlines are encountered.
+     - The headings are expected to be H2 (##) in the release description.
+     - The content of a heading ends when the next H1/H2 heading is encountered OR two newlines are encountered.
     """
     lines = content.splitlines()
     filtered_lines = []
@@ -139,19 +139,22 @@ def filter_content(content: str, include_headings: List[str]) -> str:
         if line.startswith("# "):
             include_section = False
         elif line.startswith("## "):
-            include_section = False
-        elif line.startswith("### "):
-            heading = line[4:]
-            if heading in include_headings:
-                # add a newline before this heading
-                filtered_lines.append("")
-                filtered_lines.append(line)
+            heading = line[3:]
+            if heading in include_headings_h2:
+                # add a newline before this heading, if there is not one already
+                if last_line.strip() != "":
+                    filtered_lines.append("")
+                # transform the heading to H3 (###)
+                filtered_lines.append(f"### {heading}")
                 include_section = True
             else:
                 include_section = False
         elif include_section:
             if line.strip() == "" and last_line.strip() == "":
                 include_section = False
+            elif re.match(r"^#+ ", line):
+                # transform headings to one level lower
+                filtered_lines.append(f"#{line}")
             else:
                 filtered_lines.append(line)
 
@@ -160,11 +163,11 @@ def filter_content(content: str, include_headings: List[str]) -> str:
     return "\n".join(filtered_lines)
 
 
-def format_release(release: Dict[str, str], include_headings: List[str]) -> str:
+def format_release(release: Dict[str, str], include_headings_h2: List[str]) -> str:
     version = release["tag_name"].lstrip("v")
     date = release["published_at"][:10]
     url = release["html_url"]
-    content = filter_content(release["body"], include_headings)
+    content = filter_content(release["body"], include_headings_h2)
 
     # Replace links to pull requests and issues with markdown links
     escaped_github_url = re.escape(f"https://github.com")
@@ -219,10 +222,10 @@ def main():
         help="MKDocs sections to hide in the output file (using page metadata)",
     )
     parser.add_argument(
-        "--include-headings",
+        "--include-headings-h2",
         nargs="+",
         required=True,
-        help="H3 headings from release descriptions to include",
+        help="H2 headings from release descriptions to include",
     )
     parser.add_argument(
         "--include-tag-names",
@@ -286,7 +289,7 @@ def main():
     changelog.append("")
 
     for release in releases:
-        formatted_release = format_release(release, args.include_headings)
+        formatted_release = format_release(release, args.include_headings_h2)
         changelog.append(formatted_release)
         changelog.append("")
 

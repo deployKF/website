@@ -4,7 +4,7 @@ icon: material/table
 
 # Version Matrix
 
-These tables summarize the __tools and versions__ which are supported by __each version of deployKF__.
+These tables summarize the __tools and dependency versions__ which are supported by __each version of deployKF__.
 
 !!! info "Version Key"
 
