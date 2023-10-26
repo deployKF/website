@@ -10,7 +10,7 @@ The website for [deployKF](https://github.com/deployKF/deployKF).
 2. activate your conda environment using `conda activate mkdocs`
 3. install the python requirements using `pip install -r ./requirements.txt -r ./requirements-dev.txt`
 4. install the [MkDocs social plugin dependencies](https://squidfunk.github.io/mkdocs-material/setup/setting-up-social-cards/#dependencies) on your computer:
-    - __MacOS__
+    - __macOS__
        - run `brew install cairo freetype libffi libjpeg libpng zlib`
        - you may need to run `export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib"` for cairo to work
        - you can set `DYLD_FALLBACK_LIBRARY_PATH` permanently by adding the export to your `~/.zshrc` file
