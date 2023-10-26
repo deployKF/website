@@ -43,7 +43,7 @@ Before starting, let's answer some common questions.
 
 The requirements for this quickstart depend on your operating system.
 
-=== "MacOS"
+=== "macOS"
 
     Requirement | Notes
     --- | ---
@@ -75,7 +75,7 @@ The requirements for this quickstart depend on your operating system.
         
         1. [Install Podman](https://podman.io/docs/installation#macos)
         2. Enable Podman socket: `sudo systemctl enable --now podman.socket`
-        3. Link Docker socket to Podman: `ln -s /run/podman/podman.sock /var/run/docker.sock`
+        3. Link Docker socket to Podman: `sudo ln -s /run/podman/podman.sock /var/run/docker.sock`
 
 === "Linux"
 
@@ -98,7 +98,7 @@ The requirements for this quickstart depend on your operating system.
 
     ??? info "Homebrew for Linux"
 
-        An easy way to install the requirements is with [Homebrew](https://brew.sh/), while traditionally a MacOS tool, it supports linux as well.
+        An easy way to install the requirements is with [Homebrew](https://brew.sh/), while traditionally a macOS tool, it supports linux as well.
 
         The following commands will install `brew` and add it to your PATH:
     
@@ -239,7 +239,7 @@ Wait until the cluster is ready (all pods are in a `Running` or `Completed` stat
 
     We highly recommend [`k9s`](https://k9scli.io/), it makes interacting with Kubernetes much easier by providing a text-based management interface for any Kubernetes cluster.
 
-    You may [install `k9s`](https://k9scli.io/topics/install/) with `brew install k9s` on MacOS and Linux.
+    You may [install `k9s`](https://k9scli.io/topics/install/) with `brew install k9s` on macOS and Linux.
 
     __Get the status of all pods:__
 
@@ -349,7 +349,7 @@ An _"app of apps"_ is a pattern where a single ArgoCD `Application` contains oth
 
 We will be using the [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin), which adds a special kind of ArgoCD `Application` that produces deployKF manifests.
 
-The plugin removes the need to generate manifests, and instead allows you to define your platform using a single _"app of apps"_ `Application` whose specification only needs your [values](#41-about-values), and a specified [source version](#42-deploykf-version) of deployKF.
+The plugin removes the need to generate manifests, and instead allows you to define your platform using a single _"app of apps"_ `Application` whose specification only needs your [values](#about-values), and a specified [source version](#deploykf-versions) of deployKF.
 
 ### Install ArgoCD and deployKF Plugin
 
@@ -366,7 +366,7 @@ First, ensure that your current `kubectl` context is set to the new cluster.
 
 ??? question_secondary "How do I change my kubectl context?"
 
-    We recommend using [__`kubectx`__](https://github.com/ahmetb/kubectx) to manage your `kubectl` contexts, which can be [__installed__](https://github.com/ahmetb/kubectx#installation) with `brew install kubectx` on MacOS and Linux.
+    We recommend using [__`kubectx`__](https://github.com/ahmetb/kubectx) to manage your `kubectl` contexts, which can be [__installed__](https://github.com/ahmetb/kubectx#installation) with `brew install kubectx` on macOS and Linux.
 
     To change your kubectl context with `kubectx`, run these commands:
 
@@ -394,7 +394,7 @@ chmod +x ./deploykf/argocd-plugin/install_argocd.sh
 bash ./deploykf/argocd-plugin/install_argocd.sh
 ```
 
-After the script completes, wait for all pods in the `argocd` Namespace to be in a `Running` state (using `k9s` or `kubectl` as described above).
+After the script completes, wait for all pods in the `argocd` Namespace to be in a `Running` state ([using `k9s` or `kubectl` as described above](#wait-for-cluster-to-be-ready)).
 
 ## 4. Create ArgoCD Applications
 
@@ -673,7 +673,7 @@ All public deployKF services (including the dashboard) are accessed via your _de
 
 For this quickstart, we will be using the port-forward feature of `kubectl` to expose the gateway locally on your machine.
 
-=== "MacOS"
+=== "macOS"
 
     <h4>Step 1: Modify Hosts</h4>
   

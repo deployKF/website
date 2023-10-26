@@ -40,7 +40,7 @@ You can install the CLI on your local machine by following the instructions belo
 
     !!! warning "macOS Security"
         
-        MacOS has security features that will prevent you running the CLI if you downloaded it via a web browser.
+        macOS has security features that will prevent you running the CLI if you downloaded it via a web browser.
         However, if you download it from the command line (for example, using `curl` or `wget`) it should be allowed to run.
         
         Either way, if you encounter a "this app is from an unidentified developer" error you can go to `System Preferences > Privacy & Security` and click `Open Anyway` to allow the CLI to run.
