@@ -1,5 +1,5 @@
 Value,Default
-[`kubeflow_tools.training_operator.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1872),`false`
-[`kubeflow_tools.training_operator.extraManifests`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1878),`[]`
-[`kubeflow_tools.training_operator.images.trainingOperator.repository`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1884),"`""docker.io/kubeflow/training-operator""`"
-[`kubeflow_tools.training_operator.images.trainingOperator.tag`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L1885),`nil`
+[`kubeflow_tools.training_operator.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1924),`false`
+[`kubeflow_tools.training_operator.extraManifests`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1930),`[]`
+[`kubeflow_tools.training_operator.images.trainingOperator.repository`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1936),"`""docker.io/kubeflow/training-operator""`"
+[`kubeflow_tools.training_operator.images.trainingOperator.tag`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1937),`nil`
