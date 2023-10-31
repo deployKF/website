@@ -428,7 +428,7 @@ Specific information about each release (including important upgrade notes), can
 
 To use deployKF, the only `Application` that you will need to manually create is the _"app of apps"_.
 
-For example, the following _"app of apps"_ specification will use deployKF `{{ latest_deploykf_version }}` and read the `sample-values.yaml` (from the `v{{ latest_deploykf_version }}` tag of the `deploykf/deploykf` repo) while also showing how to set values with the `values` parameter:
+For example, the following _"app of apps"_ specification will use deployKF `{{ latest_deploykf_version }}` and read the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) (from the `v{{ latest_deploykf_version }}` tag of the `deploykf/deploykf` repo) while also showing how to set values with the `values` parameter:
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
