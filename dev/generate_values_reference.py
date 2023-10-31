@@ -69,7 +69,11 @@ def generate_csv(
                 elif isinstance(default, bool):
                     default_str = "`true`" if default else "`false`"
                 elif isinstance(default, str):
-                    default_str = f'`"{default}"`'
+                    if "\n" in default:
+                        # newlines break markdown tables, so replace them with <br>
+                        default_str = f"{default}".replace("\n", "<br>")
+                    else:
+                        default_str = f'`"{default}"`'
                 elif isinstance(default, int) or isinstance(default, float):
                     default_str = f"`{default}`"
                 elif isinstance(default, dict) or isinstance(default, list):

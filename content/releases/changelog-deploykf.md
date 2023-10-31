@@ -12,6 +12,31 @@ This changelog lists releases of __deployKF__ that are found in the [`deployKF/d
 
 ---
 
+## [0.1.3](https://github.com/deployKF/deployKF/releases/tag/v0.1.3) - 2023-10-31
+### Important Notes
+
+- For more information about using the new "browser login flow" with _Kubeflow Pipelines SDK_, please see the updated [Access Kubeflow Pipelines API](https://www.deploykf.org/user-guides/access-kubeflow-pipelines-api/) guide.
+
+### What's Changed
+#### Significant Changes
+* feat: browser-based KFP SDK auth by [@thesuperzapper](https://github.com/thesuperzapper) in [#45](https://github.com/deployKF/deployKF/pull/45)
+#### New Features
+* feat: update oauth2-proxy to 7.5.1 by [@thesuperzapper](https://github.com/thesuperzapper) in [#44](https://github.com/deployKF/deployKF/pull/44)
+* feat: kyverno policy for image-pull-secrets by [@thesuperzapper](https://github.com/thesuperzapper) in [#47](https://github.com/deployKF/deployKF/pull/47)
+* feat: add values for kyverno replicas by [@thesuperzapper](https://github.com/thesuperzapper) in [#50](https://github.com/deployKF/deployKF/pull/50)
+#### Improvements
+* improve: limit trigger operations for kyverno policies by [@thesuperzapper](https://github.com/thesuperzapper) in [#49](https://github.com/deployKF/deployKF/pull/49)
+#### Bug Fixes
+* fix: don't mount trust bundles with own cert-manager by [@thesuperzapper](https://github.com/thesuperzapper) in [#46](https://github.com/deployKF/deployKF/pull/46)
+* fix: ensure kyverno has permission to manage PodDefaults by [@thesuperzapper](https://github.com/thesuperzapper) in [#51](https://github.com/deployKF/deployKF/pull/51)
+#### Documentation
+* docs: update sync script to force update kyverno policies by [@thesuperzapper](https://github.com/thesuperzapper) in [#40](https://github.com/deployKF/deployKF/pull/40)
+* docs: add requirement checks to argocd sync script by [@thesuperzapper](https://github.com/thesuperzapper) in [#42](https://github.com/deployKF/deployKF/pull/42)
+* docs: update reference argocd version to 2.8.5 by [@thesuperzapper](https://github.com/thesuperzapper) in [#52](https://github.com/deployKF/deployKF/pull/52)
+#### Miscellaneous
+* refactor: always use `v1` kyverno resources by [@thesuperzapper](https://github.com/thesuperzapper) in [#48](https://github.com/deployKF/deployKF/pull/48)
+
+
 ## [0.1.2](https://github.com/deployKF/deployKF/releases/tag/v0.1.2) - 2023-09-22
 ### Important Notes
 

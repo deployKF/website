@@ -202,7 +202,7 @@ The following values configure the advanced options for Notebook Pods:
               - "kubeflow-pipelines-api-token"
     ```
 
-    For more information, see the [Access Kubeflow Pipelines API](../../user-guides/access-kubeflow-pipelines-api.md) user guide.
+    For more information, see the [Access Kubeflow Pipelines API](../../user-guides/access-kubeflow-pipelines-api.md#kubernetes-serviceaccount-token) user guide.
 
 ## Idle Notebook Culling
 

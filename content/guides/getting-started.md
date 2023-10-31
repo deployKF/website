@@ -353,7 +353,7 @@ How you generate and apply the deployKF manifests to your Kubernetes cluster wil
     `values_files` | Array | a list of paths to values files in your ArgoCD Application's `source` repo (relative to the `source.path`)
     `values` | String | a string containing the contents of a values file (these take precedence when being merged with values from `values_files`)
 
-    For example, the following _"app of apps"_ specification will use deployKF `{{ latest_deploykf_version }}` and read the `sample-values.yaml` (from the `v{{ latest_deploykf_version }}` tag of the `deploykf/deploykf` repo) while also showing how to set values with the `values` parameter:
+    For example, the following _"app of apps"_ specification will use deployKF `{{ latest_deploykf_version }}` and read the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) (from the `v{{ latest_deploykf_version }}` tag of the `deploykf/deploykf` repo) while also showing how to set values with the `values` parameter:
 
     ```yaml
     apiVersion: argoproj.io/v1alpha1
