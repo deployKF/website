@@ -65,7 +65,7 @@ The requirements for this quickstart depend on your operating system.
         In Docker Desktop, you may need to increase the [resource allocation](https://docs.docker.com/desktop/settings/mac/#resources), we recommend allocating at least:
         
         - __4 CPU Cores__
-        - __8 GB RAM__
+        - __10 GB RAM__
 
     ??? question_secondary "Can I use Podman instead of Docker Desktop?"
 
