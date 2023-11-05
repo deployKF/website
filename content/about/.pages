@@ -1,4 +1,7 @@
 nav:
   - community.md
   - support.md
+  - kubeflow-vs-deploykf.md
   - ...
+  - Advanced:
+     - architecture.md

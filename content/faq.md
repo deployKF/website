@@ -1,4 +1,5 @@
 ---
+icon: material/help-circle-outline
 hide:
   - navigation
 faq_schema:
