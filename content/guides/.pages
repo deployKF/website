@@ -2,7 +2,8 @@ nav:
   - getting-started.md
   - local-quickstart.md
   - troubleshooting.md
-  - Configurations (Platform): platform
-  - Configurations (Tools) : tools
+  - Configs:
+      - Platform: platform
+      - Tools: tools
   - Other:
-     - ...
+      - ...

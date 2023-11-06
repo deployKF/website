@@ -1,4 +1,5 @@
 ---
+icon: custom/kubeflow
 comparison_data:
   - aspect: Ease of Use
     deploykf:
