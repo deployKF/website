@@ -778,6 +778,7 @@ The following links give more specific information about some of our most popula
 
 ## Next Steps
 
+- [Support us with a :star: on GitHub!](https://github.com/deployKF/deployKF)
 - [Join the deployKF community!](../about/community.md)
 - [Production Deployment](./getting-started.md)
 - [Get Support](../about/support.md)

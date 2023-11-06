@@ -902,5 +902,6 @@ You should share these guides with your users to help them get started.
 
 ## Next Steps
 
+- [Support us with a :star: on GitHub!](https://github.com/deployKF/deployKF)
 - [Join the deployKF community!](../about/community.md)
 - [Get Support](../about/support.md)
