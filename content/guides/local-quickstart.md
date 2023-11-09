@@ -4,11 +4,11 @@ icon: material/sprout
 
 # Local Quickstart
 
-This guide explains how to __quickly try deployKF__ on a local k3d Kubernetes cluster.
+This guide will show you how to __quickly try deployKF__ on a __local__ Kubernetes cluster.
 
 !!! tip "Other Guides"
 
-    - [__Getting Started__](getting-started.md) - get started with a production-ready instance of deployKF
+    - [__Getting Started__](getting-started.md) - run a production deployKF instance on any Kubernetes cluster
 
 ---
 
@@ -21,16 +21,8 @@ Before starting, let's answer some common questions.
 !!! question ""
 
     deployKF builds world-class ML Platforms on __any Kubernetes cluster__, within __any cloud or environment__, in minutes.
-    
-    - deployKF includes [__leading ML & Data tools__](../reference/tools.md#tool-index) from Kubeflow and more
-    - deployKF has [__centralized configs__](../reference/deploykf-values.md) that manage all aspects of the platform
-    - deployKF supports __in-place upgrades__ and can __autonomously__ roll out config changes
-    - deployKF lets you __bring your own__ cluster dependencies like __istio__ and __cert-manager__, if desired
-    - deployKF uses __ArgoCD Applications__ to provide native GitOps support
 
-    ---
-
-    For more information, see the [Getting Started](getting-started.md#about-deploykf) guide.
+    For more details, see the [introduction](getting-started.md#about-deploykf) of the _Getting Started_ guide.
 
 ### What is the purpose of this guide?
 
