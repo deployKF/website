@@ -2,20 +2,6 @@
 
 This guide explains how to __use an external MySQL database__ with deployKF.
 
-??? question_secondary "Which MySQL Services are Supported?"
-
-    deployKF should work with any MySQL service!
-
-    For example, here are some popular services, listed by platform:
-
-    Platform | MySQL Service
-    --- | ---
-    Amazon Web Services | [Amazon Relational Database Service (RDS)](https://aws.amazon.com/rds/)
-    Microsoft Azure | [Azure Database for MySQL](https://azure.microsoft.com/en-us/services/mysql/)
-    Google Cloud | [Cloud SQL](https://cloud.google.com/sql)
-    Alibaba Cloud | [ApsaraDB RDS for MySQL](https://www.alibabacloud.com/product/apsaradb-for-rds-mysql)
-    IBM Cloud | [IBM Cloud Databases for MySQL](https://www.ibm.com/cloud/databases-for-mysql)
-
 ---
 
 ## Introduction
@@ -71,6 +57,17 @@ GRANT ALL PRIVILEGES ON `kfp_cache`.* TO 'kubeflow'@'%';
 GRANT ALL PRIVILEGES ON `kfp_metadata`.* TO 'kubeflow'@'%';
 GRANT ALL PRIVILEGES ON `kfp_pipelines`.* TO 'kubeflow'@'%';
 ```
+
+Here are some MySQL database services which can be used with deployKF:
+
+Platform | MySQL Service
+--- | ---
+Amazon Web Services | [Amazon Relational Database Service (RDS)](https://aws.amazon.com/rds/)
+Microsoft Azure | [Azure Database for MySQL](https://azure.microsoft.com/en-us/services/mysql/)
+Google Cloud | [Cloud SQL](https://cloud.google.com/sql)
+Alibaba Cloud | [ApsaraDB RDS for MySQL](https://www.alibabacloud.com/product/apsaradb-for-rds-mysql)
+IBM Cloud | [IBM Cloud Databases for MySQL](https://www.ibm.com/cloud/databases-for-mysql)
+Self-Hosted | [MySQL Community Edition](https://www.mysql.com/products/community/)
 
 ## 3. Connect Katib
 

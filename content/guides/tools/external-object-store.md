@@ -2,21 +2,6 @@
 
 This guide explains how to __use an external S3-like object store__ with deployKF.
 
-??? question_secondary "Which object stores are supported?"
-
-    deployKF should work with any S3-compatible object store!
-
-    For example, here are some popular object stores, listed by platform:
-
-    Platform | Object Store
-    --- | ---
-    Amazon Web Services | [Amazon Simple Storage Service (S3)](https://aws.amazon.com/s3/)
-    Microsoft Azure | [Azure Blob Storage](https://azure.microsoft.com/en-us/services/storage/blobs/)
-    Google Cloud | [Google Cloud Storage](https://cloud.google.com/storage)
-    Alibaba Cloud | [Alibaba Cloud Object Storage Service (OSS)](https://www.alibabacloud.com/product/oss)
-    IBM Cloud | [IBM Cloud Object Storage](https://www.ibm.com/cloud/object-storage)
-    Other | [MinIO](https://min.io/), [Ceph](https://ceph.io/), [Wasabi](https://wasabi.com/)
-
 ---
 
 ## Introduction
@@ -28,13 +13,6 @@ However, you will likely want to replace this with an external S3-like object st
 
     Currently, the [embedded MinIO](https://github.com/deployKF/deployKF/tree/v0.1.3/generator/templates/manifests/deploykf-opt/deploykf-minio) is only intended for development and testing purposes as it only supports a single replica.
     In future, we may add support for a multi-replica MinIO deployment, but for now you should always use an external S3-like object store for production usage.
-
-!!! warning "S3-compatible APIs Only"
-
-    Currently, Kubeflow Pipelines only supports object stores that use an S3-compatible XML API.
-    This means that while you can use services like [Google Cloud Storage](https://cloud.google.com/storage), you will need to use their S3-like [XML API](https://cloud.google.com/storage/docs/xml-api/overview), and features like [GKE Workload Identity](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity) will NOT work.
-
-    If you would like Kubeflow Pipelines to implement support for the native APIs of your object store, please raise this with the upstream Kubeflow Pipelines community.
 
 !!! warning "MinIO License"
 
@@ -60,15 +38,31 @@ You must manually create the buckets that Kubeflow Pipelines will use.
 Please refer to the documentation for your object store for instructions on how to create buckets.
 For example, if you are using S3 you may use the [AWS Console](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html) or the [AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/s3api/create-bucket.html).
 
-??? question_secondary "What bucket object prefixes are used?"
+Here are some object stores which can be used with Kubeflow Pipelines:
 
-    The following table shows bucket prefixes used by Kubeflow Pipelines:
+Platform | Object Store | XML API Endpoint
+--- | --- | ---
+Amazon Web Services | [Amazon S3](https://aws.amazon.com/s3/) | `s3.amazonaws.com`
+Google Cloud | [Google Cloud Storage](https://cloud.google.com/storage) | [`storage.googleapis.com`](https://cloud.google.com/storage/docs/xml-api/overview)
+Microsoft Azure | [Azure Blob Storage](https://azure.microsoft.com/en-us/services/storage/blobs/) | No first-party S3 API, but translation layers like [S3Proxy](https://github.com/gaul/s3proxy) can be used.
+Alibaba Cloud | [Alibaba Cloud Object Storage Service (OSS)](https://www.alibabacloud.com/product/oss) | [`s3.oss-{region}.aliyuncs.com`](https://www.alibabacloud.com/help/en/oss/developer-reference/use-amazon-s3-sdks-to-access-oss)
+IBM Cloud | [IBM Cloud Object Storage](https://www.ibm.com/cloud/object-storage) | [`	s3.{region}.cloud-object-storage.appdomain.cloud`](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints)
+Other | [MinIO](https://min.io/), [Ceph](https://ceph.io/), [Wasabi](https://wasabi.com/) | See provider documentation.
 
-    Object Prefix | Purpose | Config Value
-    --- | --- | ---
-    `/pipelines` | pipeline definitions | (can not be changed)
-    `/artifacts/{profile_name}` | pipeline run artifacts (KFP v1) | [`kubeflow_dependencies.kubeflow_argo_workflows.artifactRepository.keyFormat`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1229-L1232)
-    `/v2/artifacts/{profile_name}` | pipeline run artifacts (KFP v2) | [`kubeflow_tools.pipelines.kfpV2.defaultPipelineRoot`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1786-L1793)
+!!! warning "S3-compatible APIs Only"
+
+    Currently, Kubeflow Pipelines only supports object stores which have an S3-compatible XML API.
+    This means that while you can use services like [Google Cloud Storage](https://cloud.google.com/storage), you will need to use their [XML API](https://cloud.google.com/storage/docs/xml-api/overview), and features like [GKE Workload Identity](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity) will NOT work.
+
+    If you would like Kubeflow Pipelines to implement support for the native APIs of your object store, please raise this with the upstream Kubeflow Pipelines community.
+
+The following table shows bucket prefixes used by Kubeflow Pipelines:
+
+Object Prefix | Purpose | Config Value
+--- | --- | ---
+`/pipelines` | pipeline definitions | (can not be changed)
+`/artifacts/{profile_name}` | pipeline run artifacts (KFP v1) | [`kubeflow_dependencies.kubeflow_argo_workflows.artifactRepository.keyFormat`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1229-L1232)
+`/v2/artifacts/{profile_name}` | pipeline run artifacts (KFP v2) | [`kubeflow_tools.pipelines.kfpV2.defaultPipelineRoot`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1786-L1793)
 
 !!! info "Bucket IAM Policies"
 
