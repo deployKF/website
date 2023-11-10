@@ -13,16 +13,14 @@ We encourage participation from anyone who shares our mission of making it easy 
     
 Are you a vendor who wants to support deployKF or use it in your product?
     
-Let's work together! Email [`team@deploykf.org`](mailto:team@deploykf.org?subject=%5BPartnerships%5D%20MY_SUBJECT) to discuss more.
+[Email `team@deploykf.org` start a discussion!](mailto:team@deploykf.org?subject=%5BPartnerships%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
 
 ## Slack
 
 The deployKF community uses the [Kubeflow Slack](https://www.kubeflow.org/docs/about/community/#kubeflow-slack) for informal discussions among users and contributors.
+After you join, connect with us on the [`#deploykf`](https://kubeflow.slack.com/archives/C054H6WLNCB) channel!
 
-[:fontawesome-brands-slack: Join the Kubeflow Slack](https://invite.playplay.io/invite?team_id=T7QLHSH6U){ .md-button .md-button--secondary }
-
-!!! tip
-    After you join, connect with us on the [`#deploykf`](https://kubeflow.slack.com/archives/C054H6WLNCB) channel!
+[:fontawesome-brands-slack: Join the Kubeflow / deployKF Slack](https://invite.playplay.io/invite?team_id=T7QLHSH6U){ .md-button .md-button--secondary }
 
 ## Mailing Lists
 

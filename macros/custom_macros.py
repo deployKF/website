@@ -290,7 +290,9 @@ def define_env(env: MacrosPlugin):
 
         for faq_entry in faq_schema:
             question = faq_entry["question"]
-            if faq_entry.get("highlight_answer", False):
+            if faq_entry.get("admonition_type", False):
+                question_type = faq_entry.get("admonition_type")
+            elif faq_entry.get("highlight_answer", False):
                 question_type = "question"
             else:
                 question_type = "question_secondary"

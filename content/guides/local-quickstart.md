@@ -6,30 +6,27 @@ icon: material/sprout
 
 This guide will show you how to __quickly try deployKF__ on a __local__ Kubernetes cluster.
 
-!!! tip "Other Guides"
+!!! info "Related Guides"
 
-    - [__Getting Started__](getting-started.md) - run a production deployKF instance on any Kubernetes cluster
+    - [__Getting Started__](getting-started.md) - start building your production-ready ML Platform on any Kubernetes cluster
 
 ---
 
 ## Introduction
 
-Before starting, let's answer some common questions.
+Before starting, let's answer some common questions about deployKF.
 
-### What is deployKF?
-
-!!! question ""
+!!! question "What is deployKF?"
 
     deployKF builds world-class ML Platforms on __any Kubernetes cluster__, within __any cloud or environment__, in minutes.
 
     For more details, see the [introduction](getting-started.md#about-deploykf) of the _Getting Started_ guide.
 
-### What is the purpose of this guide?
+!!! support "Do you offer commercial support?"
 
-!!! question_secondary ""
+    Yes! The founder of deployKF ([Mathew Wicks](https://www.linkedin.com/in/mathewwicks/)), operates a US-based company named [Aranui Solutions](https://www.aranui.solutions) to provide commercial support and advisory services for organizations building ML & Data Platforms on Kubernetes.
 
-    To fully understand deployKF, reading is insufficient; hands-on experience with the wide range of features is essential.
-    This guide will help you create a local instance of deployKF, and allow you to explore its features first-hand.
+    Email [`sales@aranui.solutions`](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) to learn more!
 
 ## 1. Requirements
 
@@ -762,15 +759,12 @@ Username | Password | Notes
 deployKF includes [many tools](../reference/tools.md#tool-index) that address different stages of the ML & Data lifecycle.
 The following links give more specific information about some of our most popular tools:
 
-- [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines):
-    - [Connect with External Object Store](./tools/external-object-store.md)
-    - [Connect with External MySQL Database](./tools/external-mysql.md)
-- [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks):
-    - [Configure Kubeflow Notebooks](./tools/kubeflow-notebooks.md)
+- [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines)
+- [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks)
 
 ## Next Steps
 
-- [Support us with a :star: on GitHub!](https://github.com/deployKF/deployKF)
-- [Join the deployKF community!](../about/community.md)
-- [Production Deployment](./getting-started.md)
-- [Get Support](../about/support.md)
+- [:material-rocket-launch: Build a production-ready deployKF platform!](getting-started.md)
+- [:material-account-group: Join the deployKF community!](../about/community.md)
+- [:star: Support us with a star on GitHub!](https://github.com/deployKF/deployKF)
+- [<span style="color: #ff1f1f">:material-hospital-box:</span> Get support from our experts!](../about/support.md#commercial-support)

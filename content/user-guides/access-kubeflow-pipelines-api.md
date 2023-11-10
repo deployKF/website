@@ -716,7 +716,7 @@ print(experiments)
     )
 
     # initialize a client instance
-    # NOTE: we must use the `Service/ml-pipeline` service, NOT the public gateway
+    # NOTE: we must use the `Service/ml-pipeline-ui` service, NOT the public gateway
     kfp_client = kfp.Client(
         host="http://ml-pipeline-ui.kubeflow.svc.cluster.local",
         credentials=credentials,
