@@ -6,7 +6,7 @@
     </url>
     <url>
          <loc>https://www.deploykf.org/faq/</loc>
-         <lastmod>2023-11-09T21:45:01+00:00</lastmod>
+         <lastmod>2023-11-11T04:54:59+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
@@ -16,7 +16,7 @@
     </url>
     <url>
          <loc>https://www.deploykf.org/about/community/</loc>
-         <lastmod>2023-10-05T17:02:24+00:00</lastmod>
+         <lastmod>2023-11-11T04:54:59+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
@@ -26,7 +26,7 @@
     </url>
     <url>
          <loc>https://www.deploykf.org/about/support/</loc>
-         <lastmod>2023-10-05T17:02:24+00:00</lastmod>
+         <lastmod>2023-11-11T04:54:59+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
@@ -36,12 +36,12 @@
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/getting-started/</loc>
-         <lastmod>2023-11-09T21:45:01+00:00</lastmod>
+         <lastmod>2023-11-11T04:54:59+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/local-quickstart/</loc>
-         <lastmod>2023-11-09T21:45:01+00:00</lastmod>
+         <lastmod>2023-11-11T04:54:59+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
@@ -56,32 +56,32 @@
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/deploykf-authentication/</loc>
-         <lastmod>2023-10-18T07:56:59+00:00</lastmod>
+         <lastmod>2023-11-11T04:54:59+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/deploykf-dashboard/</loc>
-         <lastmod>2023-10-05T17:02:24+00:00</lastmod>
+         <lastmod>2023-11-11T04:54:59+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/deploykf-gateway/</loc>
-         <lastmod>2023-11-09T21:45:01+00:00</lastmod>
+         <lastmod>2023-11-11T04:54:59+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/deploykf-profiles/</loc>
-         <lastmod>2023-10-18T07:56:59+00:00</lastmod>
+         <lastmod>2023-11-11T04:54:59+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/tools/external-mysql/</loc>
-         <lastmod>2023-11-09T22:41:46+00:00</lastmod>
+         <lastmod>2023-11-11T04:54:59+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/tools/external-object-store/</loc>
-         <lastmod>2023-11-09T22:41:46+00:00</lastmod>
+         <lastmod>2023-11-11T04:54:59+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
@@ -135,12 +135,12 @@
     </url>
     <url>
          <loc>https://www.deploykf.org/user-guides/access-kubeflow-pipelines-api/</loc>
-         <lastmod>2023-10-31T06:28:04+00:00</lastmod>
+         <lastmod>2023-11-11T04:54:59+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/user-guides/gitops-for-kubeflow-pipelines/</loc>
-         <lastmod>2023-10-31T06:28:04+00:00</lastmod>
+         <lastmod>2023-11-11T04:54:59+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
