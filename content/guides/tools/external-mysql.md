@@ -1,6 +1,6 @@
 # Connect an external MySQL Database
 
-This guide explains how to __use an external MySQL database__ with deployKF.
+This guide explains how to connect an __external MySQL database__ with deployKF.
 
 ---
 
@@ -73,8 +73,10 @@ Self-Hosted | [MySQL Community Edition](https://www.mysql.com/products/community
 
 To connect Katib to your external MySQL database, you will need to configure the following values:
 
-- [`kubeflow_tools.katib.mysqlDatabase`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1306-L1308) - database/schema name
-- [`kubeflow_tools.katib.mysql`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1290-L1304) - connection details & credentials
+Value | Purpose
+--- | ---
+[`kubeflow_tools.katib.mysqlDatabase`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1306-L1308) | name of database/schema
+[`kubeflow_tools.katib.mysql`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1290-L1304) | connection details & credentials
 
 For example, the following values will connect Katib to an external MySQL database:
 
@@ -107,8 +109,10 @@ kubeflow_tools:
 
 To connect Kubeflow Pipelines to your external MySQL database, you will need to configure the following values:
 
-- [`kubeflow_tools.pipelines.mysqlDatabases`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1775-L1780) - database/schema names
-- [`kubeflow_tools.pipelines.mysql`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1759-L1773) - connection details & credentials
+Value | Purpose
+--- | ---
+[`kubeflow_tools.pipelines.mysqlDatabases`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1775-L1780) | names of databases/schemas
+[`kubeflow_tools.pipelines.mysql`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1759-L1773) | connection details & credentials
 
 For example, the following values will connect Kubeflow Pipelines to an external MySQL database:
 

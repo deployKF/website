@@ -1,6 +1,6 @@
-# Expose deployKF Gateway and configure HTTPS
+# Expose Gateway and configure HTTPS
 
-This guide explains how to __expose the deployKF Gateway__ and __configure HTTPS__.
+This guide explains how to __expose__ the deployKF Gateway and __configure HTTPS__.
 
 !!! contribute "Help Improve this Guide"
 
@@ -14,10 +14,44 @@ This guide explains how to __expose the deployKF Gateway__ and __configure HTTPS
 The "deployKF Gateway Service" is the main network entry point to deployKF. 
 By default, it is a [Kubernetes Service](https://kubernetes.io/docs/concepts/services-networking/service/) named `deploykf-gateway` pointing to our [Istio Ingress Gateway](https://istio.io/latest/docs/tasks/traffic-management/ingress/ingress-control/) pods.
 
-## 1. Expose the Gateway Service
+## 1. Set Hostname and Ports
 
-The first step is to expose the deployKF Gateway Service on an IP address that is accessible from outside the cluster.
+The hostnames and ports on which the deployKF Gateway listens are configured with these values:
 
+Value | Purpose
+--- | ---
+[`deploykf_core.deploykf_istio_gateway.gateway.hostname`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L653) | base domain name
+[`deploykf_core.deploykf_istio_gateway.gateway.ports`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L654) | ports for HTTP/HTTPS
+
+For example, the following values will use `deploykf.example.com` on port `80` and `443`:
+
+```yaml
+deploykf_core:
+  deploykf_istio_gateway:
+    gateway:
+      ## NOTE: this domain and its subdomains must be dedicated to deployKF
+      hostname: deploykf.example.com
+      
+      ## NOTE: these are the defaults, but if you are using 'sample-values.yaml' 
+      ##       as a base, the defaults are 8080/8443, so you will need to 
+      ##       override them to use the standard ports 
+      ports:
+        http: 80
+        https: 443
+```
+
+Depending on which tools you have enabled, the gateway may serve the following hostnames:
+
+Hostname | Description
+--- | ---
+`deploykf.example.com` | the deployKF Gateway
+`argo-server.deploykf.example.com` | the Argo Server UI
+`minio-api.deploykf.example.com` | the MinIO API
+`minio-console.deploykf.example.com` | the MinIO UI
+
+## 2. Expose the Gateway Service
+
+So your users can access deployKF, the deployKF Gateway Service will need to be accessible from outside the cluster.
 There are two main options to expose the deployKF Gateway Service:
 
 1. Use a [LoadBalancer](https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer) type `Service` (recommended)
@@ -237,7 +271,7 @@ There are two main options to expose the deployKF Gateway Service:
 !!! danger "Public Internet"
 
     You should seriously consider the security implications of exposing the deployKF Gateway to the public internet.
-    Given the nature of ML Platforms, most companies choose to expose the gateway on their private network, and then use a VPN or other secure connection to access it.
+    Given the nature of ML Platforms, most organizations choose to expose the gateway on their private network, and then use a VPN or other secure connection to access it.
 
 !!! warning "Ingress vs LoadBalancer"
 
@@ -253,10 +287,9 @@ There are two main options to expose the deployKF Gateway Service:
     
     For example, [`deploykf_core.deploykf_istio_gateway.extraManifests`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L575-L579) may be used to add a custom Ingress or Secret resource to the generated output of the `deploykf-istio-gateway` component.
 
-## 2. Configure DNS
+## 3. Configure DNS
 
 Now that the deployKF Gateway Service has an IP address, you must configure DNS records which point to it.
-
 There are two main options to provision DNS records:
 
 1. Automatically with [External-DNS](https://github.com/kubernetes-sigs/external-dns) (recommended)
@@ -349,19 +382,6 @@ There are two main options to provision DNS records:
     You need to create records for BOTH the __base domain__ AND __subdomains__.
     You can avoid the need to specify each subdomain by using a wildcard DNS record, but you will still need to specify the base domain.
 
-!!! info "Base Domain"
-
-    The "base domain" is defined by [`deploykf_core.deploykf_istio_gateway.gateway.hostname`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L653), which has a default value of `"deploykf.example.com"`.
-
-    Depending on which components are deployed, the following hostnames may be served by the gateway:
-    
-    Hostname | Description | Required By
-    --- | --- | ---
-    `deploykf.example.com` | the deployKF Gateway | ALL
-    `argo-server.deploykf.example.com` | the Argo Server UI | Argo Server (Kubeflow Pipelines)
-    `minio-api.deploykf.example.com` | the MinIO API | MinIO
-    `minio-console.deploykf.example.com` | the MinIO UI | MinIO
-
 !!! info "Wildcard DNS Records"
 
     If you plan to manually create the records (either via External-DNS annotations or manual record creation), we recommend using a [wildcard DNS record](https://en.wikipedia.org/wiki/Wildcard_DNS_record) to account for any future subdomains that may be added to the deployKF Gateway Service.
@@ -371,7 +391,7 @@ There are two main options to provision DNS records:
     - `*.deploykf.example.com`
     - `deploykf.example.com`
 
-## 3. Configure HTTPS/TLS
+## 4. Configure HTTPS/TLS
 
 Now that the deployKF Gateway Service has a DNS pointing to it, to prevent self-signed certificate errors, you must configure a way to make the TLS certificates valid.
 

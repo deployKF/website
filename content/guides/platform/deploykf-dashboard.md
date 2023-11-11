@@ -1,6 +1,6 @@
-# Customize the deployKF Dashboard
+# Customize the Dashboard
 
-This guide explains how to __customize the deployKF Dashboard__.
+This guide explains how to __customize__ the __deployKF Dashboard__.
 
 ---
 

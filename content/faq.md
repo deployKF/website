@@ -14,7 +14,15 @@ faq_schema:
       - deployKF has [__centralized configs__](./reference/deploykf-values.md) that manage all aspects of the platform
       - deployKF supports __in-place upgrades__ and can __autonomously__ roll out config changes
       - deployKF lets you __bring your own__ cluster dependencies like __istio__ and __cert-manager__, if desired
-      - deployKF uses __ArgoCD Applications__ to provide native GitOps support
+      - deployKF provides __native GitOps__ via ArgoCD
+
+  - question: Is commercial support available for deployKF?
+    include_in_schema: true
+    pre_expand_answer: false
+    admonition_type: support
+    answer: |-
+      Yes! The founder of deployKF ([Mathew Wicks](https://www.linkedin.com/in/mathewwicks/)), operates a US-based company named [Aranui Solutions](https://www.aranui.solutions) to provide commercial support and advisory services for organizations building ML & Data Platforms on Kubernetes.
+      Email [`sales@aranui.solutions`](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) to learn more!
 
   - question: Which ML and AI tools are in deployKF?
     include_in_schema: true
@@ -30,13 +38,6 @@ faq_schema:
     answer: |-
       deployKF was originally created by [Mathew Wicks](https://www.linkedin.com/in/mathewwicks/) (GitHub: [@thesuperzapper](https://github.com/thesuperzapper)), a Kubeflow lead and maintainer of the popular [Apache Airflow Helm Chart](https://github.com/airflow-helm/charts).
       deployKF is a community-led project that welcomes contributions from anyone who wants to help.
-   
-  - question: Do you offer commercial support for deployKF?
-    include_in_schema: true
-    pre_expand_answer: false
-    answer: |-
-      The creator of deployKF (Mathew Wicks), operates a US-based ML & Data company named [Aranui Solutions](https://www.aranui.solutions) which provides commercial support and advisory services.
-      Connect on [LinkedIn](https://www.linkedin.com/in/mathewwicks/) or email [`sales@aranui.solutions`](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) to learn more!
 
   - question: Who has adopted deployKF?
     include_in_schema: false

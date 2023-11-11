@@ -2,10 +2,10 @@
 
 This guide explains how to __configure user authentication__ and connect with __external identity providers__ in deployKF.
 
-!!! info "User Authorization (Profiles)"
+!!! tip "Related Guides"
 
-    In addition to configuring how users are authenticated, you will likely want to [__authorize users__ by assigning them to profiles](deploykf-profiles.md).
-    The level of access that a user has is directly determined by which profiles they are a member of.
+    In addition to configuring how users are __authenticated__, you will likely want to __authorize__ them by [assigning to profiles](deploykf-profiles.md).
+    Note, the level of access a user has is directly determined by which profiles they are a member of.
 
 ---
 

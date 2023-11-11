@@ -1,11 +1,11 @@
-# Manage Profiles and Assigning Users
+# User Authorization and Profile Management
 
 This guide explains how to __manage profiles__ and __assign users__ to them in deployKF.
 
-!!! info "User Authentication"
+!!! tip "Related Guides"
 
-    Users are identified by an email-like string which is determined by the authentication system.
-    Before reading this guide, you may want to [define static user accounts](deploykf-authentication.md#static-userpassword-combinations) or [connect with an external identity provider](deploykf-authentication.md#external-identity-providers).
+    Users are identified and selected into profiles by an __email-like string__ which is verified by the __authentication__ system.
+    Before reading this guide, you may want to define [static user credentials](deploykf-authentication.md#static-userpassword-combinations) or connect with an [external identity provider](deploykf-authentication.md#external-identity-providers).
 
 ---
 

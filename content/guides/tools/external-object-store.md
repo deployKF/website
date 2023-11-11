@@ -1,6 +1,6 @@
-# Connect an external S3-like Object Store
+# Connect an external Object Store
 
-This guide explains how to __use an external S3-like object store__ with deployKF.
+This guide explains how to connect an __external object store__ that is __S3-compatible__ with deployKF.
 
 ---
 
@@ -56,13 +56,15 @@ Other | [MinIO](https://min.io/), [Ceph](https://ceph.io/), [Wasabi](https://was
 
     If you would like Kubeflow Pipelines to implement support for the native APIs of your object store, please raise this with the upstream Kubeflow Pipelines community.
 
-The following table shows bucket prefixes used by Kubeflow Pipelines:
+!!! info "Object Prefixes"
 
-Object Prefix | Purpose | Config Value
---- | --- | ---
-`/pipelines` | pipeline definitions | (can not be changed)
-`/artifacts/{profile_name}` | pipeline run artifacts (KFP v1) | [`kubeflow_dependencies.kubeflow_argo_workflows.artifactRepository.keyFormat`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1229-L1232)
-`/v2/artifacts/{profile_name}` | pipeline run artifacts (KFP v2) | [`kubeflow_tools.pipelines.kfpV2.defaultPipelineRoot`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1786-L1793)
+    The following table shows bucket prefixes used by Kubeflow Pipelines:
+    
+    Object Prefix | Purpose | Config Value
+    --- | --- | ---
+    `/pipelines` | pipeline definitions | (can not be changed)
+    `/artifacts/{profile_name}` | pipeline run artifacts (KFP v1) | [`kubeflow_dependencies.kubeflow_argo_workflows.artifactRepository.keyFormat`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1229-L1232)
+    `/v2/artifacts/{profile_name}` | pipeline run artifacts (KFP v2) | [`kubeflow_tools.pipelines.kfpV2.defaultPipelineRoot`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1786-L1793)
 
 !!! info "Bucket IAM Policies"
 
