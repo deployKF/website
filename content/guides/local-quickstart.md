@@ -767,4 +767,4 @@ The following links give more specific information about some of our most popula
 - [:material-rocket-launch: Build a production-ready deployKF platform!](getting-started.md)
 - [:material-account-group: Join the deployKF community!](../about/community.md)
 - [:star: Support us with a star on GitHub!](https://github.com/deployKF/deployKF)
-- [<span style="color: #ff1f1f">:material-hospital-box:</span> Get support from our experts!](../about/support.md#commercial-support)
+- [<span style="color: #ff1f1f">:material-hospital-box:</span> Get support from our experts!](../about/support.md)

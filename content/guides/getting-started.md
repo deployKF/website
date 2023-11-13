@@ -898,4 +898,4 @@ You should share these guides with your users to help them get started.
 
 - [:material-account-group: Join the deployKF community!](../about/community.md)
 - [:star: Support us with a star on GitHub!](https://github.com/deployKF/deployKF)
-- [<span style="color: #ff1f1f">:material-hospital-box:</span> Get support from our experts!](../about/support.md#commercial-support)
+- [<span style="color: #ff1f1f">:material-hospital-box:</span> Get support from our experts!](../about/support.md)
