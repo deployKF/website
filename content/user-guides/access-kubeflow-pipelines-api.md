@@ -2,6 +2,17 @@
 
 This guide explains how to access the _Kubeflow Pipelines API_ with the _Kubeflow Pipelines Python SDK_ and __authenticate with deployKF__.
 
+!!! warning "Kubeflow Pipelines SDK Version"
+
+    deployKF 0.1 includes Kubeflow Pipelines [version `2.0.0-alpha.7`](../releases/version-matrix.md#kubeflow-tools), confusingly, this is actually part of the v1 line.
+    Therefore, when using deployKF 0.1, ensure you have a `1.X.X` version of the `kfp` SDK installed.
+
+    For example, to install [`1.8.22`](https://pypi.org/project/kfp/1.8.22/) of the `kfp` SDK, run:
+
+    ```bash
+    pip install kfp==1.8.22
+    ```
+
 ---
 
 ## Overview
