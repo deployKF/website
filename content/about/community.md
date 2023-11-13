@@ -13,7 +13,7 @@ We encourage participation from anyone who shares our mission of making it easy 
     
 Are you a vendor who wants to support deployKF or use it in your product?
     
-[Email `team@deploykf.org` start a discussion!](mailto:team@deploykf.org?subject=%5BPartnerships%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
+[Email `team@deploykf.org` to discuss!](mailto:team@deploykf.org?subject=%5BPartnerships%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
 
 ## Slack
 
