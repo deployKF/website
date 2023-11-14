@@ -1,4 +1,5 @@
 nav:
   - version-matrix.md
-  - changelog-deploykf.md
-  - changelog-deploykf-cli.md
+  - Changelogs:
+     - changelog-deploykf.md
+     - changelog-deploykf-cli.md

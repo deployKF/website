@@ -66,3 +66,18 @@ Navigation Styling
 .md-nav--primary > .md-nav__title {
     padding-bottom: 1.0rem;
 }
+
+/* add visual separation between nav sections */
+@media screen and (min-width: 76.25em) {
+    [data-md-color-scheme=default] li.md-nav__item--section.md-nav__item--nested > label:first-of-type {
+        padding: 0 0.2em 0.05em 0.2em;
+        color: var(--md-primary-fg-color--light) !important;
+        border-bottom: 0.1rem dotted var(--md-primary-fg-color--light);
+    }
+
+    [data-md-color-scheme=slate] li.md-nav__item--section.md-nav__item--nested > label:first-of-type {
+        padding: 0 0.2em 0.05em 0.2em;
+        color: var(--md-primary-fg-color--lighter) !important;
+        border-bottom: 0.1rem dotted var(--md-primary-fg-color--lighter);
+    }
+}

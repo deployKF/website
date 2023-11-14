@@ -1,6 +1,7 @@
 [data-md-color-primary="deploykf-primary"] {
     --md-primary-fg-color: #294275;
     --md-primary-fg-color--light: #697A9E;
+    --md-primary-fg-color--lighter: #8394B8;
     --md-primary-fg-color--dark: #1c2e51;
     --md-primary-fg-color-transparent: #294275b3;
     --md-primary-bg-color: #fff;
@@ -31,10 +32,17 @@
         color: hsla(var(--md-hue),15%,90%,1.0);
     }
 
-    /* make nav sections less bold */
+    /* make nav section less bold */
     @media screen and (min-width: 76.25em) {
-        .md-sidebar__scrollwrap {
-            opacity: 0.75;
+        .md-nav--primary {
+            opacity: 0.78;
+        }
+    }
+
+    /* make toc section less bold */
+    @media screen and (min-width: 60em) {
+        .md-nav--secondary {
+            opacity: 0.78;
         }
     }
 
@@ -54,9 +62,16 @@
 [data-md-color-scheme=default][data-md-color-primary="deploykf-primary"] {
     --md-typeset-a-color: #4d5fc4;
 
-    /* make nav sections less bold */
+    /* make nav section less bold */
     @media screen and (min-width: 76.25em) {
-        .md-sidebar__scrollwrap {
+        .md-nav--primary {
+            opacity: 0.78;
+        }
+    }
+
+    /* make toc section less bold */
+    @media screen and (min-width: 60em) {
+        .md-nav--secondary {
             opacity: 0.78;
         }
     }

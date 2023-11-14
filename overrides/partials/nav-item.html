@@ -81,7 +81,7 @@
           {% set tabindex = "0" if not is_section %}
           <label class="md-nav__link" for="{{ path }}" id="{{ path }}_label" tabindex="{{ tabindex }}">
             <!-- ================ BEGIN CHANGE ================ -->
-            {{ render_content(nav_item, hide_folder_icon=(level<=1)) }}
+            {{ render_content(nav_item, hide_folder_icon=(level<=2)) }}
             <!-- ================= END CHANGE ================= -->
             <span class="md-nav__icon md-icon"></span>
           </label>
