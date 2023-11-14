@@ -80,24 +80,10 @@ Before starting, let's briefly introduce the deployKF project.
 
 There are currently two "modes of operation" for deployKF, the modes differ by how manifests are generated and applied to your Kubernetes cluster.
 
-<table>
-  <tr>
-    <th>
-      ArgoCD Plugin Mode (Recommended)
-    </th>
-    <td>
-      In this mode, the <a href="https://github.com/deployKF/deployKF/tree/main/argocd-plugin"><code>deployKF ArgoCD Plugin</code></a> is used to generate and apply manifests in a single step (no git repo required).
-    </td>
-  </tr>
-  <tr>
-    <th>
-      Manifests Repo Mode
-    </th>
-    <td>
-      In this mode, the <a href="../deploykf-cli/"><code>deployKF CLI</code></a> is used to generate manifests which are then committed to a "manifests git repo" for application with ArgoCD.
-    </td>
-  </tr>
-</table>
+Mode | Description
+--- | ---
+ArgoCD Plugin Mode (Recommended) | The [`deployKF ArgoCD Plugin`](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) is used to generate and apply manifests from within ArgoCD.
+Manifests Repo Mode | The [`deployKF CLI`](deploykf-cli.md) is used to generate manifests, the manifests are then committed to a git repo which ArgoCD can read from.
 
 ## 1. Requirements
 
@@ -119,7 +105,7 @@ deployKF is designed to work on any Kubernetes cluster!
 
 Other requirements vary depending on the ["mode of operation"](#0-modes-of-operation) you have chosen:
 
-Requirement<br><small>:fontawesome-solid-star: → required // :fontawesome-solid-o: → optional</small> | ArgoCD Plugin Mode | Manifests Repo Mode 
+Requirement<br><small>:fontawesome-solid-star: → required // :fontawesome-solid-o: → optional</small> | [ArgoCD Plugin Mode](#0-modes-of-operation) | [Manifests Repo Mode](#0-modes-of-operation)
 --- | :---: | :---:
 a Kubernetes cluster ([version compatibility](../releases/version-matrix.md#deploykf-dependencies)) | :fontawesome-solid-star: | :fontawesome-solid-star:
 ArgoCD is [installed](https://argo-cd.readthedocs.io/en/stable/getting_started/) on your Kubernetes | :fontawesome-solid-star: | :fontawesome-solid-star:
@@ -136,8 +122,6 @@ external S3-like object store ([connecting guide](tools/external-object-store.md
     Additionally, deployKF is not well suited to multi-tenant clusters.
     It uses cluster-wide components (e.g. Istio) and namespaces for user/team profiles.
     Therefore, we strongly recommend using a dedicated Kubernetes cluster for deployKF.
-
-    ---
 
     If you are unable to create a new Kubernetes cluster, you may consider using [vCluster](https://github.com/loft-sh/vcluster) to create a virtual Kubernetes cluster within an existing one.
 
@@ -821,7 +805,7 @@ All public deployKF services (including the dashboard) are accessed via your _de
 
     __Step 1: Modify Hosts File__
 
-    You will need to add some lines to your __local__ `/etc/hosts` file.
+    You will need to add some lines to your __local__ `/etc/hosts` file of your __local machine__.
 
     If the `deploykf_core.deploykf_istio_gateway.gateway.hostname` value has been left as the default of [`"deploykf.example.com"`](https://github.com/deployKF/deployKF/blob/main/generator/default_values.yaml#L601), you should add the following lines to `/etc/hosts`:
     
