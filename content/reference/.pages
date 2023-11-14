@@ -1,5 +1,6 @@
 nav:
   - deploykf-values.md
-  - tools.md
-  - future-tools.md
+  - Included Tools:
+     - tools.md
+     - future-tools.md
   - ...

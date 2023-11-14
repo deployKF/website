@@ -103,7 +103,7 @@ tools_current:
 
 ---
 
-# ML & Data Tools (Current)
+# Current ML & Data Tools
 
 This page lists __ML & Data tools__ which are __currently supported__ by deployKF.
 

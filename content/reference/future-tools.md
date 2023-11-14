@@ -181,7 +181,7 @@ tools_planned:
 
 ---
 
-# ML & Data Tools (Planned)
+# Future ML & Data Tools
 
 This page lists the __ML & Data tools__ which are __planned for future versions__ of deployKF.
 
