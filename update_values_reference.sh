@@ -13,7 +13,8 @@ VALUES_LOCAL_PATH="./.cache/default_values-${VALUES_GIT_REF}.yaml"
 
 # download values file from github
 if [ ! -f "$VALUES_LOCAL_PATH" ]; then
-  wget --no-verbose -O "$VALUES_LOCAL_PATH" "$VALUES_GIT_URL_RAW"
+  echo "Downloading file '$VALUES_LOCAL_PATH' from '$VALUES_GIT_URL_RAW'..."
+  curl -sSfL "$VALUES_GIT_URL_RAW" -o "$VALUES_LOCAL_PATH" --create-dirs
 else
   echo "File '$VALUES_LOCAL_PATH' already exists. Skipping download."
 fi

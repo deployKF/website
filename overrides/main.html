@@ -5,13 +5,6 @@
 {% include "partials_custom/seo_data.html" %}
 {% endblock %}
 
-<!-- Sync Announcement Bar -->
-<!-- NOTE: We use the "hero" block because it's inside the "content" object so changes with the page -->
-<!-- NOTE: Scripts inside "content" are run after page change in "instant navigation" mode. -->
-{% block hero %}
-<script>syncAnnouncementBar()</script>
-{% endblock %}
-
 <!-- Announcement Bar/Banner -->
 {% block announce %}
 <b>ANNOUNCEMENT: </b>

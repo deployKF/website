@@ -36,6 +36,14 @@
     font-size: 2.4rem;
 }
 
+[data-md-color-scheme=slate] .mdx-hero .mdx-hero__tag-line {
+    color: hsla(var(--md-hue),15%,93%,0.95);
+}
+
+[data-md-color-scheme=slate] .mdx-hero .mdx-hero__tag-description {
+    color: hsla(var(--md-hue),15%,93%,0.90);
+}
+
 .mdx-hero .mdx-hero__tag-highlight {
     background: linear-gradient(60deg, #fd7e14, #014bd1);
     -webkit-background-clip: text;
