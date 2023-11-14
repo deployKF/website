@@ -17,6 +17,27 @@
 [data-md-color-scheme=slate][data-md-color-primary="deploykf-primary"] {
     --md-typeset-a-color: #6c91d5;
 
+    /* default text is too dark */
+    --md-default-fg-color: hsla(var(--md-hue), 15%, 95%, 0.86);
+
+    /* default background is too dark */
+    --md-default-bg-color: hsla(var(--md-hue), 15%, 17%, 1);
+
+    /* default code is too light */
+    --md-code-bg-color: hsla(var(--md-hue), 14%, 13%, 1);
+
+    /* header text is to bright */
+    .md-header {
+        color: hsla(var(--md-hue),15%,90%,1.0);
+    }
+
+    /* make nav sections less bold */
+    @media screen and (min-width: 76.25em) {
+        .md-sidebar__scrollwrap {
+            opacity: 0.75;
+        }
+    }
+
     .md-button--secondary {
         color: var(--md-typeset-a-color);
         border-color: var(--md-primary-fg-color--light);
@@ -32,6 +53,13 @@
 
 [data-md-color-scheme=default][data-md-color-primary="deploykf-primary"] {
     --md-typeset-a-color: #4d5fc4;
+
+    /* make nav sections less bold */
+    @media screen and (min-width: 76.25em) {
+        .md-sidebar__scrollwrap {
+            opacity: 0.78;
+        }
+    }
 
     .md-button--secondary {
         color: var(--md-typeset-a-color);
