@@ -9,10 +9,18 @@ This guide explains how to __manage profiles__ and __assign users__ to them in d
 
 ---
 
-## Overview
+## Introduction
 
 A deployKF profile has a 1:1 relationship with a Kubernetes namespace.
-The profiles which a user is a member of determines their level of access to resources/tools in the cluster.
+The profiles which users are members of determine their level of access to resources/tools in the cluster.
+
+The core entities of the profile system are:
+
+Entity | Description
+--- | ---
+[User](#user-entities) | User entities are identified by email address, and may be assigned to groups or profiles.
+[Group](#group-entities) | Group entities are logical collections of users, and may be assigned to profiles.
+[Profile](#profile-definitions) | Profiles define the access level for the users/groups assigned to them.
 
 !!! info "No Profile = No Access"
 
@@ -22,7 +30,6 @@ The profiles which a user is a member of determines their level of access to res
 
     You must ONLY use the `deploykf_core.deploykf_profiles_generator` values to manage profile definitions or user assignments.
     Any manual changes using the UI or other manifests will result in undefined behaviour.
-    
 
 ### User Entities
 
