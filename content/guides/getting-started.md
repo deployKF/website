@@ -33,8 +33,7 @@ Before starting, let's briefly introduce the deployKF project.
 
     Email [`sales@aranui.solutions`](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) to learn more!
 
-
-### Other Questions
+### Common Questions
 
 ??? question_secondary "Which ML and AI tools are in deployKF?"
 
@@ -87,21 +86,23 @@ Manifests Repo Mode | The [`deployKF CLI`](deploykf-cli.md) is used to generate 
 
 ## 1. Requirements
 
-deployKF is designed to work on any Kubernetes cluster!
+First, you need a Kubernetes cluster with a version that is [supported](../releases/version-matrix.md#deploykf-dependencies) by deployKF.
 
-??? kubernetes "Which Kubernetes Distributions are Supported?"
+??? kubernetes "Which distributions of Kubernetes are supported?"
 
-    deloyKF is designed to work on any Kubernetes cluster, including managed Kubernetes services.
+    deployKF is designed to work on __any Kubernetes cluster__, within __any cloud__ or __local environment__.
 
     Here are some popular Kubernetes distributions that users have reported success with:
     
     Platform | Kubernetes Distribution
     --- | ---
-    Local Machine | [k3d](https://k3d.io/), [kind](https://kind.sigs.k8s.io/), [minikube](https://minikube.sigs.k8s.io/)
     Amazon Web Services | [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/)
     Microsoft Azure | [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/products/kubernetes-service/)
     Google Cloud | [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine)
     IBM Cloud | [IBM Cloud Kubernetes Service (IKS)](https://www.ibm.com/cloud/kubernetes-service)
+    N/A | [Rancher Kubernetes Engine (RKE)](https://rancher.com/docs/rke/latest/en/)
+    N/A | [Canonical Kubernetes (MicroK8s)](https://microk8s.io/)
+    Local Machine | [k3d](https://k3d.io/), [kind](https://kind.sigs.k8s.io/), [minikube](https://minikube.sigs.k8s.io/)
 
 Other requirements vary depending on the ["mode of operation"](#0-modes-of-operation) you have chosen:
 
@@ -130,26 +131,26 @@ external S3-like object store ([connecting guide](tools/external-object-store.md
     deployKF currently requires the Kubernetes kubelet [`clusterDomain`](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) be left as the default of `cluster.local`.
     This is caused by a small number of Kubeflow components hard-coding this value, with no way to change it.
 
-??? warning "ARM Processor Support"
+!!! warning "ARM Processors"
 
     deployKF does NOT currently support ARM clusters. 
     A small number of Kubeflow components do not support ARM just yet, we expect this to change after the release of Kubeflow 1.8 in October 2023.
 
-??? warning "Default Kubernetes StorageClass"
+!!! warning "Default StorageClass"
 
     The default values assume your Kubernetes cluster has a default [StorageClass](https://kubernetes.io/docs/concepts/storage/storage-classes/) which has support for the `ReadWriteOnce` access mode.
     
-    ---
+    ??? question_secondary "What if I don't have a compatible default StorageClass?"
 
-    If you do NOT have a compatible default StorageClass, you have a few options:
-
-    1. Configure [a default StorageClass](https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/) that has `ReadWriteOnce` support
-    2. Explicitly set the `storageClass` value for the following components:
-         - [`deploykf_opt.deploykf_minio.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L901-L905)
-         - [`deploykf_opt.deploykf_mysql.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1036-L1040)
-    2. Disable components which require the StorageClass, and use external alternatives:
-         - [`deploykf_opt.deploykf_minio.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L853)
-         - [`deploykf_opt.deploykf_mysql.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L993)
+        If you do NOT have a compatible default StorageClass, you have a few options:
+    
+        1. Configure [a default StorageClass](https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/) that has `ReadWriteOnce` support
+        2. Explicitly set the `storageClass` value for the following components:
+             - [`deploykf_opt.deploykf_minio.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L901-L905)
+             - [`deploykf_opt.deploykf_mysql.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1036-L1040)
+        2. Disable components which require the StorageClass, and use external alternatives:
+             - [`deploykf_opt.deploykf_minio.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L853)
+             - [`deploykf_opt.deploykf_mysql.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L993)
 
 ## 2. Platform Configuration
 
@@ -807,7 +808,7 @@ All public deployKF services (including the dashboard) are accessed via your _de
 
     You will need to add some lines to your __local__ `/etc/hosts` file of your __local machine__.
 
-    If the `deploykf_core.deploykf_istio_gateway.gateway.hostname` value has been left as the default of [`"deploykf.example.com"`](https://github.com/deployKF/deployKF/blob/main/generator/default_values.yaml#L601), you should add the following lines to `/etc/hosts`:
+    If the `deploykf_core.deploykf_istio_gateway.gateway.hostname` value has been left as the default of [`"deploykf.example.com"`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L653), you should add the following lines to `/etc/hosts`:
     
     ```text
     127.0.0.1 deploykf.example.com
