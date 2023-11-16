@@ -53,6 +53,16 @@ Table Styling
     border: 0.05rem solid var(--md-typeset-table-color);
 }
 
+/* Ensure tables don't overflow page on mobile */
+.md-typeset__table {
+    max-width: 100%;
+}
+
+/* A special wrapper class for tables to make them have less padding */
+.use-compact-tables .md-typeset__table table:not([class]) td {
+    padding: 0.7em 0.7em;
+}
+
 /*
 ========================================
 Navigation Styling
