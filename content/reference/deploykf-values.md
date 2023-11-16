@@ -14,6 +14,8 @@ The following is a summary of the __generator values__ (configs) available in __
 
 ---
 
+<div class="use-compact-tables" markdown>
+
 ## Argo CD
 
 Values for configuring Argo CD.
@@ -55,3 +57,5 @@ Values for configuring dependencies of Kubeflow's MLOps tools.
 Values for configuring MLOps tools from the Kubeflow ecosystem.
 
 {{ render_values_csv_files(values_prefix="kubeflow_tools.") }}
+
+</div>
