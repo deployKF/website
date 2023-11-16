@@ -34,24 +34,30 @@
           </div>
         </div>
         <div class="mdx-hero__actions">
-          <a href="{{ 'guides/getting-started' | url }}" title="Getting Started" class="md-button md-button--primary md-button--primary-left">
+          <div class="mdx-hero__button-wrapper">
+            <a href="{{ 'guides/getting-started' | url }}" title="Getting Started" class="md-button md-button--primary md-button--primary-left">
             Get Started
             <span class="twemoji mdx-button-icon">
               {% include ".icons/material/rocket-launch.svg" %}
             </span>
-          </a>
-          <a href="{{ 'guides/local-quickstart' | url }}" title="Local Quickstart" class="md-button md-button--primary md-button--primary-right">
-            Try Locally
-            <span class="twemoji mdx-button-icon">
-              {% include ".icons/material/sprout.svg" %}
-            </span>
-          </a>
-          <a href="{{ config.repo_url | url }}" title="Github Repository" class="md-button md-button--secondary">
-            Source Code
-            <span class="twemoji mdx-button-icon">
-              {% include ".icons/fontawesome/brands/github.svg" %}
-            </span>
-          </a>
+            </a>
+          </div>
+          <div class="mdx-hero__button-wrapper">
+            <a href="{{ 'guides/local-quickstart' | url }}" title="Local Quickstart" class="md-button md-button--primary md-button--primary-right">
+              Try Locally
+              <span class="twemoji mdx-button-icon">
+                {% include ".icons/material/sprout.svg" %}
+              </span>
+            </a>
+          </div>
+          <div class="mdx-hero__button-wrapper">
+            <a href="{{ config.repo_url | url }}" title="Github Repository" class="md-button md-button--secondary">
+              Source Code
+              <span class="twemoji mdx-button-icon">
+                {% include ".icons/fontawesome/brands/github.svg" %}
+              </span>
+            </a>
+          </div>
         </div>
         <div class="mdx-hero__footnote">
           <sub><sup>†</sup>Coming soon, see our <a href="{{ 'reference/tools' | url }}" target="_blank" rel="noopener">current</a> and <a href="{{ 'reference/future-tools' | url }}" target="_blank" rel="noopener">future</a> tools.</sub>
