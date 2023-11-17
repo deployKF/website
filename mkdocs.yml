@@ -1,8 +1,9 @@
 site_name: deployKF
-site_description: deployKF builds world-class ML Platforms on any Kubernetes cluster, within any cloud or environment, in minutes.
+site_description: deployKF builds world-class Data and Machine Learning Platforms on any Kubernetes cluster, in any cloud or environment.
 site_url: https://www.deploykf.org/
 
-copyright: "© 2023 deployKF Authors | <a href='/privacy-policy/website/'>Privacy Policy</a>"
+copyright: |-
+  © 2023 deployKF Authors | <a class="footer-link" href="/privacy-policy/website/" target="_blank" rel="noopener">Privacy Policy</a>
 
 repo_url: https://github.com/deployKF/deployKF
 edit_uri: https://github.com/deployKF/website/edit/main/content
@@ -149,6 +150,7 @@ extra:
           note: >-
             Sorry to hear that. 
             Please help us improve by <a href="https://github.com/deployKF/website/issues/new/?title=[Feedback]+{title}" target="_blank" rel="noopener">raising an issue</a>.
+
   status:
     new: "Recently Added"
 
@@ -162,3 +164,5 @@ extra:
     - icon: fontawesome/brands/youtube
       link: https://www.youtube.com/@deployKF
       name: deployKF on YouTube
+
+  generator: false

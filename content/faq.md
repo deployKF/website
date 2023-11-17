@@ -6,15 +6,20 @@ faq_schema:
   - question: What is deployKF?
     highlight_answer: true
     include_in_schema: true
-    pre_expand_answer: false
+    pre_expand_answer: true
     answer: |-
-      deployKF builds world-class ML Platforms on __any Kubernetes cluster__, within __any cloud or environment__, in minutes.
-      
-      - deployKF includes [__leading ML & Data tools__](./reference/tools.md#tool-index) from Kubeflow and more
-      - deployKF has [__centralized configs__](./reference/deploykf-values.md) that manage all aspects of the platform
-      - deployKF supports __in-place upgrades__ and can __autonomously__ roll out config changes
-      - deployKF lets you __bring your own__ cluster dependencies like __istio__ and __cert-manager__, if desired
-      - deployKF provides __native GitOps__ via ArgoCD
+      deployKF builds world-class Data and Machine Learning Platforms on __any Kubernetes cluster__, in any cloud or environment.
+      By combining the ease of a managed service with the flexibility of a self-hosted solution, deployKF enables you to deliver a sustainable platform which is still tailored to your organization's needs.
+
+      Our vision is that anyone with Kubernetes experience can effortlessly build, maintain, and support a custom Data and ML Platform for their organization, without requiring specialized MLOps knowledge.
+
+      Key features of deployKF include:
+
+      - Support for [__leading tools__](./reference/tools.md#tool-index) from Kubeflow and more
+      - Intuitive and [__centralized configs__](./reference/deploykf-values.md) to manage all aspects of the platform
+      - Seamless __in-place upgrades__ and config rollouts
+      - Connect with __existing cluster dependencies__ like Istio and cert-manager
+      - Native support for GitOps via ArgoCD
 
   - question: Is commercial support available for deployKF?
     include_in_schema: true
@@ -22,6 +27,7 @@ faq_schema:
     admonition_type: support
     answer: |-
       Yes! The founder of deployKF ([Mathew Wicks](https://www.linkedin.com/in/mathewwicks/)), operates a US-based company named [Aranui Solutions](https://www.aranui.solutions) to provide commercial support and advisory services for organizations building ML & Data Platforms on Kubernetes.
+
       Email [`sales@aranui.solutions`](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) to learn more!
 
   - question: Which ML and AI tools are in deployKF?

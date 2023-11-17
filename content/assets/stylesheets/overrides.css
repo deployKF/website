@@ -91,3 +91,12 @@ Navigation Styling
         border-bottom: 0.1rem dotted var(--md-primary-fg-color--lighter);
     }
 }
+
+/*
+========================================
+Footer Styling
+========================================
+*/
+.md-footer .md-typeset .footer-link {
+    color: var(--md-typeset-a-color);
+}
