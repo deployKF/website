@@ -71,13 +71,26 @@
 }
 
 .mdx-hero .mdx-hero__tag-description {
-    border-top: 0.05rem solid var(--md-default-fg-color--lightest);
-    border-bottom: 0.05rem solid var(--md-default-fg-color--lightest);
-    padding-top: 0.75rem;
+    padding-top: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+
+    border-radius: 0.6rem;
+    backdrop-filter: blur(0.2rem);
+}
+
+[data-md-color-scheme=default] .mdx-hero .mdx-hero__tag-description {
+    border: 0.1rem solid rgba(0, 0, 0, 0.09);
+    background: rgba(253, 126, 20, 0.02);
+}
+
+[data-md-color-scheme=slate] .mdx-hero .mdx-hero__tag-description {
+    border: 0.1rem solid var(--md-default-fg-color--lightest);
+    background: rgba(253, 126, 20, 0.02);
 }
 
 .mdx-hero .mdx-hero__tag-description .mdx-hero__tag-description_section {
-    padding-bottom: 1.0rem;
+    padding-bottom: 1em;
 }
 
 .mdx-hero .mdx-hero__footnote {
@@ -122,12 +135,12 @@
 }
 
 [data-md-color-scheme=default] .mdx-hero .mdx-hero__actions .md-button--primary {
-    border-color: var(--md-primary-fg-color);
+    border: 0.1rem solid var(--md-primary-fg-color);
     color: white !important;
 }
 
 [data-md-color-scheme=slate] .mdx-hero .mdx-hero__actions .md-button--primary {
-    border-color: var(--md-primary-fg-color--light);
+    border: 0.1rem solid var(--md-primary-fg-color--light);
     color: hsla(232, 75%, 95%, 1) !important;
 }
 
@@ -140,6 +153,7 @@
 }
 
 .mdx-hero .mdx-hero__actions .md-button--secondary {
+    backdrop-filter: blur(0.2rem);
     background: var(--md-accent-fg-color--transparent);
     color: var(--md-primary-fg-color--light) !important;
 }

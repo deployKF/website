@@ -18,8 +18,7 @@ Before starting, let's answer some common questions about deployKF.
 
 !!! question "What is deployKF?"
 
-    deployKF builds world-class ML Platforms on __any Kubernetes cluster__, within __any cloud or environment__, in minutes.
-
+    deployKF builds world-class Data and Machine Learning Platforms on __any Kubernetes cluster__, in any cloud or environment.
     For more details, see the [introduction](getting-started.md#about-deploykf) of the _Getting Started_ guide.
 
 !!! support "Do you offer commercial support?"
