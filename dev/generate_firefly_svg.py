@@ -9,14 +9,25 @@ import numpy as np
 random.seed(100)
 np.random.seed(100)
 
-# Constants
-NUM_FIREFLIES = 55
-SVG_WIDTH = 1920
-SVG_HEIGHT = 1080
+# Constants (wide)
+# FILE_NAME = "../content/assets/images/moving-firefly-wide.svg"
+# NUM_FIREFLIES = 60
+# SVG_WIDTH = 1920
+# SVG_HEIGHT = 1080
+# MIN_FIREFLY_RADIUS = 4
+# MAX_FIREFLY_RADIUS = 13
+
+# Constants (tall)
+FILE_NAME = "../content/assets/images/moving-firefly-tall.svg"
+NUM_FIREFLIES = 30
+SVG_WIDTH = 1080
+SVG_HEIGHT = 1920
+MIN_FIREFLY_RADIUS = 10
+MAX_FIREFLY_RADIUS = 15
 
 # Safe area
-SAFE_AREA_X = 50
-SAFE_AREA_Y = 50
+SAFE_AREA_X = 1
+SAFE_AREA_Y = 1
 
 
 def gen_firefly():
@@ -26,7 +37,7 @@ def gen_firefly():
     Returns:
         Tuple[float, int, int, float]: Radius, center x, center y, motion radius.
     """
-    firefly_r = np.random.uniform(4, 13)
+    firefly_r = np.random.uniform(MIN_FIREFLY_RADIUS, MAX_FIREFLY_RADIUS)
     motion_cx = np.random.randint(SAFE_AREA_X, SVG_WIDTH - SAFE_AREA_X)
     motion_cy = np.random.randint(SAFE_AREA_Y, SVG_HEIGHT - SAFE_AREA_Y)
     motion_r = np.random.randint(50, 300)
@@ -316,5 +327,5 @@ ET.indent(svg, space="  ")
 # Convert to a nicely formatted string
 svg_string = ET.tostring(svg, encoding="unicode")
 
-with open("firefly.svg", "w") as f:
+with open(FILE_NAME, "w") as f:
     f.write(svg_string)
