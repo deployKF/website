@@ -10,36 +10,53 @@
 {% endblock %}
 
 {% block container %}
-<!-- This style is on a single line because our minification does not work with inline css. */-->
+<!-- Just for the homepage, we want the md-main to cover the whole screen, because we use it for the background. -->
+<!-- The style is on a single line because our minification does not work with inline css. -->
 <style>.md-main { display: flex; flex-direction: column; } .md-main__inner { display: flex; flex-direction: column; flex-grow: 1; margin-top: 0 !important; width: 100%; max-width: none;}</style>
 <div class="mdx-container">
-  <div class="mdx-hero md-typeset">
 
-    <!-- Hero Content-->
+  <!-- Homepage Hero -->
+  <div class="mdx-hero md-typeset">
     <div class="mdx-hero__content">
       <div class="mdx-hero__content_inner">
-        <h1 class="mdx-hero__tag-line">
-          Your<br><span class="mdx-hero__tag-highlight">Open</span><br>ML Platform
+
+        <!-- Title -->
+        <h1 class="mdx-hero__title">
+          <span class="mdx-hero__title_orange">deploy</span><span class="mdx-hero__title_blue">KF</span>
         </h1>
-        <div class="mdx-hero__tag-description">
-          <div class="mdx-hero__tag-description_section">
-            deployKF builds world-class Data and Machine Learning Platforms on <strong>any Kubernetes cluster</strong>, in any cloud or environment.
-          </div>
-          <div class="mdx-hero__tag-description_section">
-            By combining the ease of a managed service with the flexibility of a self-hosted solution, deployKF enables you to deliver a sustainable platform which is still tailored to your organization's needs.
-          </div>
-          <div class="mdx-hero__tag-description_section">
-            Centralized configs, in-place upgrades, and support for leading tools like
-            <a href="{{ 'reference/tools/#kubeflow-ecosystem' | url }}"><strong>Kubeflow</strong></a>,
-            <a href="{{ 'reference/future-tools/#apache-airflow' | url }}"><strong>Airflow</strong><sup>†</sup></a>, and
-            <a href="{{ 'reference/future-tools/#mlflow-model-registry' | url }}"><strong>MLflow</strong><sup>†</sup></a>,
-            let you focus on using your platform, not just building it.
-          </div>
-        </div>
+
+        <!-- Tagline -->
+        <h2 class="mdx-hero__tagline">
+            <div class="scene">
+              <div class="prism">
+                <div class="face front">
+                  <span class="mdx-hero__tagline_highlight">Your <strong>Open</strong> ML Platform</span>
+                </div>
+                <div class="face top" aria-hidden="true">
+                  <span class="mdx-hero__tagline_highlight">Your <strong>Custom</strong> ML Platform</span>
+                </div>
+                <div class="face back" aria-hidden="true">
+                  <span class="mdx-hero__tagline_highlight back-content">Your <strong>Effortless</strong> ML Platform</span>
+                </div>
+                <div class="face bottom" aria-hidden="true">
+                  <span class="mdx-hero__tagline_highlight">Your <strong>Kubernetes</strong> ML Platform</span>
+                </div>
+<!--                <div class="face left" aria-hidden="true">-->
+<!--                  <span class="mdx-hero__tagline_highlight"></span>-->
+<!--                </div>-->
+<!--                <div class="face right" aria-hidden="true">-->
+<!--                  <span class="mdx-hero__tagline_highlight"></span>-->
+<!--                </div>-->
+              </div>
+            </div>
+        </h2>
+
+        <!-- Action Buttons -->
         <div class="mdx-hero__actions">
           <div class="mdx-hero__button-wrapper">
             <a href="{{ 'guides/getting-started' | url }}" title="Getting Started" class="md-button md-button--primary md-button--primary-left">
             Get Started
+            <br>
             <span class="twemoji mdx-button-icon">
               {% include ".icons/material/rocket-launch.svg" %}
             </span>
@@ -48,6 +65,7 @@
           <div class="mdx-hero__button-wrapper">
             <a href="{{ 'guides/local-quickstart' | url }}" title="Local Quickstart" class="md-button md-button--primary md-button--primary-right">
               Try Locally
+              <br>
               <span class="twemoji mdx-button-icon">
                 {% include ".icons/material/sprout.svg" %}
               </span>
@@ -56,15 +74,52 @@
           <div class="mdx-hero__button-wrapper">
             <a href="{{ config.repo_url | url }}" title="Github Repository" class="md-button md-button--secondary">
               Source Code
+              <br>
               <span class="twemoji mdx-button-icon">
                 {% include ".icons/fontawesome/brands/github.svg" %}
               </span>
             </a>
           </div>
         </div>
-        <div class="mdx-hero__footnote">
-          <sub><sup>†</sup>Coming soon, see our <a href="{{ 'reference/tools' | url }}" target="_blank" rel="noopener">current</a> and <a href="{{ 'reference/future-tools' | url }}" target="_blank" rel="noopener">future</a> tools.</sub>
-        </div>
+
+        <!-- Cards -->
+        <div class="mdx-hero__cards">
+
+          <!-- CARD - About deployKF -->
+          <div class="mdx-hero__card">
+            <h3 class="mdx-hero__card_title">About deployKF</h3>
+            <div class="mdx-hero__card_content">
+              <div class="mdx-hero__card_content_paragraph">
+                deployKF builds world-class Data and Machine Learning Platforms on
+                <strong>any Kubernetes cluster</strong>,
+                in any cloud or environment.
+              </div>
+              <div class="mdx-hero__card_content_paragraph">
+                With centralized configs, in-place upgrades, and support for leading Data and MLOps tools including
+                <a href="{{ 'reference/tools/#kubeflow-ecosystem' | url }}"><strong>Kubeflow</strong></a>,
+                <a href="{{ 'reference/future-tools/#apache-airflow' | url }}"><strong>Airflow</strong><sup>†</sup></a>, and
+                <a href="{{ 'reference/future-tools/#mlflow-model-registry' | url }}"><strong>MLflow</strong><sup>†</sup></a>,
+                deployKF lets you focus on using the platform, not building it.
+                <div class="mdx-hero__footnote">
+                  <sub><sup>†</sup>Coming soon, see our <a href="{{ 'reference/tools' | url }}" target="_blank" rel="noopener">current</a> and <a href="{{ 'reference/future-tools' | url }}" target="_blank" rel="noopener">future</a> tools.</sub>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD - Why deployKF? -->
+          <div class="mdx-hero__card">
+            <h3 class="mdx-hero__card_title">Why deployKF?</h3>
+            <div class="mdx-hero__card_content">
+              <div class="mdx-hero__card_content_paragraph">
+                Our vision is that <em>anyone with Kubernetes experience</em> can effortlessly build, maintain, and support a custom Data and ML Platform for their organization, without requiring specialized MLOps knowledge.
+              </div>
+              <div class="mdx-hero__card_content_paragraph">
+                By combining the <em>ease of a managed service</em> with the flexibility of a self-hosted solution, deployKF enables you to deliver a sustainable platform which is still tailored to your organization's needs.
+              </div>
+            </div>
+          </div>
+          </div>
       </div>
     </div>
 

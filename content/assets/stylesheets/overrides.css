@@ -4,17 +4,20 @@ Banner Styling
 ========================================
 */
 
-.md-banner {
+.md-banner__inner {
     color: var(--md-footer-fg-color--light);
-    background-color: #1D1D26 !important;
 }
 
 .md-banner .md-banner__inner {
     font-size: 0.75rem;
 }
 
-.md-banner .md-banner__inner a {
-    color: #6c91d5 !important;
+.md-banner .md-banner__inner .md-banner__link {
+    color: #6c91d5;
+}
+
+.md-banner .md-banner__inner .md-banner__link:hover {
+    color: #fd7e14;
 }
 
 /*

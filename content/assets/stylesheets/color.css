@@ -1,3 +1,8 @@
+:root {
+    --deploykf-orange: #fd7e14;
+    --deploykf-blue: #4279f4;
+}
+
 [data-md-color-primary="deploykf-primary"] {
     --md-primary-fg-color: #294275;
     --md-primary-fg-color--light: #697A9E;
@@ -9,7 +14,8 @@
 }
 
 [data-md-color-accent="deploykf-accent"] {
-    --md-accent-fg-color: #fd7e14;
+    --md-accent-fg-color: var(--deploykf-orange);
+    --md-accent-fg-color--dark: #e66a00;
     --md-accent-fg-color--transparent: rgba(253, 126, 20, 0.05);
     --md-accent-bg-color: #fff;
     --md-accent-bg-color--light: #ffffffb3;

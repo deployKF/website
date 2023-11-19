@@ -69,9 +69,6 @@ extra_css:
   - assets/stylesheets/home.css
   - assets/stylesheets/overrides.css
 
-extra_javascript:
-  - assets/javascripts/home.js
-
 hooks:
   - hooks/custom_filters.py
   - hooks/external_links_md_extension.py
@@ -90,8 +87,6 @@ plugins:
       htmlmin_opts:
         remove_comments: true
       cache_safe: true
-      js_files:
-        - assets/javascripts/home.js
       css_files:
         - assets/stylesheets/admonitions.css
         - assets/stylesheets/color.css

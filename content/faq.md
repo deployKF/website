@@ -9,8 +9,6 @@ faq_schema:
     pre_expand_answer: true
     answer: |-
       deployKF builds world-class Data and Machine Learning Platforms on __any Kubernetes cluster__, in any cloud or environment.
-      By combining the ease of a managed service with the flexibility of a self-hosted solution, deployKF enables you to deliver a sustainable platform which is still tailored to your organization's needs.
-
       Our vision is that anyone with Kubernetes experience can effortlessly build, maintain, and support a custom Data and ML Platform for their organization, without requiring specialized MLOps knowledge.
 
       Key features of deployKF include:
