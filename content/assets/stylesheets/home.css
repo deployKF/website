@@ -142,6 +142,7 @@ Rotating 3d Prism Animation
     height: 100%;
     position: relative;
     transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
     animation: rotate 24s infinite ease;
 }
 
@@ -152,11 +153,10 @@ Rotating 3d Prism Animation
     display: flex;
     justify-content: center;
     align-items: center;
-
     user-select: none;
-    backface-visibility: hidden;
 
-    backdrop-filter: blur(0.3rem);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 @media screen and (max-width: 60em) {
@@ -290,7 +290,8 @@ Hero Actions
 }
 
 .mdx-hero .mdx-hero__actions .md-button--secondary {
-    backdrop-filter: blur(0.3rem);
+    -webkit-backdrop-filter: blur(0.25rem);
+    backdrop-filter: blur(0.25rem);
 }
 
 [data-md-color-scheme=default] .mdx-hero .mdx-hero__actions .md-button--secondary {
@@ -335,7 +336,15 @@ Hero Cards
     padding-left: 1.5em;
     padding-right: 1.5em;
     border-radius: 0.6rem;
-    backdrop-filter: blur(0.45rem);
+    -webkit-backdrop-filter: blur(0.25rem);
+    backdrop-filter: blur(0.25rem);
+}
+
+@media screen and (min-width: 60em) {
+    .mdx-hero .mdx-hero__card {
+        -webkit-backdrop-filter: blur(0.4rem);
+        backdrop-filter: blur(0.4rem);
+    }
 }
 
 @media screen and (max-width: 60em) {
