@@ -21,9 +21,9 @@ This guide explains how to __configure user authentication__ and connect with __
 deployKF provides a very flexible approach to user authentication.
 
 All user-facing components that require authentication are connected with the embedded [Dex](https://github.com/dexidp/dex) instance.
-Most components connect with Dex via [OAuth2 Proxy](https://github.com/oauth2-proxy/oauth2-proxy) together with [Istio `EnvoyFilters`](https://github.com/deployKF/deployKF/tree/v0.1.3/generator/templates/manifests/deploykf-core/deploykf-istio-gateway/templates/gateway), but some components connect with Dex directly (e.g. MinIO, Argo Server). 
+Most components connect to Dex via [OAuth2 Proxy](https://github.com/oauth2-proxy/oauth2-proxy) with [Istio `EnvoyFilters`](https://github.com/deployKF/deployKF/tree/v0.1.3/generator/templates/manifests/deploykf-core/deploykf-istio-gateway/templates/gateway) (e.g. Kubeflow), but some components connect with Dex directly (e.g. MinIO, Argo Server). 
 
-When a user needs to be authenticated, they will be redirected to Dex, which may then authenticate them using one (or more) of the following methods:
+When a user needs to be authenticated, they will be redirected to Dex, which then authenticates them using one (or more) of the following methods:
 
 Authentication Method<br><small>(Click for Details)</small> | Description
 --- | ---
