@@ -10,16 +10,16 @@ comparison_data:
       - Upgrades are difficult because new versions require starting from scratch with the new manifests.
   - aspect: Capabilities
     deploykf:
-      - Supports leading [MLOps & Data tools](../reference/tools.md) from both Kubeflow, and other projects.
+      - Supports [leading tools](../reference/tools.md) from both Kubeflow, and other projects.
       - When a config or secret is changed, any affected components are automatically restarted.
-      - Includes Argo Server UI with integrated single sign-on where access is aligned to profile membership.
-      - Optionally includes MinIO Console UI with integrated single sign-on where access is aligned to profile membership.
+      - Includes Argo Server UI with integrated single sign-on (user access is aligned to profile memberships).
+      - Optionally includes MinIO Console UI with integrated single sign-on (user access is aligned to profile memberships).
     kubeflow_manifests:
       - Limited to Kubeflow's tools.
   - aspect: Customization
     deploykf:
       - Allows selective deployment of MLOps tools through simple config values.
-      - Allows brining custom versions of dependencies like Istio, cert-manager, MySQL, S3, and more.
+      - Allows brining custom versions of dependencies like Istio, cert-manager, [MySQL](../guides/tools/external-mysql.md), [S3](..//guides/tools/external-object-store.md), and more.
       - Simplifies multi-cluster configurations with support for shared common values and environment-specific overlays.
     kubeflow_manifests:
       - Less customizable, and requires difficult patching of YAML manifests.
@@ -36,10 +36,11 @@ comparison_data:
       - Automatically refreshes session cookies for active users in most cases.
       - Uses Istio with [distroless images](https://istio.io/latest/docs/ops/configuration/security/harden-docker-images/) by default.
       - MinIO (or S3) access keys are isolated to each profile, not shared, and scoped to the minimum required permissions.
-      - Supports using [AWS IRSA](https://github.com/deployKF/deployKF/blob/v0.1.0/generator/default_values.yaml#L1651-L1668) instead of S3 access keys.
+      - Supports [using AWS IRSA](../guides/tools/external-object-store.md#irsa-based-authentication) instead of S3 access keys.
     kubeflow_manifests:
       - Potentially more security vulnerabilities than deployKF.
       - Lacks session cookie refresh for active users in most cases.
+      - HTTPS is NOT enabled by default.
 ---
 
 # Kubeflow vs deployKF
@@ -61,26 +62,10 @@ __Kubeflow__ and __deployKF__ are two different but related projects:
 
 ## Kubeflow vs Kubeflow Manifests
 
-Before a more detailed comparison can be made, it is important to understand the distinction between __Kubeflow__ and __Kubeflow Manifests__.
+Before a more detailed comparison can be made, it is important to understand the distinction between __Kubeflow__ and __Kubeflow Manifests__:
 
-<table>
-  <tr>
-    <th>
-      Kubeflow
-    </th>
-    <td>
-      A project that develops many MLOps tools, including Kubeflow Pipelines, Kubeflow Notebooks, Katib, and more.
-    </td>
-  </tr>
-  <tr>
-    <th>
-      Kubeflow Manifests
-    </th>
-    <td>
-      A set of Kubernetes manifests that can be used to deploy Kubeflow's MLOps tools on Kubernetes, found in the <a href="https://github.com/kubeflow/manifests"><code>kubeflow/manifests</code></a> repo.
-    </td>
-  </tr>
-</table>
+- Kubeflow is a project that develops MLOps tools, including Kubeflow Pipelines, Kubeflow Notebooks, Katib, and more.
+- Kubeflow Manifests are a set of Kubernetes manifests to deploy Kubeflow's MLOps tools on Kubernetes, found in the [`kubeflow/manifests`](https://github.com/kubeflow/manifests) repo.
 
 ## deployKF vs Kubeflow Manifests
 

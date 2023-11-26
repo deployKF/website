@@ -13,7 +13,9 @@ In these cases, you have a few options.
 
 The founder of deployKF ([Mathew Wicks](https://www.linkedin.com/in/mathewwicks/)), operates a US-based company named [Aranui Solutions](https://www.aranui.solutions) to provide commercial support and advisory services for organizations building ML & Data Platforms on Kubernetes.
 
-[Email `sales@aranui.solutions` to learn more!](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
+[Visit: Aranui Solutions Website](https://www.aranui.solutions/){ .md-button .md-button--secondary }
+
+[Email: `sales@aranui.solutions`](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
 
 ## Open-Source Support
 

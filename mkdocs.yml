@@ -147,7 +147,7 @@ extra:
             Please help us improve by <a href="https://github.com/deployKF/website/issues/new/?title=[Feedback]+{title}" target="_blank" rel="noopener">raising an issue</a>.
 
   status:
-    new: "Recently Added"
+    new: "New Content"
 
   social:
     - icon: fontawesome/brands/github

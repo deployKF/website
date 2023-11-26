@@ -16,7 +16,7 @@ The profiles which users are members of determine their level of access to resou
 
 The core entities of the profile system are:
 
-Entity | Description
+Entity<br><small>(Click for Details)</small> | Description
 --- | ---
 [User](#user-entities) | User entities are identified by email address, and may be assigned to groups or profiles.
 [Group](#group-entities) | Group entities are logical collections of users, and may be assigned to profiles.
