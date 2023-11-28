@@ -25,7 +25,10 @@ Learn about migrating to __deployKF__ from other __Kubeflow Distributions__ like
     Unlike other distributions, deployKF behaves like a __Helm Chart for Kubeflow__.
     deployKF has centralized [configuration values](../reference/deploykf-values.md) for all aspects of the platform, so you should __never__ need to edit Kubernetes YAML files or deal with Kustomize patches.
     
+    ---
+
     Before migrating, you may wish to review our detailed [deployKF vs Kubeflow Manifests](../about/kubeflow-vs-deploykf.md#deploykf-vs-kubeflow-manifests) comparison.
+    
     Note, most other [distributions of Kubeflow](https://www.kubeflow.org/docs/started/installing-kubeflow/#packaged-distributions-of-kubeflow) use __largely unmodified__ versions of the Kubeflow Manifests. 
     So the comparison is also relevant to them.
 
@@ -39,12 +42,15 @@ Learn about migrating to __deployKF__ from other __Kubeflow Distributions__ like
     Helm lacks the sequencing and dependency management features required to deploy Kubeflow in a single chart.
     
     deployKF addresses these challenges by being a __collection of Helm Charts__ (and some Kustomize apps) which are configured by a [single set of values](../reference/deploykf-values.md).
-    If you are familiar with Helm, think of them as "global" values which are only passed to the internal components that need them.
+    You may think of them like "global" Helm values as you only need to configure them once, even though they control multiple internal apps.
     
-    Finally, it's important to note you currently must [use ArgoCD with deployKF](getting-started.md#3-platform-deployment).
-    ArgoCD is used for dependency sequencing, resource tracking, and general management of the platform.
-    However, we have designed the [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) so you don't have to use the GitOps functionality of ArgoCD, if you don't want to.
-    In the future, we may add support for other GitOps tools or build our own.
+    ---
+
+    Note, you currently must [use ArgoCD with deployKF](getting-started.md#3-platform-deployment).
+    We use ArgoCD because it gives a pre-built system to determine the sync-state of the apps we deploy (if resources need to be updated), and also makes cleaning up old resources much easier.
+    In the future, we may add support for other GitOps tools or implement our own.
+    
+    We provide an optional [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) so you don't have to render manifests into a git repo (unless you want to).
 
 ---
 

@@ -10,9 +10,12 @@ The following is a summary of the __generator values__ (configs) available in __
 
 !!! question_secondary "What are Generator Values?"
 
-    The generator values are how you configure all aspects of deployKF, including which tools are deployed, how they are configured, and what versions are used.
+    The generator values configure all aspects of deployKF, including which tools are deployed, how they are configured, and what versions are used.
     
-    For more information, see the [getting started](../guides/getting-started.md) guide to learn how to configure the values to suit your needs.
+    These values are conceptually similar to Helm Chart values, but they are all "global".
+    This means you only need to configure them once, even though they control multiple internal Helm Charts and Kustomize apps.
+
+    For more information, see the [getting started](../guides/getting-started.md#2-platform-configuration) guide to learn how to configure the values to suit your needs.
 
 ---
 

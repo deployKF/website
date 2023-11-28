@@ -25,12 +25,15 @@ To learn about deployKF and why you might want to use it, please see the [Introd
 
 ### Modes of Operation
 
-There are currently two "modes of operation" for deployKF, the modes differ by how manifests are generated and applied to your Kubernetes cluster.
+There are currently two "modes of operation" for deployKF, they differ by how manifests are generated and applied to your Kubernetes cluster.
+
+Both modes [require ArgoCD](#about-argocd), because we use it to manage the state of the platform.
+In the future, we may add support for other GitOps tools or implement our own.
 
 Mode | Description
 --- | ---
-ArgoCD Plugin Mode (Recommended) | The [`deployKF ArgoCD Plugin`](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) is used to generate and apply manifests from within ArgoCD.
-Manifests Repo Mode | The [`deployKF CLI`](deploykf-cli.md) is used to generate manifests, the manifests are then committed to a git repo which ArgoCD can read from.
+ArgoCD Plugin Mode (Recommended) | The [`deployKF ArgoCD Plugin`](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) directly turns the config values into manifests which it can apply to your cluster (no git repo required).
+Manifests Repo Mode | You generate manifests with the [`deployKF CLI`](deploykf-cli.md) and commit them to a git repo for ArgoCD to apply to your cluster.
 
 ## 1. Requirements
 
@@ -182,11 +185,13 @@ deployKF is incredibly configurable, so we provide a number of guides to help yo
 
 ??? question_secondary "Why does deployKF use Argo CD?"
 
-    ML Platforms are made up of many interconnected dependencies, and it can be difficult to manage the state of all these components manually.
-    This is where GitOps comes in, it allows us to define the desired state of all the components in a single place, and then use a tool to reconcile the actual state of our cluster to match the defined state.
+    We use [Argo CD](https://argo-cd.readthedocs.io/) to manage the state of the platform.
+
+    ArgoCD gives us a pre-built system to determine the sync-state of the apps we deploy (if resources need to be updated), and also makes cleaning up old resources much easier.
+
+    Argo CD is a great tool for this job given its [__widespread adoption__](https://github.com/argoproj/argo-cd/blob/master/USERS.md), and __well designed interface__ for visualizing and managing the current state of your cluster.
     
-    [__Argo CD__](https://argo-cd.readthedocs.io/) is a great tool for this job given its [__widespread adoption__](https://github.com/argoproj/argo-cd/blob/master/USERS.md), and __well designed interface__ for visualizing and managing the current state of your cluster.
-    In the future, we plan to support other Kubernetes GitOps tools (like [Flux CD](https://fluxcd.io/)), but we have initially chosen to use Argo CD due to its overwhelming popularity.
+    In the future, we plan to support other Kubernetes GitOps tools (like [Flux CD](https://fluxcd.io/)), or even build a deployKF-specific solution, but we have initially chosen to use Argo CD due to its overwhelming popularity.
 
 ??? info "Argo CD vs Argo Workflows"
 
