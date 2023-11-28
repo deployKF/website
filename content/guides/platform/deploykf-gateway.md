@@ -1,6 +1,10 @@
+---
+description: >-
+  Learn how to expose the deployKF gateway service and configure HTTPS.
+---
 # Expose Gateway and configure HTTPS
 
-This guide explains how to __expose__ the deployKF Gateway and __configure HTTPS__.
+Learn how to __expose the deployKF gateway service__ and __configure HTTPS__.
 
 !!! contribute "Help Improve this Guide"
 

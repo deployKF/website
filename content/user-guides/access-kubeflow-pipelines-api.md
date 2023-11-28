@@ -1,6 +1,11 @@
+---
+description: >-
+  Learn how to access the Kubeflow Pipelines API with the Kubeflow Pipelines Python SDK and authenticate with deployKF.
+---
+
 # Access Kubeflow Pipelines API
 
-This guide explains how to access the _Kubeflow Pipelines API_ with the _Kubeflow Pipelines Python SDK_ and __authenticate with deployKF__.
+Learn how to __access the Kubeflow Pipelines API__ with the __Kubeflow Pipelines Python SDK__ and authenticate with deployKF.
 
 !!! warning "Kubeflow Pipelines SDK Version"
 

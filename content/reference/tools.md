@@ -1,5 +1,7 @@
 ---
 icon: material/wrench
+description: >-
+  ML and Data tools available in deployKF.
 
 ## Tools in current deployKF versions
 tools_current:
@@ -100,7 +102,6 @@ tools_current:
       __Kubeflow TensorBoards__ is a web-based UI for creating and managing [TensorBoard](https://www.tensorflow.org/tensorboard) instances on Kubernetes.
     description: ""
     footnote: ""
-
 ---
 
 # Current ML & Data Tools
@@ -120,10 +121,6 @@ This page lists __ML & Data tools__ which are __currently supported__ by deployK
 ## Tool Index
 
 The following is an index of currently supported tools, __grouped by ecosystem__.
-
-!!! tip
-
-     Click the name of a tool for more information about it.
 
 ### Kubeflow Ecosystem
 

@@ -1,23 +1,28 @@
 ---
 icon: material/hospital-box
+description: >-
+  Get support for deployKF.
+  Learn how to get open-source help, and how to get commercial support from Aranui Solutions.
 ---
 
 # Get Support
 
-While we aim to make deployKF as self-service as possible, sometimes things go wrong, or your use-case is a little different to the norm. 
-In these cases, you have a few options.
+Get support for deployKF.
+Learn how to get open-source help, and how to get commercial support from Aranui Solutions.
 
 ---
 
 ## Commercial Support
 
-The founder of deployKF ([Mathew Wicks](https://www.linkedin.com/in/mathewwicks/)), operates a US-based company named [Aranui Solutions](https://www.aranui.solutions) to provide commercial support and advisory services for organizations building ML & Data Platforms on Kubernetes.
+If you need commercial support for deployKF, please contact [__Aranui Solutions__](https://www.aranui.solutions/).
+Aranui Solutions is a US-based company founded by the creators of deployKF to help organizations build ML & Data Platforms on Kubernetes.
 
-[Visit: Aranui Solutions Website](https://www.aranui.solutions/){ .md-button .md-button--secondary }
-
-[Email: `sales@aranui.solutions`](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
+[Visit: _Aranui Solutions Website_](https://www.aranui.solutions/){ .md-button .md-button--secondary }
+[Email: _`sales@aranui.solutions`_](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
 
 ## Open-Source Support
+
+If you are using deployKF in an open-source capacity, you can get free support from our community.
 
 ### Join the Community
 

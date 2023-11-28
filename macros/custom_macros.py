@@ -54,7 +54,7 @@ def define_env(env: MacrosPlugin):
         output_lines = []
 
         # Render the table header
-        output_lines.append("| Aspect | deployKF | Kubeflow Manifests |")
+        output_lines.append("| | deployKF | Kubeflow Manifests |")
         output_lines.append("| --- | --- | --- |")
 
         # Render the table body
@@ -64,7 +64,7 @@ def define_env(env: MacrosPlugin):
             dkf_str = f"<ul>{''.join(dkf_items)}</ul>"
             kfm_items = [f"<li>{item}</li>" for item in row["kubeflow_manifests"]]
             kfm_str = f"<ul>{''.join(kfm_items)}</ul>"
-            output_lines.append(f"| {aspect} | {dkf_str} | {kfm_str} |")
+            output_lines.append(f"| __{aspect}__ | {dkf_str} | {kfm_str} |")
 
         return "\n".join(output_lines)
 
@@ -73,7 +73,9 @@ def define_env(env: MacrosPlugin):
         output_lines = []
 
         # Render the table header
-        output_lines.append("| Name | Purpose | Since deployKF |")
+        output_lines.append(
+            "| Name<br><small>(Click for Details)</small> | Purpose | Since deployKF |"
+        )
         output_lines.append("| --- | --- | --- |")
 
         # Render the table body
@@ -167,7 +169,9 @@ def define_env(env: MacrosPlugin):
                 output_lines.append("")
                 output_lines.append(f"### {tool_priority_word} Priority")
                 output_lines.append("")
-                output_lines.append("| Name | Purpose |")
+                output_lines.append(
+                    "| Name<br><small>(Click for Details)</small> | Purpose |"
+                )
                 output_lines.append("| --- | --- |")
 
             tool_name = row["name"]

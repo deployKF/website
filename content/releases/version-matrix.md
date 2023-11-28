@@ -1,5 +1,7 @@
 ---
 icon: material/table
+description: >-
+  Version matrix for deployKF and its dependencies.
 ---
 
 # Version Matrix

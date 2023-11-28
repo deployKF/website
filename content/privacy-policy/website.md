@@ -1,4 +1,7 @@
 ---
+description: >-
+  Website Privacy Policy
+
 hide:
   - feedback
   - navigation

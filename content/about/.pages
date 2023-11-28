@@ -1,4 +1,5 @@
 nav:
+  - introduction.md
   - community.md
   - support.md
   - kubeflow-vs-deploykf.md

@@ -1,6 +1,11 @@
+---
+description: >-
+  Learn how to customize the deployKF Dashboard.
+---
+
 # Customize the Dashboard
 
-This guide explains how to __customize__ the __deployKF Dashboard__.
+Learn how to __customize__ the __deployKF Dashboard__.
 
 ---
 
@@ -9,6 +14,9 @@ This guide explains how to __customize__ the __deployKF Dashboard__.
 The [deployKF Dashboard](https://github.com/deployKF/dashboard) is the web-based interface for deployKF, and is the primary way that users interact with the platform.
 
 The dashboard includes navigation menus with links to various tools and documentation which can be customized.
+
+![deployKF Dashboard (Dark Mode)](../../assets/images/deploykf-dashboard-DARK.png#only-dark)
+![deployKF Dashboard (Light Mode)](../../assets/images/deploykf-dashboard-LIGHT.png#only-light)
 
 ## Sidebar Links
 

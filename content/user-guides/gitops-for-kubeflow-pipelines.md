@@ -1,6 +1,11 @@
+---
+description: >-
+  Learn how to use GitOps to manage Kubeflow Pipelines, including pipeline definitions and pipeline schedules.
+---
+
 # GitOps for Kubeflow Pipelines Schedules
 
-This guide explains how to __use GitOps to manage Kubeflow Pipelines__, including _pipeline definitions_ and _pipeline schedules_.
+Learn how to __use GitOps to manage Kubeflow Pipelines__, including _pipeline definitions_ and _pipeline schedules_.
 
 ---
 
