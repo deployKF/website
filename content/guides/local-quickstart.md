@@ -309,11 +309,13 @@ Wait until the cluster is ready (all pods are in a `Running` or `Completed` stat
 
 ??? question_secondary "Why does deployKF use Argo CD?"
 
-    ML Platforms are made up of many interconnected dependencies, and it can be difficult to manage the state of all these components manually.
-    This is where GitOps comes in, it allows us to define the desired state of all the components in a single place, and then use a tool to reconcile the actual state of our cluster to match the defined state.
-    
-    [__Argo CD__](https://argo-cd.readthedocs.io/) is a great tool for this job given its [__widespread adoption__](https://github.com/argoproj/argo-cd/blob/master/USERS.md), and __well designed interface__ for visualizing and managing the current state of your cluster.
-    In the future, we plan to support other Kubernetes GitOps tools (like [Flux CD](https://fluxcd.io/)), but we have initially chosen to use Argo CD due to its overwhelming popularity.
+    We use [Argo CD](https://argo-cd.readthedocs.io/) to manage the state of the platform.
+
+    ArgoCD gives us a pre-built system to determine the sync-state of the apps we deploy (if resources need to be updated), and also makes cleaning up old resources much easier.
+
+    Argo CD is a great tool for this job given its [__widespread adoption__](https://github.com/argoproj/argo-cd/blob/master/USERS.md), and __well designed interface__ for visualizing and managing the current state of your cluster.
+
+    In the future, we plan to support other Kubernetes GitOps tools (like [Flux CD](https://fluxcd.io/)), or even build a deployKF-specific solution, but we have initially chosen to use Argo CD due to its overwhelming popularity.
 
 ??? info "Argo CD vs Argo Workflows"
 

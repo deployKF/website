@@ -12,6 +12,7 @@ faq_schema:
     pre_expand_answer: true
     answer: |-
       deployKF helps you build world-class data and machine learning platforms on __any Kubernetes cluster__, in any cloud or environment.
+      
       Our vision is that __anyone with Kubernetes experience__ can effortlessly build and support a _custom data and machine learning platform_ for their organization, without requiring specialized MLOps knowledge.
 
   - question: Why use deployKF?
@@ -22,7 +23,7 @@ faq_schema:
       By combining the <em>ease of a managed service</em> with the flexibility of a self-hosted solution; 
       deployKF creates a platform tailored to your organization's needs, while not also requiring a team of MLOps experts to build and maintain it.
       
-      Some of the key features include:
+      The key features of deployKF are:
       
       - Runs on __any Kubernetes__, including on-premises and in the cloud
       - Support for leading __Data and MLOps tools__ including [__Kubeflow__](./reference/tools.md#kubeflow-ecosystem), [__Airflow__](./reference/future-tools.md#apache-airflow)<sup>†</sup>, and [__MLflow__](./reference/future-tools.md#mlflow-model-registry)<sup>†</sup>
