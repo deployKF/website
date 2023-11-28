@@ -1,5 +1,5 @@
 site_name: deployKF
-site_description: deployKF builds world-class Data and Machine Learning Platforms on any Kubernetes cluster, in any cloud or environment.
+site_description: deployKF builds world-class data and machine learning platforms on any Kubernetes cluster, in any cloud or environment.
 site_url: https://www.deploykf.org/
 
 copyright: |-
@@ -95,6 +95,7 @@ plugins:
   - redirects:
       redirect_maps:
         'guides/install-deploykf-cli.md': 'guides/deploykf-cli.md'
+        'guides/migrate-from-kubeflow-manifests.md': 'guides/kubeflow-distributions.md'
   - search
   - social:
       cards_layout_options:
@@ -120,6 +121,9 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      options:
+        custom_icons:
+          - overrides/.icons
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true

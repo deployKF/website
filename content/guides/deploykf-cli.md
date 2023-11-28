@@ -1,6 +1,10 @@
+---
+description: >-
+  Learn how to install the deployKF CLI.
+---
 # Install deployKF CLI
 
-This guide explains how to __install__ the deployKF __command line interface__.
+Learn how to install the deployKF CLI (command line interface).
 
 ---
 

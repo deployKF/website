@@ -1,6 +1,11 @@
+---
+description: >-
+  Learn how to use external MySQL databases with Kubeflow Pipelines and Katib in deployKF.
+---
+
 # Connect an external MySQL Database
 
-This guide explains how to connect an __external MySQL database__ with deployKF.
+Learn how to use __external MySQL databases__ with __Kubeflow Pipelines__ and __Katib__ in deployKF.
 
 ---
 

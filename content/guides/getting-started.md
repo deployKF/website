@@ -1,84 +1,29 @@
 ---
 icon: material/rocket-launch
+description: >-
+  Learn how to build a data and machine learning platform on any Kubernetes cluster with deployKF.
+  Use our powerful Helm-like interface to deploy Kubeflow and other MLOps tools with ease.
 ---
 
 # Getting Started
 
-This guide will help you build your __production ready__ deployKF ML Platform on __any__ Kubernetes cluster.
+Learn how to build a __data and machine learning platform__ on __any Kubernetes cluster__ with deployKF.
+Use our powerful Helm-like interface to deploy Kubeflow and other MLOps tools with ease.
 
-!!! info "Related Guides"
+!!! tip "Other Resources"
 
-    - [__Local Quickstart__](local-quickstart.md) - quickly try deployKF on your local machine
-    - [__Migrate from Kubeflow Manifests__](migrate-from-kubeflow-manifests.md) - migrate from an existing Kubeflow deployment
-
----
-
-## About deployKF
-
-Before starting, let's briefly introduce the deployKF project.
-
-!!! question "What is deployKF?"
-
-    deployKF builds world-class Data and Machine Learning Platforms on __any Kubernetes cluster__, in any cloud or environment.
-    Our vision is that anyone with Kubernetes experience can effortlessly build, maintain, and support a custom Data and ML Platform for their organization, without requiring specialized MLOps knowledge.
-
-    Key features of deployKF include:
-
-    - Support for [__leading tools__](../reference/tools.md#tool-index) from Kubeflow and more
-    - Intuitive and [__centralized configs__](../reference/deploykf-values.md) to manage all aspects of the platform
-    - Seamless __in-place upgrades__ and config rollouts
-    - Connect with __existing cluster dependencies__ like Istio and cert-manager
-    - Native support for GitOps via ArgoCD
-
-!!! support "Do you offer commercial support?"
-
-    Yes! The founder of deployKF ([Mathew Wicks](https://www.linkedin.com/in/mathewwicks/)), operates a US-based company named [Aranui Solutions](https://www.aranui.solutions) to provide commercial support and advisory services for organizations building ML & Data Platforms on Kubernetes.
-
-    Email [`sales@aranui.solutions`](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) to learn more!
-
-### Common Questions
-
-??? question_secondary "Which ML and AI tools are in deployKF?"
-
-    deployKF supports all tools from the [Kubeflow Ecosystem](../reference/tools.md#kubeflow-ecosystem) including [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines) and [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks).
-    We are actively adding support for other popular tools such as [MLflow](../reference/future-tools.md#mlflow-model-registry), [Airflow](../reference/future-tools.md#apache-airflow), and [Feast](../reference/future-tools.md#feast). 
-
-    For more information, please see our [current](../reference/tools.md) and [future](../reference/future-tools.md) tools!
-
-??? question_secondary "Who maintains deployKF?"
-
-    deployKF was originally created by [Mathew Wicks](https://www.linkedin.com/in/mathewwicks/) (GitHub: [@thesuperzapper](https://github.com/thesuperzapper)), a Kubeflow lead and maintainer of the popular [Apache Airflow Helm Chart](https://github.com/airflow-helm/charts).
-    deployKF is a community-led project that welcomes contributions from anyone who wants to help.
-
-??? question_secondary "Do you have a Slack or Mailing List?"
-
-    __Slack:__
-
-    - The deployKF community uses the __Kubeflow Slack__ for informal discussions among users and contributors.
-    - Find us on the [`#deploykf`](https://kubeflow.slack.com/archives/C054H6WLNCB) channel!
-
-    [:fontawesome-brands-slack: Join the Kubeflow Slack](https://invite.playplay.io/invite?team_id=T7QLHSH6U){ .md-button .md-button--secondary }
-
-    ---
-
-    __Mailing Lists:__
-
-    - The [deploykf-users](https://groups.google.com/g/deploykf-users) mailing list is for users of deployKF to ask questions and share ideas.
-    - The [deploykf-dev](https://groups.google.com/g/deploykf-dev) mailing list is for contributors to deployKF to discuss development and design.
-
-    [:fontawesome-solid-envelope: Join the User Mailing List](https://groups.google.com/g/deploykf-users){ .md-button .md-button--secondary }
-
-    [:fontawesome-solid-envelope: Join the Contributor Mailing List](https://groups.google.com/g/deploykf-dev){ .md-button .md-button--secondary }
-
-### Media
-
-??? youtube "Intro / Demo - Kubeflow Community Call - July 2023"
-
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/VggtaOgtBJo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    - [__Local Quickstart__](local-quickstart.md) - try deployKF on your local machine
+    - [__Migrate from Kubeflow Distributions__](kubeflow-distributions.md) - how and why to migrate from other Kubeflow distributions
 
 ---
 
-## 0. Modes of Operation
+## Introduction
+
+To learn about deployKF and why you might want to use it, please see the [Introduction](../about/introduction.md).
+
+[:material-lightbulb-on: Read: _Introduction to deployKF_](../about/introduction.md){ .md-button .md-button--primary }
+
+### Modes of Operation
 
 There are currently two "modes of operation" for deployKF, the modes differ by how manifests are generated and applied to your Kubernetes cluster.
 
@@ -107,9 +52,9 @@ First, you need a Kubernetes cluster with a version that is [supported](../relea
     N/A | [Canonical Kubernetes (MicroK8s)](https://microk8s.io/)
     Local Machine | [k3d](https://k3d.io/), [kind](https://kind.sigs.k8s.io/), [minikube](https://minikube.sigs.k8s.io/)
 
-Other requirements vary depending on the ["mode of operation"](#0-modes-of-operation) you have chosen:
+Other requirements vary depending on the ["mode of operation"](#modes-of-operation) you have chosen:
 
-Requirement<br><small>:fontawesome-solid-star: → required // :fontawesome-solid-o: → optional</small> | [ArgoCD Plugin Mode](#0-modes-of-operation) | [Manifests Repo Mode](#0-modes-of-operation)
+Requirement<br><small>:fontawesome-solid-star: → required // :fontawesome-solid-o: → optional</small> | [ArgoCD Plugin Mode](#modes-of-operation) | [Manifests Repo Mode](#modes-of-operation)
 --- | :---: | :---:
 a Kubernetes cluster ([version compatibility](../releases/version-matrix.md#deploykf-dependencies)) | :fontawesome-solid-star: | :fontawesome-solid-star:
 ArgoCD is [installed](https://argo-cd.readthedocs.io/en/stable/getting_started/) on your Kubernetes | :fontawesome-solid-star: | :fontawesome-solid-star:
@@ -266,11 +211,11 @@ Specific information about each release (including important upgrade notes), can
 
 ### Generate & Apply Manifests
 
-How you generate and apply the deployKF manifests to your Kubernetes cluster will depend on the ["mode of operation"](#0-modes-of-operation) you have chosen.
+How you generate and apply the deployKF manifests to your Kubernetes cluster will depend on the ["mode of operation"](#modes-of-operation) you have chosen.
 
 ??? steps "Generate & Apply Manifests - _ArgoCD Plugin Mode_ :star:"
 
-    To generate and apply the manifests when using ["ArgoCD Plugin Mode"](#0-modes-of-operation), you will need to:
+    To generate and apply the manifests when using ["ArgoCD Plugin Mode"](#modes-of-operation), you will need to:
 
     1. install the [deployKF ArgoCD plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) on your ArgoCD instance
     2. create an app-of-apps which uses the plugin
@@ -471,7 +416,7 @@ How you generate and apply the deployKF manifests to your Kubernetes cluster wil
 
 ??? steps "Generate & Apply Manifests - _Manifests Repo Mode_"
 
-    To generate and apply the manifests when using ["Manifests Repo Mode"](#0-modes-of-operation), you will need to:
+    To generate and apply the manifests when using ["Manifests Repo Mode"](#modes-of-operation), you will need to:
 
     1. generate the manifests
     2. commit the generated manifests to a git repo

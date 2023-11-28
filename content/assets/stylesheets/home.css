@@ -71,7 +71,7 @@ Hero Title
 .mdx-hero .mdx-hero__title {
     margin-bottom: 0;
     padding-bottom: 1.0rem;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 3.5rem;
 }
 
@@ -107,7 +107,7 @@ Hero Tagline
 .mdx-hero .mdx-hero__tagline {
     margin-top: 0;
     margin-bottom: 0;
-    font-weight: 500;
+    font-weight: 400;
     font-size: 1.4rem;
 }
 

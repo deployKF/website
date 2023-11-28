@@ -103,3 +103,24 @@ Footer Styling
 .md-footer .md-typeset .footer-link {
     color: var(--md-typeset-a-color);
 }
+
+/*
+========================================
+Button Styling
+========================================
+*/
+
+a.md-button {
+    margin-left: 0.4rem;
+    margin-bottom: 0.5rem;
+}
+
+/*
+========================================
+MD Header Styling
+========================================
+*/
+
+.md-typeset h2 {
+    font-weight: 400;
+}

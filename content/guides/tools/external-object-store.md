@@ -1,6 +1,11 @@
+---
+description: >-
+  Learn how to use external S3-like object stores with Kubeflow Pipelines in deployKF.
+---
+
 # Connect an external Object Store
 
-This guide explains how to connect an __external object store__ that is __S3-compatible__ with deployKF.
+Learn how to use __external S3-like object stores__ with __Kubeflow Pipelines__ in deployKF.
 
 ---
 

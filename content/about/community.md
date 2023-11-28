@@ -1,5 +1,8 @@
 ---
 icon: material/account-group
+description: >-
+  Join the deployKF community!
+  Learn how to get involved with the deployKF community.
 ---
 
 # Community
@@ -13,27 +16,21 @@ We encourage participation from anyone who shares our mission of making it easy 
     
 Are you a vendor who wants to support deployKF, use it in your product, or contribute a new tool?
     
-[Email: `team@deploykf.org`](mailto:team@deploykf.org?subject=%5BPartnerships%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
+[Email: _`team@deploykf.org`_](mailto:team@deploykf.org?subject=%5BPartnerships%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
 
 ## Slack
 
-The deployKF community uses the [Kubeflow Slack](https://www.kubeflow.org/docs/about/community/#kubeflow-slack) for informal discussions among users and contributors.
+The deployKF community uses the __Kubeflow Slack__ for informal discussions among users and contributors.
 After you join, connect with us on the [`#deploykf`](https://kubeflow.slack.com/archives/C054H6WLNCB) channel!
 
-[:fontawesome-brands-slack: Join the Kubeflow / deployKF Slack](https://invite.playplay.io/invite?team_id=T7QLHSH6U){ .md-button .md-button--secondary }
+[:fontawesome-brands-slack: Join: _Kubeflow / deployKF Slack_](https://invite.playplay.io/invite?team_id=T7QLHSH6U){ .md-button .md-button--secondary }
 
 ## Mailing Lists
 
-The deployKF community has two mailing lists which are hosted on Google Groups.
+The deployKF community has two mailing lists which are hosted on Google Groups:
 
-### Users Mailing List
+- [__deploykf-users__](https://groups.google.com/g/deploykf-users) is for deployKF users to ask questions and share ideas.
+- [__deploykf-dev__](https://groups.google.com/g/deploykf-dev) is for deployKF contributors to discuss development and design.
 
-The [deploykf-users](https://groups.google.com/g/deploykf-users) mailing list is for users of deployKF to ask questions and share ideas.
-
-[:fontawesome-solid-envelope: Join the User Mailing List](https://groups.google.com/g/deploykf-users){ .md-button .md-button--secondary }
-
-### Dev Mailing List
-
-The [deploykf-dev](https://groups.google.com/g/deploykf-dev) mailing list is for contributors to deployKF to discuss development and design.
-
-[:fontawesome-solid-envelope: Join the Contributor Mailing List](https://groups.google.com/g/deploykf-dev){ .md-button .md-button--secondary }
+[:fontawesome-solid-envelope: Join: _User Mailing List_](https://groups.google.com/g/deploykf-users){ .md-button .md-button--secondary }
+[:fontawesome-solid-envelope: Join: _Contributor Mailing List_](https://groups.google.com/g/deploykf-dev){ .md-button .md-button--secondary }

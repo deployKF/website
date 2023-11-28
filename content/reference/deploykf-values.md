@@ -1,5 +1,7 @@
 ---
 icon: material/tune
+description: >-
+  Reference for the generator values (configs) available in deployKF.
 ---
 
 # Generator Values

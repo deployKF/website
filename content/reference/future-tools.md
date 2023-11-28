@@ -1,5 +1,7 @@
 ---
 icon: material/wrench-clock
+description: >-
+  ML and Data Tools planned for future versions of deployKF.
 
 ## Tools planned for future deployKF versions
 tools_planned:
@@ -178,7 +180,6 @@ tools_planned:
       - [__Task Templates__](https://labelstud.io/templates): Label Studio provides many templates for common labeling tasks, including text classification, named entity recognition, and object detection.
       - [__Label Studio Web UI__](https://labelstud.io/guide/get_started.html#Terminology): Label Studio provides a graphical web interface for labeling data and managing labeling projects.
     footnote: ""
-
 ---
 
 # Future ML & Data Tools
@@ -194,10 +195,6 @@ This page lists the __ML & Data tools__ which are __planned for future versions_
 ## Tool Roadmap
 
 The following is a roadmap of planned tools, __grouped by priority__.
-
-!!! tip
-
-     Click the name of a tool for more information about it.
 
 {{ render_planned_tools_index(tools_planned) }}
 

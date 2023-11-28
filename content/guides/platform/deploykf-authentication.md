@@ -1,13 +1,18 @@
 ---
+description: >-
+  Learn about user authentication and connecting with external identity providers in deployKF.
+  Active Directory, Okta, GitHub, Google, AWS Cognito, and more.
+
+# TODO: remove new status, after a while
+status: new
+
 # disable the mkdocs-macros-plugin for this page
 ignore_macros: true
-
-status: new
 ---
 
 # User Authentication and External Identity Providers
 
-This guide explains how to __configure user authentication__ and connect with __external identity providers__ in deployKF.
+Learn about __user authentication__ and connecting with __external identity providers__ in deployKF.
 
 !!! tip "Related Guides"
 
@@ -628,8 +633,8 @@ deploykf_core:
 
         ## (OPTION 2):
         ##  - a user with password defined as a bcrypt hash
-        ##  - a bcrypt hash for "PASSWORD_STRING" can be generated with one of the following:
-        ##     - echo "PASSWORD_STRING" | htpasswd -BinC 10 NULL | cut -d: -f2
+        ##  - a bcrypt hash for "password" can be generated with one of the following:
+        ##     - echo "password" | htpasswd -BinC 10 NULL | cut -d: -f2
         ##     - python -c 'import bcrypt; print(bcrypt.hashpw(b"password", bcrypt.gensalt(10)).decode())'
         - email: "bcrypt@example.com"
           password:

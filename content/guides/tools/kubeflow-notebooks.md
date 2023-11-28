@@ -1,6 +1,12 @@
+---
+description: >-
+  Learn how to configure Kubeflow Notebooks in deployKF.
+  Use custom environments, GPU acceleration, faster storage, and more!
+---
 # Configure Kubeflow Notebooks
 
-This guide explains how to __configure Kubeflow Notebooks__ in deployKF.
+Learn how to __configure Kubeflow Notebooks__ in deployKF.
+Use custom environments, GPU acceleration, faster storage, and more!
 
 ---
 

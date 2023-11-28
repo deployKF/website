@@ -1,10 +1,13 @@
 ---
 icon: custom/kubeflow
+description: >-
+  How deployKF is related to Kubeflow and Kubeflow Manifests.
+
 comparison_data:
   - aspect: Ease of Use
     deploykf:
       - Has a Helm-like interface, with [values](../reference/deploykf-values.md) for configuring all aspects of the deployment (no need to edit Kubernetes YAML)
-      - Upgrades are easy because config values only have minimal [changes between versions](../releases/changelog-deploykf.md).
+      - Upgrades are easy because you can bring your existing config files to new versions. Furthermore, values only have minimal [changes between versions](../releases/changelog-deploykf.md).
     kubeflow_manifests:
       - Manual patching of YAML manifests required for any changes.
       - Upgrades are difficult because new versions require starting from scratch with the new manifests.
@@ -19,8 +22,7 @@ comparison_data:
   - aspect: Customization
     deploykf:
       - Allows selective deployment of MLOps tools through simple config values.
-      - Allows brining custom versions of dependencies like Istio, cert-manager, [MySQL](../guides/tools/external-mysql.md), [S3](..//guides/tools/external-object-store.md), and more.
-      - Simplifies multi-cluster configurations with support for shared common values and environment-specific overlays.
+      - Allows bringing custom versions of dependencies like Istio, cert-manager, [MySQL](../guides/tools/external-mysql.md), [S3](..//guides/tools/external-object-store.md), and more.
     kubeflow_manifests:
       - Less customizable, and requires difficult patching of YAML manifests.
   - aspect: GitOps
@@ -33,7 +35,7 @@ comparison_data:
       - All secrets are randomly generated at install time, rather than being hardcoded in manifests.
       - Reduced attack vectors compared to Kubeflow Manifests, particularly in Istio configurations.
       - Utilizes standard auth tools (`oauth2-proxy`) over unknown tools (`arrikto/oidc-authservice`).
-      - Automatically refreshes session cookies for active users in most cases.
+      - Automatically refreshes session cookies for active users in most cases (users will need to log in less often).
       - Uses Istio with [distroless images](https://istio.io/latest/docs/ops/configuration/security/harden-docker-images/) by default.
       - MinIO (or S3) access keys are isolated to each profile, not shared, and scoped to the minimum required permissions.
       - Supports [using AWS IRSA](../guides/tools/external-object-store.md#irsa-based-authentication) instead of S3 access keys.
@@ -45,36 +47,42 @@ comparison_data:
 
 # Kubeflow vs deployKF
 
-This page aims to unpack the differences between __deployKF__ and __Kubeflow__.
+This page unpacks how __deployKF__ is related to __Kubeflow__ and __Kubeflow Manifests__.
 
-!!! warning "Packaged distributions of Kubeflow"
-    
-    The other [distributions of Kubeflow](https://www.kubeflow.org/docs/started/installing-kubeflow/#packaged-distributions-of-kubeflow), are using __mostly unmodified__ versions of the Kubeflow Manifests, so the following comparison is still relevant for them.
+!!! info "Migrate to deployKF"
+
+    When you're ready to start migrating from Kubeflow to deployKF, check out the [Migrate from Kubeflow Distributions](../guides/kubeflow-distributions.md) guide.
 
 ---
 
-## Overview
+## _Kubeflow_ vs _deployKF_
 
-__Kubeflow__ and __deployKF__ are two different but related projects:
+Kubeflow and deployKF are two different but related projects:
   
-- deployKF is a tool for deploying Kubeflow and other MLOps tools on Kubernetes as a cohesive platform.
-- Kubeflow is a project that develops MLOps tools, including Kubeflow Pipelines, Kubeflow Notebooks, Katib, and more.
+- __deployKF__ is a tool for building Data and ML platforms on Kubernetes. It includes Kubeflow tools, as well as tools from other projects.
+- __Kubeflow__ is a project to develop MLOps tools for Kubernetes. Some popular Kubeflow tools are Kubeflow Pipelines, Kubeflow Notebooks, Katib, and KServe.
 
-## Kubeflow vs Kubeflow Manifests
+## _Kubeflow_ vs _Kubeflow Manifests_
 
-Before a more detailed comparison can be made, it is important to understand the distinction between __Kubeflow__ and __Kubeflow Manifests__:
+The __Kubeflow__ project provides Kubernetes manifests for its tools under the name __Kubeflow Manifests__.
+These manifests are hosted in the [`kubeflow/manifests`](https://github.com/kubeflow/manifests) repo, and are used in some way by most Kubeflow distributions (including deployKF).
 
-- Kubeflow is a project that develops MLOps tools, including Kubeflow Pipelines, Kubeflow Notebooks, Katib, and more.
-- Kubeflow Manifests are a set of Kubernetes manifests to deploy Kubeflow's MLOps tools on Kubernetes, found in the [`kubeflow/manifests`](https://github.com/kubeflow/manifests) repo.
+The __Kubeflow Manifests__ are NOT intended to be used directly by end-users.
+They are simply a collection of Kustomize manifests, and require significant manual patching to use in production.
 
-## deployKF vs Kubeflow Manifests
+## _deployKF_ vs _Kubeflow Manifests_
 
-Hopefully, it is now clear the most useful comparison is between __deployKF__ and __Kubeflow Manifests__ (not the Kubeflow project as a whole).
+While __deployKF__ and __Kubeflow Manifests__ can both be used to deploy Kubeflow tools on Kubernetes, they are not aimed at the same audience.
 
-The following table compares the two projects across a number of different aspects:
+- __deployKF__ is intended to be used by organizations to build their Data and ML Platforms on Kubernetes.
+  It provides a Helm-like interface for configuring and deploying Kubeflow (and other MLOps tools) on Kubernetes.
+- __Kubeflow Manifests__ are intended to be used by Kubeflow distribution maintainers, not end-users.
+   They are simply a collection of Kustomize manifests, and require significant manual patching to use in production.
+
+The following table provides a more detailed comparison of __deployKF__ and __Kubeflow Manifests__:
 
 {{ render_comparison_table(comparison_data) }}
 
 ## Next Steps
 
-- If you're ready to start migrating from Kubeflow to deployKF, check out the [Migrate from Kubeflow Manifests](../guides/migrate-from-kubeflow-manifests.md) guide.
+- If you're ready to start migrating from Kubeflow to deployKF, check out the [Migrate from Kubeflow Distributions](../guides/kubeflow-distributions.md) guide.

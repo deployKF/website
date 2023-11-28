@@ -1,12 +1,16 @@
 ---
 icon: material/sprout
+description: >-
+  Learn how to quickly try deployKF on a local Kubernetes cluster.
+  Test our powerful Helm-like interface for deploying Kubeflow and other MLOps tools.
 ---
 
 # Local Quickstart
 
-This guide will show you how to __quickly try deployKF__ on a __local__ Kubernetes cluster.
+Learn how to __quickly try deployKF__ on a __local Kubernetes cluster__.
+Test our powerful Helm-like interface for deploying Kubeflow and other MLOps tools.
 
-!!! info "Related Guides"
+!!! tip "Other Resources"
 
     - [__Getting Started__](getting-started.md) - start building your production-ready ML Platform on any Kubernetes cluster
 
@@ -14,20 +18,9 @@ This guide will show you how to __quickly try deployKF__ on a __local__ Kubernet
 
 ## Introduction
 
-Before starting, let's answer some common questions about deployKF.
+To learn about deployKF and why you might want to use it, please see the [Introduction](../about/introduction.md).
 
-!!! question "What is deployKF?"
-
-    deployKF builds world-class Data and Machine Learning Platforms on __any Kubernetes cluster__, in any cloud or environment.
-    Our vision is that anyone with Kubernetes experience can effortlessly build, maintain, and support a custom Data and ML Platform for their organization, without requiring specialized MLOps knowledge.
-
-    For more details, see the [introduction](getting-started.md#about-deploykf) of the _Getting Started_ guide.
-
-!!! support "Do you offer commercial support?"
-
-    Yes! The founder of deployKF ([Mathew Wicks](https://www.linkedin.com/in/mathewwicks/)), operates a US-based company named [Aranui Solutions](https://www.aranui.solutions) to provide commercial support and advisory services for organizations building ML & Data Platforms on Kubernetes.
-
-    Email [`sales@aranui.solutions`](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) to learn more!
+[:material-lightbulb-on: Read: _Introduction to deployKF_](../about/introduction.md){ .md-button .md-button--primary }
 
 ## 1. Requirements
 

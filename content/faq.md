@@ -1,5 +1,8 @@
 ---
 icon: material/help-circle-outline
+description: >-
+  Frequently Asked Questions about deployKF.
+
 hide:
   - navigation
 faq_schema:
@@ -8,25 +11,38 @@ faq_schema:
     include_in_schema: true
     pre_expand_answer: true
     answer: |-
-      deployKF builds world-class Data and Machine Learning Platforms on __any Kubernetes cluster__, in any cloud or environment.
-      Our vision is that anyone with Kubernetes experience can effortlessly build, maintain, and support a custom Data and ML Platform for their organization, without requiring specialized MLOps knowledge.
+      deployKF helps you build world-class data and machine learning platforms on __any Kubernetes cluster__, in any cloud or environment.
+      Our vision is that __anyone with Kubernetes experience__ can effortlessly build and support a _custom data and machine learning platform_ for their organization, without requiring specialized MLOps knowledge.
 
-      Key features of deployKF include:
-
-      - Support for [__leading tools__](./reference/tools.md#tool-index) from Kubeflow and more
-      - Intuitive and [__centralized configs__](./reference/deploykf-values.md) to manage all aspects of the platform
-      - Seamless __in-place upgrades__ and config rollouts
-      - Connect with __existing cluster dependencies__ like Istio and cert-manager
-      - Native support for GitOps via ArgoCD
-
-  - question: Is commercial support available for deployKF?
+  - question: Why use deployKF?
+    highlight_answer: true
     include_in_schema: true
-    pre_expand_answer: false
+    pre_expand_answer: true
+    answer: |-
+      By combining the <em>ease of a managed service</em> with the flexibility of a self-hosted solution; 
+      deployKF creates a platform tailored to your organization's needs, while not also requiring a team of MLOps experts to build and maintain it.
+      
+      Some of the key features include:
+      
+      - Runs on __any Kubernetes__, including on-premises and in the cloud
+      - Support for leading __Data and MLOps tools__ including [__Kubeflow__](./reference/tools.md#kubeflow-ecosystem), [__Airflow__](./reference/future-tools.md#apache-airflow)<sup>†</sup>, and [__MLflow__](./reference/future-tools.md#mlflow-model-registry)<sup>†</sup>
+      - Intuitive [__centralized configs__](./reference/deploykf-values.md) to manage all aspects of the platform
+      - Seamless __in-place upgrades__ and config rollouts
+      - Connect with __existing services__ like Istio and cert-manager, [S3](./guides/tools/external-object-store.md), and [MySQL](./guides/tools/external-mysql.md).
+      - Native support for __GitOps__ via ArgoCD
+  
+      <small><sup>†</sup>Coming soon, see our [current](./reference/tools.md) and [future](./reference/future-tools.md) tools.</small>
+
+  - question: Is there commercial support for deployKF?
+    include_in_schema: true
+    pre_expand_answer: true
     admonition_type: support
     answer: |-
-      Yes! The founder of deployKF ([Mathew Wicks](https://www.linkedin.com/in/mathewwicks/)), operates a US-based company named [Aranui Solutions](https://www.aranui.solutions) to provide commercial support and advisory services for organizations building ML & Data Platforms on Kubernetes.
+      If you need commercial support for deployKF, please contact __Aranui Solutions__.
+      Aranui Solutions is a US-based company founded by the creators of deployKF to help organizations build ML & Data Platforms on Kubernetes.
 
-      Email [`sales@aranui.solutions`](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT) to learn more!
+      [Visit: _Aranui Solutions Website_](https://www.aranui.solutions/){ .md-button .md-button--secondary }
+      [Email: _`sales@aranui.solutions`_](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
 
   - question: Which ML and AI tools are in deployKF?
     include_in_schema: true
@@ -40,7 +56,7 @@ faq_schema:
     include_in_schema: true
     pre_expand_answer: false
     answer: |-
-      deployKF was originally created by [Mathew Wicks](https://www.linkedin.com/in/mathewwicks/) (GitHub: [@thesuperzapper](https://github.com/thesuperzapper)), a Kubeflow lead and maintainer of the popular [Apache Airflow Helm Chart](https://github.com/airflow-helm/charts).
+      deployKF was originally created and is maintained by [Mathew Wicks](https://www.linkedin.com/in/mathewwicks/) (GitHub: [@thesuperzapper](https://github.com/thesuperzapper)), a Kubeflow lead and maintainer of the popular [Apache Airflow Helm Chart](https://github.com/airflow-helm/charts).
       deployKF is a community-led project that welcomes contributions from anyone who wants to help.
 
   - question: Who has adopted deployKF?
@@ -74,5 +90,7 @@ faq_schema:
 ---
 
 # Frequently Asked Questions
+
+Frequently asked questions about deployKF.
 
 {{ render_faq_schema(faq_schema) }}

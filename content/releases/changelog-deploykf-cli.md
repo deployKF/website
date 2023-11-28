@@ -1,5 +1,7 @@
 ---
 icon: material/script-text
+description: >-
+  Changelog for the deployKF CLI.
 ---
 
 # Changelog - deployKF CLI

@@ -1,6 +1,11 @@
+---
+description: >-
+  Learn how to manage profiles and assign users to them in deployKF.
+---
+
 # User Authorization and Profile Management
 
-This guide explains how to __manage profiles__ and __assign users__ to them in deployKF.
+Learn how to __manage profiles__ and __assign users__ to them in deployKF.
 
 !!! tip "Related Guides"
 
