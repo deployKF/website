@@ -1,5 +1,5 @@
 # WARNING: when updating `mkdocs-material`, remember to update `overrides/`
-mkdocs-material==9.4.8
+mkdocs-material==9.4.14
 mkdocs-awesome-pages-plugin==2.9.2
 mkdocs-git-revision-date-localized-plugin==1.2.1
 mkdocs-macros-plugin==1.0.5

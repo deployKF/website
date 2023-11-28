@@ -1,7 +1,7 @@
 {#-
   BASED ON:
-   - SRC: https://github.com/squidfunk/mkdocs-material/blob/9.4.8/src/templates/partials/nav-item.html
-   - OUT: https://github.com/squidfunk/mkdocs-material/blob/9.4.8/material/templates/partials/nav-item.html
+   - SRC: https://github.com/squidfunk/mkdocs-material/blob/9.4.14/src/templates/partials/nav-item.html
+   - OUT: https://github.com/squidfunk/mkdocs-material/blob/9.4.14/material/templates/partials/nav-item.html
 
   CHANGES:
    - display folder icon for sections (only for nesting level 2 and deeper)
@@ -50,6 +50,11 @@
   {% set class = "md-nav__item" %}
   {% if nav_item.active %}
     {% set class = class ~ " md-nav__item--active" %}
+  {% endif %}
+  {% if nav_item.pages %}
+    {% if page in nav_item.pages %}
+      {% set nav_item = page %}
+    {% endif %}
   {% endif %}
   {% if nav_item.children %}
     {% set indexes = [] %}
