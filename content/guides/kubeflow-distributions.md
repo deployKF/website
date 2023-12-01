@@ -27,7 +27,7 @@ Learn about migrating to __deployKF__ from other __Kubeflow Distributions__ like
     
     ---
 
-    Before migrating, you may wish to review our detailed [deployKF vs Kubeflow Manifests](../about/kubeflow-vs-deploykf.md#deploykf-vs-kubeflow-manifests) comparison.
+    Before migrating, you may wish to review our detailed [:custom-deploykf-color: __deployKF__ vs :custom-kubeflow-color: __Kubeflow Manifests__](../about/kubeflow-vs-deploykf.md#deploykf-vs-kubeflow-manifests) comparison.
     
     Note, most other [distributions of Kubeflow](https://www.kubeflow.org/docs/started/installing-kubeflow/#packaged-distributions-of-kubeflow) use __largely unmodified__ versions of the Kubeflow Manifests. 
     So the comparison is also relevant to them.

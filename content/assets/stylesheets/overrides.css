@@ -66,6 +66,15 @@ Table Styling
     padding: 0.7em 0.7em;
 }
 
+/* A special wrapper class for the kubeflow vs deploykf table */
+.comparison-table td, .comparison-table th {
+    text-align: center !important;
+}
+
+.comparison-table table {
+    table-layout: fixed;
+}
+
 /*
 ========================================
 Navigation Styling
@@ -123,4 +132,20 @@ MD Header Styling
 
 .md-typeset h2 {
     font-weight: 400;
+}
+
+/*
+========================================
+Star-History Styling
+========================================
+*/
+
+.star-history_image {
+    width: 30rem;
+    border-radius: 0.3em;
+    border: 0.05rem solid var(--md-typeset-table-color);
+}
+
+[data-md-color-scheme=slate] .star-history_image {
+    opacity: 0.7;
 }
