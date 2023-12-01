@@ -42,6 +42,20 @@ An __introduction__ to deployKF.
 
     <small><sup>†</sup>Coming soon, see our [current](../reference/tools.md) and [future](../reference/future-tools.md) tools.</small>
 
+### __How can I help deployKF?__
+
+!!! image ""
+
+    deployKF is a new and growing project.
+    If you like what we are doing, please help others discover us by __sharing the project__ with your colleagues and/or the wider community (code contributions are also welcome).
+
+    We greatly appreciate __GitHub Stars__ :star: on the [`deployKF/deployKF`](https://github.com/deployKF/deployKF)  repository:
+    
+    ![deployKF GitHub Star History (Dark Mode)](https://api.star-history.com/svg?repos=deployKF/deployKF&type=Date&theme=dark#only-dark){ .star-history_image }
+    ![deployKF GitHub Star History (Light Mode)](https://api.star-history.com/svg?repos=deployKF/deployKF&type=Date#only-light){ .star-history_image }
+
+    If your organization uses deployKF, please consider adding your name to the [list of adopters](https://github.com/deployKF/deployKF/blob/main/ADOPTERS.md). 
+
 ---
 
 ## Using deployKF

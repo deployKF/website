@@ -20,8 +20,14 @@ MARKDOWN_BLOCK = 'markdown="block"'
 MARKDOWN_SPAN = 'markdown="span"'
 
 
-def _html_tr(th: List[str], td: List[str], md: bool = True) -> str:
-    """Generate an HTML table row tag.
+def _html_body(
+    th: List[str],
+    td: List[str],
+    md: bool = True,
+    header_at_top: bool = False,
+    th_widths: List[str] = None,
+) -> str:
+    """Generate an HTML table body.
 
     Args:
         th: List of table header cells.
@@ -31,19 +37,43 @@ def _html_tr(th: List[str], td: List[str], md: bool = True) -> str:
     Returns:
         The HTML for the table row.
     """
+    output = ""
+
     if md:
         _md = MARKDOWN_SPAN
     else:
         _md = ""
 
     # generate the table row
-    output = ""
-    output += f"<tr {_md}>"
-    for cell in th:
-        output += f"<th {_md}>{cell}</th>"
-    for cell in td:
-        output += f"<td {_md}>{cell}</td>"
-    output += "</tr>"
+    if header_at_top:
+        # add header
+        output += f"<thead {_md}>"
+        output += f"<tr {_md}>"
+        for index, cell in enumerate(th):
+            if th_widths:
+                output += f"<th {_md} width='{th_widths[index]}'>{cell}</th>"
+            else:
+                output += f"<th {_md}>{cell}</th>"
+        output += "</tr>"
+        output += "</thead>"
+
+        # add body
+        output += f"<tbody {_md}>"
+        output += f"<tr {_md}>"
+        for cell in td:
+            output += f"<td {_md}>{cell}</td>"
+        output += "</tr>"
+        output += "</tbody>"
+    else:
+        # add body
+        output += f"<tbody {_md}>"
+        output += f"<tr {_md}>"
+        for cell in th:
+            output += f"<th {_md}>{cell}</th>"
+        for cell in td:
+            output += f"<td {_md}>{cell}</td>"
+        output += "</tr>"
+        output += "</tbody>"
 
     return output
 
@@ -53,18 +83,38 @@ def define_env(env: MacrosPlugin):
     def render_comparison_table(comparison_data):
         output_lines = []
 
-        # Render the table header
-        output_lines.append("| | deployKF | Kubeflow Manifests |")
-        output_lines.append("| --- | --- | --- |")
-
-        # Render the table body
+        # For each aspect, render a table
         for row in comparison_data:
             aspect = row["aspect"]
-            dkf_items = [f"<li>{item}</li>" for item in row["deploykf"]]
-            dkf_str = f"<ul>{''.join(dkf_items)}</ul>"
-            kfm_items = [f"<li>{item}</li>" for item in row["kubeflow_manifests"]]
-            kfm_str = f"<ul>{''.join(kfm_items)}</ul>"
-            output_lines.append(f"| __{aspect}__ | {dkf_str} | {kfm_str} |")
+
+            # Add header for the aspect
+            output_lines.append(f"### {aspect}")
+            output_lines.append("")
+
+            # List of deploykf items
+            dkf_items = [f"<p>{item}</p>" for item in row["deploykf"]]
+            dkf_str = " ".join(dkf_items)
+
+            # List of kubeflow manifests items
+            kfm_items = [f"<p>{item}</p>" for item in row["kubeflow_manifests"]]
+            kfm_str = " ".join(kfm_items)
+
+            # Render comparison table
+            output_lines.append(f"<div {MARKDOWN_BLOCK} class='comparison-table'>")
+            output_lines.append(f"<table {MARKDOWN_SPAN}>")
+            output_lines.append(
+                _html_body(
+                    [
+                        ":custom-deploykf-color: deployKF",
+                        ":custom-kubeflow-color: Kubeflow Manifests",
+                    ],
+                    [dkf_str, kfm_str],
+                    header_at_top=True,
+                    th_widths=["50%", "50%"],
+                )
+            )
+            output_lines.append(f"</table>")
+            output_lines.append(f"</div>")
 
         return "\n".join(output_lines)
 
@@ -119,17 +169,17 @@ def define_env(env: MacrosPlugin):
 
             # Render details table
             output_lines.append(f"<table {MARKDOWN_SPAN}>")
-            output_lines.append(_html_tr(["Purpose"], [row["purpose"]]))
-            output_lines.append(_html_tr(["Maintainer"], [row["maintainer"]]))
+            output_lines.append(_html_body(["Purpose"], [row["purpose"]]))
+            output_lines.append(_html_body(["Maintainer"], [row["maintainer"]]))
             output_lines.append(
-                _html_tr(["Documentation"], [upstream_docs_link]),
+                _html_body(["Documentation"], [upstream_docs_link]),
             )
             output_lines.append(
-                _html_tr(["Source Code"], [upstream_repo_link]),
+                _html_body(["Source Code"], [upstream_repo_link]),
             )
-            output_lines.append(_html_tr(["deployKF Configs"], [dkf_values_link]))
+            output_lines.append(_html_body(["deployKF Configs"], [dkf_values_link]))
             output_lines.append(
-                _html_tr(["Since deployKF"], [f'`{row["deploykf_version"]}`'])
+                _html_body(["Since deployKF"], [f'`{row["deploykf_version"]}`'])
             )
             output_lines.append(f"</table>")
 
@@ -213,22 +263,22 @@ def define_env(env: MacrosPlugin):
 
             # Render details table
             output_lines.append(f"<table {MARKDOWN_SPAN}>")
-            output_lines.append(_html_tr(["Purpose"], [row["purpose"]]))
-            output_lines.append(_html_tr(["Maintainer"], [row["maintainer"]]))
+            output_lines.append(_html_body(["Purpose"], [row["purpose"]]))
+            output_lines.append(_html_body(["Maintainer"], [row["maintainer"]]))
             output_lines.append(
-                _html_tr(
+                _html_body(
                     ["Documentation"],
                     [upstream_docs_link],
                 )
             )
             output_lines.append(
-                _html_tr(
+                _html_body(
                     ["Source Code"],
                     [upstream_repo_link],
                 )
             )
             output_lines.append(
-                _html_tr(
+                _html_body(
                     ["Roadmap Priority"],
                     [PRIORITY_TO_WORD[row["deploykf_priority"]]],
                 )

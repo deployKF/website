@@ -57,29 +57,33 @@ This page unpacks how __deployKF__ is related to __Kubeflow__ and __Kubeflow Man
 
 ## _Kubeflow_ vs _deployKF_
 
-Kubeflow and deployKF are two different but related projects:
-  
-- __deployKF__ is a tool for building Data and ML platforms on Kubernetes. It includes Kubeflow tools, as well as tools from other projects.
-- __Kubeflow__ is a project to develop MLOps tools for Kubernetes. Some popular Kubeflow tools are Kubeflow Pipelines, Kubeflow Notebooks, Katib, and KServe.
+!!! value ""
+
+    Kubeflow and deployKF are two different but related projects:
+      
+    - :custom-deploykf-color: __deployKF__ is a tool for building Data and ML platforms on Kubernetes. It includes Kubeflow tools, as well as tools from other projects.
+    - :custom-kubeflow-color: __Kubeflow__ is a project to develop MLOps tools for Kubernetes. Some popular Kubeflow tools are Kubeflow Pipelines, Kubeflow Notebooks, Katib, and KServe.
 
 ## _Kubeflow_ vs _Kubeflow Manifests_
 
-The __Kubeflow__ project provides Kubernetes manifests for its tools under the name __Kubeflow Manifests__.
-These manifests are hosted in the [`kubeflow/manifests`](https://github.com/kubeflow/manifests) repo, and are used in some way by most Kubeflow distributions (including deployKF).
+!!! value ""
 
-The __Kubeflow Manifests__ are NOT intended to be used directly by end-users.
-They are simply a collection of Kustomize manifests, and require significant manual patching to use in production.
+    The :custom-kubeflow-color: __Kubeflow__ project provides Kubernetes manifests for its tools under the name __Kubeflow Manifests__.
+    These manifests are hosted in the [`kubeflow/manifests`](https://github.com/kubeflow/manifests) repo, and are used in some way by most Kubeflow distributions (including deployKF).
+    
+    The __Kubeflow Manifests__ are NOT intended to be used directly by end-users.
+    They are simply a collection of Kustomize manifests, and require significant manual patching to use in production.
 
 ## _deployKF_ vs _Kubeflow Manifests_
 
-While __deployKF__ and __Kubeflow Manifests__ can both be used to deploy Kubeflow tools on Kubernetes, they are not aimed at the same audience.
+!!! value ""
 
-- __deployKF__ is intended to be used by organizations to build their Data and ML Platforms on Kubernetes.
-  It provides a Helm-like interface for configuring and deploying Kubeflow (and other MLOps tools) on Kubernetes.
-- __Kubeflow Manifests__ are intended to be used by Kubeflow distribution maintainers, not end-users.
-   They are simply a collection of Kustomize manifests, and require significant manual patching to use in production.
-
-The following table provides a more detailed comparison of __deployKF__ and __Kubeflow Manifests__:
+    While __deployKF__ and __Kubeflow Manifests__ can both be used to deploy Kubeflow tools on Kubernetes, they are not aimed at the same audience.
+    
+    - :custom-deploykf-color: __deployKF__ is intended to be used by organizations to build their Data and ML Platforms on Kubernetes.
+      It provides a Helm-like interface for configuring and deploying Kubeflow (and other MLOps tools) on Kubernetes.
+    - :custom-kubeflow-color: __Kubeflow Manifests__ are intended to be used by Kubeflow distribution maintainers, not end-users.
+    They are simply a collection of Kustomize manifests, and require significant manual patching to use in production.
 
 {{ render_comparison_table(comparison_data) }}
 
