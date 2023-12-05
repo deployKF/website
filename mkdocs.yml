@@ -36,7 +36,6 @@ theme:
     - content.tabs.link
     - navigation.expand
     - navigation.instant
-    - navigation.instant.progress
     - navigation.sections
     - navigation.tabs
     - navigation.tabs.sticky
