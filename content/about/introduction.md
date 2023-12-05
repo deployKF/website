@@ -42,20 +42,19 @@ An __introduction__ to deployKF.
 
     <small><sup>†</sup>Coming soon, see our [current](../reference/tools.md) and [future](../reference/future-tools.md) tools.</small>
 
-### __How can I help deployKF?__
+### __Video Introduction__
 
-!!! image ""
+!!! value ""
 
-    deployKF is a new and growing project.
-    If you like what we are doing, please help others discover us by __sharing the project__ with your colleagues and/or the wider community (code contributions are also welcome).
-
-    We greatly appreciate __GitHub Stars__ :star: on the [`deployKF/deployKF`](https://github.com/deployKF/deployKF)  repository:
+    <div class="video-padding">
+        <div class="youtube-video-container">
+            <iframe src="https://www.youtube.com/embed/GDX4eLL_8E0?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="video-caption">
+        Our presentation from [Kubeflow Summit 2023](https://www.kubeflow.org/events/kubeflow-summit-2023/), where we introduced deployKF to the community.
+    </div>
     
-    ![deployKF GitHub Star History (Dark Mode)](https://api.star-history.com/svg?repos=deployKF/deployKF&type=Date&theme=dark#only-dark){ .star-history_image }
-    ![deployKF GitHub Star History (Light Mode)](https://api.star-history.com/svg?repos=deployKF/deployKF&type=Date#only-light){ .star-history_image }
-
-    If your organization uses deployKF, please consider adding your name to the [list of adopters](https://github.com/deployKF/deployKF/blob/main/ADOPTERS.md). 
-
 ---
 
 ## Using deployKF
@@ -79,6 +78,20 @@ An __introduction__ to deployKF.
     
     [Visit: _Aranui Solutions Website_](https://www.aranui.solutions/){ .md-button .md-button--secondary }
     [Email: _`sales@aranui.solutions`_](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
+
+### Support the Project
+
+!!! value ""
+
+    deployKF is a new and growing project.
+    If you like what we are doing, please help others discover us by __sharing the project__ with your colleagues and/or the wider community.
+
+    We greatly appreciate [__GitHub Stars__ :star: on the `deployKF/deployKF`](https://github.com/deployKF/deployKF) repository:
+
+    ![deployKF GitHub Star History (Dark Mode)](https://api.star-history.com/svg?repos=deployKF/deployKF&type=Date&theme=dark#only-dark){ .star-history_image }
+    ![deployKF GitHub Star History (Light Mode)](https://api.star-history.com/svg?repos=deployKF/deployKF&type=Date#only-light){ .star-history_image }
+
+    Finally, please consider adding your organization to the [deployKF Adopters](https://github.com/deployKF/deployKF/blob/main/ADOPTERS.md) list.
 
 ---
 
@@ -114,15 +127,23 @@ An __introduction__ to deployKF.
 
 ??? image "deployKF Dashboard"
 
-    The [__deployKF Dashboard__](https://github.com/deployKF/dashboard) is the web-based interface for deployKF, and is the primary way that users interact with the platform.
-
+    <div class="image-wrapper">
     ![deployKF Dashboard (Dark Mode)](../assets/images/deploykf-dashboard-DARK.png#only-dark)
     ![deployKF Dashboard (Light Mode)](../assets/images/deploykf-dashboard-LIGHT.png#only-light)
+    </div>
+    <div class="image-caption">
+    The [__deployKF Dashboard__](https://github.com/deployKF/dashboard) is the web-based interface that end-users interact with the platform through.
+    </div>
 
 ### Media and Presentations
 
 ??? youtube "Intro / Demo - Kubeflow Community Call - July 2023"
 
-    This is a recording of the Kubeflow Community Call from July 2021, where we first introduced deployKF to the community.
-
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/VggtaOgtBJo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="video-padding">
+        <div class="youtube-video-container">
+            <iframe src="https://www.youtube.com/embed/VggtaOgtBJo?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="video-caption">
+        A recording of the __Kubeflow Community Call__ from July 2023, where we first introduced deployKF to the community.
+    </div>

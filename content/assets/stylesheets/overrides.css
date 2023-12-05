@@ -26,7 +26,7 @@ Header Styling
 ========================================
 */
 
-@media screen and (min-width: 76.1875em) {
+@media screen and (min-width: 76.25em) {
     .md-header__button.mdx-logo {
         display: none;
     }
@@ -136,6 +136,34 @@ MD Header Styling
 
 /*
 ========================================
+Image Styling
+========================================
+*/
+.image-wrapper {
+    text-align: center;
+}
+
+.image-caption {
+    font-style: italic;
+    text-align: center;
+    padding: 0.5rem 1rem;
+}
+
+@media screen and (min-width: 60em) {
+    .image-wrapper {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+.image-wrapper img {
+    display: inline-block;
+    border-radius: 0.3em;
+    border: 0.05rem solid var(--md-typeset-table-color);
+}
+
+/*
+========================================
 Star-History Styling
 ========================================
 */
@@ -143,9 +171,52 @@ Star-History Styling
 .star-history_image {
     width: 30rem;
     border-radius: 0.3em;
+}
+
+[data-md-color-scheme=default] .star-history_image {
     border: 0.05rem solid var(--md-typeset-table-color);
 }
 
 [data-md-color-scheme=slate] .star-history_image {
     opacity: 0.7;
+}
+
+/*
+========================================
+Video Styling
+========================================
+*/
+.video-padding {
+    padding-top: 0.5rem;
+}
+
+.video-caption {
+    font-style: italic;
+    text-align: center;
+    padding: 0.5rem 1rem;
+}
+
+@media screen and (min-width: 60em) {
+    .video-padding {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+.youtube-video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* assumes 16:9 */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.youtube-video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    border-radius: 0.3em;
 }
