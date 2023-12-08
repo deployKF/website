@@ -100,7 +100,7 @@ The requirements for this quickstart depend on your operating system.
         ```bash
         brew install argocd
         brew install jq
-        brew install k3s
+        brew install k3d
         brew install kubectl
         ```
 
