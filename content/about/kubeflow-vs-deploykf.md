@@ -15,8 +15,8 @@ comparison_data:
     deploykf:
       - Supports [leading tools](../reference/tools.md) from both Kubeflow, and other projects.
       - When a config or secret is changed, any affected components are automatically restarted.
-      - Includes Argo Server UI with integrated single sign-on (user access is aligned to profile memberships).
-      - Optionally includes MinIO Console UI with integrated single sign-on (user access is aligned to profile memberships).
+      - Includes Argo Server UI with integrated single sign-on (user access is aligned to [profile memberships](../guides/platform/deploykf-profiles.md) ).
+      - Optionally includes MinIO Console UI with integrated single sign-on (user access is aligned to [profile memberships](../guides/platform/deploykf-profiles.md)).
     kubeflow_manifests:
       - Limited to Kubeflow's tools.
   - aspect: Customization

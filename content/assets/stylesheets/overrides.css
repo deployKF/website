@@ -56,9 +56,24 @@ Table Styling
     border: 0.05rem solid var(--md-typeset-table-color);
 }
 
+/* Disable box-shadow */
+.md-typeset__table tr {
+    box-shadow: none !important;
+}
+
 /* Ensure tables don't overflow page on mobile */
 .md-typeset__table {
     max-width: 100%;
+}
+
+/* Set table background color */
+.md-typeset table:not([class]) {
+    background-color: var(--md-table-bg-color);
+}
+
+/* Set table header background color */
+.md-typeset th {
+    background-color: var(--md-table-head-color);
 }
 
 /* A special wrapper class for tables to make them have less padding */
@@ -122,6 +137,7 @@ Button Styling
 a.md-button {
     margin-left: 0.4rem;
     margin-bottom: 0.5rem;
+    text-align: center;
 }
 
 /*
@@ -193,7 +209,10 @@ Video Styling
 .video-caption {
     font-style: italic;
     text-align: center;
-    padding: 0.5rem 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;
 }
 
 @media screen and (min-width: 60em) {

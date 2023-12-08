@@ -21,8 +21,8 @@ Use our powerful Helm-like interface to deploy Kubeflow and other MLOps tools wi
 
 To learn about deployKF and why you might want to use it, please see the [Introduction](../about/introduction.md).
 
-[:material-lightbulb-on: Read: _Introduction to deployKF_](../about/introduction.md#about-deploykf){ .md-button .md-button--primary }
-[:material-lightbulb-on: Watch: _Introduction Video_](../about/introduction.md#video-introduction){ .md-button .md-button--secondary }
+[Read Introduction<br>:material-lightbulb-on:](../about/introduction.md#about-deploykf){ .md-button .md-button--primary }
+[Watch Introduction<br>:material-youtube:](../about/introduction.md#video-introduction){ .md-button .md-button--primary }
 
 ### Modes of Operation
 
