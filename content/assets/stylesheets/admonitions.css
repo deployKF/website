@@ -6,7 +6,7 @@ Admonition Styles
 
 /* make border radius smaller */
 .md-typeset .admonition, .md-typeset details {
-    border: 0.04rem solid;
+    border-width: 0.04rem;
 }
 
 /*
@@ -71,8 +71,12 @@ Admonition Styles
 }
 
 .md-typeset .admonition.question_secondary,
-.md-typeset details.question_secondary {
-    border-color: rgb(100, 221, 23, 0.5);
+[data-md-color-scheme=default] .md-typeset details.question_secondary {
+    border-color: rgba(109, 189, 55, 0.5);
+}
+
+[data-md-color-scheme=slate] .md-typeset details.question_secondary {
+    border-color: rgba(100, 221, 23, 0.5);
 }
 
 .md-typeset .question_secondary > .admonition-title,
@@ -98,7 +102,7 @@ Admonition Styles
 
 .md-typeset .admonition.steps,
 .md-typeset details.steps {
-    border-color: rgb(124, 77, 255, 0.5);
+    border-color: rgba(124, 77, 255, 0.5);
 }
 
 .md-typeset .steps > .admonition-title,
@@ -176,7 +180,7 @@ Admonition Styles
 
 .md-typeset .admonition.value,
 .md-typeset details.value {
-    border-color: rgb(158, 158, 158, 0.5);
+    border-color: rgba(158, 158, 158, 0.5);
 }
 
 .md-typeset .value > .admonition-title,
@@ -202,7 +206,7 @@ Admonition Styles
 
 .md-typeset .admonition.stack,
 .md-typeset details.stack {
-    border-color: rgb(158, 158, 158, 0.5);
+    border-color: rgba(158, 158, 158, 0.5);
 }
 
 .md-typeset .stack > .admonition-title,
@@ -228,7 +232,7 @@ Admonition Styles
 
 .md-typeset .admonition.support,
 .md-typeset details.support {
-    border-color: rgb(0, 200, 83, 0.5);
+    border-color: rgba(0, 200, 83, 0.5);
 }
 
 .md-typeset .support > .admonition-title,
@@ -254,7 +258,7 @@ Admonition Styles
 
 .md-typeset .admonition.contribute,
 .md-typeset details.contribute {
-    border-color: rgb(0, 200, 83, 0.5);
+    border-color: rgba(0, 200, 83, 0.5);
 }
 
 .md-typeset .contribute > .admonition-title,

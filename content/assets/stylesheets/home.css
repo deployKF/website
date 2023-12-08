@@ -267,7 +267,7 @@ Hero Actions
 @media screen and (max-width: 60em) {
     .mdx-hero .mdx-hero__actions .md-button {
         padding: 0.625em 1.25em;
-        width: 7.5rem;
+        width: 7.0rem;
     }
 }
 
@@ -329,6 +329,7 @@ Hero Cards
 }
 
 .mdx-hero .mdx-hero__card {
+    width: 100%;
     max-width: 28rem;
     margin-bottom: 1rem;
     padding-top: 1.5em;
@@ -402,9 +403,7 @@ Hero Cards
 }
 
 .mdx-hero .mdx-hero__footnote {
-    padding-top: 0.25rem;
     opacity: 0.7;
-    font-size: 80%
 }
 
 .mdx-hero .mdx-hero__video-container {
@@ -423,4 +422,24 @@ Hero Cards
     height: 100%;
 
     border-radius: 0.3em;
+}
+
+[data-md-color-scheme=default] {
+    .story-table table {
+        border: 0.05rem solid #3b4d7a !important;
+    }
+
+    .story-table th,
+    .story-table td {
+        border: 0.05rem solid rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .story-table th {
+        background-color: rgba(51, 81, 155, 0.9);
+        color: var(--md-primary-bg-color);
+    }
+
+    .story-table table:not([class]) {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
 }

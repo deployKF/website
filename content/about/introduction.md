@@ -20,21 +20,21 @@ An __introduction__ to deployKF.
 
 !!! question_secondary ""
 
-    deployKF helps you build world-class data and machine learning platforms on __any Kubernetes cluster__, in any cloud or environment.
-    
+    <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> helps you build world-class data and machine learning platforms on __any Kubernetes cluster__, in any cloud or environment.
+
     Our vision is that __anyone with Kubernetes experience__ can effortlessly build and support a _custom data and machine learning platform_ for their organization, without requiring specialized MLOps knowledge.
 
 ### __Why use deployKF?__
 
 !!! question_secondary ""
 
-    By combining the <em>ease of a managed service</em> with the flexibility of a self-hosted solution; 
-    deployKF creates a platform tailored to your organization's needs, while not also requiring a team of MLOps experts to build and maintain it.
+    deployKF combines the <em>ease of a managed service</em> with the flexibility of a self-hosted solution. 
+    Create a platform that is tailored to your organization's needs, while not also requiring a team of MLOps experts to build and maintain it.
 
     The key features of deployKF are:
 
     - Runs on __any Kubernetes__, including on-premises and in the cloud
-    - Support for leading __Data and MLOps tools__ including [__Kubeflow__](../reference/tools.md#kubeflow-ecosystem), [__Airflow__](../reference/future-tools.md#apache-airflow)<sup>†</sup>, and [__MLflow__](../reference/future-tools.md#mlflow-model-registry)<sup>†</sup>
+    - Deploy leading Data and ML tools like [__Kubeflow__](../reference/tools.md#kubeflow-ecosystem), [__Airflow__](../reference/future-tools.md#apache-airflow)<sup>†</sup>, and [__MLflow__](../reference/future-tools.md#mlflow-model-registry)<sup>†</sup>
     - Intuitive [__centralized configs__](../reference/deploykf-values.md) to manage all aspects of the platform
     - Seamless __in-place upgrades__ and config rollouts
     - Connect with __existing services__ like Istio and cert-manager, [S3](../guides/tools/external-object-store.md), and [MySQL](../guides/tools/external-mysql.md).
@@ -44,7 +44,7 @@ An __introduction__ to deployKF.
 
 ### __Video Introduction__
 
-!!! value ""
+!!! abstract ""
 
     <div class="video-padding">
         <div class="youtube-video-container">
@@ -54,7 +54,25 @@ An __introduction__ to deployKF.
     <div class="video-caption">
         Our presentation from [Kubeflow Summit 2023](https://www.kubeflow.org/events/kubeflow-summit-2023/), where we introduced deployKF to the community.
     </div>
-    
+
+### __Featured Stories__
+
+!!! info ""
+
+    We are always excited to see __how and where__ deployKF is being used!
+
+    Here are some stories of deployKF being used in the wild:
+
+    Organization | Article / Video
+    --- | ---
+    Cloudflare | [_ML Ops Platform at Cloudflare_](https://blog.cloudflare.com/mlops/)
+
+    <small>
+      <em>Have a story to share? [Let us know](community.md#contact-us)!</em>
+      <br>
+      <em>Also, you can add your organization to the [Adopters List](https://github.com/deployKF/deployKF/blob/main/ADOPTERS.md).</em>
+    </small>
+
 ---
 
 ## Using deployKF
@@ -81,7 +99,7 @@ An __introduction__ to deployKF.
 
 ### Support the Project
 
-!!! value ""
+!!! warning ""
 
     deployKF is a new and growing project.
     If you like what we are doing, please help others discover us by __sharing the project__ with your colleagues and/or the wider community.
@@ -91,13 +109,19 @@ An __introduction__ to deployKF.
     ![deployKF GitHub Star History (Dark Mode)](https://api.star-history.com/svg?repos=deployKF/deployKF&type=Date&theme=dark#only-dark){ .star-history_image }
     ![deployKF GitHub Star History (Light Mode)](https://api.star-history.com/svg?repos=deployKF/deployKF&type=Date#only-light){ .star-history_image }
 
-    Finally, please consider adding your organization to the [deployKF Adopters](https://github.com/deployKF/deployKF/blob/main/ADOPTERS.md) list.
-
 ---
 
 ## Other Resources
 
 ### Common Questions
+
+??? question_secondary "How are Kubeflow and deployKF related?"
+
+    Kubeflow and deployKF are two different but related projects.
+
+    You may wish to review our detailed [:custom-deploykf-color: __deployKF__ vs :custom-kubeflow-color: __Kubeflow Manifests__](../about/kubeflow-vs-deploykf.md#deploykf-vs-kubeflow-manifests) comparison.
+    Note, most other [distributions of Kubeflow](https://www.kubeflow.org/docs/started/installing-kubeflow/#packaged-distributions-of-kubeflow) use __largely unmodified__ versions of the Kubeflow Manifests. 
+    So the comparison is also relevant to them.
 
 ??? question_secondary "Who maintains deployKF?"
 

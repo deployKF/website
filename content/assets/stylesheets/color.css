@@ -3,6 +3,14 @@
     --deploykf-blue: #4279f4;
 }
 
+.deploykf-orange {
+    color: var(--deploykf-orange);
+}
+
+.deploykf-blue {
+    color: var(--deploykf-blue);
+}
+
 [data-md-color-primary="deploykf-primary"] {
     --md-primary-fg-color: #294275;
     --md-primary-fg-color--light: #697A9E;
@@ -29,6 +37,15 @@
 
     /* default background is too dark */
     --md-default-bg-color: hsla(var(--md-hue), 15%, 17%, 1);
+
+    /* admonition background */
+    --md-admonition-bg-color: hsla(230, 10%, 17%, 0.8);
+
+    /* table background */
+    --md-table-bg-color: hsla(230, 10%, 17%, 0.8);
+
+    /* table header background */
+    --md-table-head-color: hsla(230, 18%, 20%, 1);
 
     /* default code is too light */
     --md-code-bg-color: hsla(var(--md-hue), 14%, 13%, 1);
@@ -67,6 +84,15 @@
 
 [data-md-color-scheme=default][data-md-color-primary="deploykf-primary"] {
     --md-typeset-a-color: #4d5fc4;
+
+    /* admonition background */
+    --md-admonition-bg-color: var(--md-default-bg-color);
+
+    /* table background */
+    --md-table-bg-color: hsla(230, 10%, 99%, 0.8);
+
+    /* table header background */
+    --md-table-head-color: hsla(230, 15%, 85%, 0.8);
 
     /* make nav section less bold */
     @media screen and (min-width: 76.25em) {

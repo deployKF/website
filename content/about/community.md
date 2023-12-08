@@ -12,9 +12,10 @@ We encourage participation from anyone who shares our mission of making it easy 
 
 ---
 
-## Vendor Partnerships
+## Contact Us
     
 Are you a vendor who wants to support deployKF, use it in your product, or contribute a new tool?
+Get in touch with the maintainers of deployKF.
     
 [Email: _`team@deploykf.org`_](mailto:team@deploykf.org?subject=%5BPartnerships%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
 

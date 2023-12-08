@@ -12,7 +12,16 @@ Learn about migrating to __deployKF__ from other __Kubeflow Distributions__ like
 
 ---
 
-## Kubeflow Distributions
+## About Migrating
+
+Here are some common questions about migrating from other Kubeflow Distributions to deployKF.
+To learn how to migrate, please see the [Steps to Migrate](#steps-to-migrate) section below.
+
+### __What is deployKF?__
+
+!!! question_secondary ""
+
+    To learn more about deployKF itself, please see the [Introduction](../about/introduction.md).
 
 ### __Why migrate to deployKF?__
 
@@ -25,18 +34,21 @@ Learn about migrating to __deployKF__ from other __Kubeflow Distributions__ like
     Unlike other distributions, deployKF behaves like a __Helm Chart for Kubeflow__.
     deployKF has centralized [configuration values](../reference/deploykf-values.md) for all aspects of the platform, so you should __never__ need to edit Kubernetes YAML files or deal with Kustomize patches.
     
-    ---
+### __How are Kubeflow and deployKF related?__
 
-    Before migrating, you may wish to review our detailed [:custom-deploykf-color: __deployKF__ vs :custom-kubeflow-color: __Kubeflow Manifests__](../about/kubeflow-vs-deploykf.md#deploykf-vs-kubeflow-manifests) comparison.
-    
+!!! question_secondary ""
+
+    Kubeflow and deployKF are two different but related projects.
+
+    You may wish to review our detailed [:custom-deploykf-color: __deployKF__ vs :custom-kubeflow-color: __Kubeflow Manifests__](../about/kubeflow-vs-deploykf.md#deploykf-vs-kubeflow-manifests) comparison.
     Note, most other [distributions of Kubeflow](https://www.kubeflow.org/docs/started/installing-kubeflow/#packaged-distributions-of-kubeflow) use __largely unmodified__ versions of the Kubeflow Manifests. 
     So the comparison is also relevant to them.
 
-### __Why is deployKF not a single Helm Chart?__
+### __Is deployKF a Helm Chart for Kubeflow?__
 
-!!! config ""
+!!! question_secondary ""
 
-    The very short answer is that _Kubeflow is too complex to be deployed as a single Helm Chart_.
+    The very short answer is that _Kubeflow is too complex to be deployed as a single Helm Chart_ (we tried... it was not pretty and was impossible to maintain).
     
     The slightly longer answer is that Kubeflow is a cluster-wide platform of many different components and dependencies.
     Helm lacks the sequencing and dependency management features required to deploy Kubeflow in a single chart.
@@ -44,17 +56,22 @@ Learn about migrating to __deployKF__ from other __Kubeflow Distributions__ like
     deployKF addresses these challenges by being a __collection of Helm Charts__ (and some Kustomize apps) which are configured by a [single set of values](../reference/deploykf-values.md).
     You may think of them like "global" Helm values as you only need to configure them once, even though they control multiple internal apps.
     
-    ---
+### __Does deployKF support ArgoCD and GitOps?__
 
-    Note, you currently must [use ArgoCD with deployKF](getting-started.md#3-platform-deployment).
+!!! question_secondary ""
+
+    Yes, deployKF actually [depends on ArgoCD](getting-started.md#3-platform-deployment).
+
     We use ArgoCD because it gives a pre-built system to determine the sync-state of the apps we deploy (if resources need to be updated), and also makes cleaning up old resources much easier.
     In the future, we may add support for other GitOps tools or implement our own.
     
-    We provide an optional [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) so you don't have to render manifests into a git repo (unless you want to).
+    Note, the [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) can optionally be used instead of rendering the manifests into a git repo, which makes deployKF behave even more like a Helm Chart.
 
 ---
 
 ## Steps to Migrate
+
+Once you have decided to migrate to deployKF, you will need to follow these steps.
 
 ### 1. Create a New Deployment
 
