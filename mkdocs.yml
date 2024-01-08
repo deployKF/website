@@ -68,6 +68,9 @@ extra_css:
   - assets/stylesheets/home.css
   - assets/stylesheets/overrides.css
 
+extra_javascript:
+  - assets/javascripts/feedback.js
+
 hooks:
   - hooks/custom_filters.py
   - hooks/external_links_md_extension.py
@@ -91,6 +94,8 @@ plugins:
         - assets/stylesheets/color.css
         - assets/stylesheets/home.css
         - assets/stylesheets/overrides.css
+      js_files:
+        - assets/javascripts/feedback.js
   - redirects:
       redirect_maps:
         'guides/install-deploykf-cli.md': 'guides/deploykf-cli.md'
@@ -132,8 +137,9 @@ markdown_extensions:
 
 extra:
   analytics:
-    provider: google
-    property: !ENV GA_MEASUREMENT_ID
+    ## NOTE: this is commented because we now inject at the CDN level
+    #provider: google
+    #property: !ENV GA_MEASUREMENT_ID
     feedback:
       title: Was this page helpful?
       ratings:
