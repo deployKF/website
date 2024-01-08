@@ -1,5 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+    /* Mock `zaraz.track()`, if not available */
+    if (typeof zaraz === "undefined") {
+        var zaraz = {
+            track: function (event, data) {
+                console.log(event, data)
+            }
+        }
+    }
+
     /* Set up search events */
     if (document.forms.search) {
         var query = document.forms.search.query
@@ -32,5 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
             /* Show feedback */
             feedback.hidden = false
         }
+    })
+
+    /* Set up virtual page navigation events */
+    var last_pathname = document.location.pathname
+    location$.subscribe(function (url) {
+        if (last_pathname == url.pathname) return
+        last_pathname = url.pathname
+        zaraz.track("virtual_pageview")
     })
 })
