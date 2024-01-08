@@ -69,6 +69,13 @@ extra_css:
   - assets/stylesheets/overrides.css
 
 extra_javascript:
+  ## ... inject script
+  ##  - this script is injected by the CDN, so must be the absolute path
+  ##  - this script is manually listed here because if we allow the CDN to modify <head>,
+  ##    mkdocs material's instant-loading will unload the script and break this script on each page navigation
+  ##  - this script must be listed first, so that it is loaded before other scripts
+  - /assets/video/i.min.js
+  ## ... other scripts
   - assets/javascripts/feedback.js
 
 hooks:
