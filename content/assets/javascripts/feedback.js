@@ -1,19 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    /* Mock `zaraz.track()`, if not available */
-    if (typeof zaraz === "undefined") {
-        var zaraz = {
-            track: function (event, data) {
-                console.log(event, data)
-            }
-        }
+    window.dataLayer = window.dataLayer || []
+
+    function gtag() {
+        dataLayer.push(arguments)
     }
 
     /* Set up search events */
     if (document.forms.search) {
         var query = document.forms.search.query
         query.addEventListener("blur", function () {
-            if (this.value) zaraz.track("search", {search_term: this.value})
+            if (this.value) gtag("event", "search", {search_term: this.value})
         })
     }
 
@@ -30,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 /* Retrieve and send data */
                 var page = document.location.pathname
                 var data = this.getAttribute("data-md-value")
-                zaraz.track("feedback", {page, data})
+                gtag("event", "feedback", {page, data})
 
                 /* Disable form and show note, if given */
                 feedback.firstElementChild.disabled = true
@@ -46,8 +43,19 @@ document.addEventListener("DOMContentLoaded", function () {
     /* Set up virtual page navigation events */
     var last_pathname = document.location.pathname
     location$.subscribe(function (url) {
+
+        /* Do nothing if the URL path has not changed */
         if (last_pathname == url.pathname) return
         last_pathname = url.pathname
-        zaraz.track("virtual_pageview")
+
+        /* Do nothing if zaraz is not available */
+        if (typeof zaraz == "undefined") return
+        if (typeof zarazData == "undefined") return
+
+        /* Send virtual page navigation event */
+        zarazData.l = document.location.href
+        zarazData.t = document.title
+        zaraz.pageVariables = {}
+        zaraz.track("__zarazSPA")
     })
 })
