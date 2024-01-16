@@ -25,7 +25,7 @@ An __introduction__ to deployKF.
 
 !!! question_secondary ""
 
-    deployKF combines the <em>ease of a managed service</em> with the flexibility of a self-hosted solution. 
+    deployKF combines the _ease of a managed service_ with the flexibility of a self-hosted solution. 
     Create a platform that is tailored to your organization's needs, while not also requiring a team of MLOps experts to build and maintain it.
 
     The key features of deployKF are:

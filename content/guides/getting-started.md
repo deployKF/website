@@ -744,6 +744,56 @@ If you are unsure which to use, we recommend using the _automated sync script_.
     argocd app sync -l "app.kubernetes.io/component=kubeflow-tools"
     ```
 
+Please be aware of the following issue when using the automated sync script:
+
+!!! bug "Bug in ArgoCD v2.9"
+
+    There is a known issue ([`deploykf/deploykf#70`](https://github.com/deployKF/deployKF/issues/70), [`argoproj/argo-cd#16266`](https://github.com/argoproj/argo-cd/issues/16266)) with all `2.9.X` versions of the ArgoCD CLI that will cause the sync script to fail with the following error:
+
+    ```text
+    ==========================================================================================
+    Logging in to ArgoCD...
+    ==========================================================================================
+    FATA[0000] cannot find pod with selector: [app.kubernetes.io/name=] - use the --{component}-name flag in this command or set the environmental variable (Refer to https://argo-cd.readthedocs.io/en/stable/user-guide/environment-variables), to change the Argo CD component name in the CLI
+    ```
+
+    ---
+
+    Please downgrade to version `2.8.6` of the ArgoCD CLI if you encounter this issue.
+
+    === "macOS"
+
+        On macOS, you can use the following commands to downgrade the ArgoCD CLI:
+
+        ```bash
+        # this URL is for version `2.8.6` of `argocd` brew formula
+        wget https://raw.githubusercontent.com/Homebrew/homebrew-core/67082a334f219440f90dd221ad939d0ef6756409/Formula/a/argocd.rb
+        
+        # remove any existing argocd
+        brew remove argocd
+        
+        # install from the local formula
+        brew install ./argocd.rb
+        
+        # pin the version to prevent `brew upgrade`
+        brew pin argocd
+        ```
+
+    === "Linux"
+
+        On Linux, replace your `argocd` binary with the version from the [`v2.8.6`](https://github.com/argoproj/argo-cd/releases/tag/v2.8.6) release:
+
+        ```bash
+        VERSION="v2.8.6"
+        curl -sSL -o argocd-linux-amd64 "https://github.com/argoproj/argo-cd/releases/download/${VERSION}/argocd-linux-amd64"
+        sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+        rm argocd-linux-amd64
+        ```
+
+    === "Windows"
+
+        On Windows, follow the "macOS" instructions to install version `2.8.6` from Homebrew in a WSL shell.
+
 ## 4. Use the Platform
 
 Now that you have a working deployKF ML Platform, here are some things to try out!
