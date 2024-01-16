@@ -299,7 +299,18 @@ deploykf_core:
         enabled: false
 ```
 
-Second, ensure the Service you create exposes the ports defined by the [`deploykf_core.deploykf_istio_gateway.gateway.ports`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L654-L656) values:
+Second, ensure your gateway deployment pods have unique labels which can be used to select them, then update [`deploykf_core.deploykf_istio_gateway.gateway.selectorLabels`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L660-L664) to match those labels:
+
+```yaml
+deploykf_core:
+  deploykf_istio_gateway:
+    gateway:
+      selectorLabels:
+        app: my-gateway-deployment
+        istio: my-gateway-deployment
+```
+
+Finally, ensure the Service you create exposes the ports defined by the [`deploykf_core.deploykf_istio_gateway.gateway.ports`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L654-L656) values:
 
 ```yaml
 deploykf_core:
