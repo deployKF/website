@@ -3,9 +3,6 @@ icon: material/lightbulb-on
 description: >-
   An introduction to deployKF.
   Learn how deployKF helps you build and support a custom data and machine learning platform on Kubernetes.
-
-# TODO: remove status, after a while
-status: new
 ---
 
 # Introduction
@@ -20,7 +17,7 @@ An __introduction__ to deployKF.
 
 !!! question_secondary ""
 
-    <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> helps you build world-class data and machine learning platforms on __any Kubernetes cluster__, in any cloud or environment.
+    :custom-deploykf-color: <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> helps you build world-class data and machine learning platforms on __any Kubernetes cluster__, in any cloud or environment.
 
     Our vision is that __anyone with Kubernetes experience__ can effortlessly build and support a _custom data and machine learning platform_ for their organization, without requiring specialized MLOps knowledge.
 
@@ -33,12 +30,13 @@ An __introduction__ to deployKF.
 
     The key features of deployKF are:
 
-    - Runs on __any Kubernetes__, including on-premises and in the cloud
-    - Deploy leading Data and ML tools like [__Kubeflow__](../reference/tools.md#kubeflow-ecosystem), [__Airflow__](../reference/future-tools.md#apache-airflow)<sup>†</sup>, and [__MLflow__](../reference/future-tools.md#mlflow-model-registry)<sup>†</sup>
-    - Intuitive [__centralized configs__](../reference/deploykf-values.md) to manage all aspects of the platform
-    - Seamless __in-place upgrades__ and config rollouts
-    - Connect with __existing services__ like Istio and cert-manager, [S3](../guides/tools/external-object-store.md), and [MySQL](../guides/tools/external-mysql.md).
-    - Native support for __GitOps__ via ArgoCD
+    - Run on [__any Kubernetes cluster__](../guides/getting-started.md#kubernetes-cluster), including on-premises and in the cloud
+    - Deploy leading Data and ML tools like [:custom-kubeflow-color: __Kubeflow__](../reference/tools.md#kubeflow-ecosystem), [:custom-airflow-color: __Airflow__](../reference/future-tools.md#apache-airflow)<sup>†</sup>, and [:custom-mlflow-color: __MLflow__](../reference/future-tools.md#mlflow-model-registry)<sup>†</sup>
+    - Intuitive [__centralized configs__](../guides/getting-started.md#2-platform-configuration) for all aspects of the platform
+    - Seamless __in-place upgrades__ and config updates
+    - Connect your existing [:custom-istio-color: __Istio__](../guides/dependencies/istio.md#can-i-use-my-existing-istio), [:custom-cert-manager-color: __cert-manager__](../guides/dependencies/cert-manager.md#can-i-use-my-existing-cert-manager), [:custom-kyverno-color: __Kyverno__](../guides/dependencies/kyverno.md#can-i-use-my-existing-kyverno), [:custom-s3-color: __S3__](../guides/tools/external-object-store.md), and [:custom-mysql-color: __MySQL__](../guides/tools/external-mysql.md)
+    - Use any [__identity provider__](../guides/platform/deploykf-authentication.md) via _OpenID Connect_ or _LDAP_
+    - Native support for [__GitOps with ArgoCD__](../guides/dependencies/argocd.md#how-does-deploykf-use-argo-cd)
 
     <small><sup>†</sup>Coming soon, see our [current](../reference/tools.md) and [future](../reference/future-tools.md) tools.</small>
 
@@ -65,7 +63,7 @@ An __introduction__ to deployKF.
 
     Organization | Article / Video
     --- | ---
-    Cloudflare | [_ML Ops Platform at Cloudflare_](https://blog.cloudflare.com/mlops/)
+    :custom-cloudflare-color: Cloudflare | [_A look inside the Cloudflare ML Ops platform_](https://blog.cloudflare.com/mlops/)
 
     <small>
       <em>Have a story to share? [Let us know](community.md#contact-us)!</em>
@@ -87,16 +85,6 @@ An __introduction__ to deployKF.
     - [__Local Quickstart__](../guides/local-quickstart.md) - try deployKF on your local machine
     - [__Migrate from Kubeflow Distributions__](../guides/kubeflow-distributions.md) - how and why to migrate from other Kubeflow distributions
 
-### Commercial Support
-
-!!! support ""
-
-    If you need commercial support for deployKF, please contact [__Aranui Solutions__](https://www.aranui.solutions/).
-    Aranui Solutions is a US-based company founded by the creators of deployKF to help organizations build ML & Data Platforms on Kubernetes.
-    
-    [Visit: _Aranui Solutions Website_](https://www.aranui.solutions/){ .md-button .md-button--secondary }
-    [Email: _`sales@aranui.solutions`_](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
-
 ### Support the Project
 
 !!! warning ""
@@ -112,6 +100,16 @@ An __introduction__ to deployKF.
 ---
 
 ## Other Resources
+
+### Commercial Support
+
+!!! support ""
+
+    If you need commercial support for deployKF, please contact [:custom-aranui-solutions-color: __Aranui Solutions__](https://www.aranui.solutions/).
+    Aranui Solutions is a US-based company founded by the creators of deployKF to help organizations build ML & Data Platforms on Kubernetes.
+    
+    [Visit: _Aranui Solutions Website_](https://www.aranui.solutions/){ .md-button .md-button--secondary }
+    [Email: _`sales@aranui.solutions`_](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
 
 ### Common Questions
 
@@ -147,9 +145,9 @@ An __introduction__ to deployKF.
     [:fontawesome-solid-envelope: Join: _User Mailing List_](https://groups.google.com/g/deploykf-users){ .md-button .md-button--secondary }
     [:fontawesome-solid-envelope: Join: _Contributor Mailing List_](https://groups.google.com/g/deploykf-dev){ .md-button .md-button--secondary }
 
-### Screenshots
+### Media and Presentations
 
-??? image "deployKF Dashboard"
+??? image "Screenshot - _deployKF Dashboard_"
 
     <div class="image-wrapper">
     ![deployKF Dashboard (Dark Mode)](../assets/images/deploykf-dashboard-DARK.png#only-dark)
@@ -158,8 +156,6 @@ An __introduction__ to deployKF.
     <div class="image-caption">
     The [__deployKF Dashboard__](https://github.com/deployKF/dashboard) is the web-based interface that end-users interact with the platform through.
     </div>
-
-### Media and Presentations
 
 ??? youtube "Intro / Demo - Kubeflow Community Call - July 2023"
 

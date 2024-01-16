@@ -1,0 +1,7 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <g id="logo" transform="matrix(.091667 0 0 .091667 -2.6667 -2.6667)" fill="#466bb0">
+    <polygon id="hull" points="80 250 240 250 140 280"/>
+    <polygon id="mainsail" points="80 240 140 230 140 120"/>
+    <polygon id="headsail" points="150 230 240 240 150 40"/>
+  </g>
+</svg>

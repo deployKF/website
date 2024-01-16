@@ -19,81 +19,71 @@ Use our powerful Helm-like interface to deploy Kubeflow and other MLOps tools wi
 
 ## Introduction
 
-To learn about deployKF and why you might want to use it, please see the [Introduction](../about/introduction.md).
+To learn about :custom-deploykf-color: <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> and why you should use it, see the [introduction](../about/introduction.md) page.
 
 [Read Introduction<br>:material-lightbulb-on:](../about/introduction.md#about-deploykf){ .md-button .md-button--primary }
 [Watch Introduction<br>:material-youtube:](../about/introduction.md#video-introduction){ .md-button .md-button--primary }
 
-### Modes of Operation
+## Modes of Operation
 
-There are currently two "modes of operation" for deployKF, they differ by how manifests are generated and applied to your Kubernetes cluster.
+deployKF has two "modes of operation" that change how Kubernetes manifests are generated and applied to your cluster.
 
-Both modes [require ArgoCD](#about-argocd), because we use it to manage the state of the platform.
-In the future, we may add support for other GitOps tools or implement our own.
-
-Mode | Description
---- | ---
-ArgoCD Plugin Mode (Recommended) | The [`deployKF ArgoCD Plugin`](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) directly turns the config values into manifests which it can apply to your cluster (no git repo required).
-Manifests Repo Mode | You generate manifests with the [`deployKF CLI`](deploykf-cli.md) and commit them to a git repo for ArgoCD to apply to your cluster.
+Mode | Description | Recommendation
+--- | --- | ---
+ArgoCD Plugin Mode | The [`deployKF ArgoCD Plugin`](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) directly turns the config values into manifests which it can apply to your cluster. | :star: __The best option for most organizations__. :star: Does not require a git repo to store the generated manifests.
+Manifests Repo Mode | The [`deployKF CLI`](deploykf-cli.md) is used to generate manifests which are committed to a git repo for ArgoCD to apply to your cluster. | For organizations which require that Kubernetes manifests are committed to a git repo (e.g. for auditing or compliance reasons).
 
 ## 1. Requirements
 
-First, you need a Kubernetes cluster with a version that is [supported](../releases/version-matrix.md#deploykf-dependencies) by deployKF.
+This guide assumes you have an existing Kubernetes cluster, and are familiar with the basics of Kubernetes.
+To try deployKF on your local machine, please see the [Local Quickstart](local-quickstart.md).
 
-??? kubernetes "Which distributions of Kubernetes are supported?"
+### Kubernetes Cluster
 
-    deployKF is designed to work on __any Kubernetes cluster__, within __any cloud__ or __local environment__.
+deployKF can run on any [:custom-kubernetes-color: __Kubernetes__](https://kubernetes.io/) cluster, in any cloud or local environment.
+See our [version matrix](../releases/version-matrix.md#deploykf-dependencies) for a list of supported Kubernetes versions.
 
-    Here are some popular Kubernetes distributions that users have reported success with:
-    
-    Platform | Kubernetes Distribution
-    --- | ---
-    Amazon Web Services | [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/)
-    Microsoft Azure | [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/products/kubernetes-service/)
-    Google Cloud | [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine)
-    IBM Cloud | [IBM Cloud Kubernetes Service (IKS)](https://www.ibm.com/cloud/kubernetes-service)
-    N/A | [Rancher Kubernetes Engine (RKE)](https://rancher.com/docs/rke/latest/en/)
-    N/A | [Canonical Kubernetes (MicroK8s)](https://microk8s.io/)
-    Local Machine | [k3d](https://k3d.io/), [kind](https://kind.sigs.k8s.io/), [minikube](https://minikube.sigs.k8s.io/)
+Here are some of the Kubernetes distributions which are supported by deployKF:
 
-Other requirements vary depending on the ["mode of operation"](#modes-of-operation) you have chosen:
+Platform | Kubernetes Distribution
+--- | ---
+Amazon Web Services | [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/)
+Microsoft Azure | <s>[Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/products/kubernetes-service/)</s><sup>[[follow issue](https://github.com/deployKF/deployKF/issues/61)]</sup> 
+Google Cloud | [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine)
+IBM Cloud | [IBM Cloud Kubernetes Service (IKS)](https://www.ibm.com/cloud/kubernetes-service)
+Self-Hosted | [Rancher Kubernetes Engine (RKE)](https://rancher.com/docs/rke/latest/en/),<br>[Canonical Kubernetes (MicroK8s)](https://microk8s.io/)
+Local Machine | [k3d](https://k3d.io/), [kind](https://kind.sigs.k8s.io/), [minikube](https://minikube.sigs.k8s.io/)
 
-Requirement<br><small>:fontawesome-solid-star: → required // :fontawesome-solid-o: → optional</small> | [ArgoCD Plugin Mode](#modes-of-operation) | [Manifests Repo Mode](#modes-of-operation)
---- | :---: | :---:
-a Kubernetes cluster ([version compatibility](../releases/version-matrix.md#deploykf-dependencies)) | :fontawesome-solid-star: | :fontawesome-solid-star:
-ArgoCD is [installed](https://argo-cd.readthedocs.io/en/stable/getting_started/) on your Kubernetes | :fontawesome-solid-star: | :fontawesome-solid-star:
-ArgoCD has the [deployKF Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) | :fontawesome-solid-star: | -
-deployKF's CLI is [installed](deploykf-cli.md) locally | - | :fontawesome-solid-star:
-a private git repo (for generated manifests) | - | :fontawesome-solid-star: 
-external MySQL database ([connecting guide](tools/external-mysql.md)) | :fontawesome-solid-o: | :fontawesome-solid-o:
-external S3-like object store ([connecting guide](tools/external-object-store.md)) | :fontawesome-solid-o: | :fontawesome-solid-o:
+### Kubernetes Configurations
 
-!!! warning "Dedicated Kubernetes Cluster"
+!!! danger "Dedicated Kubernetes Cluster"
 
-    Only __one__ deployKF platform can be deployed on a Kubernetes cluster at a time.
+    Only __ONE__ deployKF platform can be on a Kubernetes cluster at a time.
 
     Additionally, deployKF is not well suited to multi-tenant clusters.
-    It uses cluster-wide components (e.g. Istio) and namespaces for user/team profiles.
-    Therefore, we strongly recommend using a dedicated Kubernetes cluster for deployKF.
+    It uses cluster-wide components (e.g. Istio) and Namespaces for profiles.
+    We strongly recommend __using a dedicated cluster__ for deployKF.
 
     If you are unable to create a new Kubernetes cluster, you may consider using [vCluster](https://github.com/loft-sh/vcluster) to create a virtual Kubernetes cluster within an existing one.
 
-!!! warning "Cluster Domain"
+!!! info "CPU Architecture"
+
+    deployKF requires `x86_64` CPU Architecture, `ARM64` clusters are NOT currently supported.
+
+    The next minor version of deployKF (`v0.2.0`) should have native `ARM64` for all core components.
+    However, some upstream apps like _Kubeflow Pipelines_ will need extra work to be production ready ([`#10309`](https://github.com/kubeflow/pipelines/issues/10309), [`#10308`](https://github.com/kubeflow/pipelines/issues/10308)).
+
+!!! info "Cluster Domain"
 
     deployKF currently requires the Kubernetes kubelet [`clusterDomain`](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) be left as the default of `cluster.local`.
     This is caused by a small number of Kubeflow components hard-coding this value, with no way to change it.
 
-!!! warning "ARM Processors"
+!!! info "Default StorageClass"
 
-    deployKF does NOT currently support ARM clusters. 
-    A small number of Kubeflow components do not support ARM just yet, we expect this to change after the release of Kubeflow 1.8 in October 2023.
+    The default values assume your Kubernetes cluster has a default [`StorageClass`](https://kubernetes.io/docs/concepts/storage/storage-classes/) which has support for the `ReadWriteOnce` access mode.
 
-!!! warning "Default StorageClass"
-
-    The default values assume your Kubernetes cluster has a default [StorageClass](https://kubernetes.io/docs/concepts/storage/storage-classes/) which has support for the `ReadWriteOnce` access mode.
+    ??? question_secondary "What if I don't have a default StorageClass?"
     
-    ??? question_secondary "What if I don't have a compatible default StorageClass?"
-
         If you do NOT have a compatible default StorageClass, you have a few options:
     
         1. Configure [a default StorageClass](https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/) that has `ReadWriteOnce` support
@@ -104,9 +94,54 @@ external S3-like object store ([connecting guide](tools/external-object-store.md
              - [`deploykf_opt.deploykf_minio.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L853)
              - [`deploykf_opt.deploykf_mysql.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L993)
 
-## 2. Platform Configuration
+### ArgoCD Configuration
 
-### About Values
+deployKF requires [:custom-argocd-color: __Argo CD__](./dependencies/argocd.md#what-is-argo-cd) to manage lifecycle and state ([learn why](./dependencies/argocd.md#how-does-deploykf-use-argo-cd)).
+See our [version matrix](../releases/version-matrix.md#deploykf-dependencies) for a list of supported Argo CD versions.
+
+How you configure ArgoCD depends on which ["mode of operation"](#modes-of-operation) you have chosen.
+If you are unsure which mode to use, we recommend the _ArgoCD Plugin Mode_.
+
+The following table lists the requirements in each mode:
+
+=== "ArgoCD Plugin Mode :star:"
+
+    Requirement | Guides
+    --- | ---
+    ArgoCD installed | [Install ArgoCD](https://argo-cd.readthedocs.io/en/stable/getting_started/)<br>[Install ArgoCD (+ Plugin)](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---new-argocd)
+    deployKF ArgoCD Plugin | [Install Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---existing-argocd)<br>[Install Plugin (+ ArgoCD)](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---new-argocd)
+
+=== "Manifests Repo Mode"
+
+    Requirement | Guides
+    --- | ---
+    ArgoCD installed | [Install ArgoCD](https://argo-cd.readthedocs.io/en/stable/getting_started/)
+    _deployKF CLI_ installed locally | [Install deployKF CLI](deploykf-cli.md)
+    A private git repo | Used to store generated manifests.
+
+### Cluster Dependencies
+
+deployKF uses a number of cluster-level dependencies which are __installed by default__.
+If you have an existing version of a dependency, deployKF can be configured to use it instead.
+
+The following table lists these dependencies and how to use an existing version:
+
+Dependency | Purpose | Guides
+--- | --- | ---
+[Cert Manager](./dependencies/cert-manager.md) | Generating and maintaining TLS/HTTPS certificates. | [Use an existing Cert-Manager](./dependencies/cert-manager.md#can-i-use-my-existing-cert-manager)
+[Istio](./dependencies/istio.md) | Network service mesh for the platform, used to enforce client authentication and secure internal traffic. | [Use an existing Istio](./dependencies/istio.md#can-i-use-my-existing-istio)
+[Kyverno](./dependencies/kyverno.md) | Mutating resources, replicating secrets across namespaces, and restarting Pods when configs change. | [Use an existing Kyverno](./dependencies/kyverno.md#can-i-use-my-existing-kyverno)
+
+### Optional Dependencies
+
+deployKF has some optional dependencies which may improve the performance or reliability of your platform in production.
+
+Dependencies | Purpose | Guides
+--- | --- | ---
+MySQL Database | Used by [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines) and [Katib](../reference/tools.md#katib).<br><br>The embedded MySQL is ONLY recommended for testing and development. In production, we ALWAYS recommend using an external MySQL database. | [Connect an External MySQL](./tools/external-mysql.md)
+Object Store | Used by [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines).<br><br>The embedded MinIO is ONLY recommended for testing and development. In production, we ALWAYS recommend using an external S3-compatible object store. | [Connect an External S3-like Object Store](./tools/external-object-store.md)
+
+## 2. Platform Configuration
 
 All aspects of your deployKF platform are configured with YAML-based configs named "values".
 There are a very large number of values (more than 1500), but as deployKF supports _in-place upgrades_ you can start with a few important ones, and then grow your values file over time.
@@ -136,7 +171,7 @@ deployKF is incredibly configurable, so we provide a number of guides to help yo
 
 <table markdown="span">
   <tr>
-    <th>Guide</th>
+    <th>Guide<br><small>(Click for Details)</small></th>
     <th>Description</th>
   </tr>
   <tr markdown>
@@ -161,7 +196,7 @@ deployKF is incredibly configurable, so we provide a number of guides to help yo
 
 <table markdown="span">
   <tr>
-    <th>Guide</th>
+    <th>Guide<br><small>(Click for Details)</small></th>
     <th>Description</th>
   </tr>
   <tr markdown>
@@ -182,38 +217,19 @@ deployKF is incredibly configurable, so we provide a number of guides to help yo
 
 ### About ArgoCD
 
-[ArgoCD](https://argo-cd.readthedocs.io/en/stable/) is an extremely widely-used tool that helps you programmatically manage the applications deployed on your cluster.
-
-??? question_secondary "Why does deployKF use Argo CD?"
-
-    We use [Argo CD](https://argo-cd.readthedocs.io/) to manage the state of the platform.
-
-    ArgoCD gives us a pre-built system to determine the sync-state of the apps we deploy (if resources need to be updated), and also makes cleaning up old resources much easier.
-
-    Argo CD is a great tool for this job given its [__widespread adoption__](https://github.com/argoproj/argo-cd/blob/master/USERS.md), and __well designed interface__ for visualizing and managing the current state of your cluster.
-    
-    In the future, we plan to support other Kubernetes GitOps tools (like [Flux CD](https://fluxcd.io/)), or even build a deployKF-specific solution, but we have initially chosen to use Argo CD due to its overwhelming popularity.
-
-??? info "Argo CD vs Argo Workflows"
-
-    It's important to note that _Argo CD_ is NOT the same as _Argo Workflows_, they just have similar names:
-    
-    - [__Argo CD__](https://argo-cd.readthedocs.io/en/stable/) is a __GitOps Tool__, it manages the state of Kubernetes resources
-    - [__Argo Workflows__](https://argoproj.github.io/argo-workflows/) is a __Workflow Engine__, it defines and runs DAG workflows in Pods on Kubernetes
-
-### About ArgoCD Applications
-
-The main config for ArgoCD is the [`Application`](https://argo-cd.readthedocs.io/en/stable/user-guide/application-specification/), a Kubernetes [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) that specifies Kubernetes manifests that ArgoCD should deploy and manage (typically from a git repository).
-
-An _"app of apps"_ is a pattern where a single ArgoCD `Application` contains other `Application` definitions, this is typically done to make bootstrapping large applications easier.
+Learn more _["about ArgoCD"](./dependencies/argocd.md#what-is-argo-cd)_ and _["how deployKF uses ArgoCD"](./dependencies/argocd.md#how-does-deploykf-use-argo-cd)_ on the dedicated page.
 
 ### deployKF Versions
 
-The "source version" chooses which version of the deployKF generator will be used.
-Each version may include different tools, and may support different versions of external dependencies (like Kubernetes, Istio and cert-manager).
+Each deployKF "source version" may include different tools, and may support different versions of cluster dependencies.
+The [version matrix](../releases/version-matrix.md) is a list of which tools and versions are supported by each deployKF release.
 
-The [version matrix](../releases/version-matrix.md) lists which tools and dependency versions are supported by each deployKF release.
-Specific information about each release (including important upgrade notes), can be found in the [deployKF generator changelog](../releases/changelog-deploykf.md).
+The [deployKF changelog](../releases/changelog-deploykf.md) gives detailed information about what has changed in each release, including important tips for upgrading.
+
+!!! tip "Be notified about new releases"
+
+    Be notified about new deployKF releases by watching the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub,
+    at the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.
 
 ### Generate & Apply Manifests
 
@@ -424,13 +440,43 @@ How you generate and apply the deployKF manifests to your Kubernetes cluster wil
 
     To generate and apply the manifests when using ["Manifests Repo Mode"](#modes-of-operation), you will need to:
 
-    1. generate the manifests
-    2. commit the generated manifests to a git repo
-    3. apply the generated app-of-apps manifest
+    1. set required values
+    2. generate the manifests
+    3. commit the generated manifests to a git repo
+    4. apply the generated app-of-apps manifest
 
     ---
 
-    __Step 1: Generate Manifests__
+    __Step 1: Set Required Values__
+
+    When using "manifests repo mode", the following values MUST be defined:
+    
+    <table markdown>
+      <tr>
+        <th>Value</th>
+        <th>Description</th>
+        <th>Example</th>
+      </tr>
+      <tr markdown>
+        <td markdown>[`argocd.source.repo.url`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L39-L43)</td>
+        <td>the URL of the git repo where your generated manifests are stored</td>
+        <td markdown>if you are using a GitHub repo named `deployKF/examples`, you might set this value to `"https://github.com/deployKF/examples"` or `"git@github.com:deployKF/examples.git"`</td>
+      </tr>
+      <tr markdown>
+        <td markdown>[`argocd.source.repo.revision`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L45-L48)</td>
+        <td>is the git branch/tag/commit that ArgoCD should sync the manifests from</td>
+        <td markdown>if you are using the `main` branch of your repo, you might set this value to `"main"`</td>
+      </tr>
+      <tr markdown>
+        <td markdown>[`argocd.source.repo.path`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L50-L54)</td>
+        <td>is the folder path under the git repo where your generated manifests are stored</td>
+        <td markdown>if you are using a folder named `GENERATOR_OUTPUT` at the root of your repo, you might set this value to `"./GENERATOR_OUTPUT/"`</td>
+      </tr>
+    </table>
+
+    ---
+
+    __Step 2: Generate Manifests__
 
     The `deploykf generate` command writes generated manifests into a folder, using one or more values files.
 
@@ -463,7 +509,7 @@ How you generate and apply the deployKF manifests to your Kubernetes cluster wil
 
     ---
 
-    __Step 2: Commit Generated Manifests__
+    __Step 3: Commit Generated Manifests__
 
     After running `deploykf generate`, you will likely want to commit the changes to your repo:
     
@@ -480,7 +526,7 @@ How you generate and apply the deployKF manifests to your Kubernetes cluster wil
 
     ---
 
-    __Step 3: Apply App-of-Apps Manifest__
+    __Step 4: Apply App-of-Apps Manifest__
 
     The only manifest you need to manually apply is the ArgoCD [app-of-apps](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/#app-of-apps-pattern), which creates all the other ArgoCD applications.
     
@@ -489,33 +535,6 @@ How you generate and apply the deployKF manifests to your Kubernetes cluster wil
     ```shell
     kubectl apply --filename GENERATOR_OUTPUT/app-of-apps.yaml
     ```
-
-??? warning "Required Values (Only for Manifests Repo Mode)"
-
-    When using "manifests repo mode", the following values MUST be defined in your values file(s).
-    
-    <table markdown>
-      <tr>
-        <th>Value</th>
-        <th>Description</th>
-        <th>Example</th>
-      </tr>
-      <tr markdown>
-        <td markdown>[`argocd.source.repo.url`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L39-L43)</td>
-        <td>the URL of the git repo where your generated manifests are stored</td>
-        <td markdown>if you are using a GitHub repo named `deployKF/examples`, you might set this value to `"https://github.com/deployKF/examples"` or `"git@github.com:deployKF/examples.git"`</td>
-      </tr>
-      <tr markdown>
-        <td markdown>[`argocd.source.repo.revision`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L45-L48)</td>
-        <td>is the git branch/tag/commit that ArgoCD should sync the manifests from</td>
-        <td markdown>if you are using the `main` branch of your repo, you might set this value to `"main"`</td>
-      </tr>
-      <tr markdown>
-        <td markdown>[`argocd.source.repo.path`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L50-L54)</td>
-        <td>is the folder path under the git repo where your generated manifests are stored</td>
-        <td markdown>if you are using a folder named `GENERATOR_OUTPUT` at the root of your repo, you might set this value to `"./GENERATOR_OUTPUT/"`</td>
-      </tr>
-    </table>
 
 ### Sync ArgoCD Applications
 
@@ -529,7 +548,8 @@ If you are new to ArgoCD, we recommend taking a look at the Web UI, as it provid
 
     It is important to note that deployKF applications depend on each other, so you MUST sync them in the correct order.
 
-There are a few ways to sync the applications, but you only need to use one of them:
+Here are a few ways to sync the applications, you only need to use ONE of them.
+If you are unsure which to use, we recommend using the _automated sync script_.
 
 ??? steps "Sync Applications - _ArgoCD Web UI_"
 
