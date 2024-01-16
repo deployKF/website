@@ -14,7 +14,7 @@ Learn how to get open-source help, and how to get commercial support from Aranui
 
 ## Commercial Support
 
-If you need commercial support for deployKF, please contact [__Aranui Solutions__](https://www.aranui.solutions/).
+If you need commercial support for deployKF, please contact [:custom-aranui-solutions-color: __Aranui Solutions__](https://www.aranui.solutions/).
 Aranui Solutions is a US-based company founded by the creators of deployKF to help organizations build ML & Data Platforms on Kubernetes.
 
 [Visit: _Aranui Solutions Website_](https://www.aranui.solutions/){ .md-button .md-button--secondary }

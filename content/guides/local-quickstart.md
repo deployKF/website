@@ -18,7 +18,7 @@ Test our powerful Helm-like interface for deploying Kubeflow and other MLOps too
 
 ## Introduction
 
-To learn about deployKF and why you might want to use it, please see the [Introduction](../about/introduction.md).
+To learn about :custom-deploykf-color: <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> and why you should use it, see the [introduction](../about/introduction.md) page.
 
 [Read Introduction<br>:material-lightbulb-on:](../about/introduction.md#about-deploykf){ .md-button .md-button--primary }
 [Watch Introduction<br>:material-youtube:](../about/introduction.md#video-introduction){ .md-button .md-button--primary }
@@ -39,10 +39,13 @@ The requirements for this quickstart depend on your operating system.
     CLI: [`k3d`](https://k3d.io/) | RUN: `brew install k3d`
     CLI: [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/) | RUN: `brew install kubectl`
 
-    !!! warning "Apple Silicon"
+    !!! danger "Apple Silicon"
 
-        deployKF does NOT currently support ARM clusters. 
-        A small number of Kubeflow components do not support ARM just yet, we expect this to change after the release of Kubeflow 1.8 in October 2023.
+        Currently, deployKF does NOT natively support ARM64 clusters like Apple Silicon.
+        Furthermore, some core components don't work under rosetta emulation.
+
+        The next minor version of deployKF (`v0.2.0`) should have native ARM64 for all core components.
+        However, some upstream apps like _Kubeflow Pipelines_ will need extra work to be production ready ([`#10309`](https://github.com/kubeflow/pipelines/issues/10309), [`#10308`](https://github.com/kubeflow/pipelines/issues/10308)).
 
     !!! warning "Resource Allocation"
 
@@ -192,17 +195,17 @@ The requirements for this quickstart depend on your operating system.
 
     For the rest of the guide, unless otherwise instructed, run all commands in an Ubuntu shell.
 
-## 2. Kubernetes
+## 2. Prepare Kubernetes
 
-### About k3d
-
-[K3d](https://k3d.io/) is a helpful command line tool which helps you spin up [k3s](https://k3s.io/) Kubernetes clusters running inside Docker containers.
-
-K3s itself is an extremely lightweight Kubernetes distribution, which is fully compliant with the Kubernetes API, while being very similar to how cloud-based clusters are configured.
+deployKF can run on any [:custom-kubernetes-color: __Kubernetes__](https://kubernetes.io/) cluster, in any cloud or local environment.
+For this quickstart, we will be using the [k3d](https://k3d.io/) command line tool.
 
 ### Create Kubernetes Cluster
 
-Run this command to create a local k3s cluster using `k3d`, named `deploykf`:
+The `k3d` command line manages [k3s](https://k3s.io/) Kubernetes clusters running inside local Docker containers.
+K3s is an extremely lightweight Kubernetes distribution that is fully compliant with the Kubernetes API, while also being very similar to a cloud-based cluster.
+
+Run this command to create a local `k3d` cluster named `deploykf`:
 
 ```bash
 # NOTE: this will change your kubectl context to the new cluster
@@ -217,7 +220,8 @@ k3d cluster create "deploykf" \
 
 ### Wait for Cluster to be Ready
 
-Wait until the cluster is ready (all pods are in a `Running` or `Completed` state) before continuing.
+Wait until the cluster is ready before continuing (all Pods in a `Running` or `Completed` state).
+Here are some ways to check the status of Pods:
 
 ??? steps "Get the state of Pods - _`k9s`_ :star:"
 
@@ -304,40 +308,13 @@ Wait until the cluster is ready (all pods are in a `Running` or `Completed` stat
 
 ## 3. Prepare ArgoCD
 
-### About ArgoCD
+Learn more _["about ArgoCD"](./dependencies/argocd.md#what-is-argo-cd)_ and _["how deployKF uses ArgoCD"](./dependencies/argocd.md#how-does-deploykf-use-argo-cd)_ on the dedicated page.
 
-[ArgoCD](https://argo-cd.readthedocs.io/en/stable/) is an extremely widely-used tool that helps you programmatically manage the applications deployed on your cluster.
-
-??? question_secondary "Why does deployKF use Argo CD?"
-
-    We use [Argo CD](https://argo-cd.readthedocs.io/) to manage the state of the platform.
-
-    ArgoCD gives us a pre-built system to determine the sync-state of the apps we deploy (if resources need to be updated), and also makes cleaning up old resources much easier.
-
-    Argo CD is a great tool for this job given its [__widespread adoption__](https://github.com/argoproj/argo-cd/blob/master/USERS.md), and __well designed interface__ for visualizing and managing the current state of your cluster.
-
-    In the future, we plan to support other Kubernetes GitOps tools (like [Flux CD](https://fluxcd.io/)), or even build a deployKF-specific solution, but we have initially chosen to use Argo CD due to its overwhelming popularity.
-
-??? info "Argo CD vs Argo Workflows"
-
-    It's important to note that _Argo CD_ is NOT the same as _Argo Workflows_, they just have similar names:
-    
-    - [__Argo CD__](https://argo-cd.readthedocs.io/en/stable/) is a __GitOps Tool__, it manages the state of Kubernetes resources
-    - [__Argo Workflows__](https://argoproj.github.io/argo-workflows/) is a __Workflow Engine__, it defines and runs DAG workflows in Pods on Kubernetes
-
-### About ArgoCD Applications
-
-The main config for ArgoCD is the [`Application`](https://argo-cd.readthedocs.io/en/stable/user-guide/application-specification/), a Kubernetes [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) that specifies Kubernetes manifests that ArgoCD should deploy and manage (typically from a git repository).
-
-An _"app of apps"_ is a pattern where a single ArgoCD `Application` contains other `Application` definitions, this is typically done to make bootstrapping large applications easier.
-
-### About deployKF Plugin
+### deployKF ArgoCD Plugin
 
 We will be using the [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin), which adds a special kind of ArgoCD `Application` that produces deployKF manifests.
 
 The plugin removes the need to generate manifests, and instead allows you to define your platform using a single _"app of apps"_ `Application` whose specification only needs your [values](#about-values), and a specified [source version](#deploykf-versions) of deployKF.
-
-### Install ArgoCD and deployKF Plugin
 
 First, ensure that your current `kubectl` context is set to the new cluster.
 
@@ -404,11 +381,15 @@ We provide the [`sample-values-overrides.yaml`](https://github.com/deployKF/depl
 
 ### deployKF Versions
 
-The "source version" chooses which version of the deployKF generator will be used.
-Each version may include different tools, and may support different versions of external dependencies (like Kubernetes, Istio and cert-manager).
+Each deployKF "source version" may include different tools, and may support different versions of cluster dependencies.
+The [version matrix](../releases/version-matrix.md) is a list of which tools and versions are supported by each deployKF release.
 
-The [version matrix](../releases/version-matrix.md) lists which tools and dependency versions are supported by each deployKF release.
-Specific information about each release (including important upgrade notes), can be found in the [deployKF generator changelog](../releases/changelog-deploykf.md).
+The [deployKF changelog](../releases/changelog-deploykf.md) gives detailed information about what has changed in each release, including important tips for upgrading.
+
+!!! tip "Be notified about new releases"
+
+    Be notified about new deployKF releases by watching the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub,
+    at the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.
 
 ### Create an App-of-Apps
 

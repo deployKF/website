@@ -1,9 +1,6 @@
 ---
 description: >-
   Learn about migrating to deployKF from Kubeflow Distributions like Kubeflow Manifests, Kubeflow on AWS, Kubeflow on GCP, and Charmed Kubeflow.
-
-# TODO: remove status, after a while
-status: new
 ---
 
 # Migrate from Kubeflow Distributions
@@ -65,7 +62,7 @@ To learn how to migrate, please see the [Steps to Migrate](#steps-to-migrate) se
     We use ArgoCD because it gives a pre-built system to determine the sync-state of the apps we deploy (if resources need to be updated), and also makes cleaning up old resources much easier.
     In the future, we may add support for other GitOps tools or implement our own.
     
-    Note, the [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) can optionally be used instead of rendering the manifests into a git repo, which makes deployKF behave even more like a Helm Chart.
+    Note, the [deployKF ArgoCD Plugin](./dependencies/argocd.md#what-is-the-deploykf-argocd-plugin) can optionally be used instead of rendering the manifests into a git repo, which makes deployKF behave even more like a Helm Chart.
 
 ---
 

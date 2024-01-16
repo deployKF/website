@@ -131,7 +131,7 @@ The __deployKF Generator__ is a versioned ZIP package which contains all the tem
 !!! value ""
 
     - `.gomplateignore_template` template of a `.gomplateignore` file
-    - `app-of-apps.yaml` an [Argo CD app-of-apps](../guides/getting-started.md#about-argocd-applications) (points to `./argocd/kustomization.yaml`)
+    - `app-of-apps.yaml` an [Argo CD app-of-apps](../guides/dependencies/argocd.md) (points to `./argocd/kustomization.yaml`)
     - `argocd/` templates for Argo CD applications and namespaces
     - `manifests/` templates for Helm & Kustomize apps
 

@@ -1,5 +1,5 @@
 deployKF,`0.1`
-[Kubeflow Pipelines](https://github.com/kubeflow/kubeflow/tree/master/components/notebook-controller),(`2.0.0-alpha.7`)
+[Kubeflow Pipelines](https://github.com/kubeflow/pipelines),(`2.0.0-alpha.7`)
 [Kubeflow Notebooks: Web App](https://github.com/kubeflow/kubeflow/tree/master/components/crud-web-apps/jupyter),(`1.7`)
 [Kubeflow Notebooks: Controller](https://github.com/kubeflow/kubeflow/tree/master/components/notebook-controller),(`1.7`)
 [Volumes: Web App](https://github.com/kubeflow/kubeflow/tree/master/components/crud-web-apps/volumes),(`1.7`)

@@ -11,12 +11,12 @@ Learn how to __use GitOps to manage Kubeflow Pipelines__, including _pipeline de
 
 ## Overview
 
-Initially, most users of [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines) manually create and run workflows with the UI or Python SDK, as this is the fastest way to get started.
+Initially, most users of [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines) manually create and run workflows with the UI or Python SDK as this is the fastest way to get started.
 When the number of pipelines grows, it becomes increasingly difficult and error-prone to manage them manually; this is where GitOps comes in.
 
 ## Reference Implementation
 
-We provide a reference implementation for managing pipeline definitions and their schedules using GitOps in the `deployKF/kubeflow-pipelines-gitops` GitHub repo.
+We provide a reference implementation for managing pipeline definitions and their schedules using GitOps in the [`deployKF/kubeflow-pipelines-gitops`](https://github.com/deployKF/kubeflow-pipelines-gitops) GitHub repo.
 
 [:fontawesome-brands-github: Check out the Reference Repository](https://github.com/deployKF/kubeflow-pipelines-gitops){ .md-button .md-button--secondary }
 

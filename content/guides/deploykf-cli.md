@@ -32,6 +32,8 @@ deploykf \
     If you are using the [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin), it is NOT necessary to install the deployKF CLI,
     this is because the manifests generation will happen inside the ArgoCD plugin, rather than on your local machine.
 
+---
+
 ## Install the CLI
 
 You can install the CLI on your local machine by following the instructions below that are appropriate for your operating system.

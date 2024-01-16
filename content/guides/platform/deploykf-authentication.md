@@ -3,9 +3,6 @@ description: >-
   Learn about user authentication and connecting with external identity providers in deployKF.
   Active Directory, Okta, GitHub, Google, AWS Cognito, and more.
 
-# TODO: remove new status, after a while
-status: new
-
 # disable the mkdocs-macros-plugin for this page
 ignore_macros: true
 ---
