@@ -223,6 +223,10 @@ If you already have an Istio installation, you may use it instead of the deployK
 deployKF uses an unmodified version of Istio with a few non-default mesh configs.
 See the [version matrix](../../releases/version-matrix.md#deploykf-dependencies) for information about which versions of Istio are supported by deployKF.
 
+!!! danger "Namespace Injection"
+
+    Ensure that your Istio installation does NOT have [`sidecarInjectorWebhook.enableNamespacesByDefault`](https://istio.io/latest/docs/setup/additional-setup/sidecar-injection/#controlling-the-injection-policy) set to `true` (note, [the Istio Helm Chart defaults to `false`](https://github.com/istio/istio/blob/1.19.6/manifests/charts/istio-control/istio-discovery/values.yaml#L101-L104)).
+
 !!! warning "Gateway Version Alignment"
 
     If you are not also bringing [your own gateway deployment](#use-an-existing-gateway-deployment), you MUST ensure that the deployKF-managed gateway matches your Istio version.

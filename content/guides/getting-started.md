@@ -28,10 +28,10 @@ To learn about :custom-deploykf-color: <strong><span class="deploykf-orange">dep
 
 deployKF has two "modes of operation" that change how Kubernetes manifests are generated and applied to your cluster.
 
-Mode | Description | Recommendation
+Mode | Description | Notes
 --- | --- | ---
-ArgoCD Plugin Mode | The [`deployKF ArgoCD Plugin`](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) directly turns the config values into manifests which it can apply to your cluster. | :star: __The best option for most organizations__. :star: Does not require a git repo to store the generated manifests.
-Manifests Repo Mode | The [`deployKF CLI`](deploykf-cli.md) is used to generate manifests which are committed to a git repo for ArgoCD to apply to your cluster. | For organizations which require that Kubernetes manifests are committed to a git repo (e.g. for auditing or compliance reasons).
+[ArgoCD Plugin Mode](#argocd-plugin-mode) | The [`deployKF ArgoCD Plugin`](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) adds a new kind of ArgoCD Application which understands deployKF config values and can generate manifests directly, without requiring a git repo.<br><br><small>:star: __The best option for most organizations__. :star:</small> | Even though manifests do not require a git repo, config values can still be managed using GitOps.<br><br>Requires ArgoCD Pods have access to the internet, so they can download the deployKF generator zip from GitHub.
+[Manifests Repo Mode](#manifests-repo-mode) | The [`deployKF CLI`](deploykf-cli.md) is used to generate manifests which are committed to a git repo for ArgoCD to apply to your cluster. | For organizations which require that Kubernetes manifests are committed to a git repo before being applied (e.g. for auditing or compliance reasons).
 
 ## 1. Requirements
 
@@ -233,7 +233,11 @@ The [deployKF changelog](../releases/changelog-deploykf.md) gives detailed infor
 
 ### Generate & Apply Manifests
 
-How you generate and apply the deployKF manifests to your Kubernetes cluster will depend on the ["mode of operation"](#modes-of-operation) you have chosen.
+How you generate and apply the deployKF manifests to your Kubernetes cluster will depend on the [mode of operation](#modes-of-operation) you have chosen.
+
+#### ArgoCD Plugin Mode
+
+These steps show how to generate and apply manifests with the [ArgoCD Plugin Mode](#modes-of-operation):
 
 ??? steps "Generate & Apply Manifests - _ArgoCD Plugin Mode_ :star:"
 
@@ -242,6 +246,10 @@ How you generate and apply the deployKF manifests to your Kubernetes cluster wil
     1. install the [deployKF ArgoCD plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) on your ArgoCD instance
     2. create an app-of-apps which uses the plugin
     3. apply your app-of-apps manifest
+
+    !!! warning "ArgoCD Internet Access"
+    
+        Default usage of the _deployKF ArgoCD Plugin_ requires that ArgoCD Pods have access to the internet, so they can download the deployKF generator zip from GitHub.
 
     ---
   
@@ -435,6 +443,10 @@ How you generate and apply the deployKF manifests to your Kubernetes cluster wil
     ```shell
     kubectl apply --filename ./app-of-apps.yaml --namespace "argocd"
     ```
+
+#### Manifests Repo Mode
+
+These steps show how to generate and apply manifests with the [Manifests Repo Mode](#modes-of-operation):
 
 ??? steps "Generate & Apply Manifests - _Manifests Repo Mode_"
 
