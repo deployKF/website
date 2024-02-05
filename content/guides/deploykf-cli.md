@@ -14,7 +14,7 @@ The deployKF CLI is used to generate GitOps-ready Kubernetes manifests from one 
 This example generates manifests under the `./GENERATOR_OUTPUT` directory from the `{{ latest_deploykf_version }}` source version with the values specified in the `./custom-values.yaml` file.
 
 ```bash
-deploykf \
+deploykf generate \
   --source-version "{{ latest_deploykf_version }}" \
   --values ./custom-values.yaml \
   --output-dir ./GENERATOR_OUTPUT
