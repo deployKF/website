@@ -383,7 +383,7 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
                       - host: "deploykf.example.com"
                         http:
                           paths:
-                            - path: "/*"
+                            - path: "/"
                               pathType: ImplementationSpecific
                               backend:
                                 service:
@@ -393,7 +393,7 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
                       - host: "*.deploykf.example.com"
                         http:
                           paths:
-                            - path: "/*"
+                            - path: "/"
                               pathType: ImplementationSpecific
                               backend:
                                 service:
