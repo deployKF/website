@@ -79,8 +79,8 @@ The requirements for this quickstart depend on your operating system.
         On __Linux__, you may need to increase your system's open/watched file limits.
 
         1. Modify `/etc/sysctl.conf` to include the following lines:
-            - `fs.inotify.max_user_instances=1280`
-            - `fs.inotify.max_user_watches=655360`
+            - `fs.inotify.max_user_instances = 1280`
+            - `fs.inotify.max_user_watches = 655360`
         2. Reload sysctl configs by running `sudo sysctl -p`
 
     ??? info "Homebrew for Linux"
