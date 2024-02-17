@@ -23,9 +23,15 @@ The following is a summary of the __generator values__ (configs) available in __
 
 ## Argo CD
 
-Values for configuring Argo CD.
+Values for configs related to Argo CD.
 
 {{ render_values_csv_files(values_prefix="argocd") }}
+
+## Kubernetes
+
+Values for configs related to the Kubernetes cluster.
+
+{{ render_values_csv_files(values_prefix="kubernetes") }}
 
 ## deployKF Dependencies
 
@@ -41,7 +47,7 @@ Values for configuring core deployKF components.
 
 ## deployKF Opt
 
-Values for configuring optional embedded applications that are used when external alternatives are not configured.
+Values for configuring optional embedded applications that can be used when external alternatives are not configured.
 
 {{ render_values_csv_files(values_prefix="deploykf_opt.") }}
 

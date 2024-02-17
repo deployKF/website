@@ -1,0 +1,2 @@
+Value,Default
+[`kubernetes.azure.admissionsEnforcerFix`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L78),`false`

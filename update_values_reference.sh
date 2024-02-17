@@ -6,7 +6,7 @@ THIS_SCRIPT_PATH=$(cd "$(dirname "$0")" && pwd)
 cd "$THIS_SCRIPT_PATH"
 
 # configs
-VALUES_GIT_REF="v0.1.3"
+VALUES_GIT_REF="v0.1.4"
 VALUES_GIT_URL="https://github.com/deployKF/deployKF/blob/${VALUES_GIT_REF}/generator/default_values.yaml"
 VALUES_GIT_URL_RAW="https://raw.githubusercontent.com/deployKF/deployKF/${VALUES_GIT_REF}/generator/default_values.yaml"
 VALUES_LOCAL_PATH="./.cache/default_values-${VALUES_GIT_REF}.yaml"
@@ -26,6 +26,14 @@ python ./dev/generate_values_reference.py \
   --output-csv "./content/reference/deploykf-values--{}.csv" \
   --value-include-pattern "argocd.*" \
   --value-group-level 1
+
+# generate values csv files: `kubernetes`
+python ./dev/generate_values_reference.py \
+  --github-file-url "$VALUES_GIT_URL" \
+  --input-yaml "$VALUES_LOCAL_PATH" \
+  --output-csv "./content/reference/deploykf-values--{}.csv" \
+  --value-include-pattern "kubernetes.*" \
+  --value-group-level 2
 
 # generate values csv files: `deploykf_dependencies`
 python ./dev/generate_values_reference.py \
