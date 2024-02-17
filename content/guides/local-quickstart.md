@@ -210,7 +210,7 @@ Run this command to create a local `k3d` cluster named `deploykf`:
 ```bash
 # NOTE: this will change your kubectl context to the new cluster
 k3d cluster create "deploykf" \
-  --image "rancher/k3s:v1.26.9-k3s1"
+  --image "rancher/k3s:v1.27.10-k3s2"
 ```
 
 ??? question_secondary "Can I use a different version of Kubernetes?"
