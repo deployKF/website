@@ -202,6 +202,9 @@ def main():
         "--output-description", default="", help="Description for the output file"
     )
     parser.add_argument(
+        "--output-intro", default="", help="Introduction for the output file"
+    )
+    parser.add_argument(
         "--output-admonition-type",
         default="info",
         help="The type of the output admonition",
@@ -263,6 +266,9 @@ def main():
 
     changelog.append("---")
     changelog.append("icon: material/script-text")
+    if args.output_description:
+        changelog.append("description: >-")
+        changelog.append(f"  {args.output_description}")
     if args.output_hide_sections:
         changelog.append("hide:")
         changelog.extend([f"  - {section}" for section in args.output_hide_sections])
@@ -271,7 +277,7 @@ def main():
 
     changelog.append(f"# {args.output_heading}")
     changelog.append("")
-    changelog.append(f"{args.output_description}")
+    changelog.append(f"{args.output_intro}")
     changelog.append("")
 
     if args.output_admonition_content:
@@ -288,10 +294,14 @@ def main():
     changelog.append("---")
     changelog.append("")
 
-    for release in releases:
+    total_releases = len(releases)
+    for i, release in enumerate(releases):
         formatted_release = format_release(release, args.include_headings_h2)
         changelog.append(formatted_release)
         changelog.append("")
+        if i < total_releases - 1:
+            changelog.append("---")
+            changelog.append("")
 
     with open(args.output_path, "w") as f:
         f.write("\n".join(changelog))
