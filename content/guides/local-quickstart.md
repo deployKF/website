@@ -372,6 +372,9 @@ These sample values (which are different for each deployKF version) have all ML 
 You may copy and make changes to the sample values, or directly use it as a base, and override specific values in a separate file.
 We provide the [`sample-values-overrides.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values-overrides.yaml) file as an example of this approach.
 
+deployKF has many additional values not found in the sample files.
+For your reference, ALL values and their defaults are listed on the [values reference](../reference/deploykf-values.md) page, which is generated from the full [`default_values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/generator/default_values.yaml) file.
+
 !!! note "YAML Syntax"
 
     For a refresher on YAML syntax, we recommend the following resources:

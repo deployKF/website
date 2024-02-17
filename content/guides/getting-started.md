@@ -48,15 +48,13 @@ Here are some of the Kubernetes distributions which are supported by deployKF:
 Platform | Kubernetes Distribution
 --- | ---
 Amazon Web Services | [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/)
-Microsoft Azure | <s>[Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/products/kubernetes-service/)</s><sup>[[follow issue](https://github.com/deployKF/deployKF/issues/61)]</sup> 
+Microsoft Azure | [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/products/kubernetes-service/)<sup>[[:material-alert: see special requirements :material-alert:](https://github.com/deployKF/deployKF/issues/61#issuecomment-1949658332)]</sup> 
 Google Cloud | [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine)
 IBM Cloud | [IBM Cloud Kubernetes Service (IKS)](https://www.ibm.com/cloud/kubernetes-service)
 Self-Hosted | [Rancher Kubernetes Engine (RKE)](https://rancher.com/docs/rke/latest/en/),<br>[Canonical Kubernetes (MicroK8s)](https://microk8s.io/)
 Local Machine | [k3d](https://k3d.io/), [kind](https://kind.sigs.k8s.io/), [minikube](https://minikube.sigs.k8s.io/)
 
-### Kubernetes Configurations
-
-!!! danger "Dedicated Kubernetes Cluster"
+!!! warning "Dedicated Kubernetes Cluster"
 
     Only __ONE__ deployKF platform can be on a Kubernetes cluster at a time.
 
@@ -65,6 +63,10 @@ Local Machine | [k3d](https://k3d.io/), [kind](https://kind.sigs.k8s.io/), [mini
     We strongly recommend __using a dedicated cluster__ for deployKF.
 
     If you are unable to create a new Kubernetes cluster, you may consider using [vCluster](https://github.com/loft-sh/vcluster) to create a virtual Kubernetes cluster within an existing one.
+
+### Kubernetes Configurations
+
+The following Kubernetes configurations are required for deployKF to work correctly:
 
 !!! info "CPU Architecture"
 
@@ -75,16 +77,34 @@ Local Machine | [k3d](https://k3d.io/), [kind](https://kind.sigs.k8s.io/), [mini
 
 !!! info "Cluster Domain"
 
-    deployKF currently requires the Kubernetes kubelet [`clusterDomain`](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) be left as the default of `cluster.local`.
+    deployKF requires the Kubernetes kubelet [`clusterDomain`](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) be left as the default of `cluster.local`.
     This is caused by a small number of Kubeflow components hard-coding this value, with no way to change it.
+
+!!! info "Service Type"
+
+    By default, deployKF uses a `LoadBalancer` service type for the _Istio Ingress Gateway_.
+    Take care to ensure this does not accidentally expose your platform to the public internet.
+
+    ??? question_secondary "How can I use a different Service Type?"
+    
+        To use a different service type, you can override the `deploykf_core.deploykf_istio_gateway.gatewayService.type` value:
+
+        ```yaml
+        deploykf_core:
+          deploykf_istio_gateway:
+            gatewayService:
+              type: "NodePort" # or "ClusterIP"
+        ```
+
+        For real-world usage, you should review the [Expose Gateway and configure HTTPS](./platform/deploykf-gateway.md) guide.
 
 !!! info "Default StorageClass"
 
-    The default values assume your Kubernetes cluster has a default [`StorageClass`](https://kubernetes.io/docs/concepts/storage/storage-classes/) which has support for the `ReadWriteOnce` access mode.
+    By default, deployKF assumes your Kubernetes cluster has a default [`StorageClass`](https://kubernetes.io/docs/concepts/storage/storage-classes/) which has support for the `ReadWriteOnce` access mode.
 
     ??? question_secondary "What if I don't have a default StorageClass?"
     
-        If you do NOT have a compatible default StorageClass, you have a few options:
+        If you do NOT have a compatible default StorageClass, you might consider the following options:
     
         1. Configure [a default StorageClass](https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/) that has `ReadWriteOnce` support
         2. Explicitly set the `storageClass` value for the following components:
@@ -98,9 +118,7 @@ Local Machine | [k3d](https://k3d.io/), [kind](https://kind.sigs.k8s.io/), [mini
 
 deployKF requires [:custom-argocd-color: __Argo CD__](./dependencies/argocd.md#what-is-argo-cd) to manage lifecycle and state ([learn why](./dependencies/argocd.md#how-does-deploykf-use-argo-cd)).
 See our [version matrix](../releases/version-matrix.md#deploykf-dependencies) for a list of supported Argo CD versions.
-
 How you configure ArgoCD depends on which ["mode of operation"](#modes-of-operation) you have chosen.
-If you are unsure which mode to use, we recommend the _ArgoCD Plugin Mode_.
 
 The following table lists the requirements in each mode:
 
@@ -119,6 +137,10 @@ The following table lists the requirements in each mode:
     _deployKF CLI_ installed locally | [Install deployKF CLI](deploykf-cli.md)
     A private git repo | Used to store generated manifests.
 
+!!! tip
+
+    If you are unsure which mode to use, we recommend the _ArgoCD Plugin Mode_.
+
 ### Cluster Dependencies
 
 deployKF uses a number of cluster-level dependencies which are __installed by default__.
@@ -128,9 +150,9 @@ The following table lists these dependencies and how to use an existing version:
 
 Dependency | Purpose | Guides
 --- | --- | ---
-[Cert Manager](./dependencies/cert-manager.md) | Generating and maintaining TLS/HTTPS certificates. | [Use an existing Cert-Manager](./dependencies/cert-manager.md#can-i-use-my-existing-cert-manager)
-[Istio](./dependencies/istio.md) | Network service mesh for the platform, used to enforce client authentication and secure internal traffic. | [Use an existing Istio](./dependencies/istio.md#can-i-use-my-existing-istio)
-[Kyverno](./dependencies/kyverno.md) | Mutating resources, replicating secrets across namespaces, and restarting Pods when configs change. | [Use an existing Kyverno](./dependencies/kyverno.md#can-i-use-my-existing-kyverno)
+Cert-Manager | Generating and maintaining TLS/HTTPS certificates. | [What is Cert-Manager?](./dependencies/cert-manager.md) / [Use my existing Cert-Manager.](./dependencies/cert-manager.md#can-i-use-my-existing-cert-manager)
+Istio | Network service mesh for the platform, used to enforce client authentication and secure internal traffic. | [What is Istio?](./dependencies/istio.md) / [Use my existing Istio.](./dependencies/istio.md#can-i-use-my-existing-istio)
+Kyverno | Mutating resources, replicating secrets across namespaces, and restarting Pods when configs change. | <s>[What is Kyverno?](./dependencies/kyverno.md)</s> / <s>[Use my existing Kyverno.](./dependencies/kyverno.md#can-i-use-my-existing-kyverno)</s> (coming soon)
 
 ### Optional Dependencies
 
@@ -139,7 +161,7 @@ deployKF has some optional dependencies which may improve the performance or rel
 Dependencies | Purpose | Guides
 --- | --- | ---
 MySQL Database | Used by [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines) and [Katib](../reference/tools.md#katib).<br><br>The embedded MySQL is ONLY recommended for testing and development. In production, we ALWAYS recommend using an external MySQL database. | [Connect an External MySQL](./tools/external-mysql.md)
-Object Store | Used by [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines).<br><br>The embedded MinIO is ONLY recommended for testing and development. In production, we ALWAYS recommend using an external S3-compatible object store. | [Connect an External S3-like Object Store](./tools/external-object-store.md)
+Object Store | Used by [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines).<br><br>The embedded MinIO is ONLY recommended for testing and development. In production, we ALWAYS recommend using an external S3-compatible object store. | [Connect an External S3-like Object Store.](./tools/external-object-store.md)
 
 ## 2. Platform Configuration
 
@@ -154,6 +176,7 @@ These sample values (which are different for each deployKF version) have all ML 
 You may copy and make changes to the sample values, or directly use it as a base, and override specific values in a separate file.
 We provide the [`sample-values-overrides.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values-overrides.yaml) file as an example of this approach.
 
+deployKF has many additional values not found in the sample files.
 For your reference, ALL values and their defaults are listed on the [values reference](../reference/deploykf-values.md) page, which is generated from the full [`default_values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/generator/default_values.yaml) file.
 
 !!! note "YAML Syntax"
