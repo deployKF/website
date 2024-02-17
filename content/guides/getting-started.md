@@ -30,7 +30,7 @@ deployKF has two "modes of operation" that change how Kubernetes manifests are g
 
 Mode | Description | Notes
 --- | --- | ---
-[ArgoCD Plugin Mode](#argocd-plugin-mode) | The [`deployKF ArgoCD Plugin`](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) adds a new kind of ArgoCD Application which understands deployKF config values and can generate manifests directly, without requiring a git repo.<br><br><small>:star: __The best option for most organizations__. :star:</small> | Even though manifests do not require a git repo, config values can still be managed using GitOps.<br><br>Requires ArgoCD Pods have access to the internet, so they can download the deployKF generator zip from GitHub.
+[ArgoCD Plugin Mode](#argocd-plugin-mode) | The [`deployKF ArgoCD Plugin`](./dependencies/argocd.md#what-is-the-deploykf-argocd-plugin) adds a new kind of [ArgoCD Application](./dependencies/argocd.md#argo-cd-applications) which understands deployKF config values and can generate manifests directly, without requiring a git repo.<br><br><small>:star: __The best option for most organizations__. :star:</small> | Even though manifests do not require a git repo, config values can still be managed using GitOps.<br><br>Requires ArgoCD Pods have access to the internet, so they can download the deployKF generator zip from GitHub.
 [Manifests Repo Mode](#manifests-repo-mode) | The [`deployKF CLI`](deploykf-cli.md) is used to generate manifests which are committed to a git repo for ArgoCD to apply to your cluster. | For organizations which require that Kubernetes manifests are committed to a git repo before being applied (e.g. for auditing or compliance reasons).
 
 ## 1. Requirements
