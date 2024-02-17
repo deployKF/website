@@ -3,6 +3,7 @@ nav:
   - local-quickstart.md
   - troubleshooting.md
   - configs.md
+  - uninstall.md
   - Cluster Dependencies: dependencies
   - External Dependencies: external
   - Platform Configs: platform
