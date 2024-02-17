@@ -210,7 +210,7 @@ Run this command to create a local `k3d` cluster named `deploykf`:
 ```bash
 # NOTE: this will change your kubectl context to the new cluster
 k3d cluster create "deploykf" \
-  --image "rancher/k3s:v1.26.9-k3s1"
+  --image "rancher/k3s:v1.27.10-k3s2"
 ```
 
 ??? question_secondary "Can I use a different version of Kubernetes?"
@@ -371,6 +371,9 @@ These sample values (which are different for each deployKF version) have all ML 
 
 You may copy and make changes to the sample values, or directly use it as a base, and override specific values in a separate file.
 We provide the [`sample-values-overrides.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values-overrides.yaml) file as an example of this approach.
+
+deployKF has many additional values not found in the sample files.
+For your reference, ALL values and their defaults are listed on the [values reference](../reference/deploykf-values.md) page, which is generated from the full [`default_values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/generator/default_values.yaml) file.
 
 !!! note "YAML Syntax"
 
