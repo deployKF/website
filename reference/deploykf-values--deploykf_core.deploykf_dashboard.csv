@@ -1,15 +1,15 @@
 Value,Default
-[`deploykf_core.deploykf_dashboard.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L553),`true`
-[`deploykf_core.deploykf_dashboard.namespace`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L554),"`""deploykf-dashboard""`"
-[`deploykf_core.deploykf_dashboard.extraManifests`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L567),`[]`
-[`deploykf_core.deploykf_dashboard.images.dashboard.repository`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L573),"`""ghcr.io/deploykf/dashboard""`"
-[`deploykf_core.deploykf_dashboard.images.dashboard.tag`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L574),"`""0.1.0""`"
-[`deploykf_core.deploykf_dashboard.images.dashboard.pullPolicy`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L575),"`""IfNotPresent""`"
-[`deploykf_core.deploykf_dashboard.images.profileController.repository`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L578),"`""kubeflownotebookswg/profile-controller""`"
-[`deploykf_core.deploykf_dashboard.images.profileController.tag`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L579),"`""v1.7.0""`"
-[`deploykf_core.deploykf_dashboard.images.profileController.pullPolicy`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L580),"`""IfNotPresent""`"
-[`deploykf_core.deploykf_dashboard.images.kfamApi.repository`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L583),"`""kubeflownotebookswg/kfam""`"
-[`deploykf_core.deploykf_dashboard.images.kfamApi.tag`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L584),"`""v1.7.0""`"
-[`deploykf_core.deploykf_dashboard.images.kfamApi.pullPolicy`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L585),"`""IfNotPresent""`"
-[`deploykf_core.deploykf_dashboard.navigation.externalLinks`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L600),`[]`
-[`deploykf_core.deploykf_dashboard.navigation.documentationItems`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L609),"`[{""text"": ""deployKF Website"", ""desc"": ""The tool that deployed your ML platform!"", ""link"": ""https://github.com/deployKF/deployKF""}]`"
+[`deploykf_core.deploykf_dashboard.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L607),`true`
+[`deploykf_core.deploykf_dashboard.namespace`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L608),"`""deploykf-dashboard""`"
+[`deploykf_core.deploykf_dashboard.extraManifests`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L621),`[]`
+[`deploykf_core.deploykf_dashboard.images.dashboard.repository`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L627),"`""ghcr.io/deploykf/dashboard""`"
+[`deploykf_core.deploykf_dashboard.images.dashboard.tag`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L628),"`""0.1.0""`"
+[`deploykf_core.deploykf_dashboard.images.dashboard.pullPolicy`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L629),"`""IfNotPresent""`"
+[`deploykf_core.deploykf_dashboard.images.profileController.repository`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L632),"`""kubeflownotebookswg/profile-controller""`"
+[`deploykf_core.deploykf_dashboard.images.profileController.tag`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L633),"`""v1.7.0""`"
+[`deploykf_core.deploykf_dashboard.images.profileController.pullPolicy`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L634),"`""IfNotPresent""`"
+[`deploykf_core.deploykf_dashboard.images.kfamApi.repository`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L637),"`""kubeflownotebookswg/kfam""`"
+[`deploykf_core.deploykf_dashboard.images.kfamApi.tag`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L638),"`""v1.7.0""`"
+[`deploykf_core.deploykf_dashboard.images.kfamApi.pullPolicy`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L639),"`""IfNotPresent""`"
+[`deploykf_core.deploykf_dashboard.navigation.externalLinks`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L654),`[]`
+[`deploykf_core.deploykf_dashboard.navigation.documentationItems`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L663),"`[{""text"": ""deployKF Website"", ""desc"": ""The tool that deployed your ML platform!"", ""link"": ""https://github.com/deployKF/deployKF""}]`"
