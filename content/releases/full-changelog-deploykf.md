@@ -1,8 +1,7 @@
 ---
 icon: material/script-text
 description: >-
-  Changelog for deployKF, including pre-releases.
-
+  The full changelog for deployKF, including pre-releases.
 hide:
   - navigation
 ---
@@ -14,6 +13,58 @@ This changelog lists ALL releases of __deployKF__ (including pre-releases) that 
 !!! info "Main Changelog"
 
     For a changelog that hides pre-releases, see [the main changelog](./changelog-deploykf.md) page.
+
+---
+
+## [0.1.4](https://github.com/deployKF/deployKF/releases/tag/v0.1.4) - 2024-02-16
+### Upgrade Notes
+
+- There will be some downtime for Kubeflow Pipelines and users will be forced to re-authenticate.
+- You __MUST sync with pruning enabled__, as we have changed a number of resources.
+- If you are using our automated ArgoCD Sync Script:
+    - Update to the latest script version, [found in the `main` branch](https://github.com/deployKF/deployKF/blob/main/scripts/sync_argocd_apps.sh).
+    - Ensure you respond "yes" to all "Do you want to sync with PRUNING enabled?" prompts.
+    - To prevent the need to sync twice, please manually delete this `ClusterPolicy` using the following command BEFORE syncing: `kubectl delete clusterpolicy "kubeflow-pipelines--generate-profile-resources"`
+    - (otherwise, the first sync will time-out waiting for `kf-tools--pipelines` to be healthy)
+
+### Important Notes
+
+- We no longer use Kyverno to generate resources in each profile for Kubeflow Pipelines, we now include these resources directly based on your profile values, this is due to Kyverno not scaling well for large numbers of profiles. However, we still use Kyverno for cloning Secrets across namespaces, triggering restarts of Deployments, and a few other things.
+- We have resolved the compatibility issues with __Azure AKS__. To enable the Azure-specific fixes, please set the `kubernetes.azure.admissionsEnforcerFix` value to `true`.
+- There have been significant changes to how authentication is implemented. These changes should allow you to bring your own Istio Gateway Deployment (Pods) without having other services end up behind deployKF's authentication system. However, please note that deployKF still manages its own Gateway Resource (CRD).
+- For those experiencing "route not found" issues when using an external proxy to terminate TLS, you can now disable "SNI Matching" on the Istio Gateway by setting the `deploykf_core.deploykf_istio_gateway.gateway.tls.matchSNI` value to `false`.
+
+### What's Changed
+#### Significant Changes
+* feat: allow other istio gateways on ingress deployment by [@thesuperzapper](https://github.com/thesuperzapper) in [#66](https://github.com/deployKF/deployKF/pull/66)
+* feat: allow disabling SNI matching on gateway by [@thesuperzapper](https://github.com/thesuperzapper) in [#83](https://github.com/deployKF/deployKF/pull/83)
+* fix: issues preventing deployment on Azure AKS by [@thesuperzapper](https://github.com/thesuperzapper) in [#85](https://github.com/deployKF/deployKF/pull/85)
+* improve: stop using kyverno to provision kfp profile resources by [@thesuperzapper](https://github.com/thesuperzapper) in [#102](https://github.com/deployKF/deployKF/pull/102)
+#### New Features
+* feat: disable default plugins and resource-quotas in specific profiles by [@thesuperzapper](https://github.com/thesuperzapper) in [#67](https://github.com/deployKF/deployKF/pull/67)
+* feat: allow custom external service ports by [@thesuperzapper](https://github.com/thesuperzapper) in [#82](https://github.com/deployKF/deployKF/pull/82)
+* feat: allow disabling HTTPS redirect by [@thesuperzapper](https://github.com/thesuperzapper) in [#86](https://github.com/deployKF/deployKF/pull/86)
+* feat: add pod-labels value for cert-manager controller by [@thesuperzapper](https://github.com/thesuperzapper) in [#88](https://github.com/deployKF/deployKF/pull/88)
+* feat: optional sign-in page to stop background request CSRF accumulation by [@thesuperzapper](https://github.com/thesuperzapper) in [#100](https://github.com/deployKF/deployKF/pull/100)
+#### Improvements
+* improve: use `__Secure-` cookie prefix and remove domains config by [@thesuperzapper](https://github.com/thesuperzapper) in [#87](https://github.com/deployKF/deployKF/pull/87)
+* improve: increase kyverno resource limits and add values by [@thesuperzapper](https://github.com/thesuperzapper) in [#93](https://github.com/deployKF/deployKF/pull/93)
+* improve: use CRD-level "replace" for kyverno ArgoCD app by [@thesuperzapper](https://github.com/thesuperzapper) in [#94](https://github.com/deployKF/deployKF/pull/94)
+* improve: argocd sync script should only wait for app health once by [@thesuperzapper](https://github.com/thesuperzapper) in [#104](https://github.com/deployKF/deployKF/pull/104)
+#### Bug Fixes
+* fix: prevent kyverno log spam on missing generate context by [@thesuperzapper](https://github.com/thesuperzapper) in [#54](https://github.com/deployKF/deployKF/pull/54)
+* fix: rstudio logo format for non-chrome browsers by [@thesuperzapper](https://github.com/thesuperzapper) in [#56](https://github.com/deployKF/deployKF/pull/56)
+* fix: using AWS IRSA with Kubeflow Pipelines by [@thesuperzapper](https://github.com/thesuperzapper) in [#79](https://github.com/deployKF/deployKF/pull/79)
+* fix: use 307 status for HTTP redirects by [@thesuperzapper](https://github.com/thesuperzapper) in [#81](https://github.com/deployKF/deployKF/pull/81)
+* fix: proxy protocol envoyfilter for istio gateway by [@thesuperzapper](https://github.com/thesuperzapper) in [#80](https://github.com/deployKF/deployKF/pull/80)
+* fix: disallow out-of-band KFP audience when disabled by [@thesuperzapper](https://github.com/thesuperzapper) in [#89](https://github.com/deployKF/deployKF/pull/89)
+* fix: support kyverno chart changes (but keep kyverno version) by [@thesuperzapper](https://github.com/thesuperzapper) in [#92](https://github.com/deployKF/deployKF/pull/92)
+* fix: annotate cloned imagePullSecrets to be ignored by ArgoCD by [@dkhachyan](https://github.com/dkhachyan) in [#90](https://github.com/deployKF/deployKF/pull/90)
+* fix: add background filter to restart trigger policies by [@thesuperzapper](https://github.com/thesuperzapper) in [#95](https://github.com/deployKF/deployKF/pull/95)
+* fix: prevent CSRF cookie accumulation on auth expiry by [@thesuperzapper](https://github.com/thesuperzapper) in [#99](https://github.com/deployKF/deployKF/pull/99)
+#### Documentation
+* docs: update example ArgoCD to 2.9.6 by [@thesuperzapper](https://github.com/thesuperzapper) in [#91](https://github.com/deployKF/deployKF/pull/91)
+
 
 ---
 
@@ -42,6 +93,8 @@ This changelog lists ALL releases of __deployKF__ (including pre-releases) that 
 * refactor: always use `v1` kyverno resources by [@thesuperzapper](https://github.com/thesuperzapper) in [#48](https://github.com/deployKF/deployKF/pull/48)
 
 
+---
+
 ## [0.1.2](https://github.com/deployKF/deployKF/releases/tag/v0.1.2) - 2023-09-22
 ### Important Notes
 
@@ -66,6 +119,8 @@ This changelog lists ALL releases of __deployKF__ (including pre-releases) that 
 * docs: improve sample values, add reference overrides by [@thesuperzapper](https://github.com/thesuperzapper) in [#36](https://github.com/deployKF/deployKF/pull/36)
 
 
+---
+
 ## [0.1.1](https://github.com/deployKF/deployKF/releases/tag/v0.1.1) - 2023-08-08
 ### What's Changed
 #### Significant Changes
@@ -82,6 +137,8 @@ This changelog lists ALL releases of __deployKF__ (including pre-releases) that 
 * docs: improve getting started guide by [@thesuperzapper](https://github.com/thesuperzapper) in [#11](https://github.com/deployKF/deployKF/pull/11)
 * docs: add link to youtube demo by [@thesuperzapper](https://github.com/thesuperzapper) in [#13](https://github.com/deployKF/deployKF/pull/13)
 
+
+---
 
 ## [0.1.0](https://github.com/deployKF/deployKF/releases/tag/v0.1.0) - 2023-07-10
 ### What's Changed
