@@ -78,7 +78,9 @@ In the future, we may support other Kubernetes GitOps tools (like [Flux CD](http
 
 Either way, we think deployKF is good enough that it's worth trying, even if you don't love Argo CD!
 
-### __What is the _deployKF ArgoCD Plugin_?__
+---
+
+## __What is the _deployKF ArgoCD Plugin_?__
 
 The [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) is an optional part of deployKF which removes the need to commit manifests to a Git repository.
 The plugin adds a special kind of ArgoCD `Application` that produces deployKF manifests internally, similar to how Helm charts are used in ArgoCD. 
