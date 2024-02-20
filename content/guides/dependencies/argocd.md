@@ -67,23 +67,52 @@ For example, we use Argo CD for:
 ### __Can I use my existing Argo CD?__
 
 Yes, you must.
-
 See our [version matrix](../../releases/version-matrix.md#deploykf-dependencies) for a list of supported Argo CD versions and the [getting started](../getting-started.md#argocd-configuration) guide for configuration details.
 
-### __Can I use _&lt;other tool&gt;_ instead?__
+### __Can I use <small>_&lt;other tool&gt;_</small> instead of Argo CD?__
     
-Not yet. 
+No, not yet. 
 While we believe that Argo CD is currently the best in its category, we recognize that it's not the only option.
 In the future, we may support other Kubernetes GitOps tools (like [Flux CD](https://fluxcd.io/)), or even build a deployKF-specific solution.
 
 Either way, we think deployKF is good enough that it's worth trying, even if you don't love Argo CD!
+
+### __Can a single Argo CD deploy multiple clusters?__
+
+Yes.
+However, as Argo CD `Applications` must have unique names, we provide the [`argocd.appNamePrefix`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L8-L13) value to prefix all Application names.
+
+For example, to set a prefix of `"cluster1-"`, you might use the following values:
+
+```yaml
+argocd:
+  appNamePrefix: "cluster1-"
+```
+
+When `argocd.appNamePrefix` is non-empty, the [`argocd.destination`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L56-L61) MUST be a remote cluster (note, the [default is "in-cluster"](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L60)).
+For example, if you have [defined an Argo CD cluster](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#clusters) named `"my-cluster1"`, you might use the following values:
+
+```yaml
+argocd:
+  destination:
+    name: "my-cluster1"
+```
+
+!!! warning "Sync Script"
+
+    By default, the [`sync_argocd_apps.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/sync_argocd_apps.sh) script assumes that `argocd.appNamePrefix` is not set.
+    Update the `ARGOCD_APP_NAME_PREFIX` variable at the top of the script to match your `argocd.appNamePrefix` value.
+
+    ```bash
+    ARGOCD_APP_NAME_PREFIX="cluster1-"
+    ```
 
 ---
 
 ## __What is the _deployKF ArgoCD Plugin_?__
 
 The [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) is an optional part of deployKF which removes the need to commit manifests to a Git repository.
-The plugin adds a special kind of ArgoCD `Application` that produces deployKF manifests internally, similar to how Helm charts are used in ArgoCD. 
+The plugin adds a special kind of Argo CD `Application` that produces deployKF manifests internally, similar to how Helm charts are used in Argo CD. 
 
 With the plugin, you manage the whole platform from a single _"app of apps"_ `Application` whose specification only needs your [values](../getting-started.md#2-platform-configuration), and a specified [source version](../getting-started.md#deploykf-versions) of deployKF.
 For an example of this, see [__this section__](../local-quickstart.md#create-an-app-of-apps) of the local quickstart.
