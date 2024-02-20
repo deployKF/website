@@ -3,7 +3,7 @@ site_description: deployKF builds world-class data and machine learning platform
 site_url: https://www.deploykf.org/
 
 copyright: |-
-  © 2023 deployKF Authors | <a class="footer-link" href="/privacy-policy/website/" target="_blank" rel="noopener">Privacy Policy</a>
+  © 2024 deployKF Authors | <a class="footer-link" href="/privacy-policy/website/" target="_blank" rel="noopener">Privacy Policy</a>
 
 repo_url: https://github.com/deployKF/deployKF
 edit_uri: https://github.com/deployKF/website/edit/main/content
