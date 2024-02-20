@@ -47,7 +47,7 @@ A Kubernetes [`Deployment` of special Envoy proxy `Pods`](https://istio.io/lates
 
 Here are examples of the two different types of "Gateway" in Istio:
 
-??? example "Example: _Gateway Deployment_"
+??? code "Example - _Gateway Deployment_"
 
     The following `Deployment` will be automatically mutated by Istio to include an Envoy proxy sidecar container:
 
@@ -114,7 +114,7 @@ Here are examples of the two different types of "Gateway" in Istio:
           name: https
     ```
 
-??? example "Example: _Gateway Resource_"
+??? code "Example - _Gateway Resource_"
 
     The following `Gateway` resource configures the "Gateway Deployment" from above:
     
