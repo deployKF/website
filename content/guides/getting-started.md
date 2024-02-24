@@ -509,6 +509,17 @@ These steps show how to generate and apply manifests with the [Manifests Repo Mo
       </tr>
     </table>
 
+    For example, you might set the following values:
+
+    ```yaml
+    argocd:
+      source:
+        repo:
+          url: "https://github.com/deployKF/examples.git"
+          revision: "main"
+          path: "./GENERATOR_OUTPUT/"
+    ```
+
     ---
 
     __Step 2: Generate Manifests__
@@ -645,6 +656,8 @@ If you are unsure which to use, we recommend using the _automated sync script_.
         1. `dkf-dep--cert-manager` (may fail on first attempt)
         2. `dkf-dep--istio`
         3. `dkf-dep--kyverno`
+
+        __WARNING:__ for this group, each application MUST be synced INDIVIDUALLY and the preceding application MUST be "Healthy" before syncing the next.
 
     !!! stack "Group 2: "deploykf-core""
 

@@ -29,7 +29,7 @@ deploykf generate \
 
 !!! note "deployKF ArgoCD Plugin"
 
-    If you are using the [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin), it is NOT necessary to install the deployKF CLI,
+    If you are using the [deployKF ArgoCD Plugin](./dependencies/argocd.md#what-is-the-deploykf-argocd-plugin), it is NOT necessary to install the deployKF CLI,
     this is because the manifests generation will happen inside the ArgoCD plugin, rather than on your local machine.
 
 ---

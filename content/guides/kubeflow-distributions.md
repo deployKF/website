@@ -57,7 +57,7 @@ To learn how to migrate, please see the [Steps to Migrate](#steps-to-migrate) se
 
 !!! question_secondary ""
 
-    Yes, deployKF actually [depends on ArgoCD](getting-started.md#3-platform-deployment).
+    Yes, deployKF actually [depends on ArgoCD](./dependencies/argocd.md#how-does-deploykf-use-argo-cd).
 
     We use ArgoCD because it gives a pre-built system to determine the sync-state of the apps we deploy (if resources need to be updated), and also makes cleaning up old resources much easier.
     In the future, we may add support for other GitOps tools or implement our own.
