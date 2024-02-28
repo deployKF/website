@@ -376,6 +376,7 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
                       ## see: https://github.com/kubernetes/ingress-nginx/issues/6728
                       nginx.ingress.kubernetes.io/proxy-ssl-secret: "deploykf-istio-gateway/deploykf-istio-gateway-cert"
                   spec:
+                    ingressClassName: nginx
                     tls:
                       ## NOTE: this secret is created as part of the deployKF installation
                       - secretName: "deploykf-istio-gateway-cert"
@@ -383,8 +384,8 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
                       - host: "deploykf.example.com"
                         http:
                           paths:
-                            - path: "/*"
-                              pathType: ImplementationSpecific
+                            - path: "/"
+                              pathType: Prefix
                               backend:
                                 service:
                                   name: "deploykf-gateway"
@@ -393,8 +394,8 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
                       - host: "*.deploykf.example.com"
                         http:
                           paths:
-                            - path: "/*"
-                              pathType: ImplementationSpecific
+                            - path: "/"
+                              pathType: Prefix
                               backend:
                                 service:
                                   name: "deploykf-gateway"
