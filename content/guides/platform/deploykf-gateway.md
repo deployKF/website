@@ -151,7 +151,7 @@ This is the __recommended option__ for most users.
         deploykf_core:
           deploykf_istio_gateway:
 
-            ## these values are used to configure the deployKF Gateway Service
+            ## these values configure the deployKF Gateway Service
             ##
             gatewayService:
               name: "deploykf-gateway"
@@ -183,7 +183,7 @@ This is the __recommended option__ for most users.
         deploykf_core:
           deploykf_istio_gateway:
 
-            ## these values are used to configure the deployKF Gateway Service
+            ## these values configure the deployKF Gateway Service
             ##
             gatewayService:
               name: "deploykf-gateway"
@@ -235,28 +235,36 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
         deploykf_core:
           deploykf_istio_gateway:
 
-            ## this value is used to add arbitrary manifests to the generated output
+            ## this value adds arbitrary manifests to the generated output
             ##
             extraManifests:
               - |
-                apiVersion: extensions/v1beta1
+                apiVersion: networking.k8s.io/v1
                 kind: Ingress
                 metadata:
                   name: deploykf-gateway
                   annotations:
                     alb.ingress.kubernetes.io/scheme: internal
                     alb.ingress.kubernetes.io/target-type: ip
-                    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
-                    alb.ingress.kubernetes.io/ssl-redirect: '443'
-                    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:REGION_NAME:ACCOUNT_ID:certificate/CERTIFICATE_ID"
                     alb.ingress.kubernetes.io/backend-protocol: HTTPS
+
+                    ## the 'deploykf-gateway' service has a named "status-port" pointing to Istio's 15021 health port
+                    ## see: https://istio.io/latest/docs/ops/deployment/requirements/#ports-used-by-istio
+                    alb.ingress.kubernetes.io/healthcheck-port: "status-port"
+                    alb.ingress.kubernetes.io/healthcheck-path: "/healthz/ready"
+
+                    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+                    alb.ingress.kubernetes.io/ssl-redirect: "443"
+                    alb.ingress.kubernetes.io/certificate-arn: |
+                      arn:aws:acm:REGION_NAME:ACCOUNT_ID:certificate/CERTIFICATE_ID
                 spec:
                   ingressClassName: alb                  
                   rules:
                     - host: "deploykf.example.com"
                       http:
                         paths:
-                          - path: "/*"
+                          - path: "/"
+                            pathType: Prefix
                             backend:
                               service:
                                 name: "deploykf-gateway"
@@ -265,14 +273,22 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
                     - host: "*.deploykf.example.com"
                       http:
                         paths:
-                          - path: "/*"
+                          - path: "/"
+                            pathType: Prefix
                             backend:
                               service:
                                 name: "deploykf-gateway"
                                 port:
                                   name: https
 
-            ## these values are used to configure the deployKF Gateway Service
+            ## these values configure the deployKF Istio Gateway
+            ##
+            gateway:
+              tls:
+                ## must be false, AWS ALB does NOT forward the SNI/Host after TLS termination
+                matchSNI: false
+
+            ## these values configure the deployKF Gateway Service
             ##
             gatewayService:
               name: "deploykf-gateway"
@@ -286,61 +302,66 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
 
         In the following example, we are configuring the GKE Ingress to use the same TLS certificate as the deployKF Gateway Service (found in `Secret/deploykf-istio-gateway-cert`).
         Later in this guide you will learn how to [make this certificate valid](#configure-tls-for-istio-gateway), and not self-signed.
+        
+        !!! warning "Google Managed Certificates"
+
+            _Google Managed Certificates_ are [only supported](https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs#prerequisites) by EXTERNAL Application Load Balancers (ALB).
+            Because using an EXTERNAL ALB would expose deployKF to the public internet, we instead strongly recommend [configuring cert-manager](#configure-tls-for-istio-gateway) to generate a valid certificate.
 
         For example, you might set the following values to use an [INTERNAL Application Load Balancer](https://cloud.google.com/kubernetes-engine/docs/concepts/ingress):
     
         ```yaml
         deploykf_core:
           deploykf_istio_gateway:
-  
-              ## this value is used to add arbitrary manifests to the generated output
-              ##
-              extraManifests:
-                - |
-                  apiVersion: networking.k8s.io/v1
-                  kind: Ingress
-                  metadata:
-                    name: deploykf-gateway
-                    annotations:
-                      kubernetes.io/ingress.class: "gce-internal"
-                      kubernetes.io/ingress.allow-http: "false"
-                  spec:
-                    tls:
-                      ## NOTE: this secret is created as part of the deployKF installation
-                      - secretName: "deploykf-istio-gateway-cert"
-                    rules:
-                      - host: "deploykf.example.com"
-                        http:
-                          paths:
-                            - path: "/*"
-                              pathType: ImplementationSpecific
-                              backend:
-                                service:
-                                  name: "deploykf-gateway"
-                                  port:
-                                    name: https
-                      - host: "*.deploykf.example.com"
-                        http:
-                          paths:
-                            - path: "/*"
-                              pathType: ImplementationSpecific
-                              backend:
-                                service:
-                                  name: "deploykf-gateway"
-                                  port:
-                                    name: https
-  
-              ## these values are used to configure the deployKF Gateway Service
-              ##
-              gatewayService:
-                name: "deploykf-gateway"
-                type: "NodePort"
-                annotations:
-                  cloud.google.com/app-protocols: '{"https":"HTTPS","http":"HTTP"}'
-                  
-                  ## this annotation may be required if you are using a Shared VPC
-                  ##  https://cloud.google.com/kubernetes-engine/docs/how-to/internal-load-balance-ingress#shared_vpc
-                  #cloud.google.com/neg: '{"ingress": true}'
+
+            ## this value adds arbitrary manifests to the generated output
+            ##
+            extraManifests:
+              - |
+                apiVersion: networking.k8s.io/v1
+                kind: Ingress
+                metadata:
+                  name: deploykf-gateway
+                  annotations:
+                    kubernetes.io/ingress.class: "gce-internal"
+                    kubernetes.io/ingress.allow-http: "false"
+                spec:
+                  tls:
+                    ## NOTE: this secret is created as part of the deployKF installation
+                    - secretName: "deploykf-istio-gateway-cert"
+                  rules:
+                    - host: "deploykf.example.com"
+                      http:
+                        paths:
+                          - path: "/*"
+                            pathType: ImplementationSpecific
+                            backend:
+                              service:
+                                name: "deploykf-gateway"
+                                port:
+                                  name: https
+                    - host: "*.deploykf.example.com"
+                      http:
+                        paths:
+                          - path: "/*"
+                            pathType: ImplementationSpecific
+                            backend:
+                              service:
+                                name: "deploykf-gateway"
+                                port:
+                                  name: https
+
+            ## these values configure the deployKF Gateway Service
+            ##
+            gatewayService:
+              name: "deploykf-gateway"
+              type: "NodePort"
+              annotations:
+                cloud.google.com/app-protocols: '{"https":"HTTPS","http":"HTTP"}'
+                
+                ## this annotation may be required if you are using a Shared VPC
+                ##  https://cloud.google.com/kubernetes-engine/docs/how-to/internal-load-balance-ingress#shared_vpc
+                #cloud.google.com/neg: '{"ingress": true}'
         ```
 
     ??? config "Nginx Ingress"
@@ -356,53 +377,53 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
         deploykf_core:
           deploykf_istio_gateway:
   
-              ## this value is used to add arbitrary manifests to the generated output
-              ##
-              extraManifests:
-                - |
-                  apiVersion: networking.k8s.io/v1
-                  kind: Ingress
-                  metadata:
-                    name: deploykf-gateway
-                    annotations:
-                      nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+            ## this value adds arbitrary manifests to the generated output
+            ##
+            extraManifests:
+              - |
+                apiVersion: networking.k8s.io/v1
+                kind: Ingress
+                metadata:
+                  name: deploykf-gateway
+                  annotations:
+                    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
 
-                      ## nginx wil NOT proxy the SNI/Host header by default
-                      ## see: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#backend-certificate-authentication
-                      nginx.ingress.kubernetes.io/proxy-ssl-name: "deploykf.example.com"
-                      nginx.ingress.kubernetes.io/proxy-ssl-server-name: "on"
+                    ## nginx wil NOT proxy the SNI/Host header by default
+                    ## see: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#backend-certificate-authentication
+                    nginx.ingress.kubernetes.io/proxy-ssl-name: "deploykf.example.com"
+                    nginx.ingress.kubernetes.io/proxy-ssl-server-name: "on"
 
-                      ## this config is needed due to a bug in ingress-nginx
-                      ## see: https://github.com/kubernetes/ingress-nginx/issues/6728
-                      nginx.ingress.kubernetes.io/proxy-ssl-secret: "deploykf-istio-gateway/deploykf-istio-gateway-cert"
-                  spec:
-                    ingressClassName: nginx
-                    tls:
-                      ## NOTE: this secret is created as part of the deployKF installation
-                      - secretName: "deploykf-istio-gateway-cert"
-                    rules:
-                      - host: "deploykf.example.com"
-                        http:
-                          paths:
-                            - path: "/"
-                              pathType: Prefix
-                              backend:
-                                service:
-                                  name: "deploykf-gateway"
-                                  port:
-                                    name: https
-                      - host: "*.deploykf.example.com"
-                        http:
-                          paths:
-                            - path: "/"
-                              pathType: Prefix
-                              backend:
-                                service:
-                                  name: "deploykf-gateway"
-                                  port:
-                                    name: https
+                    ## this config is needed due to a bug in ingress-nginx
+                    ## see: https://github.com/kubernetes/ingress-nginx/issues/6728
+                    nginx.ingress.kubernetes.io/proxy-ssl-secret: "deploykf-istio-gateway/deploykf-istio-gateway-cert"
+                spec:
+                  ingressClassName: nginx
+                  tls:
+                    ## NOTE: this secret is created as part of the deployKF installation
+                    - secretName: "deploykf-istio-gateway-cert"
+                  rules:
+                    - host: "deploykf.example.com"
+                      http:
+                        paths:
+                          - path: "/"
+                            pathType: Prefix
+                            backend:
+                              service:
+                                name: "deploykf-gateway"
+                                port:
+                                  name: https
+                    - host: "*.deploykf.example.com"
+                      http:
+                        paths:
+                          - path: "/"
+                            pathType: Prefix
+                            backend:
+                              service:
+                                name: "deploykf-gateway"
+                                port:
+                                  name: https
 
-              ## these values are used to configure the deployKF Gateway Service
+              ## these values configure the deployKF Gateway Service
               ##
               gatewayService:
                 name: "deploykf-gateway"
