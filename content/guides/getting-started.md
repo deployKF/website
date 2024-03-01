@@ -48,7 +48,7 @@ Here are some of the Kubernetes distributions which are supported by deployKF:
 Platform | Kubernetes Distribution
 --- | ---
 Amazon Web Services | [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/)
-Microsoft Azure | [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/products/kubernetes-service/)<sup>[[:material-alert: see special requirements :material-alert:](https://github.com/deployKF/deployKF/issues/61#issuecomment-1949658332)]</sup> 
+Microsoft Azure | [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/products/kubernetes-service/)<sup>[:material-alert: [see special requirements](https://github.com/deployKF/deployKF/issues/61#issuecomment-1949658332) :material-alert:]</sup> 
 Google Cloud | [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine)
 IBM Cloud | [IBM Cloud Kubernetes Service (IKS)](https://www.ibm.com/cloud/kubernetes-service)
 Self-Hosted | [Rancher Kubernetes Engine (RKE)](https://rancher.com/docs/rke/latest/en/),<br>[Canonical Kubernetes (MicroK8s)](https://microk8s.io/)
