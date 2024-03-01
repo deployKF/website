@@ -36,22 +36,22 @@
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/deploykf-cli/</loc>
-         <lastmod>2024-02-28T22:08:21+00:00</lastmod>
+         <lastmod>2024-03-01T03:27:14+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/getting-started/</loc>
-         <lastmod>2024-02-17T08:18:47+00:00</lastmod>
+         <lastmod>2024-03-01T03:27:14+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/kubeflow-distributions/</loc>
-         <lastmod>2024-01-16T08:34:30+00:00</lastmod>
+         <lastmod>2024-03-01T03:27:14+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/local-quickstart/</loc>
-         <lastmod>2024-02-17T08:18:47+00:00</lastmod>
+         <lastmod>2024-03-01T03:27:14+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
@@ -61,7 +61,7 @@
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/dependencies/argocd/</loc>
-         <lastmod>2024-02-20T23:30:04+00:00</lastmod>
+         <lastmod>2024-03-01T03:27:14+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
@@ -71,17 +71,17 @@
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/dependencies/istio/</loc>
-         <lastmod>2024-02-20T23:30:04+00:00</lastmod>
+         <lastmod>2024-03-01T03:27:14+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/dependencies/kyverno/</loc>
-         <lastmod>2024-01-16T08:34:30+00:00</lastmod>
+         <lastmod>2024-03-01T03:27:14+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/deploykf-authentication/</loc>
-         <lastmod>2024-01-16T08:34:30+00:00</lastmod>
+         <lastmod>2024-03-01T03:27:14+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
@@ -91,7 +91,7 @@
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/deploykf-gateway/</loc>
-         <lastmod>2024-02-28T23:22:09+00:00</lastmod>
+         <lastmod>2024-03-01T03:27:14+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
@@ -120,7 +120,7 @@
     </url>
     <url>
          <loc>https://www.deploykf.org/reference/deploykf-values/</loc>
-         <lastmod>2024-02-17T08:18:47+00:00</lastmod>
+         <lastmod>2024-03-01T03:27:14+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
