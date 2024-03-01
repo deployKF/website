@@ -23,19 +23,19 @@ The following is a summary of the __generator values__ (configs) available in __
 
 ## Argo CD
 
-Values for configs related to Argo CD.
+Values related to [Argo CD](../guides/dependencies/argocd.md#what-is-argo-cd).
 
 {{ render_values_csv_files(values_prefix="argocd") }}
 
 ## Kubernetes
 
-Values for configs related to the Kubernetes cluster.
+Values related to the [Kubernetes cluster](../guides/getting-started.md#kubernetes-cluster).
 
 {{ render_values_csv_files(values_prefix="kubernetes") }}
 
 ## deployKF Dependencies
 
-Values for configuring the dependencies of deployKF.
+Values for configuring dependencies of deployKF.
 
 {{ render_values_csv_files(values_prefix="deploykf_dependencies.") }}
 
@@ -47,25 +47,25 @@ Values for configuring core deployKF components.
 
 ## deployKF Opt
 
-Values for configuring optional embedded applications that can be used when external alternatives are not configured.
+Values for configuring optional embedded applications, which are used when external alternatives are not configured.
 
 {{ render_values_csv_files(values_prefix="deploykf_opt.") }}
 
 ## deployKF Tools
 
-Values for configuring MLOps tools from the deployKF ecosystem.
+Values for configuring tools from the deployKF ecosystem.
 
 {{ render_values_csv_files(values_prefix="deploykf_tools.") }}
 
 ## Kubeflow Dependencies
 
-Values for configuring dependencies of Kubeflow's MLOps tools.
+Values for configuring the __dependencies__ of tools in the [Kubeflow ecosystem](./tools.md#kubeflow-ecosystem).
 
 {{ render_values_csv_files(values_prefix="kubeflow_dependencies.") }}
 
 ## Kubeflow Tools
 
-Values for configuring MLOps tools from the Kubeflow ecosystem.
+Values for configuring tools from the [Kubeflow ecosystem](./tools.md#kubeflow-ecosystem).
 
 {{ render_values_csv_files(values_prefix="kubeflow_tools.") }}
 
