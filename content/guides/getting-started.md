@@ -869,47 +869,8 @@ All public deployKF services (including the dashboard) are accessed via your _de
 
 ??? steps "Expose Gateway - _Local Testing_"
 
-    If you are just testing deployKF, and don't want to [expose the gateway more widely](./platform/deploykf-gateway.md), you may use local `kubectl` port-forwarding with the following steps:
-
-    1. modify your __local__ machine's `/etc/hosts` file
-    2. port-forward the `deploykf-gateway` Service with `kubectl`
-
-    ---
-
-    __Step 1: Modify Hosts File__
-
-    You will need to add some lines to your __local__ `/etc/hosts` file of your __local machine__.
-
-    If the `deploykf_core.deploykf_istio_gateway.gateway.hostname` value has been left as the default of [`"deploykf.example.com"`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L653), you should add the following lines to `/etc/hosts`:
-    
-    ```text
-    127.0.0.1 deploykf.example.com
-    127.0.0.1 argo-server.deploykf.example.com
-    127.0.0.1 minio-api.deploykf.example.com
-    127.0.0.1 minio-console.deploykf.example.com
-    ```
-    
-    !!! question_secondary "Why do I need these entries in my hosts file?"
-
-        The _deployKF Istio Gateway_ uses the HTTP `Host` header to route requests to the correct internal service, meaning that using `localhost` or `127.0.0.1` will NOT work.
-
-    ---
-
-    __Step 2: Port-Forward the Gateway Service__
-
-    You may now port-forward the `deploykf-gateway` Service with the following `kubectl` command:
-
-    ```shell
-    kubectl port-forward \
-      --namespace "deploykf-istio-gateway" \
-      svc/deploykf-gateway 8080:http 8443:https
-    ```
-
-    ---
-
-    The deployKF dashboard should now be available on your local machine at:
-        
-      :material-arrow-right-bold: [https://deploykf.example.com:8443/](https://deploykf.example.com:8443/)
+    If you are just testing deployKF, and don't need to expose the gateway more widely, you may use local `kubectl` port-forwarding.
+    See the ["Expose Gateway and configure HTTPS"](./platform/deploykf-gateway.md#expose-with-kubectl-port-forward) guide for more information.
 
 ### Default Login Credentials
 
@@ -919,7 +880,7 @@ This table lists the default login credentials:
 
 Username | Password | Notes
 --- | --- | ---
-`admin@example.com` | `admin` | The [default "owner"](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L688-L694) of all profiles, but a "member" of none, meaning it does NOT have access to "MinIO Console" or "Argo Workflows Server".<br><br>In production, we recommend leaving this account as the default "owner" but excluding its [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396), so it can't be used to log in. 
+`admin@example.com` | `admin` | In production, we recommend leaving this account as the default "owner" but excluding its [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396), so it can't be used to log in.<br><br>This is the [default "owner"](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L688-L694) of all profiles, but a "member" of none, meaning it does NOT have access to "MinIO Console" or "Argo Workflows Server".
 `user1@example.com` | `user1` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
 `user2@example.com` | `user2` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
 
