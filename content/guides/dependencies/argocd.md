@@ -75,7 +75,11 @@ No, not yet.
 While we believe that Argo CD is currently the best in its category, we recognize that it's not the only option.
 In the future, we may support other Kubernetes GitOps tools (like [Flux CD](https://fluxcd.io/)), or even build a deployKF-specific solution.
 
-Either way, we think deployKF is good enough that it's worth trying, even if you don't love Argo CD!
+We think deployKF is good enough that it's worth trying, even if you don't love Argo CD!
+
+!!! info
+
+    To learn more about this decision, and participate in the discussion, see [`deployKF/deployKF#110`](https://github.com/deployKF/deployKF/issues/110).
 
 ### __Can a single Argo CD deploy multiple clusters?__
 
