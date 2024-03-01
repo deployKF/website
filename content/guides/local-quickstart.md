@@ -693,10 +693,14 @@ All public deployKF services (including the dashboard) are accessed via your _de
 
 For this quickstart, we will be using the port-forward feature of `kubectl` to expose the gateway locally on your machine.
 
+---
+
+__Step 1: Modify Hosts__
+
+The _deployKF Istio Gateway_ uses the HTTP `Host` header to route requests to the correct internal service, meaning that using `localhost` or `127.0.0.1` will NOT work.
+
 === "macOS"
 
-    <h4>Step 1: Modify Hosts</h4>
-  
     You will need to add the following lines to the END of your __local__ `/etc/hosts` file:
 
     ```text
@@ -705,16 +709,9 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
     127.0.0.1 minio-api.deploykf.example.com
     127.0.0.1 minio-console.deploykf.example.com
     ```
-
-    !!! question_secondary "Why do I need these entries in my hosts file?"
-
-        The _deployKF Istio Gateway_ uses the HTTP `Host` header to route requests to the correct internal service, meaning that using `localhost` or `127.0.0.1` will NOT work.
-
 
 === "Linux"
 
-    <h4>Step 1: Modify Hosts</h4>
-
     You will need to add the following lines to the END of your __local__ `/etc/hosts` file:
 
     ```text
@@ -724,13 +721,7 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
     127.0.0.1 minio-console.deploykf.example.com
     ```
 
-    !!! question_secondary "Why do I need these entries in my hosts file?"
-
-        The _deployKF Istio Gateway_ uses the HTTP `Host` header to route requests to the correct internal service, meaning that using `localhost` or `127.0.0.1` will NOT work.
-
 === "Windows"
-
-    <h4>Step 1: Modify Hosts</h4>
 
     You will need to add the following lines to the END of your `C:\Windows\System32\drivers\etc\hosts` file:
 
@@ -750,14 +741,9 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
         ```powershell
         Start-Process notepad.exe -ArgumentList "C:\Windows\System32\drivers\etc\hosts" -Verb RunAs
         ```
-
-    !!! question_secondary "Why do I need these entries in my hosts file?"
-
-        The _deployKF Istio Gateway_ uses the HTTP `Host` header to route requests to the correct internal service, meaning that using `localhost` or `127.0.0.1` will NOT work.
-
 ---
 
-<h4>Step 2: Port-Forward Gateway</h4>
+__Step 2: Port-Forward Gateway__
 
 You may now port-forward the `deploykf-gateway` Service using this `kubectl` command:
 
@@ -773,7 +759,7 @@ The deployKF dashboard should now be available on your local machine at:
 
 ---
 
-<h4>Step 3: Log in to Dashboard</h4>
+__Step 3: Log in to Dashboard__
 
 The default values include [static user/password combinations](./platform/deploykf-authentication.md#static-userpassword-combinations) defined by the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L393-L402) value, which can be used for testing.
 
@@ -781,7 +767,7 @@ This table lists the default login credentials:
 
 Username | Password | Notes
 --- | --- | ---
-`admin@example.com` | `admin` | The [default "owner"](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L688-L694) of all profiles, but a "member" of none, meaning it does NOT have access to "MinIO Console" or "Argo Workflows Server".<br><br>In production, we recommend leaving this account as the default "owner" but excluding its [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396), so it can't be used to log in. 
+`admin@example.com` | `admin` | In production, we recommend leaving this account as the default "owner" but excluding its [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396), so it can't be used to log in.<br><br>This is the [default "owner"](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L688-L694) of all profiles, but a "member" of none, meaning it does NOT have access to "MinIO Console" or "Argo Workflows Server".
 `user1@example.com` | `user1` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
 `user2@example.com` | `user2` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
 

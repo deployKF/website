@@ -12,16 +12,16 @@ Learn how deployKF uses Kyverno and how to integrate your existing Kyverno with 
 
 ## __What is Kyverno?__
 
-TBA
+_Coming soon_
 
 ---
 
 ## __Why does deployKF use Kyverno?__
 
-TBA
+_Coming soon_
 
 ---
 
 ## __Can I use my existing Kyverno?__
 
-TBA
+_Coming soon_

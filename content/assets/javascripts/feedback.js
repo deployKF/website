@@ -49,13 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         /* Do nothing if zaraz is not available */
         if (typeof zaraz == "undefined") return
-        if (typeof zarazData == "undefined") return
 
         /* Send virtual page navigation event */
-        zarazData.l = document.location.href
-        zarazData.t = document.title
-        zaraz.pageVariables = {}
-        zaraz.__zarazMCListeners = {}
-        zaraz.track("__zarazSPA")
+        zaraz.spaPageview()
     })
 })
