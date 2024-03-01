@@ -63,34 +63,58 @@ So your users can access deployKF, the deployKF Gateway Service will need to be 
 
 !!! danger "Public Internet"
 
-    The default Service type ([`deploykf_core.deploykf_istio_gateway.gatewayService.type`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L708)) is `LoadBalancer` in deployKF `v0.1`.
-    This may expose your deployKF Gateway Service to the public internet depending on how your Kubernetes cluster is configured.
-    We plan to change the default to `ClusterIP` in the next minor release of deployKF (`v0.2.0`).
+    The default Service type is `LoadBalancer`, this may expose your deployKF Gateway to the public internet (depending on how your Kubernetes cluster is configured).
 
     You should seriously consider the security implications of exposing the deployKF Gateway to the public internet.
-    Given the nature of ML Platforms, most organizations choose to expose the gateway on their private network, and then use a VPN or other secure connection to access it.
+    Given the nature of ML Platforms, most organizations choose to expose the gateway on a private network, and then use a VPN or other secure connection to access it.
 
-!!! warning "TLS Termination"
+    In the future, the default Service type will be `ClusterIP`, but you can change it now by setting [`deploykf_core.deploykf_istio_gateway.gatewayService.type`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L810):
 
-    The deployKF Gateway __redirects all HTTP requests__ to HTTPS.
+    ```yaml
+    deploykf_core:
+      deploykf_istio_gateway:
+        gatewayService:
+          type: "ClusterIP" # will only be accessible from inside the cluster
+    ```
 
-    Therefore, if your [_LoadBalancer Service_](#expose-with-loadbalancer-service) or [_Kubernetes Ingress_](#expose-with-kubernetes-ingress) performs its own TLS termination (provides its own HTTPS), 
-    you must ensure it talks to the deployKF Gateway with HTTPS, not HTTP.
-    How you do this depends on the type of your Service/Ingress, but here are some general tips:
+!!! warning "SNI Matching (when behind a proxy)"
 
-    1. Always use HTTPS (not HTTP) when talking to the port named `https` on `Service/deploykf-gateway`
-    2. Ensure the original request's `SNI`/`Host` header is proxied to the backend service, otherwise Istio won't know how to route it.
+    If you put the deployKF Gateway behind a proxy which terminates TLS (like AWS ALB), you will probably need to disable _SNI Matching_.
+    This is because most proxies don't forward the original request's [Server Name Indication (SNI)](https://en.wikipedia.org/wiki/Server_Name_Indication) to the backend service after TLS termination.
 
-    If your Istio Gateway uses a self-signed certificate (the default), you must either [configure a valid certificate](#configure-tls-for-istio-gateway) OR have your proxy trust the self-signed certificate by doing ONE of the following:
+    To disable _SNI Matching_, set [`deploykf_core.deploykf_istio_gateway.gateway.tls.matchSNI`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L741-L746) to `false`:
 
-    1. Disable backend certificate validation in your proxy.
+    ```yaml
+    deploykf_core:
+      deploykf_istio_gateway:
+        gateway:
+          tls:
+            matchSNI: false
+    ```
+
+!!! warning "HTTPS Backend (when behind a proxy)"
+
+    By default, the deployKF Gateway redirects all HTTP requests to HTTPS.
+    This means any proxy you place in front of the gateway will need to support HTTPS backends.
+
+    By default, the deployKF Istio Gateway uses a self-signed certificate, to make your proxy trust this certificate you will probably need to do ONE of the following:
+
+    1. [Configure a valid certificate for the gateway](#configure-tls-for-istio-gateway)
     2. Trust the certificate in `Secret/deploykf-istio-gateway-cert` (Namespace: `deploykf-istio-gateway`)
     3. Trust the CA found in `Secret/selfsigned-ca-issuer-root-cert` (Namespace: `cert-manager`)
+    4. Disable backend certificate validation in your proxy
 
-    We will be adding a value to _disable the automatic redirection from HTTP to HTTPS_ in the next minor release of deployKF (`v0.2.0`).
-    Which should allow you to avoid these configurations, if you don't require end-to-end encryption.
+    If your proxy is simply unable to use HTTPS backends, and you don't require end-to-end encryption, you may disable the automatic redirection by setting [`deploykf_core.deploykf_istio_gateway.gateway.tls.redirect`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L748-L758) to `false`:
 
-!!! warning "In-Mesh Traffic to Gateway"
+    ```yaml
+    deploykf_core:
+      deploykf_istio_gateway:
+        gateway:
+          tls:
+            redirect: false
+    ```
+
+!!! info "In-Mesh Traffic to Gateway"
 
     When Pods inside the Istio mesh make requests to the gateway [hostname/ports](#1-set-hostname-and-ports), this traffic bypasses your public LoadBalancer/Ingress and goes directly to the Gateway Deployment Pods (through the mesh).
     This happens from [this `ServiceEntry`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/templates/manifests/deploykf-core/deploykf-istio-gateway/templates/gateway/ServiceEntry-gateway.yaml), and because we enable Istio's [DNS Proxying](https://istio.io/latest/docs/ops/configuration/traffic-management/dns-proxy/) feature (by setting [`ISTIO_META_DNS_CAPTURE` and `ISTIO_META_DNS_AUTO_ALLOCATE` to `true`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/templates/manifests/deploykf-dependencies/istio/values.yaml#L10-L17) in the default Istio [ProxyConfig](https://istio.io/latest/docs/reference/config/istio.mesh.v1alpha1/#ProxyConfig)).
@@ -110,25 +134,95 @@ So your users can access deployKF, the deployKF Gateway Service will need to be 
         - Note, we create a [trust-manager `Bundle`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/templates/manifests/deploykf-dependencies/cert-manager/templates/selfsigned-ca-issuer/Bundle.yaml) for this CA by default;
           All Namespaces with the label `deploykf.github.io/inject-root-ca-cert: "enabled"` will have a `ConfigMap` named `deploykf-gateway-issuer-root-ca-cert` with a key named `root-cert.pem` containing the CA certificate.
 
-!!! warning "LoadBalancer vs Ingress"
-
-    Using a [LoadBalancer Service](#expose-with-loadbalancer-service) is preferred to a Kubernetes Ingress for the following reasons:
-
-    1. __Faster__: less hops between the client and the gateway
-    2. __Future-proof__: deployKF might expose non-HTTP services in the future
-    3. __Simpler TLS__: most Ingress controllers don't support TLS passthrough, which means you need to configure TLS termination on the Ingress controller
-
 !!! info "Including Arbitrary Manifests"
 
     deployKF provides an `extraManifests` value for each component which allows arbitrary YAML manifests to be added to the generated output.
     For example, [`deploykf_core.deploykf_istio_gateway.extraManifests`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L628-L632) may be used to add a custom Ingress or Secret resource to the generated output of the `deploykf-istio-gateway` component.
 
+### Expose with `kubectl` port-forward
+
+This section explains how to expose the deployKF Gateway Service with `kubectl port-forward`.
+
+??? steps "Expose Gateway - _`kubectl` port-forward_"
+
+    The `kubectl port-forward` command allows you to access a Service from your local machine.
+
+    !!! warning "Development Only"
+
+        Using `kubectl port-forward` is intended for testing only, and is not suitable for production use.
+        Also, please note there are upstream issues which can cause you to need to restart the port-forward, see [`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551) for more information.
+
+    ---
+
+    __Step 1: Modify Hosts__
+    
+    The _deployKF Istio Gateway_ uses the HTTP `Host` header to route requests to the correct internal service, meaning that using `localhost` or `127.0.0.1` will NOT work.
+    
+    === "macOS"
+    
+        You will need to add the following lines to the END of your __local__ `/etc/hosts` file:
+    
+        ```text
+        127.0.0.1 deploykf.example.com
+        127.0.0.1 argo-server.deploykf.example.com
+        127.0.0.1 minio-api.deploykf.example.com
+        127.0.0.1 minio-console.deploykf.example.com
+        ```
+    
+    === "Linux"
+    
+        You will need to add the following lines to the END of your __local__ `/etc/hosts` file:
+    
+        ```text
+        127.0.0.1 deploykf.example.com
+        127.0.0.1 argo-server.deploykf.example.com
+        127.0.0.1 minio-api.deploykf.example.com
+        127.0.0.1 minio-console.deploykf.example.com
+        ```
+    
+    === "Windows"
+    
+        You will need to add the following lines to the END of your `C:\Windows\System32\drivers\etc\hosts` file:
+    
+        ```text
+        127.0.0.1 deploykf.example.com
+        127.0.0.1 argo-server.deploykf.example.com
+        127.0.0.1 minio-api.deploykf.example.com
+        127.0.0.1 minio-console.deploykf.example.com
+        ```
+      
+        !!! warning "Edit hosts file as Administrator"
+    
+            The hosts file can ONLY be edited by the Windows _Administrator_ user.
+    
+            Run this PowerShell command to start an _Administrator_ Notepad, which can edit the hosts file:
+        
+            ```powershell
+            Start-Process notepad.exe -ArgumentList "C:\Windows\System32\drivers\etc\hosts" -Verb RunAs
+            ```
+    ---
+    
+    __Step 2: Port-Forward Gateway__
+    
+    You may now port-forward the `deploykf-gateway` Service using this `kubectl` command:
+    
+    ```shell
+    kubectl port-forward \
+      --namespace "deploykf-istio-gateway" \
+      svc/deploykf-gateway 8080:http 8443:https
+    ```
+    
+    The deployKF dashboard should now be available on your local machine at:
+        
+      :material-arrow-right-bold: [https://deploykf.example.com:8443/](https://deploykf.example.com:8443/)
+    
+    ---
+
 ### Expose with LoadBalancer Service
 
 This section explains how to expose the deployKF Gateway Service with a [LoadBalancer](https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer) type Service.
-This is the __recommended option__ for most users.
 
-??? steps "Expose Gateway - _LoadBalancer Service_ :star:"
+??? steps "Expose Gateway - _LoadBalancer Service_"
 
     Most Kubernetes platforms provide a LoadBalancer Service that can expose on a public/private IP address.
     
@@ -284,15 +378,25 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
             ## these values configure the deployKF Istio Gateway
             ##
             gateway:
+              ## when using an ingress, standard ports are required
+              ## (the default in 'sample-values.yaml' are 8080/8443)
+              ports:
+                http: 80
+                https: 443
+
+              ## these values configure TLS
+              ##
               tls:
-                ## must be false, AWS ALB does NOT forward the SNI/Host after TLS termination
+                ## ALB does NOT forward the SNI after TLS termination, 
+                ## so we must disable SNI matching in the gateway
                 matchSNI: false
 
             ## these values configure the deployKF Gateway Service
             ##
             gatewayService:
               name: "deploykf-gateway"
-              type: "NodePort"
+              ## WARNING: must be "NodePort" if "alb.ingress.kubernetes.io/target-type" is "instance"
+              type: "ClusterIP"
               annotations: {}
         ```
 
@@ -302,7 +406,7 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
 
         In the following example, we are configuring the GKE Ingress to use the same TLS certificate as the deployKF Gateway Service (found in `Secret/deploykf-istio-gateway-cert`).
         Later in this guide you will learn how to [make this certificate valid](#configure-tls-for-istio-gateway), and not self-signed.
-        
+
         !!! warning "Google Managed Certificates"
 
             _Google Managed Certificates_ are [only supported](https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs#prerequisites) by EXTERNAL Application Load Balancers (ALB).
@@ -351,6 +455,15 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
                                 port:
                                   name: https
 
+            ## these values configure the deployKF Istio Gateway
+            ##
+            gateway:
+              ## when using an ingress, standard ports are required
+              ## (the default in 'sample-values.yaml' are 8080/8443)
+              ports:
+                http: 80
+                https: 443
+
             ## these values configure the deployKF Gateway Service
             ##
             gatewayService:
@@ -358,7 +471,7 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
               type: "NodePort"
               annotations:
                 cloud.google.com/app-protocols: '{"https":"HTTPS","http":"HTTP"}'
-                
+
                 ## this annotation may be required if you are using a Shared VPC
                 ##  https://cloud.google.com/kubernetes-engine/docs/how-to/internal-load-balance-ingress#shared_vpc
                 #cloud.google.com/neg: '{"ingress": true}'
@@ -376,7 +489,7 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
         ```yaml
         deploykf_core:
           deploykf_istio_gateway:
-  
+
             ## this value adds arbitrary manifests to the generated output
             ##
             extraManifests:
@@ -388,7 +501,7 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
                   annotations:
                     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
 
-                    ## nginx wil NOT proxy the SNI/Host header by default
+                    ## nginx wil NOT proxy the SNI by default
                     ## see: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#backend-certificate-authentication
                     nginx.ingress.kubernetes.io/proxy-ssl-name: "deploykf.example.com"
                     nginx.ingress.kubernetes.io/proxy-ssl-server-name: "on"
@@ -423,12 +536,21 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
                                 port:
                                   name: https
 
-              ## these values configure the deployKF Gateway Service
-              ##
-              gatewayService:
-                name: "deploykf-gateway"
-                type: "ClusterIP"
-                annotations: {}
+            ## these values configure the deployKF Istio Gateway
+            ##
+            gateway:
+              ## when using an ingress, standard ports are required
+              ## (the default in 'sample-values.yaml' are 8080/8443)
+              ports:
+                http: 80
+                https: 443
+
+            ## these values configure the deployKF Gateway Service
+            ##
+            gatewayService:
+              name: "deploykf-gateway"
+              type: "ClusterIP"
+              annotations: {}
         ```
 
 ## 3. Configure DNS
@@ -506,7 +628,7 @@ This is the __recommended option__ for most users.
 
     !!! danger "Deletion of DNS Records"
 
-        Be aware that External-DNS will __delete__ the DNS records associated with resources when they are deleted:
+        Be aware that External-DNS will __delete__ the DNS records associated with resources when they are deleted, unless you set the `--policy=upsert-only` flag in the startup arguments of external-dns.
 
         - When using the annotation method, deleting the `Service` or `Ingress` resource will delete the associated DNS records.
         - When using `--source=istio-gateway`, deleting the Istio `Gateway` or `VirtualService` will delete the associated DNS records.
@@ -588,21 +710,28 @@ The following steps explain how to use a valid TLS certificate from Let's Encryp
     
         To use Pod-based authentication with your DNS Provider (for example, to use IRSA on EKS), you may need to annotate the cert-manager ServiceAccount.
         
-        Custom ServiceAccount annotations may be applied to the embedded cert-manager with the [`deploykf_dependencies.cert_manager.controller.serviceAccount.annotations`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L155) value:
+        Custom ServiceAccount annotations may be applied to the embedded cert-manager with the [`deploykf_dependencies.cert_manager.controller.serviceAccount.annotations`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L177) value:
 
         ```yaml
         deploykf_dependencies:
           cert_manager:
-        
             controller:
-        
+
+              ## EXAMPLE: for Azure AD Workload Identity
+              #podLabels:
+              #  azure.workload.identity/use: "true"
+
               serviceAccount:
                 annotations: 
                   ## EXAMPLE: for AWS IRSA
-                  eks.amazonaws.com/role-arn: "arn:aws:iam::MY_ACCOUNT_ID:role/MY_ROLE_NAME"
+                  #eks.amazonaws.com/role-arn: "arn:aws:iam::MY_ACCOUNT_ID:role/MY_ROLE_NAME"
 
                   ## EXAMPLE: for GCP Workload Identity
-                  iam.gke.io/gcp-service-account=GSA_NAME@GSA_PROJECT.iam.gserviceaccount.com
+                  #iam.gke.io/gcp-service-account=GSA_NAME@GSA_PROJECT.iam.gserviceaccount.com
+
+                  ## EXAMPLE: for Azure AD Workload Identity
+                  #azure.workload.identity/client-id: "00000000-0000-0000-0000-000000000000"
+                  #azure.workload.identity/tenant-id: "00000000-0000-0000-0000-000000000000"
         ```
 
     !!! tip "Issuer Kind"
