@@ -18,9 +18,9 @@ Learn how to __expose the deployKF gateway service__ and __configure HTTPS__.
 
 ## Introduction
 
-The "deployKF Gateway Service" is the main network entry point to deployKF. 
-
-By default, it is a [Kubernetes Service](https://kubernetes.io/docs/concepts/services-networking/service/) named `deploykf-gateway` pointing to our [Istio Ingress Gateway](https://istio.io/latest/docs/tasks/traffic-management/ingress/ingress-control/) Pods configured by the [`deploykf_core.deploykf_istio_gateway.gatewayService`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L703-L710) values.
+The "deployKF Gateway Service" is the main network entry point to deployKF.
+By default, it is a Kubernetes `Service` named `deploykf-gateway` pointing to our [Istio Ingress Gateway](../dependencies/istio.md#gateways) Pods.
+It is configured by the [`deploykf_core.deploykf_istio_gateway.gatewayService`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L805-L823) values.
 
 ## 1. Set Hostname and Ports
 
@@ -28,8 +28,8 @@ The hostnames and ports on which the deployKF Gateway listens are configured wit
 
 Value | Purpose
 --- | ---
-[`deploykf_core.deploykf_istio_gateway.gateway.hostname`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L653) | base domain name
-[`deploykf_core.deploykf_istio_gateway.gateway.ports`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L654) | ports for HTTP/HTTPS
+[`deploykf_core.deploykf_istio_gateway.gateway.hostname`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L710-L713) | base domain name
+[`deploykf_core.deploykf_istio_gateway.gateway.ports`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L715-L724) | ports to listen on
 
 For example, the following values will use `deploykf.example.com` on port `80` and `443`:
 
@@ -147,7 +147,7 @@ This section explains how to expose the deployKF Gateway Service with `kubectl p
 
     The `kubectl port-forward` command allows you to access a Service from your local machine.
 
-    !!! warning "Development Only"
+    !!! warning "Not for Production Use"
 
         Using `kubectl port-forward` is intended for testing only, and is not suitable for production use.
         Also, please note there are upstream issues which can cause you to need to restart the port-forward, see [`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551) for more information.
@@ -228,8 +228,8 @@ This section explains how to expose the deployKF Gateway Service with a [LoadBal
     
     To use this option, you will generally need to do the following:
 
-    1. Set the [`deploykf_core.deploykf_istio_gateway.gatewayService.type`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L653) value to `"LoadBalancer"` (the default)
-    2. Use the [`deploykf_core.deploykf_istio_gateway.gatewayService.annotations`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L654C7-L654C18) value to configure the Service
+    1. Set the [`deploykf_core.deploykf_istio_gateway.gatewayService.type`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L810) value to `"LoadBalancer"` (the default)
+    2. Use the [`deploykf_core.deploykf_istio_gateway.gatewayService.annotations`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L809) value to configure the Service
 
     ---
 
@@ -303,8 +303,8 @@ This section explains how to expose the deployKF Gateway Service with a [Kuberne
     
     To use this option, you will generally need to do the following:
 
-    1. Set the [`deploykf_core.deploykf_istio_gateway.gatewayService.type`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L653) value to `"NodePort"` or `"ClusterIP"`
-    2. Use the [`deploykf_core.deploykf_istio_gateway.gatewayService.annotations`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L654C7-L654C18) value to configure the Service
+    1. Set the [`deploykf_core.deploykf_istio_gateway.gatewayService.type`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L810) value to `"NodePort"` or `"ClusterIP"`
+    2. Use the [`deploykf_core.deploykf_istio_gateway.gatewayService.annotations`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L809) value to configure the Service
     3. Create an `Ingress` resource that points to the `deploykf-gateway` Service
 
     ---
