@@ -18,7 +18,6 @@ An __introduction__ to deployKF.
 !!! question_secondary ""
 
     :custom-deploykf-color: <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> helps you build world-class data and machine learning platforms on __any Kubernetes cluster__, in any cloud or environment.
-
     Our vision is that __anyone with Kubernetes experience__ can effortlessly build and support a _custom data and machine learning platform_ for their organization, without requiring specialized MLOps knowledge.
 
 ### __Why use deployKF?__
@@ -73,19 +72,14 @@ An __introduction__ to deployKF.
 
 ---
 
-## Using deployKF
+## Use deployKF
 
-### Getting Started
+We have a number of guides to help you get started with deployKF.
 
-!!! question_secondary ""
+[Getting Started<br><small>(Production)</small>](../guides/getting-started.md){ .md-button .md-button--secondary }
+[Local Quickstart<br><small>(Try Locally)</small>](../guides/local-quickstart.md){ .md-button .md-button--secondary }
 
-    To help you get started with deployKF, we have prepared a number of guides:
-
-    - [__Getting Started__ :star:](../guides/getting-started.md) - learn how to run deployKF anywhere
-    - [__Local Quickstart__](../guides/local-quickstart.md) - try deployKF on your local machine
-    - [__Migrate from Kubeflow Distributions__](../guides/kubeflow-distributions.md) - how and why to migrate from other Kubeflow distributions
-
-### Support the Project
+### __Support the Project__
 
 !!! warning ""
 
@@ -101,69 +95,33 @@ An __introduction__ to deployKF.
 
 ## Other Resources
 
-### Commercial Support
+### __Commercial Support__
 
 !!! support ""
 
-    If you need commercial support for deployKF, please contact [:custom-aranui-solutions-color: __Aranui Solutions__](https://www.aranui.solutions/).
-    Aranui Solutions is a US-based company founded by the creators of deployKF to help organizations build ML & Data Platforms on Kubernetes.
+    To discuss commercial support options for deployKF, please connect with [:custom-aranui-solutions-color: __Aranui Solutions__](https://www.aranui.solutions/), the company started by the creators of deployKF.
     
-    [Visit: _Aranui Solutions Website_](https://www.aranui.solutions/){ .md-button .md-button--secondary }
-    [Email: _`sales@aranui.solutions`_](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
+    [:material-open-in-new: Visit Website](https://www.aranui.solutions/){ .md-button .md-button--secondary }
+    [:fontawesome-solid-envelope: Email Aranui Solutions](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
 
-### Common Questions
+### __Community__
 
-??? question_secondary "How are Kubeflow and deployKF related?"
+!!! support ""
 
-    Kubeflow and deployKF are two different but related projects.
+    The deployKF community uses the __Kubeflow Slack__ for informal discussions among users and contributors.
+    <br>
+    After you join, connect with us on the [`#deploykf`](https://kubeflow.slack.com/archives/C054H6WLNCB) channel!
 
-    You may wish to review our detailed [:custom-deploykf-color: __deployKF__ vs :custom-kubeflow-color: __Kubeflow Manifests__](../about/kubeflow-vs-deploykf.md#deploykf-vs-kubeflow-manifests) comparison.
-    Note, most other [distributions of Kubeflow](https://www.kubeflow.org/docs/started/installing-kubeflow/#packaged-distributions-of-kubeflow) use __largely unmodified__ versions of the Kubeflow Manifests. 
-    So the comparison is also relevant to them.
+    [:fontawesome-brands-slack: Join the Slack](https://invite.playplay.io/invite?team_id=T7QLHSH6U){ .md-button .md-button--secondary }
 
-??? question_secondary "Who maintains deployKF?"
+    The deployKF community has two mailing lists which are hosted on Google Groups.
+
+    [:fontawesome-solid-envelope: Join User Mailing List](https://groups.google.com/g/deploykf-users){ .md-button .md-button--secondary }
+    [:fontawesome-solid-envelope: Join Contributor Mailing List](https://groups.google.com/g/deploykf-dev){ .md-button .md-button--secondary }
+
+### __History__
+
+!!! support ""
 
     deployKF was originally created and is maintained by [Mathew Wicks](https://www.linkedin.com/in/mathewwicks/) (GitHub: [@thesuperzapper](https://github.com/thesuperzapper)), a Kubeflow lead and maintainer of the popular [Apache Airflow Helm Chart](https://github.com/airflow-helm/charts).
     deployKF is a community-led project that welcomes contributions from anyone who wants to help.
-
-??? question_secondary "Do you have a Slack or Mailing List?"
-
-    __Slack:__
-
-    - The deployKF community uses the __Kubeflow Slack__ for informal discussions among users and contributors.
-    - Find us on the [`#deploykf`](https://kubeflow.slack.com/archives/C054H6WLNCB) channel!
-
-    [:fontawesome-brands-slack: Join the Kubeflow Slack](https://invite.playplay.io/invite?team_id=T7QLHSH6U){ .md-button .md-button--secondary }
-
-    ---
-
-    __Mailing Lists:__
-
-    - [__deploykf-users__](https://groups.google.com/g/deploykf-users) is for deployKF users to ask questions and share ideas.
-    - [__deploykf-dev__](https://groups.google.com/g/deploykf-dev) is for deployKF contributors to discuss development and design.
-    
-    [:fontawesome-solid-envelope: Join: _User Mailing List_](https://groups.google.com/g/deploykf-users){ .md-button .md-button--secondary }
-    [:fontawesome-solid-envelope: Join: _Contributor Mailing List_](https://groups.google.com/g/deploykf-dev){ .md-button .md-button--secondary }
-
-### Media and Presentations
-
-??? image "Screenshot - _deployKF Dashboard_"
-
-    <div class="image-wrapper">
-    ![deployKF Dashboard (Dark Mode)](../assets/images/deploykf-dashboard-DARK.png#only-dark)
-    ![deployKF Dashboard (Light Mode)](../assets/images/deploykf-dashboard-LIGHT.png#only-light)
-    </div>
-    <div class="image-caption">
-    The [__deployKF Dashboard__](https://github.com/deployKF/dashboard) is the web-based interface that end-users interact with the platform through.
-    </div>
-
-??? youtube "Intro / Demo - Kubeflow Community Call - July 2023"
-
-    <div class="video-padding">
-        <div class="youtube-video-container">
-            <iframe src="https://www.youtube.com/embed/VggtaOgtBJo?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-    </div>
-    <div class="video-caption">
-        A recording of the __Kubeflow Community Call__ from July 2023, where we first introduced deployKF to the community.
-    </div>
