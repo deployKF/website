@@ -12,7 +12,6 @@ faq_schema:
     pre_expand_answer: true
     answer: |-
       deployKF helps you build world-class data and machine learning platforms on __any Kubernetes cluster__, in any cloud or environment.
-      
       Our vision is that __anyone with Kubernetes experience__ can effortlessly build and support a _custom data and machine learning platform_ for their organization, without requiring specialized MLOps knowledge.
 
   - question: Why use deployKF?
@@ -40,11 +39,10 @@ faq_schema:
     pre_expand_answer: true
     admonition_type: support
     answer: |-
-      If you need commercial support for deployKF, please contact __Aranui Solutions__.
-      Aranui Solutions is a US-based company founded by the creators of deployKF to help organizations build ML & Data Platforms on Kubernetes.
+      To discuss commercial support options for deployKF, please connect with [:custom-aranui-solutions-color: __Aranui Solutions__](https://www.aranui.solutions/), the company started by the creators of deployKF.
 
-      [Visit: _Aranui Solutions Website_](https://www.aranui.solutions/){ .md-button .md-button--secondary }
-      [Email: _`sales@aranui.solutions`_](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
+      [:material-open-in-new: Visit Website](https://www.aranui.solutions/){ .md-button .md-button--secondary }
+      [:fontawesome-solid-envelope: Email Aranui Solutions](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
 
   - question: Which ML and AI tools are in deployKF?
     include_in_schema: true
@@ -54,7 +52,7 @@ faq_schema:
       We are actively adding support for other popular tools such as [MLflow](./reference/future-tools.md#mlflow-model-registry), [Airflow](./reference/future-tools.md#apache-airflow), and [Feast](./reference/future-tools.md#feast). 
       For more information, please see our [current](./reference/tools.md) and [future](./reference/future-tools.md) tools!
 
-  - question: Who maintains deployKF?
+  - question: Who created deployKF?
     include_in_schema: true
     pre_expand_answer: false
     answer: |-
