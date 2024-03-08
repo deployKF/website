@@ -346,7 +346,7 @@ git clone -b main https://github.com/deployKF/deployKF.git ./deploykf
 chmod +x ./deploykf/argocd-plugin/install_argocd.sh
 
 # run the install script
-# WARNING: this will install into your current kubectl context
+# WARNING: this will install into ARGOCD_NAMESPACE (default "argocd")
 bash ./deploykf/argocd-plugin/install_argocd.sh
 ```
 
