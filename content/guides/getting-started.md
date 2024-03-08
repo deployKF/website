@@ -1,147 +1,99 @@
 ---
 icon: material/rocket-launch
 description: >-
-  Learn how to build a data and machine learning platform on any Kubernetes cluster with deployKF.
-  Use our powerful Helm-like interface to deploy Kubeflow and other MLOps tools with ease.
+  Learn how to use deployKF in production.
+  Easily deploy Kubeflow and other MLOps tools as a complete platform!
 ---
 
 # Getting Started
 
-Learn how to build a __data and machine learning platform__ on __any Kubernetes cluster__ with deployKF.
-Use our powerful Helm-like interface to deploy Kubeflow and other MLOps tools with ease.
-
-!!! tip "Other Resources"
-
-    - [__Local Quickstart__](local-quickstart.md) - try deployKF on your local machine
-    - [__Migrate from Kubeflow Distributions__](kubeflow-distributions.md) - how and why to migrate from other Kubeflow distributions
+<strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> builds machine learning platforms on __Kubernetes__.
+We bring together the [best of Kubeflow](../reference/tools.md#kubeflow-ecosystem) and other tools into a complete platform which is easy to deploy and maintain.
 
 ---
 
-## Introduction
+### __About this Guide__
 
-To learn about :custom-deploykf-color: <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> and why you should use it, see the [introduction](../about/introduction.md) page.
+This page will guide you to create a production-ready deployKF platform.
+We cover the requirements, and explain how to configure and deploy your platform on any Kubernetes cluster.
 
-[Read Introduction<br>:material-lightbulb-on:](../about/introduction.md#about-deploykf){ .md-button .md-button--primary }
-[Watch Introduction<br>:material-youtube:](../about/introduction.md#video-introduction){ .md-button .md-button--primary }
+We suggest new users start with the __About deployKF__ and __Local Quickstart__ guides:
 
-## Modes of Operation
+[About deployKF<br>:custom-deploykf-color:](../about/introduction.md#about-deploykf){ .md-button .md-button--secondary }
+[Local Quickstart<br>:material-sprout:](./local-quickstart.md){ .md-button .md-button--secondary }
 
-deployKF has two "modes of operation" that change how Kubernetes manifests are generated and applied to your cluster.
+Existing Kubeflow users should start with our migration guide:
 
-Mode | Description | Notes
---- | --- | ---
-[ArgoCD Plugin Mode](#argocd-plugin-mode) | The [`deployKF ArgoCD Plugin`](./dependencies/argocd.md#what-is-the-deploykf-argocd-plugin) adds a new kind of [ArgoCD Application](./dependencies/argocd.md#argo-cd-applications) which understands deployKF config values and can generate manifests directly, without requiring a git repo.<br><br><small>:star: __The best option for most organizations__. :star:</small> | Even though manifests do not require a git repo, config values can still be managed using GitOps.<br><br>Requires ArgoCD Pods have access to the internet, so they can download the deployKF generator zip from GitHub.
-[Manifests Repo Mode](#manifests-repo-mode) | The [`deployKF CLI`](deploykf-cli.md) is used to generate manifests which are committed to a git repo for ArgoCD to apply to your cluster. | For organizations which require that Kubernetes manifests are committed to a git repo before being applied (e.g. for auditing or compliance reasons).
+[:custom-kubeflow: Migrate from Kubeflow Distributions](./kubeflow-distributions.md#about-migrating){ .md-button .md-button--secondary }
 
 ## 1. Requirements
 
-This guide assumes you have an existing Kubernetes cluster, and are familiar with the basics of Kubernetes.
-To try deployKF on your local machine, please see the [Local Quickstart](local-quickstart.md).
+### __Kubernetes Cluster__
 
-### Kubernetes Cluster
+deployKF can run on any [:custom-kubernetes-color: __Kubernetes__](https://kubernetes.io/) cluster, in __any cloud or environment__.
+See the [__version matrix__](../releases/version-matrix.md#deploykf-dependencies) for a list of supported Kubernetes versions.
 
-deployKF can run on any [:custom-kubernetes-color: __Kubernetes__](https://kubernetes.io/) cluster, in any cloud or local environment.
-See our [version matrix](../releases/version-matrix.md#deploykf-dependencies) for a list of supported Kubernetes versions.
+Here are some Kubernetes distributions which are supported by deployKF:
 
-Here are some of the Kubernetes distributions which are supported by deployKF:
-
-Platform | Kubernetes Distribution
+Target Platform | Kubernetes Distribution
 --- | ---
 Amazon Web Services | [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/)
-Microsoft Azure | [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/products/kubernetes-service/)<sup>[:material-alert: [see special requirements](https://github.com/deployKF/deployKF/issues/61#issuecomment-1949658332) :material-alert:]</sup> 
+Microsoft Azure | [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/products/kubernetes-service/)<br><small>:material-alert: [see special requirements](https://github.com/deployKF/deployKF/issues/61#issuecomment-1949658332) :material-alert:</small> 
 Google Cloud | [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine)
 IBM Cloud | [IBM Cloud Kubernetes Service (IKS)](https://www.ibm.com/cloud/kubernetes-service)
-Self-Hosted | [Rancher Kubernetes Engine (RKE)](https://rancher.com/docs/rke/latest/en/),<br>[Canonical Kubernetes (MicroK8s)](https://microk8s.io/)
-Local Machine | [k3d](https://k3d.io/), [kind](https://kind.sigs.k8s.io/), [minikube](https://minikube.sigs.k8s.io/)
+Self-Hosted | [Rancher (RKE)](https://ranchermanager.docs.rancher.com/) // [kOps](https://kops.sigs.k8s.io/) // [Kubespray](https://kubespray.io/) // [kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+Edge | [k3s](https://k3s.io/) // [k0s](https://k0sproject.io/) // [MicroK8s](https://microk8s.io/)
+Local Machine | [k3d](https://k3d.io/) // [Kind](https://kind.sigs.k8s.io/) // [Minikube](https://minikube.sigs.k8s.io/) 
 
-!!! warning "Dedicated Kubernetes Cluster"
+!!! warning "Dedicated Cluster"
 
-    Only __ONE__ deployKF platform can be on a Kubernetes cluster at a time.
+    We strongly recommend using a __dedicated cluster__ for deployKF.
+    This is because deployKF has a number of cluster-level dependencies which may conflict with other applications.
 
-    Additionally, deployKF is not well suited to multi-tenant clusters.
-    It uses cluster-wide components (e.g. Istio) and Namespaces for profiles.
-    We strongly recommend __using a dedicated cluster__ for deployKF.
+    <small>If you are unable to create a new Kubernetes cluster, you may consider using [vCluster](https://github.com/loft-sh/vcluster) to create a virtual Kubernetes cluster within an existing one.</small>
 
-    If you are unable to create a new Kubernetes cluster, you may consider using [vCluster](https://github.com/loft-sh/vcluster) to create a virtual Kubernetes cluster within an existing one.
-
-### Kubernetes Configurations
+### __Kubernetes Configurations__
 
 The following Kubernetes configurations are required for deployKF to work correctly:
 
-!!! info "CPU Architecture"
+Configuration | Description
+--- | ---
+CPU Architecture | The cluster must have `x86_64` Nodes.
+Cluster Domain | The [`clusterDomain`](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) of your kubelet must be `"cluster.local"`.
+Service Type | By default, the cluster must have a `LoadBalancer` service type.<br><small>:material-alert: Be careful to not expose your platform to the public internet. :material-alert:</small>
+Default StorageClass | The default [`StorageClass`](https://kubernetes.io/docs/concepts/storage/storage-classes/) must support the `ReadWriteOnce` access mode.
 
-    deployKF requires `x86_64` CPU Architecture, `ARM64` clusters are NOT currently supported.
+??? question_secondary "What about ARM Nodes?"
 
     The next minor version of deployKF (`v0.2.0`) should have native `ARM64` for all core components.
     However, some upstream apps like _Kubeflow Pipelines_ will need extra work to be production ready ([`#10309`](https://github.com/kubeflow/pipelines/issues/10309), [`#10308`](https://github.com/kubeflow/pipelines/issues/10308)).
 
-!!! info "Cluster Domain"
+??? question_secondary "Can I use a different Service Type?"
 
-    deployKF requires the Kubernetes kubelet [`clusterDomain`](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) be left as the default of `cluster.local`.
-    This is caused by a small number of Kubeflow components hard-coding this value, with no way to change it.
+    For real-world usage, you should review the [Expose Gateway and configure HTTPS](./platform/deploykf-gateway.md) guide.
 
-!!! info "Service Type"
+    To use a different service type, you can override the `deploykf_core.deploykf_istio_gateway.gatewayService.type` value:
 
-    By default, deployKF uses a `LoadBalancer` service type for the _Istio Ingress Gateway_.
-    Take care to ensure this does not accidentally expose your platform to the public internet.
+    ```yaml
+    deploykf_core:
+      deploykf_istio_gateway:
+        gatewayService:
+          type: "NodePort" # or "ClusterIP"
+    ```
 
-    ??? question_secondary "How can I use a different Service Type?"
-    
-        To use a different service type, you can override the `deploykf_core.deploykf_istio_gateway.gatewayService.type` value:
+??? question_secondary "What if I don't have a default StorageClass?"
 
-        ```yaml
-        deploykf_core:
-          deploykf_istio_gateway:
-            gatewayService:
-              type: "NodePort" # or "ClusterIP"
-        ```
+    If you do NOT have a compatible default StorageClass, you might consider the following options:
 
-        For real-world usage, you should review the [Expose Gateway and configure HTTPS](./platform/deploykf-gateway.md) guide.
+    1. Configure [a default StorageClass](https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/) that has `ReadWriteOnce` support
+    2. Explicitly set the `storageClass` value for the following components:
+         - [`deploykf_opt.deploykf_minio.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L901-L905)
+         - [`deploykf_opt.deploykf_mysql.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1036-L1040)
+    2. Disable components which require the StorageClass, and use external alternatives:
+         - [Connect an External S3-like Object Store](./tools/external-object-store.md)
+         - [Connect an External MySQL Database](./tools/external-mysql.md)
 
-!!! info "Default StorageClass"
-
-    By default, deployKF assumes your Kubernetes cluster has a default [`StorageClass`](https://kubernetes.io/docs/concepts/storage/storage-classes/) which has support for the `ReadWriteOnce` access mode.
-
-    ??? question_secondary "What if I don't have a default StorageClass?"
-    
-        If you do NOT have a compatible default StorageClass, you might consider the following options:
-    
-        1. Configure [a default StorageClass](https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/) that has `ReadWriteOnce` support
-        2. Explicitly set the `storageClass` value for the following components:
-             - [`deploykf_opt.deploykf_minio.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L901-L905)
-             - [`deploykf_opt.deploykf_mysql.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1036-L1040)
-        2. Disable components which require the StorageClass, and use external alternatives:
-             - [`deploykf_opt.deploykf_minio.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L853)
-             - [`deploykf_opt.deploykf_mysql.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L993)
-
-### ArgoCD Configuration
-
-deployKF requires [:custom-argocd-color: __Argo CD__](./dependencies/argocd.md#what-is-argo-cd) to manage lifecycle and state ([learn why](./dependencies/argocd.md#how-does-deploykf-use-argo-cd)).
-See our [version matrix](../releases/version-matrix.md#deploykf-dependencies) for a list of supported Argo CD versions.
-How you configure ArgoCD depends on which ["mode of operation"](#modes-of-operation) you have chosen.
-
-The following table lists the requirements in each mode:
-
-=== "ArgoCD Plugin Mode :star:"
-
-    Requirement | Guides
-    --- | ---
-    ArgoCD installed | [Install ArgoCD](https://argo-cd.readthedocs.io/en/stable/getting_started/)<br>[Install ArgoCD (+ Plugin)](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---new-argocd)
-    deployKF ArgoCD Plugin | [Install Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---existing-argocd)<br>[Install Plugin (+ ArgoCD)](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---new-argocd)
-
-=== "Manifests Repo Mode"
-
-    Requirement | Guides
-    --- | ---
-    ArgoCD installed | [Install ArgoCD](https://argo-cd.readthedocs.io/en/stable/getting_started/)
-    _deployKF CLI_ installed locally | [Install deployKF CLI](deploykf-cli.md)
-    A private git repo | Used to store generated manifests.
-
-!!! tip
-
-    If you are unsure which mode to use, we recommend the _ArgoCD Plugin Mode_.
-
-### Cluster Dependencies
+### __Cluster Dependencies__
 
 deployKF uses a number of cluster-level dependencies which are __installed by default__.
 If you have an existing version of a dependency, deployKF can be configured to use it instead.
@@ -154,21 +106,54 @@ Cert-Manager | Generating and maintaining TLS/HTTPS certificates. | [What is Cer
 Istio | Network service mesh for the platform, used to enforce client authentication and secure internal traffic. | [What is Istio?](./dependencies/istio.md) / [Use my existing Istio.](./dependencies/istio.md#can-i-use-my-existing-istio)
 Kyverno | Mutating resources, replicating secrets across namespaces, and restarting Pods when configs change. | <s>[What is Kyverno?](./dependencies/kyverno.md)</s> / <s>[Use my existing Kyverno.](./dependencies/kyverno.md#can-i-use-my-existing-kyverno)</s> (coming soon)
 
-### Optional Dependencies
+### __Optional Dependencies__
 
 deployKF has some optional dependencies which may improve the performance or reliability of your platform in production.
 
 Dependencies | Purpose | Guides
 --- | --- | ---
-MySQL Database | Used by [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines) and [Katib](../reference/tools.md#katib).<br><br>The embedded MySQL is ONLY recommended for testing and development. In production, we ALWAYS recommend using an external MySQL database. | [Connect an External MySQL](./tools/external-mysql.md)
-Object Store | Used by [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines).<br><br>The embedded MinIO is ONLY recommended for testing and development. In production, we ALWAYS recommend using an external S3-compatible object store. | [Connect an External S3-like Object Store.](./tools/external-object-store.md)
+MySQL Database | Used by [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines) and [Katib](../reference/tools.md#katib).<br><small>:material-alert: The embedded MySQL is ONLY recommended for testing. In production, we ALWAYS recommend using an external MySQL database. :material-alert:</small> | [Connect an External MySQL](./tools/external-mysql.md)
+Object Store | Used by [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines).<br><small>:material-alert: The embedded MinIO is ONLY recommended for testing. In production, we ALWAYS recommend using an external S3-compatible object store. :material-alert:</small> | [Connect an External S3-like Object Store.](./tools/external-object-store.md)
+
+### __Modes of Operation__
+
+There are two ways to use deployKF which we call ___"modes of operation"___.
+These modes change how the Kubernetes manifests are generated and applied to your cluster.
+
+Both modes require [ArgoCD](./dependencies/argocd.md#what-is-argo-cd) to be installed on your cluster, this is because [deployKF uses ArgoCD](./dependencies/argocd.md#how-does-deploykf-use-argo-cd) to manage the lifecycle and state of the platform.
+
+Mode | Description
+--- | ---
+ArgoCD Plugin Mode | The [`deployKF ArgoCD Plugin`](./dependencies/argocd.md#what-is-the-deploykf-argocd-plugin) adds a new kind of ArgoCD [`Application`](./dependencies/argocd.md#argo-cd-applications) which understands deployKF config values and can generate manifests directly, without requiring a git repo.
+Manifests Repo Mode | The [`deployKF CLI`](deploykf-cli.md) is used to generate manifests which are committed to a git repo for ArgoCD to apply to your cluster.
+
+!!! tip "Recommended Mode"
+
+    If you are unsure, we recommend using the _ArgoCD Plugin Mode_, as it is the most user-friendly and requires the least amount of manual steps.
+
+There are some _mode-specific requirements_ to be aware of:
+
+=== "ArgoCD Plugin Mode"
+
+    When using the _ArgoCD Plugin Mode_, you will need to either:
+
+    - [Add the deployKF plugin to an existing ArgoCD](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---existing-argocd)
+    - [Install a new ArgoCD (with the deployKF plugin pre-installed)](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---new-argocd)
+
+=== "Manifests Repo Mode"
+
+    When using the _Manifests Repo Mode_, you will need to:
+
+    - [Install ArgoCD](https://argo-cd.readthedocs.io/en/stable/getting_started/) on your cluster
+    - [Install the `deploykf` CLI](deploykf-cli.md#install-the-cli) on your local machine
+    - Set up a private git repo (to store the generated manifests)
 
 ## 2. Platform Configuration
 
 All aspects of your deployKF platform are configured with YAML-based configs named "values".
 There are a very large number of values (more than 1500), but as deployKF supports _in-place upgrades_ you can start with a few important ones, and then grow your values file over time.
 
-### Create Values Files
+### __Create Values Files__
 
 We recommend using the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file as a starting point for your values.
 These sample values (which are different for each deployKF version) have all ML & Data tools enabled, along with some sensible security defaults.
@@ -186,7 +171,7 @@ For your reference, ALL values and their defaults are listed on the [values refe
     - [Learn YAML in Y minutes](https://learnxinyminutes.com/docs/yaml/)
     - [YAML Multiline Strings](https://yaml-multiline.info/)
 
-### Configuration Guides
+### __Configuration Guides__
 
 deployKF is incredibly configurable, so we provide a number of guides to help you get started with common configuration tasks.
 
@@ -238,11 +223,7 @@ deployKF is incredibly configurable, so we provide a number of guides to help yo
 
 ## 3. Platform Deployment
 
-### About ArgoCD
-
-Learn more _["about ArgoCD"](./dependencies/argocd.md#what-is-argo-cd)_ and _["how deployKF uses ArgoCD"](./dependencies/argocd.md#how-does-deploykf-use-argo-cd)_ on the dedicated page.
-
-### deployKF Versions
+### __deployKF Versions__
 
 Each deployKF "source version" may include different tools, and may support different versions of cluster dependencies.
 The [version matrix](../releases/version-matrix.md) is a list of which tools and versions are supported by each deployKF release.
@@ -254,13 +235,12 @@ The [deployKF changelog](../releases/changelog-deploykf.md) gives detailed infor
     Be notified about new deployKF releases by watching the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub,
     at the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.
 
-### Generate & Apply Manifests
+### __Generate & Apply Manifests__
 
+deployKF uses [ArgoCD](./dependencies/argocd.md#what-is-argo-cd) to deploy and manage the lifecycle of the platform.
 How you generate and apply the deployKF manifests to your Kubernetes cluster will depend on the [mode of operation](#modes-of-operation) you have chosen.
 
-#### ArgoCD Plugin Mode
-
-These steps show how to generate and apply manifests with the [ArgoCD Plugin Mode](#modes-of-operation):
+These steps show how to generate and apply manifests in __ArgoCD Plugin Mode__:
 
 ??? steps "Generate & Apply Manifests - _ArgoCD Plugin Mode_ :star:"
 
@@ -467,9 +447,7 @@ These steps show how to generate and apply manifests with the [ArgoCD Plugin Mod
     kubectl apply --filename ./app-of-apps.yaml --namespace "argocd"
     ```
 
-#### Manifests Repo Mode
-
-These steps show how to generate and apply manifests with the [Manifests Repo Mode](#modes-of-operation):
+These steps show how to generate and apply manifests in __Manifests Repo Mode__:
 
 ??? steps "Generate & Apply Manifests - _Manifests Repo Mode_"
 
@@ -582,7 +560,7 @@ These steps show how to generate and apply manifests with the [Manifests Repo Mo
     kubectl apply --filename GENERATOR_OUTPUT/app-of-apps.yaml
     ```
 
-### Sync ArgoCD Applications
+### __Sync ArgoCD Applications__
 
 Now that your deployKF app-of-apps has been applied, you must sync the ArgoCD applications to deploy your platform.
 Syncing an application will cause ArgoCD to reconcile the actual state in the cluster, to match the state defined by the application resource.
@@ -794,7 +772,7 @@ If you are unsure which to use, we recommend using the _automated sync script_.
 
 Please be aware of the following issue when using the automated sync script:
 
-!!! bug "Bug in ArgoCD v2.9"
+??? bug "Bug in ArgoCD v2.9"
 
     There is a known issue ([`deploykf/deploykf#70`](https://github.com/deployKF/deployKF/issues/70), [`argoproj/argo-cd#16266`](https://github.com/argoproj/argo-cd/issues/16266)) with all `2.9.X` versions of the ArgoCD CLI that will cause the sync script to fail with the following error:
 
@@ -846,7 +824,7 @@ Please be aware of the following issue when using the automated sync script:
 
 Now that you have a working deployKF ML Platform, here are some things to try out!
 
-### The Dashboard
+### __The Dashboard__
 
 The _deployKF dashboard_ is the web-based interface for deployKF, it gives users [authenticated access](./platform/deploykf-authentication.md) to tools like [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines), [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks), and [Katib](../reference/tools.md#katib).
 
@@ -857,7 +835,7 @@ The _deployKF dashboard_ is the web-based interface for deployKF, it gives users
 
     If you would like to make changes to the _deployKF dashboard_, such as adding custom links to the sidebar or homepage, see the [dashboard customization guide](./platform/deploykf-dashboard.md).
 
-### Expose the Gateway
+### __Expose the Gateway__
 
 All public deployKF services (including the dashboard) are accessed via your _deployKF Istio Gateway_, to use the gateway, you will need to expose its Kubernetes Service.
 
@@ -872,7 +850,7 @@ All public deployKF services (including the dashboard) are accessed via your _de
     If you are just testing deployKF, and don't need to expose the gateway more widely, you may use local `kubectl` port-forwarding.
     See the ["Expose Gateway and configure HTTPS"](./platform/deploykf-gateway.md#expose-with-kubectl-port-forward) guide for more information.
 
-### Default Login Credentials
+### __Default Login Credentials__
 
 The default values include [static user/password combinations](./platform/deploykf-authentication.md#static-userpassword-combinations) defined by the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L393-L402) value, which can be used for testing.
 
@@ -884,7 +862,7 @@ Username | Password | Notes
 `user1@example.com` | `user1` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
 `user2@example.com` | `user2` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
 
-### ML & Data Tools
+### __ML & Data Tools__
 
 deployKF includes [many tools](../reference/tools.md#tool-index) that address different stages of the ML & Data lifecycle.
 The following links give more specific information about some of our most popular tools:
@@ -892,7 +870,7 @@ The following links give more specific information about some of our most popula
 - [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines)
 - [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks)
 
-### User Reference Guides
+### __User Reference Guides__
 
 We also provide a number of user-focused reference guides to help them deliver value with the platform faster.
 You should share these guides with your users to help them get started.
