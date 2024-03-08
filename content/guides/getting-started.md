@@ -14,17 +14,26 @@ We bring together the [best of Kubeflow](../reference/tools.md#kubeflow-ecosyste
 
 ### __About this Guide__
 
-This page will guide you to create a production-ready deployKF platform.
-We cover the requirements, and explain how to configure and deploy your platform on any Kubernetes cluster.
+This page is about __production-ready__ usage of deployKF.
+We will cover the requirements, explain our configuration options, and show you how to deploy your platform.
 
-We suggest new users start with the __About deployKF__ and __Local Quickstart__ guides:
+We suggest new users start with the __About deployKF__ and __Local Quickstart__ pages:
 
-[About deployKF<br>:custom-deploykf-color:](../about/introduction.md#about-deploykf){ .md-button .md-button--secondary }
-[Local Quickstart<br>:material-sprout:](./local-quickstart.md){ .md-button .md-button--secondary }
+[About deployKF<br><small>(Introduction)</small>](../about/introduction.md#about-deploykf){ .md-button .md-button--secondary }
+[Local Quickstart<br><small>(Try Locally)</small>](./local-quickstart.md){ .md-button .md-button--secondary }
 
-Existing Kubeflow users should start with our migration guide:
+!!! support ""
 
-[:custom-kubeflow: Migrate from Kubeflow Distributions](./kubeflow-distributions.md#about-migrating){ .md-button .md-button--secondary }
+    For existing Kubeflow users, we have a _migration guide_:
+    
+    [Migrate from :custom-kubeflow: Kubeflow Distributions](./kubeflow-distributions.md#about-migrating){ .md-button .md-button--secondary }
+
+!!! support ""
+
+    You may also want to _join our community_ and learn about _support options_:
+    
+    [:material-account-group: Join the Community](../about/community.md){ .md-button .md-button--secondary }
+    [:material-headset: Get Support](../about/support.md){ .md-button .md-button--secondary }
 
 ## 1. Requirements
 
