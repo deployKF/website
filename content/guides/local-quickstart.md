@@ -1,27 +1,20 @@
 ---
 icon: material/sprout
 description: >-
-  Learn how to quickly try deployKF on a local Kubernetes cluster.
+  Learn how to quickly try deployKF, on a local Kubernetes cluster.
   Test our powerful Helm-like interface for deploying Kubeflow and other MLOps tools.
 ---
 
 # Local Quickstart
 
-Learn how to __quickly try deployKF__ on a __local Kubernetes cluster__.
-Test our powerful Helm-like interface for deploying Kubeflow and other MLOps tools.
-
-!!! tip "Other Resources"
-
-    - [__Getting Started__](getting-started.md) - start building your production-ready ML Platform on any Kubernetes cluster
+Learn how to quickly try <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong>, on a __local__ Kubernetes cluster.
 
 ---
 
-## Introduction
+### __About this Guide__
 
-To learn about :custom-deploykf-color: <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> and why you should use it, see the [introduction](../about/introduction.md) page.
-
-[Read Introduction<br>:material-lightbulb-on:](../about/introduction.md#about-deploykf){ .md-button .md-button--primary }
-[Watch Introduction<br>:material-youtube:](../about/introduction.md#video-introduction){ .md-button .md-button--primary }
+This quickstart will guide you through the process of setting up a local Kubernetes cluster, installing ArgoCD, and deploying a full deployKF platform.
+For production use, please see the [Getting Started](./getting-started.md) guide.
 
 ## 1. Requirements
 
@@ -628,7 +621,7 @@ bash ./deploykf/scripts/sync_argocd_apps.sh
 
 Please be aware of the following issue when using the automated sync script:
 
-!!! bug "Bug in ArgoCD v2.9"
+??? bug "Bug in ArgoCD v2.9"
 
     There is a known issue ([`deploykf/deploykf#70`](https://github.com/deployKF/deployKF/issues/70), [`argoproj/argo-cd#16266`](https://github.com/argoproj/argo-cd/issues/16266)) with all `2.9.X` versions of the ArgoCD CLI that will cause the sync script to fail with the following error:
 
