@@ -16,7 +16,7 @@ _Coming soon_
 
 ---
 
-## __Why does deployKF use Kyverno?__
+## __How does deployKF use Kyverno?__
 
 _Coming soon_
 

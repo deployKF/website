@@ -347,7 +347,7 @@ deploykf_core:
 !!! info "TLS Termination and SNI"
 
     If you have an outer proxy which terminates TLS for users (e.g. an AWS ALB), you will likely need to disable `deploykf_core.deploykf_istio_gateway.gateway.tls.matchSNI`, as most proxies will not send the correct SNI header.
-    Read more about this in the [Expose Gateway and configure HTTPS](../platform/deploykf-gateway.md#2-expose-the-gateway-service) guide.
+    Read more about this in the [Expose Gateway and configure HTTPS](../platform/deploykf-gateway.md#expose-the-gateway-service) guide.
 
     ```yaml
     deploykf_core:
