@@ -27,10 +27,14 @@ deployKF uses trust-manager when self-signed certificates are configured (the de
 
 ## __How does deployKF use cert-manager?__
 
-deployKF uses cert-manager to [provision TLS certificates](../platform/deploykf-gateway.md#configure-tls-for-istio-gateway) for the Istio Ingress Gateway.
+deployKF uses cert-manager to provision TLS certificates for the Istio Ingress Gateway.
 Furthermore, many tools in the platform use cert-manager to provision TLS certificates for internal webhooks and APIs.
 
-### __Can I use my existing cert-manager?__
+See the [Expose Gateway and Configure TLS](../platform/deploykf-gateway.md#configure-tls-certificates) guide for more details.
+
+---
+
+## __Can I use my existing cert-manager?__
 
 Yes.
 
@@ -42,7 +46,7 @@ deploykf_dependencies:
     enabled: false
 ```
         
-When you do this, the [`deploykf_dependencies.cert_manager.clusterIssuer`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L172) value still selects the `ClusterIssuer` (which must be provisioned by you) that is used to [generate certificates for the Istio Gateway](../platform/deploykf-gateway.md#configure-tls-for-istio-gateway):
+When you do this, the [`deploykf_dependencies.cert_manager.clusterIssuer`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L172) value still selects the `ClusterIssuer` (which must be provisioned by you) that is used to [generate certificates for the Istio Gateway](../platform/deploykf-gateway.md#configure-tls-certificates):
 
 ```yaml
 deploykf_dependencies:

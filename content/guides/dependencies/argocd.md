@@ -64,14 +64,26 @@ For example, we use Argo CD for:
 - __Pruning__ old manifests which are no longer needed
 - __Programmatically__ managing all of the above
 
-### __Can I use my existing Argo CD?__
+### __What is the deployKF ArgoCD Plugin?__
+
+The [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) is an optional part of deployKF which removes the need to commit manifests to a Git repository.
+The plugin adds a special kind of Argo CD [`Application`](#argo-cd-applications) that produces deployKF manifests internally, similar to how Helm charts are used in Argo CD. 
+
+With the plugin, you manage the whole platform from a single _"app of apps"_ `Application` whose specification only needs your [values](../getting-started.md#2-platform-configuration), and a specified [source version](../getting-started.md#deploykf-versions) of deployKF.
+For an example of this, see [__this section__](../local-quickstart.md#create-an-app-of-apps) of the local quickstart.
+
+---
+
+## __Can I use my existing Argo CD?__
 
 Yes, you must.
-See our [version matrix](../../releases/version-matrix.md#deploykf-dependencies) for a list of supported Argo CD versions and the [getting started](../getting-started.md#argocd-configuration) guide for configuration details.
+
+See our [version matrix](../../releases/version-matrix.md#deploykf-dependencies) for a list of supported Argo CD versions.
+You may also need to install the _deployKF ArgoCD Plugin_ if you are using [ArgoCD Plugin Mode](../getting-started.md#modes-of-operation).
 
 ### __Can I use <small>_&lt;other tool&gt;_</small> instead of Argo CD?__
     
-No, not yet. 
+No, not yet.
 While we believe that Argo CD is currently the best in its category, we recognize that it's not the only option.
 In the future, we may support other Kubernetes GitOps tools (like [Flux CD](https://fluxcd.io/)), or even build a deployKF-specific solution.
 
@@ -110,13 +122,3 @@ argocd:
     ```bash
     ARGOCD_APP_NAME_PREFIX="cluster1-"
     ```
-
----
-
-## __What is the _deployKF ArgoCD Plugin_?__
-
-The [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) is an optional part of deployKF which removes the need to commit manifests to a Git repository.
-The plugin adds a special kind of Argo CD `Application` that produces deployKF manifests internally, similar to how Helm charts are used in Argo CD. 
-
-With the plugin, you manage the whole platform from a single _"app of apps"_ `Application` whose specification only needs your [values](../getting-started.md#2-platform-configuration), and a specified [source version](../getting-started.md#deploykf-versions) of deployKF.
-For an example of this, see [__this section__](../local-quickstart.md#create-an-app-of-apps) of the local quickstart.
