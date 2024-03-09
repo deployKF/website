@@ -22,15 +22,13 @@ We suggest new users start with the __About deployKF__ and __Local Quickstart__ 
 [About deployKF<br><small>(Introduction)</small>](../about/introduction.md#about-deploykf){ .md-button .md-button--secondary }
 [Local Quickstart<br><small>(Try Locally)</small>](./local-quickstart.md){ .md-button .md-button--secondary }
 
-!!! support ""
+For existing Kubeflow users, we have a _migration guide_:
 
-    For existing Kubeflow users, we have a _migration guide_:
-    
-    [Migrate from :custom-kubeflow: Kubeflow Distributions](./kubeflow-distributions.md#about-migrating){ .md-button .md-button--secondary }
+[Migrate from :custom-kubeflow: Kubeflow Distributions](./kubeflow-distributions.md#about-migrating){ .md-button .md-button--secondary }
 
-!!! support ""
+!!! value ""
 
-    You may also want to _join our community_ and learn about _support options_:
+    You may also want to _join our community_ or learn about _support options_:
     
     [:material-account-group: Join the Community](../about/community.md){ .md-button .md-button--secondary }
     [:material-headset: Get Support](../about/support.md){ .md-button .md-button--secondary }
@@ -63,9 +61,11 @@ Local Machine | [k3d](https://k3d.io/) // [Kind](https://kind.sigs.k8s.io/) // [
 
 ### __Kubernetes Configurations__
 
-The following Kubernetes configurations are required for deployKF to work correctly:
+deployKF requires some specific Kubernetes configurations to work correctly.
 
-Configuration | Description
+The following table lists these configurations and their requirements:
+
+Configuration | Requirement
 --- | ---
 CPU Architecture | The cluster must have `x86_64` Nodes.
 Cluster Domain | The [`clusterDomain`](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) of your kubelet must be `"cluster.local"`.
@@ -104,58 +104,29 @@ Default StorageClass | The default [`StorageClass`](https://kubernetes.io/docs/c
 
 ### __Cluster Dependencies__
 
-deployKF uses a number of cluster-level dependencies which are __installed by default__.
-If you have an existing version of a dependency, deployKF can be configured to use it instead.
+deployKF uses a number of cluster-level dependencies.
+If you have an existing version of a dependency, deployKF can be configured to use it instead of installing a new one.
 
 The following table lists these dependencies and how to use an existing version:
 
-Dependency | Purpose | Guides
+Dependency | Purpose in deployKF | Use Existing Version
 --- | --- | ---
-Cert-Manager | Generating and maintaining TLS/HTTPS certificates. | [What is Cert-Manager?](./dependencies/cert-manager.md) / [Use my existing Cert-Manager.](./dependencies/cert-manager.md#can-i-use-my-existing-cert-manager)
-Istio | Network service mesh for the platform, used to enforce client authentication and secure internal traffic. | [What is Istio?](./dependencies/istio.md) / [Use my existing Istio.](./dependencies/istio.md#can-i-use-my-existing-istio)
-Kyverno | Mutating resources, replicating secrets across namespaces, and restarting Pods when configs change. | <s>[What is Kyverno?](./dependencies/kyverno.md)</s> / <s>[Use my existing Kyverno.](./dependencies/kyverno.md#can-i-use-my-existing-kyverno)</s> (coming soon)
+[Argo CD](./dependencies/argocd.md#what-is-argo-cd) | [Used to deploy and manage the lifecycle of the platform.](./dependencies/argocd.md#how-does-deploykf-use-argo-cd) | [Required](./dependencies/argocd.md#can-i-use-my-existing-argo-cd)
+[Cert-Manager](./dependencies/cert-manager.md#what-is-cert-manager) | [Generating and maintaining TLS/HTTPS certificates.](./dependencies/cert-manager.md#how-does-deploykf-use-cert-manager) | [Optional](./dependencies/cert-manager.md#can-i-use-my-existing-cert-manager)
+[Istio](./dependencies/istio.md#what-is-istio) | [Network service mesh for the platform, used to enforce client authentication and secure internal traffic.](./dependencies/istio.md#how-does-deploykf-use-istio) | [Optional](./dependencies/istio.md#can-i-use-my-existing-istio)
+[Kyverno](./dependencies/kyverno.md#what-is-kyverno) | [Mutating resources, replicating secrets across namespaces, and restarting Pods when configs change.](./dependencies/kyverno.md#how-does-deploykf-use-kyverno) | <s>[Optional](./dependencies/kyverno.md#can-i-use-my-existing-kyverno)</s><br><small>(coming soon)</small>
 
 ### __Optional Dependencies__
 
-deployKF has some optional dependencies which may improve the performance or reliability of your platform in production.
+deployKF has some optional dependencies.
+Using an external version of these dependencies may improve the performance or reliability of your platform.
 
-Dependencies | Purpose | Guides
+The following table lists these dependencies and how to use an existing version:
+
+Dependencies | Purpose in deployKF | Use Existing Version
 --- | --- | ---
-MySQL Database | Used by [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines) and [Katib](../reference/tools.md#katib).<br><small>:material-alert: The embedded MySQL is ONLY recommended for testing. In production, we ALWAYS recommend using an external MySQL database. :material-alert:</small> | [Connect an External MySQL](./tools/external-mysql.md)
-Object Store | Used by [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines).<br><small>:material-alert: The embedded MinIO is ONLY recommended for testing. In production, we ALWAYS recommend using an external S3-compatible object store. :material-alert:</small> | [Connect an External S3-like Object Store.](./tools/external-object-store.md)
-
-### __Modes of Operation__
-
-There are two ways to use deployKF which we call ___"modes of operation"___.
-These modes change how the Kubernetes manifests are generated and applied to your cluster.
-
-Both modes require [ArgoCD](./dependencies/argocd.md#what-is-argo-cd) to be installed on your cluster, this is because [deployKF uses ArgoCD](./dependencies/argocd.md#how-does-deploykf-use-argo-cd) to manage the lifecycle and state of the platform.
-
-Mode | Description
---- | ---
-ArgoCD Plugin Mode | The [`deployKF ArgoCD Plugin`](./dependencies/argocd.md#what-is-the-deploykf-argocd-plugin) adds a new kind of ArgoCD [`Application`](./dependencies/argocd.md#argo-cd-applications) which understands deployKF config values and can generate manifests directly, without requiring a git repo.
-Manifests Repo Mode | The [`deployKF CLI`](deploykf-cli.md) is used to generate manifests which are committed to a git repo for ArgoCD to apply to your cluster.
-
-!!! tip "Recommended Mode"
-
-    If you are unsure, we recommend using the _ArgoCD Plugin Mode_, as it is the most user-friendly and requires the least amount of manual steps.
-
-There are some _mode-specific requirements_ to be aware of:
-
-=== "ArgoCD Plugin Mode"
-
-    When using the _ArgoCD Plugin Mode_, you will need to either:
-
-    - [Add the deployKF plugin to an existing ArgoCD](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---existing-argocd)
-    - [Install a new ArgoCD (with the deployKF plugin pre-installed)](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---new-argocd)
-
-=== "Manifests Repo Mode"
-
-    When using the _Manifests Repo Mode_, you will need to:
-
-    - [Install ArgoCD](https://argo-cd.readthedocs.io/en/stable/getting_started/) on your cluster
-    - [Install the `deploykf` CLI](deploykf-cli.md#install-the-cli) on your local machine
-    - Set up a private git repo (to store the generated manifests)
+MySQL Database | Used by [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines) and [Katib](../reference/tools.md#katib). | [Optional](./tools/external-mysql.md)<br><small>:material-alert: recommended for production :material-alert:</small>
+Object Store | Used by [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines).| [Optional](./tools/external-object-store.md)<br><small>:material-alert: recommended for production :material-alert:</small>
 
 ## 2. Platform Configuration
 
@@ -244,330 +215,329 @@ The [deployKF changelog](../releases/changelog-deploykf.md) gives detailed infor
     Be notified about new deployKF releases by watching the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub,
     at the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.
 
+### __Modes of Operation__
+
+There are two ways to use deployKF which we call ___"modes of operation"___.
+These modes change how the Kubernetes manifests are generated and applied to your cluster.
+
+Mode | Description
+--- | ---
+ArgoCD Plugin Mode | The [`deployKF ArgoCD Plugin`](./dependencies/argocd.md#what-is-the-deploykf-argocd-plugin) adds a new kind of ArgoCD `Application` which understands deployKF config values and can generate manifests directly, without requiring a git repo.
+Manifests Repo Mode | The [`deployKF CLI`](deploykf-cli.md#about-the-cli) is used to generate manifests which are committed to a git repo for ArgoCD to apply to your cluster.
+
+!!! tip "Recommended Mode"
+
+    If you are unsure which mode to choose, we recommend using __ArgoCD Plugin Mode__.
+    It is the most user-friendly and requires the least amount of manual steps.
+
+!!! warning "ArgoCD is Required"
+
+    At this time, both modes __require ArgoCD to function__, this is because deployKF uses ArgoCD to [manage the lifecycle and state](./dependencies/argocd.md#how-does-deploykf-use-argo-cd) of the platform.
+
 ### __Generate & Apply Manifests__
 
-deployKF uses [ArgoCD](./dependencies/argocd.md#what-is-argo-cd) to deploy and manage the lifecycle of the platform.
-How you generate and apply the deployKF manifests to your Kubernetes cluster will depend on the [mode of operation](#modes-of-operation) you have chosen.
+deployKF uses ArgoCD to apply manifests to your Kubernetes cluster.
+How you generate and apply the manifests will depend on the [mode of operation](#modes-of-operation) you have chosen.
 
-These steps show how to generate and apply manifests in __ArgoCD Plugin Mode__:
+=== "ArgoCD Plugin Mode"
 
-??? steps "Generate & Apply Manifests - _ArgoCD Plugin Mode_ :star:"
+    !!! steps "Step 1 - Install the ArgoCD Plugin"
 
-    To generate and apply the manifests when using ["ArgoCD Plugin Mode"](#modes-of-operation), you will need to:
+        Your ArgoCD instance must have the _deployKF ArgoCD plugin_ installed.
 
-    1. install the [deployKF ArgoCD plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) on your ArgoCD instance
-    2. create an app-of-apps which uses the plugin
-    3. apply your app-of-apps manifest
+        Depending on your situation, you may either:
 
-    !!! warning "ArgoCD Internet Access"
+        - [Add the deployKF plugin to an existing ArgoCD](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---existing-argocd)
+        - [Install a new ArgoCD (with the deployKF plugin pre-installed)](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---new-argocd)
+
+    !!! steps "Step 2 - Create an App-of-Apps Resource"
+
+        The only resource you manually create is the `deploykf-app-of-apps` which generates all the other `Application` resources.
+        Think of it as a _"single source of truth"_ for the desired state of your platform.
+
+        Use the following sample as a starting point for your `deploykf-app-of-apps` resource:
     
-        Default usage of the _deployKF ArgoCD Plugin_ requires that ArgoCD Pods have access to the internet, so they can download the deployKF generator zip from GitHub.
-
-    ---
-  
-    __Step 1: Install the ArgoCD Plugin__
-
-    We provide two options for installing the deployKF ArgoCD plugin:
-
-    ??? config "Install Plugin - New ArgoCD"
-
-        This method installs our pre-patched ArgoCD manifests with the plugin pre-installed.
-        Use this method if you are installing ArgoCD for the first time.
-
-        For specific information, see the [Install Plugin - New ArgoCD](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---new-argocd) guide.
-
-    ??? config "Install Plugin - Patch Existing ArgoCD"
-
-        This method explains how to patch an existing ArgoCD installation to include the plugin.
-        Use this method if you already have an ArgoCD installation.
-
-        For more information, see the [Install Plugin - Existing ArgoCD](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---existing-argocd) guide.
-
-    ---
-
-    __Step 2: Create an App-of-Apps Manifest__
-
-    The "deploykf" plugin has the following parameters:
-
-    Parameter | Type | Description
-    --- | --- | ---
-    `source_version` | String | the version of deployKF to use (see [changelog](../releases/changelog-deploykf.md) for available versions)
-    `values_files` | Array | a list of paths to values files in your ArgoCD Application's `source` repo (relative to the `source.path`)
-    `values` | String | a string containing the contents of a values file (these take precedence when being merged with values from `values_files`)
-
-    For example, the following _"app of apps"_ specification will use deployKF `{{ latest_deploykf_version }}` and read the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) (from the `v{{ latest_deploykf_version }}` tag of the `deploykf/deploykf` repo) while also showing how to set values with the `values` parameter:
-
-    ```yaml
-    apiVersion: argoproj.io/v1alpha1
-    kind: Application
-    metadata:
-      name: deploykf-app-of-apps
-      namespace: argocd
-      labels:
-        app.kubernetes.io/name: deploykf-app-of-apps
-        app.kubernetes.io/part-of: deploykf
-    spec:
-      project: "default"
-      source:
-        ## source git repo configuration
-        ##  - we use the 'deploykf/deploykf' repo so we can read its 'sample-values.yaml'
-        ##    file, but you may use any repo (even one with no files)
-        ##
-        repoURL: "https://github.com/deployKF/deployKF.git"
-        targetRevision: "v{{ latest_deploykf_version }}"
-        path: "."
+        ??? code "Example - _Application YAML_"
     
-        ## plugin configuration
-        ##
-        plugin:
-          name: "deploykf"
-          parameters:
-    
-            ## the deployKF generator version
-            ##  - available versions: https://github.com/deployKF/deployKF/releases
-            ##
-            - name: "source_version"
-              string: "{{ latest_deploykf_version }}"
-    
-            ## paths to values files within the `repoURL` repository
-            ##  - the values in these files are merged, with later files taking precedence
-            ##  - we strongly recommend using 'sample-values.yaml' as the base of your values
-            ##    so you can easily upgrade to newer versions of deployKF
-            ##
-            - name: "values_files"
-              array:
-                - "./sample-values.yaml"
-    
-            ## a string containing the contents of a values file
-            ##  - this parameter allows defining values without needing to create a file in the repo
-            ##  - these values are merged with higher precedence than those defined in `values_files`
-            ##
-            - name: "values"
-              string: |
-                ##
-                ## This demonstrates how you might structure overrides for the 'sample-values.yaml' file.
-                ## For a more comprehensive example, see the 'sample-values-overrides.yaml' in the main repo.
-                ##
-                ## Notes:
-                ##  - YAML maps are RECURSIVELY merged across values files
-                ##  - YAML lists are REPLACED in their entirety across values files
-                ##  - Do NOT include empty/null sections, as this will remove ALL values from that section.
-                ##    To include a section without overriding any values, set it to an empty map: `{}`
-                ##
-    
-                ## --------------------------------------------------------------------------------
-                ##                              deploykf-dependencies
-                ## --------------------------------------------------------------------------------
-                deploykf_dependencies:
-    
-                  ## --------------------------------------
-                  ##             cert-manager
-                  ## --------------------------------------
-                  cert_manager:
-                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-    
-                  ## --------------------------------------
-                  ##                 istio
-                  ## --------------------------------------
-                  istio:
-                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-    
-                  ## --------------------------------------
-                  ##                kyverno
-                  ## --------------------------------------
-                  kyverno:
-                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-    
-                ## --------------------------------------------------------------------------------
-                ##                                  deploykf-core
-                ## --------------------------------------------------------------------------------
-                deploykf_core:
-    
-                  ## --------------------------------------
-                  ##             deploykf-auth
-                  ## --------------------------------------
-                  deploykf_auth:
-                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-    
-                  ## --------------------------------------
-                  ##        deploykf-istio-gateway
-                  ## --------------------------------------
-                  deploykf_istio_gateway:
-                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-    
-                  ## --------------------------------------
-                  ##      deploykf-profiles-generator
-                  ## --------------------------------------
-                  deploykf_profiles_generator:
-                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-    
-                ## --------------------------------------------------------------------------------
-                ##                                   deploykf-opt
-                ## --------------------------------------------------------------------------------
-                deploykf_opt:
-    
-                  ## --------------------------------------
-                  ##            deploykf-minio
-                  ## --------------------------------------
-                  deploykf_minio:
-                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-    
-                  ## --------------------------------------
-                  ##            deploykf-mysql
-                  ## --------------------------------------
-                  deploykf_mysql:
-                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-    
-                ## --------------------------------------------------------------------------------
-                ##                                  kubeflow-tools
-                ## --------------------------------------------------------------------------------
-                kubeflow_tools:
-    
-                  ## --------------------------------------
-                  ##                 katib
-                  ## --------------------------------------
-                  katib:
-                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-    
-                  ## --------------------------------------
-                  ##               notebooks
-                  ## --------------------------------------
-                  notebooks:
-                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-    
-                  ## --------------------------------------
-                  ##               pipelines
-                  ## --------------------------------------
-                  pipelines:
-                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-    
-      destination:
-        server: "https://kubernetes.default.svc"
-        namespace: "argocd"
-    ```
-
-    ---
-
-    __Step 3: Apply App-of-Apps Manifest__
-
-    After writing your app-of-apps manifest to a local file named `app-of-apps.yaml`, you may apply it with:
-
-    ```shell
-    kubectl apply --filename ./app-of-apps.yaml --namespace "argocd"
-    ```
-
-These steps show how to generate and apply manifests in __Manifests Repo Mode__:
-
-??? steps "Generate & Apply Manifests - _Manifests Repo Mode_"
-
-    To generate and apply the manifests when using ["Manifests Repo Mode"](#modes-of-operation), you will need to:
-
-    1. set required values
-    2. generate the manifests
-    3. commit the generated manifests to a git repo
-    4. apply the generated app-of-apps manifest
-
-    ---
-
-    __Step 1: Set Required Values__
-
-    When using "manifests repo mode", the following values MUST be defined:
-    
-    <table markdown>
-      <tr>
-        <th>Value</th>
-        <th>Description</th>
-        <th>Example</th>
-      </tr>
-      <tr markdown>
-        <td markdown>[`argocd.source.repo.url`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L39-L43)</td>
-        <td>the URL of the git repo where your generated manifests are stored</td>
-        <td markdown>if you are using a GitHub repo named `deployKF/examples`, you might set this value to `"https://github.com/deployKF/examples"` or `"git@github.com:deployKF/examples.git"`</td>
-      </tr>
-      <tr markdown>
-        <td markdown>[`argocd.source.repo.revision`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L45-L48)</td>
-        <td>is the git branch/tag/commit that ArgoCD should sync the manifests from</td>
-        <td markdown>if you are using the `main` branch of your repo, you might set this value to `"main"`</td>
-      </tr>
-      <tr markdown>
-        <td markdown>[`argocd.source.repo.path`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L50-L54)</td>
-        <td>is the folder path under the git repo where your generated manifests are stored</td>
-        <td markdown>if you are using a folder named `GENERATOR_OUTPUT` at the root of your repo, you might set this value to `"./GENERATOR_OUTPUT/"`</td>
-      </tr>
-    </table>
-
-    For example, you might set the following values:
-
-    ```yaml
-    argocd:
-      source:
-        repo:
-          url: "https://github.com/deployKF/examples.git"
-          revision: "main"
-          path: "./GENERATOR_OUTPUT/"
-    ```
-
-    ---
-
-    __Step 2: Generate Manifests__
-
-    The `deploykf generate` command writes generated manifests into a folder, using one or more values files.
-
-    The required arguments of the `deploykf generate` command are:
-
-    Argument | Description
-    --- | ---
-    `--source-version` | the version of deployKF to use (see [changelog](../releases/changelog-deploykf.md) for available versions)
-    `--values` | one or more values files to use for generating the manifests
-    `--output-dir` | the directory where the generated manifests will be written
-
-    For example, this command will use deployKF `{{ latest_deploykf_version }}` to generate manifests under `GENERATOR_OUTPUT/`, from a values file named `custom-values.yaml`:
-
-    ```shell
-    deploykf generate \
-        --source-version "{{ latest_deploykf_version }}" \
-        --values ./custom-values.yaml \
-        --output-dir ./GENERATOR_OUTPUT
-    ```
-
-    !!! warning "Avoid Manual Changes"
-    
-        Manual changes in the `--output-dir` will be __overwritten__ each time the `deploykf generate` command runs.
-        If you find yourself needing to make manual changes, please [raise an issue](https://github.com/deployKF/deployKF/issues) so we may consider adding a new value to support your use-case.
-
-    !!! info "Multiple Values Files"
+            This _"app of apps"_ will use [deployKF version](#deploykf-versions) `{{ latest_deploykf_version }}`, read the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) from the `deploykf/deploykf` repo (at the `v{{ latest_deploykf_version }}` tag), and combine those values with the overrides defined in the `values` parameter:
         
-        If you specify `--values` multiple times, they will be merged with later ones taking precedence.
-        Note, values which are YAML lists are NOT merged, they are replaced in full.
+            ```yaml
+            apiVersion: argoproj.io/v1alpha1
+            kind: Application
+            metadata:
+              name: deploykf-app-of-apps
+              namespace: argocd
+              labels:
+                app.kubernetes.io/name: deploykf-app-of-apps
+                app.kubernetes.io/part-of: deploykf
+            spec:
+              project: "default"
+              source:
+                ## source git repo configuration
+                ##  - we use the 'deploykf/deploykf' repo so we can read its 'sample-values.yaml'
+                ##    file, but you may use any repo (even one with no files)
+                ##
+                repoURL: "https://github.com/deployKF/deployKF.git"
+                targetRevision: "v{{ latest_deploykf_version }}"
+                path: "."
+            
+                ## plugin configuration
+                ##
+                plugin:
+                  name: "deploykf"
+                  parameters:
+            
+                    ## the deployKF generator version
+                    ##  - available versions: https://github.com/deployKF/deployKF/releases
+                    ##
+                    - name: "source_version"
+                      string: "{{ latest_deploykf_version }}"
+            
+                    ## paths to values files within the `repoURL` repository
+                    ##  - the values in these files are merged, with later files taking precedence
+                    ##  - we strongly recommend using 'sample-values.yaml' as the base of your values
+                    ##    so you can easily upgrade to newer versions of deployKF
+                    ##
+                    - name: "values_files"
+                      array:
+                        - "./sample-values.yaml"
+            
+                    ## a string containing the contents of a values file
+                    ##  - this parameter allows defining values without needing to create a file in the repo
+                    ##  - these values are merged with higher precedence than those defined in `values_files`
+                    ##
+                    - name: "values"
+                      string: |
+                        ##
+                        ## This demonstrates how you might structure overrides for the 'sample-values.yaml' file.
+                        ## For a more comprehensive example, see the 'sample-values-overrides.yaml' in the main repo.
+                        ##
+                        ## Notes:
+                        ##  - YAML maps are RECURSIVELY merged across values files
+                        ##  - YAML lists are REPLACED in their entirety across values files
+                        ##  - Do NOT include empty/null sections, as this will remove ALL values from that section.
+                        ##    To include a section without overriding any values, set it to an empty map: `{}`
+                        ##
+            
+                        ## --------------------------------------------------------------------------------
+                        ##                              deploykf-dependencies
+                        ## --------------------------------------------------------------------------------
+                        deploykf_dependencies:
+            
+                          ## --------------------------------------
+                          ##             cert-manager
+                          ## --------------------------------------
+                          cert_manager:
+                            {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+            
+                          ## --------------------------------------
+                          ##                 istio
+                          ## --------------------------------------
+                          istio:
+                            {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+            
+                          ## --------------------------------------
+                          ##                kyverno
+                          ## --------------------------------------
+                          kyverno:
+                            {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+            
+                        ## --------------------------------------------------------------------------------
+                        ##                                  deploykf-core
+                        ## --------------------------------------------------------------------------------
+                        deploykf_core:
+            
+                          ## --------------------------------------
+                          ##             deploykf-auth
+                          ## --------------------------------------
+                          deploykf_auth:
+                            {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+            
+                          ## --------------------------------------
+                          ##        deploykf-istio-gateway
+                          ## --------------------------------------
+                          deploykf_istio_gateway:
+                            {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+            
+                          ## --------------------------------------
+                          ##      deploykf-profiles-generator
+                          ## --------------------------------------
+                          deploykf_profiles_generator:
+                            {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+            
+                        ## --------------------------------------------------------------------------------
+                        ##                                   deploykf-opt
+                        ## --------------------------------------------------------------------------------
+                        deploykf_opt:
+            
+                          ## --------------------------------------
+                          ##            deploykf-minio
+                          ## --------------------------------------
+                          deploykf_minio:
+                            {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+            
+                          ## --------------------------------------
+                          ##            deploykf-mysql
+                          ## --------------------------------------
+                          deploykf_mysql:
+                            {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+            
+                        ## --------------------------------------------------------------------------------
+                        ##                                  kubeflow-tools
+                        ## --------------------------------------------------------------------------------
+                        kubeflow_tools:
+            
+                          ## --------------------------------------
+                          ##                 katib
+                          ## --------------------------------------
+                          katib:
+                            {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+            
+                          ## --------------------------------------
+                          ##               notebooks
+                          ## --------------------------------------
+                          notebooks:
+                            {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+            
+                          ## --------------------------------------
+                          ##               pipelines
+                          ## --------------------------------------
+                          pipelines:
+                            {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+            
+              destination:
+                server: "https://kubernetes.default.svc"
+                namespace: "argocd"
+            ```
 
-    ---
-
-    __Step 3: Commit Generated Manifests__
-
-    After running `deploykf generate`, you will likely want to commit the changes to your repo:
+        ---
     
-    ```shell
-    # for example, to directly commit changes to the 'main' branch of your repo
-    git add GENERATOR_OUTPUT
-    git commit -m "my commit message"
-    git push origin main
-    ```
+        !!! info "Values Merging"
+    
+            If you specify multiple sources of values, they are merged together.
+            The `values_files` are merged in the order they are listed followed by the `values` string, which has the highest precedence.
+            Note, values which are YAML lists are NOT merged, they are replaced in full, so the last version of a list takes precedence.
 
-    !!! warning "Private Git Repositories"
+    !!! steps "Step 3 - Apply the App-of-Apps Resource"
+
+        After writing your `deploykf-app-of-apps` manifest to a local file named `app-of-apps.yaml`, you may apply it with:
+    
+        ```shell
+        kubectl apply --filename ./app-of-apps.yaml --namespace "argocd"
+        ```
+
+=== "Manifests Repo Mode"
+
+    !!! steps "Step 1 - Install ArgoCD"
+
+        If you have not already installed ArgoCD on your cluster, you will need to do so.
+
+        Please see the [ArgoCD Getting Started Guide](https://argo-cd.readthedocs.io/en/stable/getting_started/) for instructions.
+      
+    !!! steps "Step 2 - Install the deployKF CLI"
+
+        If you have not already installed the `deploykf` CLI on your local machine, you will need to do so.
+
+        Please see the [CLI Installation Guide](deploykf-cli.md#install-the-cli) for instructions.
+
+    !!! steps "Step 3 - Prepare a Git Repo"
+
+        You will need to set up a git repo to store the generated manifests.
+        If your repo is private (recommended), you will need to [configure ArgoCD with git credentials](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/) so it can access the repo.
+
+        We recommend that you commit your values file(s) to the repo, so you can track changes over time.
+
+    !!! steps "Step 4 - Set Required Values"
+
+        There are some values which must be set in your values file to tell ArgoCD where to find your generated manifests.
+    
+        <table markdown>
+          <tr>
+            <th>Value</th>
+            <th>Description</th>
+            <th>Example</th>
+          </tr>
+          <tr markdown>
+            <td markdown>[`argocd.source.repo.url`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L39-L43)</td>
+            <td>the URL of the git repo where your generated manifests are stored</td>
+            <td markdown>if you are using a GitHub repo named `deployKF/examples`, you might set this value to `"https://github.com/deployKF/examples"` or `"git@github.com:deployKF/examples.git"`</td>
+          </tr>
+          <tr markdown>
+            <td markdown>[`argocd.source.repo.revision`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L45-L48)</td>
+            <td>is the git branch/tag/commit that ArgoCD should sync the manifests from</td>
+            <td markdown>if you are using the `main` branch of your repo, you might set this value to `"main"`</td>
+          </tr>
+          <tr markdown>
+            <td markdown>[`argocd.source.repo.path`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L50-L54)</td>
+            <td>is the folder path under the git repo where your generated manifests are stored</td>
+            <td markdown>if you are using a folder named `GENERATOR_OUTPUT` at the root of your repo, you might set this value to `"./GENERATOR_OUTPUT/"`</td>
+          </tr>
+        </table>
+    
+        For example, the following values would tell ArgoCD to sync the manifests from a GitHub repo named `deployKF/examples`, using the `main` branch, and looking for the manifests in a folder named `./GENERATOR_OUTPUT`:
+    
+        ```yaml
+        argocd:
+          source:
+            repo:
+              url: "https://github.com/deployKF/examples.git"
+              revision: "main"
+              path: "./GENERATOR_OUTPUT/"
+        ```
+
+    !!! steps "Step 5 - Generate Manifests"
+
+        The `deploykf generate` command writes generated manifests into a folder, using one or more values files.
+
+        For example, this command will use deployKF `{{ latest_deploykf_version }}` to generate manifests under `GENERATOR_OUTPUT/`, from a values file named `custom-values.yaml`:
+    
+        ```shell
+        deploykf generate \
+            --source-version "{{ latest_deploykf_version }}" \
+            --values ./custom-values.yaml \
+            --output-dir ./GENERATOR_OUTPUT
+        ```
+
+        The required arguments of the `deploykf generate` command are:
+    
+        Argument | Description
+        --- | ---
+        `--source-version` | the [version of deployKF](#deploykf-versions) to use
+        `--values` | one or more values files to use for generating the manifests
+        `--output-dir` | the directory where the generated manifests will be written
+    
+        ---
+
+        !!! warning "Avoid Manual Changes"
         
-        If your app-of-apps source repo is private, you will need to [configure ArgoCD with git credentials](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/).
-
-    ---
-
-    __Step 4: Apply App-of-Apps Manifest__
-
-    The only manifest you need to manually apply is the ArgoCD [app-of-apps](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/#app-of-apps-pattern), which creates all the other ArgoCD applications.
+            Manual changes in the `--output-dir` will be __overwritten__ each time the `deploykf generate` command runs.
+            If you find yourself needing to make manual changes, please [raise an issue](https://github.com/deployKF/deployKF/issues) so we may consider adding a new value to support your use-case.
     
-    The `app-of-apps.yaml` manifest is generated at the root of your `--output-dir` folder, so you can apply it with:
+        !!! info "Multiple Values Files"
+            
+            If you specify `--values` multiple times, they will be merged with later ones taking precedence.
+            Note, values which are YAML lists are NOT merged, they are replaced in full.
+
+    !!! steps "Step 6 - Commit Generated Manifests"
+
+        After running `deploykf generate`, you will need to commit the manifests to your repo, so ArgoCD can apply them to your cluster:
+
+        ```shell
+        # for example, to directly commit changes to the 'main' branch of your repo
+        git add GENERATOR_OUTPUT
+        git commit -m "my commit message"
+        git push origin main
+        ```
+
+    !!! steps "Step 7 - Apply App-of-Apps Manifest"
+
+        The only manifest you need to manually apply is the ArgoCD [app-of-apps](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/#app-of-apps-pattern), which creates all the other ArgoCD applications.
     
-    ```shell
-    kubectl apply --filename GENERATOR_OUTPUT/app-of-apps.yaml
-    ```
+        The `app-of-apps.yaml` manifest is generated at the root of your `--output-dir` folder, so you can apply it with:
+        
+        ```shell
+        kubectl apply --filename GENERATOR_OUTPUT/app-of-apps.yaml
+        ```
 
 ### __Sync ArgoCD Applications__
 
@@ -857,7 +827,7 @@ All public deployKF services (including the dashboard) are accessed via your _de
 ??? steps "Expose Gateway - _Local Testing_"
 
     If you are just testing deployKF, and don't need to expose the gateway more widely, you may use local `kubectl` port-forwarding.
-    See the ["Expose Gateway and configure HTTPS"](./platform/deploykf-gateway.md#expose-with-kubectl-port-forward) guide for more information.
+    See the ["Expose Gateway and configure HTTPS"](./platform/deploykf-gateway.md#use-kubectl-port-forward) guide for more information.
 
 ### __Default Login Credentials__
 
@@ -871,7 +841,7 @@ Username | Password | Notes
 `user1@example.com` | `user1` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
 `user2@example.com` | `user2` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
 
-### __ML & Data Tools__
+### __Use the Tools__
 
 deployKF includes [many tools](../reference/tools.md#tool-index) that address different stages of the ML & Data lifecycle.
 The following links give more specific information about some of our most popular tools:
