@@ -102,91 +102,83 @@ The requirements for this quickstart depend on your operating system.
 
 === "Windows"
 
-    <h4>Step 1: Install Host Dependencies</h4>
+    !!! steps "Step 1 - Install Host Dependencies"
     
-    Install these dependencies on your __Windows host__:
-
-    Requirement | Notes
-    --- | ---
-    Windows Subsystem for Linux (WSL 2) | [Install Guide](https://learn.microsoft.com/en-us/windows/wsl/install)
-    Docker Desktop | [Install Guide](https://docs.docker.com/desktop/install/windows-install/)
+        Install these dependencies on your __Windows host__:
+        
+        Requirement | Notes
+        --- | ---
+        Windows Subsystem for Linux (WSL 2) | [Install Guide](https://learn.microsoft.com/en-us/windows/wsl/install)
+        Docker Desktop | [Install Guide](https://docs.docker.com/desktop/install/windows-install/)
     
-    ---
+    !!! steps "Step 2 - Configure WSL"
 
-    <h4>Step 2: Configure WSL</h4>
+        Configure WSL to use our [__custom kernel__](https://github.com/deployKF/WSL2-Linux-Kernel) that properly supports Kubernetes (specifically Istio).
 
-    Configure WSL to use our [__custom kernel__](https://github.com/deployKF/WSL2-Linux-Kernel) that properly supports Kubernetes (specifically Istio).
+        Run these commands in __PowerShell__ (search `PowerShell` in start menu):
+        
+        ```powershell
+        # create a directory for custom kernels
+        New-Item -Path "$env:USERPROFILE\WSL2Kernels" -ItemType Directory -Force | Out-Null
+        
+        # download our custom kernel
+        $KERNEL_VERSION = "linux-deploykf-wsl-5.15.133.1"
+        $KERNEL_URL = "https://github.com/deployKF/WSL2-Linux-Kernel/releases/download/${KERNEL_VERSION}/linux-deploykf-wsl"
+        $KERNEL_PATH = "$env:USERPROFILE\WSL2Kernels\linux-deploykf-wsl"
+        Invoke-WebRequest -Uri "${KERNEL_URL}" -OutFile "${KERNEL_PATH}"
+        
+        # set the custom kernel as the default
+        # NOTE: this will overwrite any existing .wslconfig file
+        $KERNEL_PATH_ESCAPED = ("$env:USERPROFILE\WSL2Kernels\linux-deploykf-wsl" -replace '\\', '\\')
+        $WSLCONFIG_CONTENT = @"
+        [wsl2]
+        kernel="${KERNEL_PATH_ESCAPED}"
+        "@
+        Set-Content -Path "$env:USERPROFILE\.wslconfig" -Value "${WSLCONFIG_CONTENT}"
+        
+        # restart WSL
+        wsl --shutdown
+        ```
+        
+        !!! warning "Restart Docker Desktop"
+        
+            Now you must __restart Docker Desktop__ to ensure it is using the new kernel.
+            
+            Right-click the Docker Desktop icon in the system tray, then select `Restart`.
 
-    ??? question_secondary "Why do we need a custom kernel?"
-    
-        - For context on why a custom kernel is needed, see [`deployKF/deployKF#41`](https://github.com/deployKF/deployKF/issues/41).
-        - To see what changes we have made to the kernel, review [`deployKF/WSL2-Linux-Kernel`](https://github.com/deployKF/WSL2-Linux-Kernel).
-        - Hopefully, once [`microsoft/WSL#8153`](https://github.com/microsoft/WSL/issues/8153) is resolved, we will no longer need a custom kernel.
+        !!! question_secondary "Why do we need a custom kernel?"
+        
+            - For context on why a custom kernel is needed, see [`deployKF/deployKF#41`](https://github.com/deployKF/deployKF/issues/41).
+            - To see what changes we have made to the kernel, review [`deployKF/WSL2-Linux-Kernel`](https://github.com/deployKF/WSL2-Linux-Kernel).
+            - Hopefully, once [`microsoft/WSL#8153`](https://github.com/microsoft/WSL/issues/8153) is resolved, we will no longer need a custom kernel.
 
-    Run these commands in __PowerShell__ (search `PowerShell` in start menu):
+    !!! steps "Step 3 - Install Homebrew"
 
-    ```powershell
-    # create a directory for custom kernels
-    New-Item -Path "$env:USERPROFILE\WSL2Kernels" -ItemType Directory -Force | Out-Null
+        Install Homebrew for Linux within your __WSL environment__.
+        
+        Run these commands in an Ubuntu shell (search `Ubuntu` in start menu):
+        
+        ```bash
+        # install Homebrew for Linux
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        
+        # add 'brew' to your PATH
+        # NOTE: reopen your shell for this to take effect
+        (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> ~/.profile
+        ```
 
-    # download our custom kernel
-    $KERNEL_VERSION = "linux-deploykf-wsl-5.15.133.1"
-    $KERNEL_URL = "https://github.com/deployKF/WSL2-Linux-Kernel/releases/download/${KERNEL_VERSION}/linux-deploykf-wsl"
-    $KERNEL_PATH = "$env:USERPROFILE\WSL2Kernels\linux-deploykf-wsl"
-    Invoke-WebRequest -Uri "${KERNEL_URL}" -OutFile "${KERNEL_PATH}"
+    !!! steps "Step 4 - Install WSL Dependencies"
 
-    # set the custom kernel as the default
-    # NOTE: this will overwrite any existing .wslconfig file
-    $KERNEL_PATH_ESCAPED = ("$env:USERPROFILE\WSL2Kernels\linux-deploykf-wsl" -replace '\\', '\\')
-    $WSLCONFIG_CONTENT = @"
-    [wsl2]
-    kernel="${KERNEL_PATH_ESCAPED}"
-    "@
-    Set-Content -Path "$env:USERPROFILE\.wslconfig" -Value "${WSLCONFIG_CONTENT}"
+        Install these dependencies within your Ubuntu shell (search `Ubuntu` in start menu):
+        
+        Requirement | Notes
+        --- | ---
+        CLI: [`argocd`](https://argo-cd.readthedocs.io/en/stable/cli_installation/) | RUN: `brew install argocd`
+        CLI: [`jq`](https://jqlang.github.io/jq/download/) | RUN: `brew install jq`
+        CLI: [`k3d`](https://k3d.io/) | RUN: `brew install k3d`
+        CLI: [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/) | RUN: `brew install kubectl`
 
-    # restart WSL
-    wsl --shutdown
-    ```
-
-    !!! warning "Restart Docker Desktop"
-
-        Now you must __restart Docker Desktop__ to ensure it is using the new kernel.
-
-        Right-click the Docker Desktop icon in the system tray, then select `Restart`.
-
-    ---
-
-    <h4>Step 3: Install Homebrew</h4>
-
-    Install Homebrew for Linux within your __WSL environment__.
-
-    Run these commands in an Ubuntu shell (search `Ubuntu` in start menu):
-
-    ```bash
-    # install Homebrew for Linux
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-    # add 'brew' to your PATH
-    # NOTE: reopen your shell for this to take effect
-    (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> ~/.profile
-    ```
-
-    ---
-
-    <h4>Step 4: Install WSL Dependencies</h4>
-
-    Install these dependencies within your Ubuntu shell (search `Ubuntu` in start menu):
-
-    Requirement | Notes
-    --- | ---
-    CLI: [`argocd`](https://argo-cd.readthedocs.io/en/stable/cli_installation/) | RUN: `brew install argocd`
-    CLI: [`jq`](https://jqlang.github.io/jq/download/) | RUN: `brew install jq`
-    CLI: [`k3d`](https://k3d.io/) | RUN: `brew install k3d`
-    CLI: [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/) | RUN: `brew install kubectl`
-
-    ---
-
-    For the rest of the guide, unless otherwise instructed, run all commands in an Ubuntu shell.
+        For the rest of the guide, unless otherwise instructed, run all commands in an Ubuntu shell.
 
 ## 2. Prepare Kubernetes
 
@@ -389,158 +381,163 @@ The [deployKF changelog](../releases/changelog-deploykf.md) gives detailed infor
 
 ### Create an App-of-Apps
 
-To use deployKF, the only `Application` that you will need to manually create is the _"app of apps"_.
+The only resource you manually create is the `deploykf-app-of-apps` which generates all the other `Application` resources.
+Think of it as a _"single source of truth"_ for the desired state of your platform.
 
-For example, the following _"app of apps"_ specification will use deployKF `{{ latest_deploykf_version }}` and read the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) (from the `v{{ latest_deploykf_version }}` tag of the `deploykf/deploykf` repo) while also showing how to set values with the `values` parameter:
+Use the following sample as a starting point for your `deploykf-app-of-apps` resource:
 
-```yaml
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: deploykf-app-of-apps
-  namespace: argocd
-  labels:
-    app.kubernetes.io/name: deploykf-app-of-apps
-    app.kubernetes.io/part-of: deploykf
-spec:
-  project: "default"
-  source:
-    ## source git repo configuration
-    ##  - we use the 'deploykf/deploykf' repo so we can read its 'sample-values.yaml'
-    ##    file, but you may use any repo (even one with no files)
-    ##
-    repoURL: "https://github.com/deployKF/deployKF.git"
-    targetRevision: "v{{ latest_deploykf_version }}"
-    path: "."
+??? code "Example - _Application YAML_"
 
-    ## plugin configuration
-    ##
-    plugin:
-      name: "deploykf"
-      parameters:
+    This _"app of apps"_ will use deployKF version `{{ latest_deploykf_version }}`, read the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) from the `deploykf/deploykf` repo (at the `v{{ latest_deploykf_version }}` tag), and combine those values with the overrides defined in the `values` parameter:
 
-        ## the deployKF generator version
-        ##  - available versions: https://github.com/deployKF/deployKF/releases
+    ```yaml
+    apiVersion: argoproj.io/v1alpha1
+    kind: Application
+    metadata:
+      name: deploykf-app-of-apps
+      namespace: argocd
+      labels:
+        app.kubernetes.io/name: deploykf-app-of-apps
+        app.kubernetes.io/part-of: deploykf
+    spec:
+      project: "default"
+      source:
+        ## source git repo configuration
+        ##  - we use the 'deploykf/deploykf' repo so we can read its 'sample-values.yaml'
+        ##    file, but you may use any repo (even one with no files)
         ##
-        - name: "source_version"
-          string: "{{ latest_deploykf_version }}"
-
-        ## paths to values files within the `repoURL` repository
-        ##  - the values in these files are merged, with later files taking precedence
-        ##  - we strongly recommend using 'sample-values.yaml' as the base of your values
-        ##    so you can easily upgrade to newer versions of deployKF
+        repoURL: "https://github.com/deployKF/deployKF.git"
+        targetRevision: "v{{ latest_deploykf_version }}"
+        path: "."
+    
+        ## plugin configuration
         ##
-        - name: "values_files"
-          array:
-            - "./sample-values.yaml"
-
-        ## a string containing the contents of a values file
-        ##  - this parameter allows defining values without needing to create a file in the repo
-        ##  - these values are merged with higher precedence than those defined in `values_files`
-        ##
-        - name: "values"
-          string: |
+        plugin:
+          name: "deploykf"
+          parameters:
+    
+            ## the deployKF generator version
+            ##  - available versions: https://github.com/deployKF/deployKF/releases
             ##
-            ## This demonstrates how you might structure overrides for the 'sample-values.yaml' file.
-            ## For a more comprehensive example, see the 'sample-values-overrides.yaml' in the main repo.
+            - name: "source_version"
+              string: "{{ latest_deploykf_version }}"
+    
+            ## paths to values files within the `repoURL` repository
+            ##  - the values in these files are merged, with later files taking precedence
+            ##  - we strongly recommend using 'sample-values.yaml' as the base of your values
+            ##    so you can easily upgrade to newer versions of deployKF
             ##
-            ## Notes:
-            ##  - YAML maps are RECURSIVELY merged across values files
-            ##  - YAML lists are REPLACED in their entirety across values files
-            ##  - Do NOT include empty/null sections, as this will remove ALL values from that section.
-            ##    To include a section without overriding any values, set it to an empty map: `{}`
+            - name: "values_files"
+              array:
+                - "./sample-values.yaml"
+    
+            ## a string containing the contents of a values file
+            ##  - this parameter allows defining values without needing to create a file in the repo
+            ##  - these values are merged with higher precedence than those defined in `values_files`
             ##
-
-            ## --------------------------------------------------------------------------------
-            ##                              deploykf-dependencies
-            ## --------------------------------------------------------------------------------
-            deploykf_dependencies:
-
-              ## --------------------------------------
-              ##             cert-manager
-              ## --------------------------------------
-              cert_manager:
-                {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-
-              ## --------------------------------------
-              ##                 istio
-              ## --------------------------------------
-              istio:
-                {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-
-              ## --------------------------------------
-              ##                kyverno
-              ## --------------------------------------
-              kyverno:
-                {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-
-            ## --------------------------------------------------------------------------------
-            ##                                  deploykf-core
-            ## --------------------------------------------------------------------------------
-            deploykf_core:
-
-              ## --------------------------------------
-              ##             deploykf-auth
-              ## --------------------------------------
-              deploykf_auth:
-                {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-
-              ## --------------------------------------
-              ##        deploykf-istio-gateway
-              ## --------------------------------------
-              deploykf_istio_gateway:
-                {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-
-              ## --------------------------------------
-              ##      deploykf-profiles-generator
-              ## --------------------------------------
-              deploykf_profiles_generator:
-                {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-
-            ## --------------------------------------------------------------------------------
-            ##                                   deploykf-opt
-            ## --------------------------------------------------------------------------------
-            deploykf_opt:
-
-              ## --------------------------------------
-              ##            deploykf-minio
-              ## --------------------------------------
-              deploykf_minio:
-                {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-
-              ## --------------------------------------
-              ##            deploykf-mysql
-              ## --------------------------------------
-              deploykf_mysql:
-                {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-
-            ## --------------------------------------------------------------------------------
-            ##                                  kubeflow-tools
-            ## --------------------------------------------------------------------------------
-            kubeflow_tools:
-
-              ## --------------------------------------
-              ##                 katib
-              ## --------------------------------------
-              katib:
-                {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-
-              ## --------------------------------------
-              ##               notebooks
-              ## --------------------------------------
-              notebooks:
-                {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-
-              ## --------------------------------------
-              ##               pipelines
-              ## --------------------------------------
-              pipelines:
-                {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
-
-  destination:
-    server: "https://kubernetes.default.svc"
-    namespace: "argocd"
-```
+            - name: "values"
+              string: |
+                ##
+                ## This demonstrates how you might structure overrides for the 'sample-values.yaml' file.
+                ## For a more comprehensive example, see the 'sample-values-overrides.yaml' in the main repo.
+                ##
+                ## Notes:
+                ##  - YAML maps are RECURSIVELY merged across values files
+                ##  - YAML lists are REPLACED in their entirety across values files
+                ##  - Do NOT include empty/null sections, as this will remove ALL values from that section.
+                ##    To include a section without overriding any values, set it to an empty map: `{}`
+                ##
+    
+                ## --------------------------------------------------------------------------------
+                ##                              deploykf-dependencies
+                ## --------------------------------------------------------------------------------
+                deploykf_dependencies:
+    
+                  ## --------------------------------------
+                  ##             cert-manager
+                  ## --------------------------------------
+                  cert_manager:
+                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+    
+                  ## --------------------------------------
+                  ##                 istio
+                  ## --------------------------------------
+                  istio:
+                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+    
+                  ## --------------------------------------
+                  ##                kyverno
+                  ## --------------------------------------
+                  kyverno:
+                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+    
+                ## --------------------------------------------------------------------------------
+                ##                                  deploykf-core
+                ## --------------------------------------------------------------------------------
+                deploykf_core:
+    
+                  ## --------------------------------------
+                  ##             deploykf-auth
+                  ## --------------------------------------
+                  deploykf_auth:
+                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+    
+                  ## --------------------------------------
+                  ##        deploykf-istio-gateway
+                  ## --------------------------------------
+                  deploykf_istio_gateway:
+                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+    
+                  ## --------------------------------------
+                  ##      deploykf-profiles-generator
+                  ## --------------------------------------
+                  deploykf_profiles_generator:
+                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+    
+                ## --------------------------------------------------------------------------------
+                ##                                   deploykf-opt
+                ## --------------------------------------------------------------------------------
+                deploykf_opt:
+    
+                  ## --------------------------------------
+                  ##            deploykf-minio
+                  ## --------------------------------------
+                  deploykf_minio:
+                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+    
+                  ## --------------------------------------
+                  ##            deploykf-mysql
+                  ## --------------------------------------
+                  deploykf_mysql:
+                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+    
+                ## --------------------------------------------------------------------------------
+                ##                                  kubeflow-tools
+                ## --------------------------------------------------------------------------------
+                kubeflow_tools:
+    
+                  ## --------------------------------------
+                  ##                 katib
+                  ## --------------------------------------
+                  katib:
+                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+    
+                  ## --------------------------------------
+                  ##               notebooks
+                  ## --------------------------------------
+                  notebooks:
+                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+    
+                  ## --------------------------------------
+                  ##               pipelines
+                  ## --------------------------------------
+                  pipelines:
+                    {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+    
+      destination:
+        server: "https://kubernetes.default.svc"
+        namespace: "argocd"
+    ```
 
 You will need to apply this `Application` resource to your Kubernetes cluster.
 
@@ -686,85 +683,81 @@ All public deployKF services (including the dashboard) are accessed via your _de
 
 For this quickstart, we will be using the port-forward feature of `kubectl` to expose the gateway locally on your machine.
 
----
-
-__Step 1: Modify Hosts__
-
-The _deployKF Istio Gateway_ uses the HTTP `Host` header to route requests to the correct internal service, meaning that using `localhost` or `127.0.0.1` will NOT work.
-
-=== "macOS"
-
-    You will need to add the following lines to the END of your __local__ `/etc/hosts` file:
-
-    ```text
-    127.0.0.1 deploykf.example.com
-    127.0.0.1 argo-server.deploykf.example.com
-    127.0.0.1 minio-api.deploykf.example.com
-    127.0.0.1 minio-console.deploykf.example.com
-    ```
-
-=== "Linux"
-
-    You will need to add the following lines to the END of your __local__ `/etc/hosts` file:
-
-    ```text
-    127.0.0.1 deploykf.example.com
-    127.0.0.1 argo-server.deploykf.example.com
-    127.0.0.1 minio-api.deploykf.example.com
-    127.0.0.1 minio-console.deploykf.example.com
-    ```
-
-=== "Windows"
-
-    You will need to add the following lines to the END of your `C:\Windows\System32\drivers\etc\hosts` file:
-
-    ```text
-    127.0.0.1 deploykf.example.com
-    127.0.0.1 argo-server.deploykf.example.com
-    127.0.0.1 minio-api.deploykf.example.com
-    127.0.0.1 minio-console.deploykf.example.com
-    ```
-  
-    !!! warning "Edit hosts file as Administrator"
-
-        The hosts file can ONLY be edited by the Windows _Administrator_ user.
-
-        Run this PowerShell command to start an _Administrator_ Notepad, which can edit the hosts file:
+!!! steps "Step 1 - Modify Hosts"
     
-        ```powershell
-        Start-Process notepad.exe -ArgumentList "C:\Windows\System32\drivers\etc\hosts" -Verb RunAs
+    The _deployKF Istio Gateway_ uses the HTTP `Host` header to route requests to the correct internal service.
+    This means that using `localhost` or `127.0.0.1` will NOT work.
+    
+    === "macOS"
+    
+        You will need to add the following lines to the END of your __local__ `/etc/hosts` file:
+    
+        ```text
+        127.0.0.1 deploykf.example.com
+        127.0.0.1 argo-server.deploykf.example.com
+        127.0.0.1 minio-api.deploykf.example.com
+        127.0.0.1 minio-console.deploykf.example.com
         ```
----
-
-__Step 2: Port-Forward Gateway__
-
-You may now port-forward the `deploykf-gateway` Service using this `kubectl` command:
-
-```shell
-kubectl port-forward \
-  --namespace "deploykf-istio-gateway" \
-  svc/deploykf-gateway 8080:http 8443:https
-```
-
-The deployKF dashboard should now be available on your local machine at:
     
-  :material-arrow-right-bold: [https://deploykf.example.com:8443/](https://deploykf.example.com:8443/)
+    === "Linux"
+    
+        You will need to add the following lines to the END of your __local__ `/etc/hosts` file:
+    
+        ```text
+        127.0.0.1 deploykf.example.com
+        127.0.0.1 argo-server.deploykf.example.com
+        127.0.0.1 minio-api.deploykf.example.com
+        127.0.0.1 minio-console.deploykf.example.com
+        ```
+    
+    === "Windows"
+    
+        You will need to add the following lines to the END of your `C:\Windows\System32\drivers\etc\hosts` file:
+    
+        ```text
+        127.0.0.1 deploykf.example.com
+        127.0.0.1 argo-server.deploykf.example.com
+        127.0.0.1 minio-api.deploykf.example.com
+        127.0.0.1 minio-console.deploykf.example.com
+        ```
+      
+        !!! warning "Edit hosts file as Administrator"
+    
+            The hosts file can ONLY be edited by the Windows _Administrator_ user.
+    
+            Run this PowerShell command to start an _Administrator_ Notepad, which can edit the hosts file:
+        
+            ```powershell
+            Start-Process notepad.exe -ArgumentList "C:\Windows\System32\drivers\etc\hosts" -Verb RunAs
+            ```
 
----
+!!! steps "Step 2 - Port-Forward the Gateway"
+    
+    You may now port-forward the `deploykf-gateway` Service using this `kubectl` command:
+    
+    ```shell
+    kubectl port-forward \
+      --namespace "deploykf-istio-gateway" \
+      svc/deploykf-gateway 8080:http 8443:https
+    ```
+    
+    The deployKF dashboard should now be available on your local machine at:
+        
+      :material-arrow-right-bold: [https://deploykf.example.com:8443/](https://deploykf.example.com:8443/)
 
-__Step 3: Log in to Dashboard__
+!!! steps "Step 3 - Log in to the Dashboard"
 
-The default values include [static user/password combinations](./platform/deploykf-authentication.md#static-userpassword-combinations) defined by the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L393-L402) value, which can be used for testing.
+    The default values include [static user/password combinations](./platform/deploykf-authentication.md#static-userpassword-combinations) defined by the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L393-L402) value, which can be used for testing.
+    
+    This table lists the default login credentials:
+    
+    Username | Password | Notes
+    --- | --- | ---
+    `admin@example.com` | `admin` | In production, we recommend leaving this account as the default "owner" but excluding its [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396), so it can't be used to log in.<br><br>This is the [default "owner"](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L688-L694) of all profiles, but a "member" of none, meaning it does NOT have access to "MinIO Console" or "Argo Workflows Server".
+    `user1@example.com` | `user1` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
+    `user2@example.com` | `user2` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
 
-This table lists the default login credentials:
-
-Username | Password | Notes
---- | --- | ---
-`admin@example.com` | `admin` | In production, we recommend leaving this account as the default "owner" but excluding its [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396), so it can't be used to log in.<br><br>This is the [default "owner"](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L688-L694) of all profiles, but a "member" of none, meaning it does NOT have access to "MinIO Console" or "Argo Workflows Server".
-`user1@example.com` | `user1` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
-`user2@example.com` | `user2` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
-
-### ML & Data Tools
+### Use the Tools
 
 deployKF includes [many tools](../reference/tools.md#tool-index) that address different stages of the ML & Data lifecycle.
 The following links give more specific information about some of our most popular tools:
