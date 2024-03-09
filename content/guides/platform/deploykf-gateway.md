@@ -35,7 +35,7 @@ You can expose the `deploykf-gateway` Service in a few different ways, depending
 
 ### __Use kubectl port-forward__
 
-If you are just testing the platform, you may use [`kubectl port-forward`](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/) to access a Service from your local machine.
+If you are just testing the platform, you may use [`kubectl port-forward`](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/) to access the Service from your local machine.
 
 ??? steps "Step 1 - Modify Hosts"
     
