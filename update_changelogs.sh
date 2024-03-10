@@ -12,6 +12,9 @@ python ./dev/generate_changelog.py \
   --output-heading 'Changelog - deployKF' \
   --output-description 'The main changelog for deployKF.' \
   --output-intro 'This changelog lists releases of __deployKF__ that are found in the [`deployKF/deployKF`](https://github.com/deployKF/deployKF/releases) repository.' \
+  --output-admonition-type 'tip' \
+  --output-admonition-title 'Be notified about deployKF releases' \
+  --output-admonition-content 'Be notified about new deployKF releases by watching the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub, at the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.' \
   --output-admonition-type 'info' \
   --output-admonition-title 'Pre-releases' \
   --output-admonition-content 'For a changelog that shows pre-releases, see [the full-changelog](./full-changelog-deploykf.md) page.' \
@@ -41,6 +44,9 @@ python ./dev/generate_changelog.py \
   --output-heading 'Changelog - deployKF CLI' \
   --output-description 'The main changelog for the deployKF CLI.' \
   --output-intro 'This changelog lists releases of the __deployKF CLI__ that are found in the [`deployKF/cli`](https://github.com/deployKF/cli/releases) repository.' \
+  --output-admonition-type 'tip' \
+  --output-admonition-title 'Be notified about deployKF CLI releases' \
+  --output-admonition-content 'Be notified about new deployKF CLI releases by watching the [`deployKF/cli`](https://github.com/deployKF/cli) repo on GitHub, at the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.' \
   --output-admonition-type 'info' \
   --output-admonition-title 'Pre-releases' \
   --output-admonition-content 'For a changelog that shows pre-releases, see [the full-changelog](./full-changelog-deploykf-cli.md) page.' \

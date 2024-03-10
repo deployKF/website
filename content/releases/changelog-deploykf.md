@@ -8,6 +8,10 @@ description: >-
 
 This changelog lists releases of __deployKF__ that are found in the [`deployKF/deployKF`](https://github.com/deployKF/deployKF/releases) repository.
 
+!!! tip "Be notified about deployKF releases"
+
+    Be notified about new deployKF releases by watching the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub, at the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.
+
 !!! info "Pre-releases"
 
     For a changelog that shows pre-releases, see [the full-changelog](./full-changelog-deploykf.md) page.

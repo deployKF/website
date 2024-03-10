@@ -8,6 +8,10 @@ description: >-
 
 This changelog lists releases of the __deployKF CLI__ that are found in the [`deployKF/cli`](https://github.com/deployKF/cli/releases) repository.
 
+!!! tip "Be notified about deployKF CLI releases"
+
+    Be notified about new deployKF CLI releases by watching the [`deployKF/cli`](https://github.com/deployKF/cli) repo on GitHub, at the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.
+
 !!! info "Pre-releases"
 
     For a changelog that shows pre-releases, see [the full-changelog](./full-changelog-deploykf-cli.md) page.
