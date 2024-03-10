@@ -15,7 +15,7 @@ The following is a summary of the __generator values__ (configs) available in __
     These values are conceptually similar to Helm Chart values, but they are all "global".
     This means you only need to configure them once, even though they control multiple internal Helm Charts and Kustomize apps.
 
-    For more information, see the [getting started](../guides/getting-started.md#2-platform-configuration) guide to learn how to configure the values to suit your needs.
+    For more information, see the [configure deployKF](../guides/configs.md#about-values) guide.
 
 ---
 

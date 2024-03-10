@@ -206,17 +206,17 @@ def main():
     )
     parser.add_argument(
         "--output-admonition-type",
-        default="info",
+        action="append",
         help="The type of the output admonition",
     )
     parser.add_argument(
         "--output-admonition-title",
-        default="",
+        action="append",
         help="The title for the output admonition",
     )
     parser.add_argument(
         "--output-admonition-content",
-        default="",
+        action="append",
         help="The content for the output admonition",
     )
     parser.add_argument(
@@ -280,15 +280,21 @@ def main():
     changelog.append(f"{args.output_intro}")
     changelog.append("")
 
-    if args.output_admonition_content:
-        if args.output_admonition_title:
-            changelog.append(
-                f'!!! {args.output_admonition_type} "{args.output_admonition_title}"'
-            )
+    admonitions_list = list(
+        zip(
+            args.output_admonition_type,
+            args.output_admonition_title,
+            args.output_admonition_content,
+        )
+    )
+
+    for admonition_type, admonition_title, admonition_content in admonitions_list:
+        if admonition_title:
+            changelog.append(f'!!! {admonition_type} "{admonition_title}"')
         else:
-            changelog.append(f"!!! {args.output_admonition_type}")
+            changelog.append(f"!!! {admonition_type}")
         changelog.append("")
-        changelog.append(f"    {args.output_admonition_content}")
+        changelog.append(f"    {admonition_content}")
         changelog.append("")
 
     changelog.append("---")

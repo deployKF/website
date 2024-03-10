@@ -26,7 +26,7 @@ faq_schema:
       
       - Run on [__any Kubernetes cluster__](./guides/getting-started.md#kubernetes-cluster), including on-premises and in the cloud
       - Deploy leading Data and ML tools like [:custom-kubeflow-color: __Kubeflow__](./reference/tools.md#kubeflow-ecosystem), [:custom-airflow-color: __Airflow__](./reference/future-tools.md#apache-airflow)<sup>†</sup>, and [:custom-mlflow-color: __MLflow__](./reference/future-tools.md#mlflow-model-registry)<sup>†</sup>
-      - Intuitive [__centralized configs__](./guides/getting-started.md#2-platform-configuration) for all aspects of the platform
+      - Intuitive [__centralized configs__](./guides/configs.md#about-values) for all aspects of the platform
       - Seamless __in-place upgrades__ and config updates
       - Connect your existing [:custom-istio-color: __Istio__](./guides/dependencies/istio.md#can-i-use-my-existing-istio), [:custom-cert-manager-color: __cert-manager__](./guides/dependencies/cert-manager.md#can-i-use-my-existing-cert-manager), [:custom-kyverno-color: __Kyverno__](./guides/dependencies/kyverno.md#can-i-use-my-existing-kyverno), [:custom-s3-color: __S3__](./guides/tools/external-object-store.md), and [:custom-mysql-color: __MySQL__](./guides/tools/external-mysql.md)
       - Use any [__identity provider__](./guides/platform/deploykf-authentication.md) via _OpenID Connect_ or _LDAP_

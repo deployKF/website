@@ -31,7 +31,7 @@ An __introduction__ to deployKF.
 
     - Run on [__any Kubernetes cluster__](../guides/getting-started.md#kubernetes-cluster), including on-premises and in the cloud
     - Deploy leading Data and ML tools like [:custom-kubeflow-color: __Kubeflow__](../reference/tools.md#kubeflow-ecosystem), [:custom-airflow-color: __Airflow__](../reference/future-tools.md#apache-airflow)<sup>†</sup>, and [:custom-mlflow-color: __MLflow__](../reference/future-tools.md#mlflow-model-registry)<sup>†</sup>
-    - Intuitive [__centralized configs__](../guides/getting-started.md#2-platform-configuration) for all aspects of the platform
+    - Intuitive [__centralized configs__](../guides/configs.md#about-values) for all aspects of the platform
     - Seamless __in-place upgrades__ and config updates
     - Connect your existing [:custom-istio-color: __Istio__](../guides/dependencies/istio.md#can-i-use-my-existing-istio), [:custom-cert-manager-color: __cert-manager__](../guides/dependencies/cert-manager.md#can-i-use-my-existing-cert-manager), [:custom-kyverno-color: __Kyverno__](../guides/dependencies/kyverno.md#can-i-use-my-existing-kyverno), [:custom-s3-color: __S3__](../guides/tools/external-object-store.md), and [:custom-mysql-color: __MySQL__](../guides/tools/external-mysql.md)
     - Use any [__identity provider__](../guides/platform/deploykf-authentication.md) via _OpenID Connect_ or _LDAP_
@@ -106,22 +106,17 @@ We have a number of guides to help you get started with deployKF.
 
 ### __Community__
 
-!!! support ""
+!!! value ""
 
-    The deployKF community uses the __Kubeflow Slack__ for informal discussions among users and contributors.
-    <br>
+    The deployKF [community](community.md) uses the __Kubeflow Slack__ for informal discussions among users and contributors.
+
     After you join, connect with us on the [`#deploykf`](https://kubeflow.slack.com/archives/C054H6WLNCB) channel!
 
-    [:fontawesome-brands-slack: Join the Slack](https://invite.playplay.io/invite?team_id=T7QLHSH6U){ .md-button .md-button--secondary }
-
-    The deployKF community has two mailing lists which are hosted on Google Groups.
-
-    [:fontawesome-solid-envelope: Join User Mailing List](https://groups.google.com/g/deploykf-users){ .md-button .md-button--secondary }
-    [:fontawesome-solid-envelope: Join Contributor Mailing List](https://groups.google.com/g/deploykf-dev){ .md-button .md-button--secondary }
+    [:fontawesome-brands-slack: Join the Slack](https://communityinviter.com/apps/kubeflow/slack){ .md-button .md-button--secondary }
 
 ### __History__
 
-!!! support ""
+!!! value ""
 
     deployKF was originally created and is maintained by [Mathew Wicks](https://www.linkedin.com/in/mathewwicks/) (GitHub: [@thesuperzapper](https://github.com/thesuperzapper)), a Kubeflow lead and maintainer of the popular [Apache Airflow Helm Chart](https://github.com/airflow-helm/charts).
     deployKF is a community-led project that welcomes contributions from anyone who wants to help.

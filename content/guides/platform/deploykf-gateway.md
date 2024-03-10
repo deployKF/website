@@ -37,10 +37,12 @@ You can expose the `deploykf-gateway` Service in a few different ways, depending
 
 If you are just testing the platform, you may use [`kubectl port-forward`](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/) to access the Service from your local machine.
 
-??? steps "Step 1 - Modify Hosts"
+??? step "Step 1 - Modify Hosts"
     
     The _deployKF Istio Gateway_ uses the HTTP `Host` header to route requests to the correct internal service.
     This means that using `localhost` or `127.0.0.1` will NOT work.
+
+    We must add a host entry so that `deploykf.example.com` resolves to `127.0.0.1`:
     
     === "macOS"
     
@@ -85,7 +87,7 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
             Start-Process notepad.exe -ArgumentList "C:\Windows\System32\drivers\etc\hosts" -Verb RunAs
             ```
 
-??? steps "Step 2 - Port-Forward the Gateway"
+??? step "Step 2 - Port-Forward the Gateway"
     
     You may now port-forward the `deploykf-gateway` Service using this `kubectl` command:
     
@@ -103,7 +105,7 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
 
     !!! warning "Port-Forwards Known Issues"
     
-        There are upstream issues which can cause you to need to restart the port-forward, see [`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551) for more information.
+        There are upstream issues which can cause you to need to __restart the port-forward__, see [`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551) for more information.
 
 ### __Use a LoadBalancer Service__
 
@@ -536,7 +538,7 @@ deploykf_core:
 [External-DNS](https://github.com/kubernetes-sigs/external-dns) is a Kubernetes controller that automatically configures DNS records for Kubernetes resources.
 The following steps explain how to install and configure External-DNS to set DNS records for the deployKF Gateway Service.
 
-??? steps "Step 1 - Install External-DNS"
+??? step "Step 1 - Install External-DNS"
 
     The External-DNS documentation provides instructions for [installing External-DNS on various platforms](https://kubernetes-sigs.github.io/external-dns/latest/#deploying-to-a-cluster).
 
@@ -554,7 +556,7 @@ The following steps explain how to install and configure External-DNS to set DNS
         Unless the `--policy=upsert-only` argument is used, external-dns will __delete DNS records__ when a resource is deleted (or changed in a way that would affect the records).
         Records take time to propagate, so you may experience downtime if you delete resources and then recreate them.
 
-??? steps "Step 2 - Configure External-DNS"
+??? step "Step 2 - Configure External-DNS"
 
     There are a few ways to configure External-DNS so that it sets DNS records for the deployKF Gateway Service.
 
@@ -600,7 +602,7 @@ The following steps explain how to install and configure External-DNS to set DNS
 
 This section explains how to manually configure DNS records with your DNS provider.
 
-??? steps "Step 1 - Get Service IP"
+??? step "Step 1 - Get Service IP"
 
     You will need to find the IP address of the deployKF Gateway Service, this can be done by running the following command:
 
@@ -615,7 +617,7 @@ This section explains how to manually configure DNS records with your DNS provid
     deploykf-gateway   LoadBalancer   10.43.24.148   172.23.0.2    15021:30XXXX/TCP,80:30XXXX/TCP,443:30XXXX/TCP   1d
     ```
 
-??? steps "Step 2 - Configure DNS Records"
+??? step "Step 2 - Configure DNS Records"
 
     You can now configure DNS records with your DNS provider that target the IP address of the deployKF Gateway Service.
 
@@ -675,7 +677,7 @@ Therefore, if you are not using an external proxy to terminate TLS (like AWS ALB
 For almost everyone, the best Certificate Authority (CA) is [Let's Encrypt](https://letsencrypt.org/).
 The following steps explain how to use Let's Encrypt with cert-manager to generate a valid TLS certificate for the deployKF Gateway.
 
-??? steps "Step 1 - Connect Cert-Manager to DNS Provider"
+??? step "Step 1 - Connect Cert-Manager to DNS Provider"
 
     Because deployKF uses a [wildcard `Certificate`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/templates/manifests/deploykf-core/deploykf-istio-gateway/templates/gateway/Certificate.yaml#L16), you MUST use the [`DNS-01`](https://letsencrypt.org/docs/challenge-types/#dns-01-challenge) challenge to verify domain ownership (rather than [`HTTP-01`](https://letsencrypt.org/docs/challenge-types/#http-01-challenge)).
     This requires you to configure cert-manager so that it is able to create DNS records.
@@ -718,7 +720,7 @@ The following steps explain how to use Let's Encrypt with cert-manager to genera
                   #azure.workload.identity/tenant-id: "00000000-0000-0000-0000-000000000000"
         ```
 
-??? steps "Step 2 - Create a ClusterIssuer"
+??? step "Step 2 - Create a ClusterIssuer"
 
     Once cert-manager is connected to your DNS provider, you must create a `ClusterIssuer` resource that can generate certificates for your domain from [Let's Encrypt](https://letsencrypt.org/).
 
@@ -754,7 +756,7 @@ The following steps explain how to use Let's Encrypt with cert-manager to genera
         Most cert-manager examples show an `Issuer` resource. 
         Note that any issuer may be converted to its equivalent cluster version by changing the `kind` field from `"Issuer"` to `"ClusterIssuer"` and removing the `metadata.namespace` field.
 
-??? steps "Step 3 - Configure the Istio Gateway"
+??? step "Step 3 - Configure the Istio Gateway"
 
     Once you have a `ClusterIssuer` resource that can generate certificates for your domain, you must configure the deployKF Istio Gateway to use it.
     This is done by using the [`deploykf_dependencies.cert_manager.clusterIssuer`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L186-L193) values.

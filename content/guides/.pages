@@ -2,6 +2,7 @@ nav:
   - getting-started.md
   - local-quickstart.md
   - troubleshooting.md
+  - configs.md
   - Cluster Dependencies: dependencies
   - Platform Configs: platform
   - Tool Configs: tools
