@@ -48,9 +48,9 @@ The __deployKF CLI__ is a command line program written in Go, it is developed in
     3. Read the `.deploykf_generator` marker file from the root of the generator:
         - The `.deploykf_generator` file contains JSON data with information like the `generator_schema` version
         - If the CLI does not support the encountered `generator_schema` version, the CLI will exit with an error
-    4. Clean the folder currently at the `--outut-dir` target:
+    4. Clean the folder currently at the `--output-dir` target:
         - The CLI will only remove the contents of a non-empty target if there is a `.deploykf_output` marker file at its root
-    5. Render the manifests into `--outut-dir` in two phases, using the provided `--values` files:
+    5. Render the manifests into `--output-dir` in two phases, using the provided `--values` files:
         1. PHASE 1: render the `.gomplateignore_template` files into `.gomplateignore` files (still in the temporary folder)
             - Note, these files behave like `.gitignore` files, and are used to exclude files from the output in the second phase
         2. PHASE 2: render the templates from the `templates` folder into the `--output-dir`
