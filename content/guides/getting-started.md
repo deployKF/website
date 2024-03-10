@@ -683,7 +683,7 @@ The _deployKF dashboard_ is the web-based interface for deployKF, it gives users
 
     There are a few default credentials set in the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L469-L492) value:
 
-    ??? config "Admin"
+    ??? key "Credentials: Admin"
 
         __Username:__ `admin@example.com`
         <br>
@@ -694,7 +694,7 @@ The _deployKF dashboard_ is the web-based interface for deployKF, it gives users
         - We recommend removing the [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396) for this account, so it can't be used to log in.
         - We recommend leaving this account as the default "owner", even with `@example.com` as the domain (because profile owners can't be changed).
 
-    ??? config "User 1"
+    ??? key "Credentials: User 1"
 
         __Username:__ `user1@example.com`
         <br>
@@ -703,7 +703,7 @@ The _deployKF dashboard_ is the web-based interface for deployKF, it gives users
         - This account has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833).
         - This account has [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
 
-    ??? config "User 2"
+    ??? key "Credentials: User 2"
 
         __Username:__ `user2@example.com`
         <br>
