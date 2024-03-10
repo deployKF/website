@@ -231,7 +231,7 @@ K3s is an extremely lightweight Kubernetes distribution that is fully compliant 
         kube-system  metrics-server-7b67f64457-qc5nt           1/1     Running     0                1h
         ```
 
-    === "Get Pods Status: `k9s`"
+    === ":star: Get Pods Status: `k9s` :star:"
     
         [`k9s`](https://k9scli.io/) makes interacting with Kubernetes much easier by providing a text-based management interface for any Kubernetes cluster.
         You can [install `k9s`](https://k9scli.io/topics/install/) from Homebrew on macOS or Linux:
@@ -557,7 +557,7 @@ Think of it as a _"single source of truth"_ for the desired state of your platfo
 
     You can apply the resource using either the CLI or the ArgoCD Web UI:
 
-    === "Apply: `kubectl`"
+    === ":star: Apply: `kubectl` :star:"
     
         Create a local file named `deploykf-app-of-apps.yaml` with the contents of the app-of-apps YAML above.
 

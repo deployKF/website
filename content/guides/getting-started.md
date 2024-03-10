@@ -175,7 +175,7 @@ Manifests Repo Mode | The [`deployKF CLI`](deploykf-cli.md#about-the-cli) is use
 deployKF uses ArgoCD to apply manifests to your Kubernetes cluster.
 How you generate and apply the manifests will depend on the [mode of operation](#modes-of-operation) you have chosen.
 
-=== "ArgoCD Plugin Mode"
+=== ":star: ArgoCD Plugin Mode :star:"
 
     !!! step "Step 1 - Install the ArgoCD Plugin"
 
@@ -484,7 +484,7 @@ Syncing an application will cause ArgoCD to reconcile the actual state in the cl
 There are a few ways to sync the applications, you only need to use ONE of them.
 We recommend using the __automated sync script__.
 
-=== "Sync: Automated Script"
+=== ":star: Sync: Automated Script :star:"
     
     We provide the [`sync_argocd_apps.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/sync_argocd_apps.sh) script to automatically sync the applications that make up deployKF.
     Learn more about the automated sync script from the [`scripts` folder README](https://github.com/deployKF/deployKF/tree/main/scripts) .
