@@ -177,7 +177,7 @@ How you generate and apply the manifests will depend on the [mode of operation](
 
 === "ArgoCD Plugin Mode"
 
-    !!! steps "Step 1 - Install the ArgoCD Plugin"
+    !!! step "Step 1 - Install the ArgoCD Plugin"
 
         Your ArgoCD instance must have the _deployKF ArgoCD plugin_ installed.
 
@@ -186,7 +186,7 @@ How you generate and apply the manifests will depend on the [mode of operation](
         - [Add the deployKF plugin to an existing ArgoCD](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---existing-argocd)
         - [Install a new ArgoCD (with the deployKF plugin pre-installed)](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---new-argocd)
 
-    !!! steps "Step 2 - Define App-of-Apps Resource"
+    !!! step "Step 2 - Define App-of-Apps Resource"
 
         The only resource you manually create is the `deploykf-app-of-apps`, this resource generates all the other `Application` resources.
         Think of it as a _"single source of truth"_ for the desired state of your platform.
@@ -349,7 +349,7 @@ How you generate and apply the manifests will depend on the [mode of operation](
             namespace: "argocd"
         ```
 
-    !!! steps "Step 3 - Apply App-of-Apps Resource"
+    !!! step "Step 3 - Apply App-of-Apps Resource"
 
         Create a local file named `deploykf-app-of-apps.yaml` with the contents of the app-of-apps YAML above.
 
@@ -361,26 +361,26 @@ How you generate and apply the manifests will depend on the [mode of operation](
 
 === "Manifests Repo Mode"
 
-    !!! steps "Step 1 - Install ArgoCD"
+    !!! step "Step 1 - Install ArgoCD"
 
         If you have not already installed ArgoCD on your cluster, you will need to do so.
 
         Please see the [ArgoCD Getting Started Guide](https://argo-cd.readthedocs.io/en/stable/getting_started/) for instructions.
       
-    !!! steps "Step 2 - Install the deployKF CLI"
+    !!! step "Step 2 - Install the deployKF CLI"
 
         If you have not already installed the `deploykf` CLI on your local machine, you will need to do so.
 
         Please see the [CLI Installation Guide](deploykf-cli.md#install-the-cli) for instructions.
 
-    !!! steps "Step 3 - Prepare a Git Repo"
+    !!! step "Step 3 - Prepare a Git Repo"
 
         You will need to set up a git repo to store the generated manifests.
         If your repo is private (recommended), you will need to [configure ArgoCD with git credentials](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/) so it can access the repo.
 
         We recommend that you commit your values file(s) to the repo, so you can track changes over time.
 
-    !!! steps "Step 4 - Set Required Values"
+    !!! step "Step 4 - Set Required Values"
 
         There are some values which must be set in your values file to tell ArgoCD where to find your generated manifests.
     
@@ -418,7 +418,7 @@ How you generate and apply the manifests will depend on the [mode of operation](
               path: "./GENERATOR_OUTPUT/"
         ```
 
-    !!! steps "Step 5 - Generate Manifests"
+    !!! step "Step 5 - Generate Manifests"
 
         The `deploykf generate` command writes generated manifests into a folder, using one or more [values files](#about-values).
 
@@ -451,7 +451,7 @@ How you generate and apply the manifests will depend on the [mode of operation](
             If you specify `--values` multiple times, they will be merged with later ones taking precedence.
             Note, values which are YAML lists are NOT merged, they are replaced in full.
 
-    !!! steps "Step 6 - Commit Generated Manifests"
+    !!! step "Step 6 - Commit Generated Manifests"
 
         After running `deploykf generate`, you will need to commit the manifests to your repo, so ArgoCD can apply them to your cluster:
 
@@ -462,7 +462,7 @@ How you generate and apply the manifests will depend on the [mode of operation](
         git push origin main
         ```
 
-    !!! steps "Step 7 - Apply App-of-Apps Manifest"
+    !!! step "Step 7 - Apply App-of-Apps Manifest"
 
         The only manifest you need to manually apply is the ArgoCD [app-of-apps](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/#app-of-apps-pattern), which creates all the other ArgoCD applications.
     
@@ -562,7 +562,7 @@ We recommend using the __automated sync script__.
 
     You can sync the applications using the ArgoCD Web UI.
 
-    !!! steps "Step 1 - Access the ArgoCD Web UI"
+    !!! step "Step 1 - Access the ArgoCD Web UI"
 
         For production usage, you may want to [expose ArgoCD with a `LoadBalancer` or `Ingress`](https://argo-cd.readthedocs.io/en/stable/getting_started/#3-access-the-argo-cd-api-server).
 
@@ -590,7 +590,7 @@ We recommend using the __automated sync script__.
         ![ArgoCD Web UI (Dark Mode)](../assets/images/argocd-ui-DARK.png#only-dark)
         ![ArgoCD Web UI (Light Mode)](../assets/images/argocd-ui-LIGHT.png#only-light)
 
-    !!! steps "Step 2 - Sync deployKF Applications"
+    !!! step "Step 2 - Sync deployKF Applications"
 
         You MUST sync the deployKF applications in the correct order.
         For each application, click the `SYNC` button, and wait for the application to become "Healthy" before syncing the next.
@@ -667,7 +667,7 @@ The _deployKF dashboard_ is the web-based interface for deployKF, it gives users
 ![deployKF Dashboard (Dark Mode)](../assets/images/deploykf-dashboard-DARK.png#only-dark)
 ![deployKF Dashboard (Light Mode)](../assets/images/deploykf-dashboard-LIGHT.png#only-light)
 
-!!! steps "Step 1 - Expose the Gateway"
+!!! step "Step 1 - Expose the Gateway"
 
     All public deployKF services (including the dashboard) are accessed via the deployKF Istio Gateway, you will need to expose its Kubernetes Service.
 
@@ -677,7 +677,7 @@ The _deployKF dashboard_ is the web-based interface for deployKF, it gives users
     - [Expose with: `LoadBalancer` Service](./platform/deploykf-gateway.md#use-a-loadbalancer-service)
     - [Expose with: `Ingress`](./platform/deploykf-gateway.md#use-a-kubernetes-ingress)
 
-!!! steps "Step 2 - Log in to the Dashboard"
+!!! step "Step 2 - Log in to the Dashboard"
 
     See the authentication guide to [define static credentials](./platform/deploykf-authentication.md#static-userpassword-combinations), or [connect deployKF to an external identity provider](#external-identity-providers) like Okta or Active Directory.
 
@@ -712,7 +712,7 @@ The _deployKF dashboard_ is the web-based interface for deployKF, it gives users
         - This account has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833).
         - This account has [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
 
-!!! steps "Step 3 - Customize the Dashboard"
+!!! step "Step 3 - Customize the Dashboard"
 
     If you would like to make changes to the _deployKF dashboard_, such as adding custom links to the sidebar or homepage, see the [dashboard customization guide](./platform/deploykf-dashboard.md).
 
