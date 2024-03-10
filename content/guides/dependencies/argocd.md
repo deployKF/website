@@ -69,7 +69,7 @@ For example, we use Argo CD for:
 The [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) is an optional part of deployKF which removes the need to commit manifests to a Git repository.
 The plugin adds a special kind of Argo CD [`Application`](#argo-cd-applications) that produces deployKF manifests internally, similar to how Helm charts are used in Argo CD. 
 
-With the plugin, you manage the whole platform from a single _"app of apps"_ `Application` whose specification only needs your [values](../getting-started.md#2-platform-configuration), and a specified [source version](../getting-started.md#deploykf-versions) of deployKF.
+With the plugin, you manage the whole platform from a single _"app of apps"_ `Application` whose specification only needs your [values](../configs.md#about-values), and a specified [source version](../getting-started.md#deploykf-versions) of deployKF.
 For an example of this, see [__this section__](../local-quickstart.md#create-an-app-of-apps) of the local quickstart.
 
 ---
@@ -93,23 +93,22 @@ We think deployKF is good enough to try, even if you don't love Argo CD!
 
     To learn more about this decision, and participate in the discussion, see [`deployKF/deployKF#110`](https://github.com/deployKF/deployKF/issues/110).
 
-### __Can a single Argo CD deploy multiple clusters?__
+## __Can I use an off-cluster ArgoCD?__
 
 Yes.
-However, as Argo CD `Applications` must have unique names, we provide the [`argocd.appNamePrefix`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L8-L13) value to prefix all Application names.
+deployKF supports the ArgoCD "management cluster" pattern, where multiple clusters are managed by a single Argo CD.
 
-For example, to set a prefix of `"cluster1-"`, you might use the following values:
+We provide the [`argocd.appNamePrefix`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L8-L13) value to prefix all ArgoCD `Application` names (multiple sets of them will exist in the management cluster).
+When `argocd.appNamePrefix` is non-empty, the [`argocd.destination`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L56-L61) MUST be a remote cluster (that is, you should not run deployKF on your management cluster).
+
+The following values will prefix all application names with `"cluster1-"` and target them to the [remote cluster](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#clusters) named `"my-cluster1"`:
 
 ```yaml
 argocd:
+  ## a prefix to use for argocd application names
   appNamePrefix: "cluster1-"
-```
 
-When `argocd.appNamePrefix` is non-empty, the [`argocd.destination`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L56-L61) MUST be a remote cluster (note, the [default is "in-cluster"](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L60)).
-For example, if you have [defined an Argo CD cluster](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#clusters) named `"my-cluster1"`, you might use the following values:
-
-```yaml
-argocd:
+  ## the destination used for deployKF argocd applications
   destination:
     name: "my-cluster1"
 ```
