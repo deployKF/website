@@ -11,9 +11,10 @@ Learn how to quickly try <strong><span class="deploykf-orange">deploy</span><spa
 
 ---
 
-### __About this Guide__
+## Introduction
 
-This quickstart will guide you through the process of setting up a local Kubernetes cluster, installing ArgoCD, and deploying a full deployKF platform.
+This quickstart will guide you through setting up a local Kubernetes cluster, installing ArgoCD, and running deployKF on top of it.
+
 For production use, please see the [Getting Started](./getting-started.md) guide.
 
 ## 1. Requirements
@@ -183,212 +184,223 @@ The requirements for this quickstart depend on your operating system.
 ## 2. Prepare Kubernetes
 
 deployKF can run on any [:custom-kubernetes-color: __Kubernetes__](https://kubernetes.io/) cluster, in any cloud or local environment.
-For this quickstart, we will be using the [k3d](https://k3d.io/) command line tool.
 
-### Create Kubernetes Cluster
-
-The `k3d` command line manages [k3s](https://k3s.io/) Kubernetes clusters running inside local Docker containers.
+For this quickstart, we will be using the [`k3d`](https://k3d.io/) command line tool which runs [K3s Clusters](https://k3s.io/) inside Docker.
 K3s is an extremely lightweight Kubernetes distribution that is fully compliant with the Kubernetes API, while also being very similar to a cloud-based cluster.
 
-Run this command to create a local `k3d` cluster named `deploykf`:
 
-```bash
-# NOTE: this will change your kubectl context to the new cluster
-k3d cluster create "deploykf" \
-  --image "rancher/k3s:v1.27.10-k3s2"
-```
+!!! steps "Step 1 - Create a k3d Cluster"
 
-??? question_secondary "Can I use a different version of Kubernetes?"
-
-    Yes. The `--image` flag allows you to specify the version of Kubernetes.
-    You may use any version of the [`rancher/k3s`](https://hub.docker.com/r/rancher/k3s/tags) image which corresponds to a version of Kubernetes that is [supported by deployKF](../releases/version-matrix.md#deploykf-dependencies).
-
-### Wait for Cluster to be Ready
-
-Wait until the cluster is ready before continuing (all Pods in a `Running` or `Completed` state).
-Here are some ways to check the status of Pods:
-
-??? steps "Get the state of Pods - _`k9s`_ :star:"
-
-    We highly recommend [`k9s`](https://k9scli.io/), it makes interacting with Kubernetes much easier by providing a text-based management interface for any Kubernetes cluster.
-
-    You may [install `k9s`](https://k9scli.io/topics/install/) with `brew install k9s` on macOS and Linux.
-
-    __Get the status of all pods:__
-
-    1. Run `k9s` in your terminal
-    2. Presh `shift` + `:` to open the command prompt - _(tip: press `escape` to close any prompt)_
-    3. Type `pods` and press `enter` - _(tip: press `tab` to autocomplete resource names)_
-    4. Press `0` to show all namespaces
-    5. Scroll through the list of pods and check the `STATUS` column
-
-    __The resulting list of pods will look similar to this:__
-
-    ```text
-     Context: k3d-deploykf                             <0> all           <a>      Attach     <l>       Logs               <y> YAML                    ____  __.________        
-     Cluster: k3d-deploykf                             <1> default       <ctrl-d> Delete     <p>       Logs Previous                                 |    |/ _/   __   \______ 
-     User:    admin@k3d-deploykf                                         <d>      Describe   <shift-f> Port-Forward                                  |      < \____    /  ___/ 
-     K9s Rev: v0.27.4                                                    <e>      Edit       <s>       Shell                                         |    |  \   /    /\___ \  
-     K8s Rev: v1.26.4+k3s1                                               <?>      Help       <n>       Show Node                                     |____|__ \ /____//____  > 
-     CPU:     0%                                                         <ctrl-k> Kill       <f>       Show PortForward                                      \/            \/  
-     MEM:     22%                                                                                                                                                              
-    ┌───────────────────────────────────────────────────────────────────────────── Pods(all)[7] ──────────────────────────────────────────────────────────────────────────────┐
-    │ NAMESPACE↑               NAME                                                      PF READY RESTARTS STATUS     CPU  MEM %CPU/R %CPU/L %MEM/R %MEM/L IP           NODE  │
-    │ kube-system              coredns-59b4f5bbd5-7vp9v                                  ●  1/1          0 Running      2   26      2    n/a     38     15 10.42.0.106  k3d-d │
-    │ kube-system              helm-install-traefik-2h5mn                                ●  0/1          0 Completed    0    0    n/a    n/a    n/a    n/a 10.42.0.2    k3d-d │
-    │ kube-system              helm-install-traefik-crd-q9mjn                            ●  0/1          0 Completed    0    0    n/a    n/a    n/a    n/a 10.42.0.5    k3d-d │
-    │ kube-system              local-path-provisioner-76d776f6f9-pslbf                   ●  1/1          0 Running      1   16    n/a    n/a    n/a    n/a 10.42.0.92   k3d-d │
-    │ kube-system              metrics-server-7b67f64457-qc5nt                           ●  1/1          0 Running     2↓  40↑     2↓    n/a    57↑    n/a 10.42.0.110  k3d-d │
-    │ kube-system              svclb-traefik-1d8d8195-8j89l                              ●  2/2          0 Running      0    2    n/a    n/a    n/a    n/a 10.42.0.90   k3d-d │
-    │ kube-system              traefik-56b8c5fb5c-q4hqp                                  ●  1/1          0 Running      1   69    n/a    n/a    n/a    n/a 10.42.0.133  k3d-d │
-    └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-    ```
+    Run this command to create a local `k3d` cluster named `deploykf`:
     
-    ---
-
-    __Filtering by namespace:__
-
-    1. Press `shift` + `:` to open the command prompt
-    2. Type `ns` and press `enter`
-    3. Select the namespace you want to view and press `enter` (will open list of pods in that namespace)
-    4. Press `shift` + `:` to open the command prompt
-    5. Type the name of a resource type (e.g. `service` or `secret`) and press `enter`
-    
-    Note, recently viewed namespaces are given a number (e.g. `1`, `2`, `3`), press that number to show all instances of the currently selected resource type in that namespace.
-
-    ---
-
-    __Other features:__
-
-    - When viewing a list of resources, press `/` to open the search prompt - _(tip: press `escape` to close any prompt)_
-    - When highlighting any resource, press `y` to view its YAML
-    - When highlighting any resource, press `d` to describe it
-    - When highlighting any resource, press `e` to open a `vim` editor for its YAML
-    - When highlighting a pod, press `l` to view its logs
-    - When highlighting a pod, press `s` to open an interactive shell
-    - When highlighting a secret, press `x` to view its base64-decoded data
-
-    For more information about the features of `k9s`, see the [k9s documentation](https://k9scli.io/), or press `?` to view the help menu.
-
-??? steps "Get the state of Pods - _`kubectl`_"
-
-    You can use `kubectl` to check the status of all pods, in all namespaces:
-
     ```bash
-    kubectl get -A pods
+    # NOTE: this will change your kubectl context to the new cluster
+    k3d cluster create "deploykf" \
+      --image "rancher/k3s:v1.27.10-k3s2"
     ```
 
-    The list of pods will look similar to this:
+    ??? question_secondary "Can I use a different version of Kubernetes?"
+    
+        Yes. The `--image` flag allows you to specify the version of Kubernetes.
+        You may use any version of the [`rancher/k3s`](https://hub.docker.com/r/rancher/k3s/tags) image which corresponds to a version of Kubernetes that is [supported by deployKF](../releases/version-matrix.md#deploykf-dependencies).
 
-    ```text
-    NAMESPACE    NAME                                      READY   STATUS      RESTARTS         AGE
-    kube-system  helm-install-traefik-crd-q9mjn            0/1     Completed   0                1h
-    kube-system  helm-install-traefik-2h5mn                0/1     Completed   0                1h
-    kube-system  svclb-traefik-1d8d8195-8j89l              2/2     Running     0                1h
-    kube-system  local-path-provisioner-76d776f6f9-pslbf   1/1     Running     0                1h
-    kube-system  coredns-59b4f5bbd5-7vp9v                  1/1     Running     0                1h
-    kube-system  traefik-56b8c5fb5c-q4hqp                  1/1     Running     0                1h
-    kube-system  metrics-server-7b67f64457-qc5nt           1/1     Running     0                1h
-    ```
+!!! steps "Step 2 - Wait for Cluster to be Ready"
+
+    Wait until the cluster is ready before continuing, ensure all Pods are in a `Running` or `Completed` state.
+
+    Here are some ways to check the status of Pods, we highly recommend trying `k9s`!
+
+    === "Get Pods Status: `kubectl`"
+
+        You can use `kubectl` to check the status of all pods, in all namespaces:
+    
+        ```bash
+        kubectl get -A pods
+        ```
+    
+        The list of pods will look similar to this (see the `STATUS` column):
+    
+        ```text
+        NAMESPACE    NAME                                      READY   STATUS      RESTARTS         AGE
+        kube-system  helm-install-traefik-crd-q9mjn            0/1     Completed   0                1h
+        kube-system  helm-install-traefik-2h5mn                0/1     Completed   0                1h
+        kube-system  svclb-traefik-1d8d8195-8j89l              2/2     Running     0                1h
+        kube-system  local-path-provisioner-76d776f6f9-pslbf   1/1     Running     0                1h
+        kube-system  coredns-59b4f5bbd5-7vp9v                  1/1     Running     0                1h
+        kube-system  traefik-56b8c5fb5c-q4hqp                  1/1     Running     0                1h
+        kube-system  metrics-server-7b67f64457-qc5nt           1/1     Running     0                1h
+        ```
+
+    === "Get Pods Status: `k9s`"
+    
+        [`k9s`](https://k9scli.io/) makes interacting with Kubernetes much easier by providing a text-based management interface for any Kubernetes cluster.
+        You can [install `k9s`](https://k9scli.io/topics/install/) from Homebrew on macOS or Linux:
+
+        ```bash
+        brew install k9s
+        ```
+        
+        ---
+
+        To check the status of all pods in all namespaces:
+
+        1. Run `k9s` in your terminal
+        1. Presh `shift` + `:` to open the command prompt - _(tip: press `escape` to close any prompt)_
+        1. Type `pods` and press `enter` - _(tip: press `tab` to autocomplete resource names)_
+        1. Press `0` to show all namespaces
+        1. Scroll through the list of pods and check the `STATUS` column
+        1. Quit `k9s` by pressing `ctrl` + `c`
+
+        The resulting list of pods will look similar to this (see the `STATUS` column):
+
+        ```text
+         Context: k3d-deploykf                             <0> all           <a>      Attach     <l>       Logs               <y> YAML                    ____  __.________        
+         Cluster: k3d-deploykf                             <1> default       <ctrl-d> Delete     <p>       Logs Previous                                 |    |/ _/   __   \______ 
+         User:    admin@k3d-deploykf                                         <d>      Describe   <shift-f> Port-Forward                                  |      < \____    /  ___/ 
+         K9s Rev: v0.27.4                                                    <e>      Edit       <s>       Shell                                         |    |  \   /    /\___ \  
+         K8s Rev: v1.26.4+k3s1                                               <?>      Help       <n>       Show Node                                     |____|__ \ /____//____  > 
+         CPU:     0%                                                         <ctrl-k> Kill       <f>       Show PortForward                                      \/            \/  
+         MEM:     22%                                                                                                                                                              
+        ┌───────────────────────────────────────────────────────────────────────────── Pods(all)[7] ──────────────────────────────────────────────────────────────────────────────┐
+        │ NAMESPACE↑               NAME                                                      PF READY RESTARTS STATUS     CPU  MEM %CPU/R %CPU/L %MEM/R %MEM/L IP           NODE  │
+        │ kube-system              coredns-59b4f5bbd5-7vp9v                                  ●  1/1          0 Running      2   26      2    n/a     38     15 10.42.0.106  k3d-d │
+        │ kube-system              helm-install-traefik-2h5mn                                ●  0/1          0 Completed    0    0    n/a    n/a    n/a    n/a 10.42.0.2    k3d-d │
+        │ kube-system              helm-install-traefik-crd-q9mjn                            ●  0/1          0 Completed    0    0    n/a    n/a    n/a    n/a 10.42.0.5    k3d-d │
+        │ kube-system              local-path-provisioner-76d776f6f9-pslbf                   ●  1/1          0 Running      1   16    n/a    n/a    n/a    n/a 10.42.0.92   k3d-d │
+        │ kube-system              metrics-server-7b67f64457-qc5nt                           ●  1/1          0 Running     2↓  40↑     2↓    n/a    57↑    n/a 10.42.0.110  k3d-d │
+        │ kube-system              svclb-traefik-1d8d8195-8j89l                              ●  2/2          0 Running      0    2    n/a    n/a    n/a    n/a 10.42.0.90   k3d-d │
+        │ kube-system              traefik-56b8c5fb5c-q4hqp                                  ●  1/1          0 Running      1   69    n/a    n/a    n/a    n/a 10.42.0.133  k3d-d │
+        └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+        ```
+
+        ---
+
+        ??? question_secondary "What else can `k9s` do?"
+
+            For more information about the features of `k9s`, see the [k9s documentation](https://k9scli.io/), or press `?` to view the help menu.
+
+            __Some useful features:__
+
+            - When viewing a list of resources, press `/` to open the search prompt - _(tip: press `escape` to close any prompt)_
+            - When highlighting any resource, press `y` to view its YAML
+            - When highlighting any resource, press `d` to describe it
+            - When highlighting any resource, press `e` to open a `vim` editor for its YAML
+            - When highlighting a pod, press `l` to view its logs
+            - When highlighting a pod, press `s` to open an interactive shell
+            - When highlighting a secret, press `x` to view its base64-decoded data
+
+            __Filtering by namespace:__
+
+            1. Press `shift` + `:` to open the command prompt
+            2. Type `ns` and press `enter`
+            3. Select the namespace you want to view and press `enter` (will open list of pods in that namespace)
+            4. Press `shift` + `:` to open the command prompt
+            5. Type the name of a resource type (e.g. `service` or `secret`) and press `enter`
+            
+            Note, recently viewed namespaces are given a number (e.g. `1`, `2`, `3`), press that number to show all instances of the currently selected resource type in that namespace.
 
 ## 3. Prepare ArgoCD
 
-Learn more _["about ArgoCD"](./dependencies/argocd.md#what-is-argo-cd)_ and _["how deployKF uses ArgoCD"](./dependencies/argocd.md#how-does-deploykf-use-argo-cd)_ on the dedicated page.
+deployKF uses [:custom-argocd-color: __ArgoCD__](./dependencies/argocd.md#what-is-argo-cd) to apply manifests to your Kubernetes cluster.
 
-### deployKF ArgoCD Plugin
+For this quickstart, we will use the [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) which adds a special kind of ArgoCD `Application` that produces deployKF manifests.
+This allows us to define the platform using a single app-of-apps which only needs your [values](#about-values), and a [deployKF version](#deploykf-versions).
 
-We will be using the [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin), which adds a special kind of ArgoCD `Application` that produces deployKF manifests.
+!!! steps "Step 1 - Verify kubectl Context"
 
-The plugin removes the need to generate manifests, and instead allows you to define your platform using a single _"app of apps"_ `Application` whose specification only needs your [values](#about-values), and a specified [source version](#deploykf-versions) of deployKF.
+    We need to ensure that our `kubectl` context is set to the new `k3d` cluster.
+    This is so we don't accidentally install ArgoCD into the wrong cluster.
 
-First, ensure that your current `kubectl` context is set to the new cluster.
-
-??? question_secondary "How do I check my current kubectl context?"
-
-    Run the following command, and ensure it prints `k3d-deploykf`:
+    Run this command and ensure the output is `k3d-deploykf` (or the name of your cluster):
     
     ```bash
     # get the name of the current kubectl context
     kubectl config current-context
     ```
+    
+    ??? question_secondary "How do I change my kubectl context?"
+    
+        We recommend using [`kubectx`](https://github.com/ahmetb/kubectx) to manage your `kubectl` contexts.
+        
+        You may install `kubectx` from Homebrew on macOS or Linux:
 
-??? question_secondary "How do I change my kubectl context?"
+        ```bash
+        brew install kubectx
+        ```
+        
+        To change your context with `kubectx`, run these commands:
+    
+        ```bash
+        # list all contexts
+        kubectx
+    
+        # set the current context to 'k3d-deploykf'
+        kubectx "k3d-deploykf"
+        ```
+  
+        ---
 
-    We recommend using [__`kubectx`__](https://github.com/ahmetb/kubectx) to manage your `kubectl` contexts, which can be [__installed__](https://github.com/ahmetb/kubectx#installation) with `brew install kubectx` on macOS and Linux.
+        Note, the `kubectx` command will be interactive if you install `fzf`:
 
-    To change your kubectl context with `kubectx`, run these commands:
+        ```bash
+        brew install fzf
+        ```
+
+!!! steps "Step 2 - Install ArgoCD"
+
+    We will now install ArgoCD (and the deployKF ArgoCD Plugin) by running a script from the deployKF repo:
 
     ```bash
-    # list all contexts 
-    # NOTE: this is interactive, if `fzf` is installed
-    kubectx
-
-    # set the current context to 'k3d-deploykf'
-    kubectx "k3d-deploykf"
+    # clone the deploykf repo
+    # NOTE: we use 'main', as the latest plugin version always lives there
+    git clone -b main https://github.com/deployKF/deployKF.git ./deploykf
+    
+    # ensure the script is executable
+    chmod +x ./deploykf/argocd-plugin/install_argocd.sh
+    
+    # run the install script
+    # WARNING: this will install into your current kubectl context
+    bash ./deploykf/argocd-plugin/install_argocd.sh
     ```
+    
+!!! steps "Step 3 - Wait for ArgoCD to be Ready"
 
-Now, run these commands to install [ArgoCD](https://argo-cd.readthedocs.io/) and the [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) into your cluster:
+    After the script completes, wait for all pods in the `argocd` Namespace to be in a `Running` state.
 
-```bash
-# clone the deploykf repo
-# NOTE: we use 'main', as the latest plugin version always lives there
-git clone -b main https://github.com/deployKF/deployKF.git ./deploykf
-
-# ensure the script is executable
-chmod +x ./deploykf/argocd-plugin/install_argocd.sh
-
-# run the install script
-# WARNING: this will install into your current kubectl context
-bash ./deploykf/argocd-plugin/install_argocd.sh
-```
-
-After the script completes, wait for all pods in the `argocd` Namespace to be in a `Running` state ([using `k9s` or `kubectl` as described above](#wait-for-cluster-to-be-ready)).
+    See how to do this with `k9s` or `kubectl` in the [previous section](#2-prepare-kubernetes).
 
 ## 4. Create ArgoCD Applications
 
-### About Values
+### __About Values__
 
-All aspects of your deployKF platform are configured with YAML-based configs named "values".
-There are a very large number of values (more than 1500), but as deployKF supports _in-place upgrades_ you can start with a few important ones, and then grow your values file over time.
+All aspects of deployKF are configured with YAML-based config "values".
+To learn more about configuring values, see the [configure deployKF](./configs.md#about-values) guide.
 
-For this quickstart, will be using the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file as our base.
-These sample values (which are different for each deployKF version) have all ML & Data tools enabled, along with some sensible security defaults.
+For this quickstart, we will be using the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file as our base.
+These sample values have all supported [ML & Data tools](../reference/tools.md#tool-index) enabled, along with some sensible security defaults.
 
-You may copy and make changes to the sample values, or directly use it as a base, and override specific values in a separate file.
-We provide the [`sample-values-overrides.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values-overrides.yaml) file as an example of this approach.
+### __deployKF Versions__
 
-deployKF has many additional values not found in the sample files.
-For your reference, ALL values and their defaults are listed on the [values reference](../reference/deploykf-values.md) page, which is generated from the full [`default_values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/generator/default_values.yaml) file.
+Each deployKF version may include different ML & Data tools, or support different versions of cluster dependencies.
+See the [version matrix](../releases/version-matrix.md) for an overview, and the [changelog](../releases/changelog-deploykf.md) for detailed information about what changed in each release, including important tips for upgrading.
 
-!!! note "YAML Syntax"
+For this quickstart, we will be using deployKF [`{{ latest_deploykf_version }}`](https://github.com/deployKF/deployKF/releases/tag/v{{ latest_deploykf_version }}).
 
-    For a refresher on YAML syntax, we recommend the following resources:
-    
-    - [Learn YAML in Y minutes](https://learnxinyminutes.com/docs/yaml/)
-    - [YAML Multiline Strings](https://yaml-multiline.info/)
+### __Create an App-of-Apps__
 
-### deployKF Versions
-
-Each deployKF "source version" may include different tools, and may support different versions of cluster dependencies.
-The [version matrix](../releases/version-matrix.md) is a list of which tools and versions are supported by each deployKF release.
-
-The [deployKF changelog](../releases/changelog-deploykf.md) gives detailed information about what has changed in each release, including important tips for upgrading.
-
-!!! tip "Be notified about new releases"
-
-    Be notified about new deployKF releases by watching the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub,
-    at the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.
-
-### Create an App-of-Apps
-
-The only resource you manually create is the `deploykf-app-of-apps` which generates all the other `Application` resources.
+The only resource you manually create is the `deploykf-app-of-apps`, this resource generates all the other `Application` resources.
 Think of it as a _"single source of truth"_ for the desired state of your platform.
 
-Use the following sample as a starting point for your `deploykf-app-of-apps` resource:
+!!! steps "Step 1 - Define App-of-Apps Resource" 
 
-??? code "Example - _Application YAML_"
+    Use the following sample as a starting point for your `deploykf-app-of-apps` resource.
+    If you want to customize the platform, see the [configure deployKF](./configs.md) guide.
 
-    This _"app of apps"_ will use deployKF version `{{ latest_deploykf_version }}`, read the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) from the `deploykf/deploykf` repo (at the `v{{ latest_deploykf_version }}` tag), and combine those values with the overrides defined in the `values` parameter:
+    ---
+
+    This app-of-apps will use deployKF [version](#deploykf-versions) `{{ latest_deploykf_version }}`, 
+    read the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) from the `deploykf/deploykf` repo, 
+    and combine those values with the overrides defined in the `values` parameter.
 
     ```yaml
     apiVersion: argoproj.io/v1alpha1
@@ -539,55 +551,59 @@ Use the following sample as a starting point for your `deploykf-app-of-apps` res
         namespace: "argocd"
     ```
 
-You will need to apply this `Application` resource to your Kubernetes cluster.
+!!! steps "Step 2 - Apply App-of-Apps Resource"
 
-??? steps "Apply the application - _CLI_ :star:"
+    You will need to apply the `deploykf-app-of-apps` resource to your Kubernetes cluster.
+
+    You can apply the resource using either the CLI or the ArgoCD Web UI:
+
+    === "Apply: `kubectl`"
     
-    First, create a file named `deploykf-app-of-apps.yaml` with the contents of the application YAML above.
+        Create a local file named `deploykf-app-of-apps.yaml` with the contents of the app-of-apps YAML above.
 
-    Next, ensure your `kubectl` context is set to the `k3d-deploykf` cluster.
+        Next, ensure your `kubectl` context is set to the `k3d-deploykf` cluster.
 
-    Finally, run this command to apply the app-of-apps:
+        Finally, apply the resource to your cluster with the following command:
 
-    ```bash
-    kubectl apply -f ./deploykf-app-of-apps.yaml
-    ```
+        ```bash
+        kubectl apply -f ./deploykf-app-of-apps.yaml
+        ```
 
-??? steps "Apply the application - _ArgoCD Web UI_"
+    === "Apply: ArgoCD Web UI"
 
-    You will need to retrieve the initial password for the `admin` user:
+        You will need to retrieve the initial password for the `admin` user:
+        
+        ```shell
+        echo $(kubectl -n argocd get secret/argocd-initial-admin-secret \
+          -o jsonpath="{.data.password}" | base64 -d)
+        ```
+        
+        Next, use `kubectl` port-forwarding to access the ArgoCD Web UI:
     
-    ```shell
-    echo $(kubectl -n argocd get secret/argocd-initial-admin-secret \
-      -o jsonpath="{.data.password}" | base64 -d)
-    ```
+        ```shell
+        kubectl port-forward --namespace "argocd" svc/argocd-server 8090:https
+        ```
     
-    Next, use `kubectl` port-forwarding to access the ArgoCD Web UI:
-
-    ```shell
-    kubectl port-forward --namespace "argocd" svc/argocd-server 8090:https
-    ```
-
-    You will now be able to access ArgoCD at [https://localhost:8090](https://localhost:8090) in your browser.
-
-    Log in with the `admin` user, and the password you retrieved above.
-
-    ---
-
-    The ArgoCD Web UI will look like this (but without any applications):
-
-    ![ArgoCD Web UI (Dark Mode)](../assets/images/argocd-ui-DARK.png#only-dark)
-    ![ArgoCD Web UI (Light Mode)](../assets/images/argocd-ui-LIGHT.png#only-light)
-
-    ---
-
-    To create the app-of-apps, follow these steps:
-
-    1. Click the `+ New App` button
-    2. Click the `Edit as YAML` button
-    3. Paste the application YAML into the editor
-    4. Click the `Save` button
-    5. Click the `Create` button
+        You will now be able to access ArgoCD at [https://localhost:8090](https://localhost:8090) in your browser.
+    
+        Log in with the `admin` user, and the password you retrieved above.
+    
+        ---
+    
+        The ArgoCD Web UI will look like this (but without any applications):
+    
+        ![ArgoCD Web UI (Dark Mode)](../assets/images/argocd-ui-DARK.png#only-dark)
+        ![ArgoCD Web UI (Light Mode)](../assets/images/argocd-ui-LIGHT.png#only-light)
+    
+        ---
+    
+        To create the app-of-apps, follow these steps:
+    
+        1. Click the `+ New App` button
+        2. Click the `Edit as YAML` button
+        3. Paste the application YAML into the editor
+        4. Click the `Save` button
+        5. Click the `Create` button
 
 ## 5. Sync ArgoCD Applications
 
@@ -668,25 +684,21 @@ Please be aware of the following issue when using the automated sync script:
 
 ## 6. Try the Platform
 
-Now that you have a local deployKF ML Platform, here are some things to try out!
-
-### The Dashboard
-
-The _deployKF dashboard_ is the web-based interface for deployKF, it gives users [authenticated access](./platform/deploykf-authentication.md) to tools like [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines), [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks), and [Katib](../reference/tools.md#katib).
+The _deployKF dashboard_ is the web-based interface for deployKF, it gives users authenticated access to tools like [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines), [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks), and [Katib](../reference/tools.md#katib).
 
 ![deployKF Dashboard (Dark Mode)](../assets/images/deploykf-dashboard-DARK.png#only-dark)
 ![deployKF Dashboard (Light Mode)](../assets/images/deploykf-dashboard-LIGHT.png#only-light)
 
-### Access the Gateway
-
 All public deployKF services (including the dashboard) are accessed via your _deployKF Istio Gateway_, to use the gateway, you will need to expose its Kubernetes Service.
 
-For this quickstart, we will be using the port-forward feature of `kubectl` to expose the gateway locally on your machine.
+For this quickstart, we will be using the port-forward feature of `kubectl` to expose the gateway locally on your machine:
 
 !!! steps "Step 1 - Modify Hosts"
-    
+
     The _deployKF Istio Gateway_ uses the HTTP `Host` header to route requests to the correct internal service.
     This means that using `localhost` or `127.0.0.1` will NOT work.
+
+    We must add a host entry so that `deploykf.example.com` resolves to `127.0.0.1`:
     
     === "macOS"
     
@@ -745,25 +757,44 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
         
       :material-arrow-right-bold: [https://deploykf.example.com:8443/](https://deploykf.example.com:8443/)
 
+    ---
+
+    !!! warning "Port-Forwards Known Issues"
+    
+        There are upstream issues which can cause you to need to __restart the port-forward__, see [`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551) for more information.
+
 !!! steps "Step 3 - Log in to the Dashboard"
 
-    The default values include [static user/password combinations](./platform/deploykf-authentication.md#static-userpassword-combinations) defined by the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L393-L402) value, which can be used for testing.
+    There are a few default credentials set in the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L469-L492) value:
+
+    ??? config "Admin"
+
+        __Username:__ `admin@example.com`
+        <br>
+        __Password:__ `admin`
+
+        - This account is the [default "owner"](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L688-L694) of all profiles.
+        - This account does NOT have access to "MinIO Console" or "Argo Server UI".
+        - We recommend removing the [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396) for this account, so it can't be used to log in.
+        - We recommend leaving this account as the default "owner", even with `@example.com` as the domain (because profile owners can't be changed).
     
-    This table lists the default login credentials:
-    
-    Username | Password | Notes
-    --- | --- | ---
-    `admin@example.com` | `admin` | In production, we recommend leaving this account as the default "owner" but excluding its [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396), so it can't be used to log in.<br><br>This is the [default "owner"](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L688-L694) of all profiles, but a "member" of none, meaning it does NOT have access to "MinIO Console" or "Argo Workflows Server".
-    `user1@example.com` | `user1` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
-    `user2@example.com` | `user2` | Has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833), and [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
+    ??? config "User 1"
 
-### Use the Tools
+        __Username:__ `user1@example.com`
+        <br>
+        __Password:__ `user1`
 
-deployKF includes [many tools](../reference/tools.md#tool-index) that address different stages of the ML & Data lifecycle.
-The following links give more specific information about some of our most popular tools:
+        - This account has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833).
+        - This account has [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
 
-- [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines)
-- [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks)
+    ??? config "User 2"
+
+        __Username:__ `user2@example.com`
+        <br>
+        __Password:__ `user2`
+
+        - This account has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833).
+        - This account has [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
 
 ## Next Steps
 
