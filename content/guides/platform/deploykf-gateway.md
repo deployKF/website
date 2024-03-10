@@ -41,6 +41,8 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
     
     The _deployKF Istio Gateway_ uses the HTTP `Host` header to route requests to the correct internal service.
     This means that using `localhost` or `127.0.0.1` will NOT work.
+
+    We must add a host entry so that `deploykf.example.com` resolves to `127.0.0.1`:
     
     === "macOS"
     
@@ -103,7 +105,7 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
 
     !!! warning "Port-Forwards Known Issues"
     
-        There are upstream issues which can cause you to need to restart the port-forward, see [`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551) for more information.
+        There are upstream issues which can cause you to need to __restart the port-forward__, see [`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551) for more information.
 
 ### __Use a LoadBalancer Service__
 
