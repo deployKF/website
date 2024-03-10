@@ -15,9 +15,10 @@ We encourage participation from anyone who shares our mission of making it easy 
 ## Slack
 
 The deployKF community uses the __Kubeflow Slack__ for informal discussions among users and contributors.
+
 After you join, connect with us on the [`#deploykf`](https://kubeflow.slack.com/archives/C054H6WLNCB) channel!
 
-[Join the Slack<br>:fontawesome-brands-slack:](https://invite.playplay.io/invite?team_id=T7QLHSH6U){ .md-button .md-button--secondary }
+[Join the Slack<br>:fontawesome-brands-slack:](https://communityinviter.com/apps/kubeflow/slack){ .md-button .md-button--secondary }
 
 ## Mailing Lists
 
