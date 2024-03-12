@@ -121,13 +121,13 @@ Dependency | Purpose in deployKF | Use Existing Version
 
 deployKF has some external (off-cluster) dependencies.
 By default, we will install an embedded version of these dependencies into your cluster.
-However, we recommend using an external version of these dependencies for better performance and reliability.
+However, we recommend using an external version for better performance and reliability.
 
-The following table lists these dependencies and how to use an existing version:
+The following table lists these dependencies and how to use an external version:
 
-Dependencies | Purpose in deployKF | Use Existing Version
+Dependencies | Purpose in deployKF | Use External Version
 --- | --- | ---
-[MySQL Database](./external/mysql.md#what-is-mysql) | [Persisting state in __Kubeflow Pipelines__ and __Katib__.](./external/mysql.md#why-does-deploykf-use-mysql) | [Optional](./external/mysql.md#connect-an-external-mysql)<br><small>:material-alert: recommended :material-alert:</small>
+[MySQL](./external/mysql.md#what-is-mysql) | [Persisting state in __Kubeflow Pipelines__ and __Katib__.](./external/mysql.md#why-does-deploykf-use-mysql) | [Optional](./external/mysql.md#connect-an-external-mysql)<br><small>:material-alert: recommended :material-alert:</small>
 [Object Store<br><small>(S3-compatible)</small>](./external/object-store.md#what-is-an-object-store) | [Storing pipelines and their results in __Kubeflow Pipelines__.](./external/object-store.md#why-does-deploykf-use-an-object-store) | [Optional](./external/object-store.md#connect-an-external-object-store)<br><small>:material-alert: recommended :material-alert:</small>
 
 ## 2. Platform Deployment
