@@ -100,12 +100,13 @@ Default StorageClass | The default [`StorageClass`](https://kubernetes.io/docs/c
          - [`deploykf_opt.deploykf_mysql.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1036-L1040)
     2. Disable components which require the StorageClass, and use external alternatives:
          - [Connect an External S3-like Object Store](./tools/external-object-store.md)
-         - [Connect an External MySQL Database](./tools/external-mysql.md)
+         - [Connect an External MySQL Database](./external/mysql.md#connect-an-external-mysql)
 
 ### __Cluster Dependencies__
 
-deployKF uses a number of cluster-level dependencies.
-If you have an existing version of a dependency, deployKF can be configured to use it instead of installing a new one.
+deployKF has a number of cluster-level dependencies.
+By default, we will install these dependencies into your cluster.
+If required, you may also connect an existing version of these dependencies.
 
 The following table lists these dependencies and how to use an existing version:
 
@@ -116,17 +117,18 @@ Dependency | Purpose in deployKF | Use Existing Version
 [Istio](./dependencies/istio.md#what-is-istio) | [Network service mesh for the platform, used to enforce client authentication and secure internal traffic.](./dependencies/istio.md#how-does-deploykf-use-istio) | [Optional](./dependencies/istio.md#can-i-use-my-existing-istio)
 [Kyverno](./dependencies/kyverno.md#what-is-kyverno) | [Mutating resources, replicating secrets across namespaces, and restarting Pods when configs change.](./dependencies/kyverno.md#how-does-deploykf-use-kyverno) | <s>[Optional](./dependencies/kyverno.md#can-i-use-my-existing-kyverno)</s><br><small>(coming soon)</small>
 
-### __Optional Dependencies__
+### __External Dependencies__
 
-deployKF has some optional dependencies.
-Using an external version of these dependencies may improve the performance or reliability of your platform.
+deployKF has some external (off-cluster) dependencies.
+By default, we will install an embedded version of these dependencies into your cluster.
+However, we recommend using an external version of these dependencies for better performance and reliability.
 
 The following table lists these dependencies and how to use an existing version:
 
 Dependencies | Purpose in deployKF | Use Existing Version
 --- | --- | ---
-MySQL Database | Used by [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines) and [Katib](../reference/tools.md#katib). | [Optional](./tools/external-mysql.md)<br><small>:material-alert: recommended for production :material-alert:</small>
-Object Store | Used by [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines).| [Optional](./tools/external-object-store.md)<br><small>:material-alert: recommended for production :material-alert:</small>
+[MySQL Database](./external/mysql.md#what-is-mysql) | [Persisting state in __Kubeflow Pipelines__ and __Katib__.](./external/mysql.md#how-does-deploykf-use-mysql) | [Optional](external/mysql.md#connect-an-external-mysql)<br><small>:material-alert: recommended :material-alert:</small>
+Object Store | Storing pipelines and their results in [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines). | [Optional](./tools/external-object-store.md)<br><small>:material-alert: recommended :material-alert:</small>
 
 ## 2. Platform Deployment
 

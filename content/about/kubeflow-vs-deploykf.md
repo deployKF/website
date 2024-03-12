@@ -22,7 +22,7 @@ comparison_data:
   - aspect: Customization
     deploykf:
       - Allows selective deployment of MLOps tools through simple config values.
-      - Allows bringing custom versions of dependencies like Istio, cert-manager, [MySQL](../guides/tools/external-mysql.md), [S3](..//guides/tools/external-object-store.md), and more.
+      - Allows bringing custom versions of dependencies like [Istio](../guides/dependencies/istio.md), [cert-manager](../guides/dependencies/cert-manager.md), [MySQL](../guides/external/mysql.md), [S3](../guides/tools/external-object-store.md), and more.
     kubeflow_manifests:
       - Less customizable, and requires difficult patching of YAML manifests.
   - aspect: GitOps

@@ -4,6 +4,7 @@ nav:
   - troubleshooting.md
   - configs.md
   - Cluster Dependencies: dependencies
+  - External Dependencies: external
   - Platform Configs: platform
   - Tool Configs: tools
   - Other:
