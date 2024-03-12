@@ -1,12 +1,14 @@
 ---
 icon: custom/cert-manager
 description: >-
-  Learn how deployKF uses cert-manager and how to integrate your existing cert-manager with deployKF.
+  Learn how and why deployKF uses cert-manager.
+  Learn how to integrate your existing cert-manager with deployKF.
 ---
 
 # Cert Manager
 
-Learn how deployKF uses cert-manager and how to integrate your existing cert-manager with deployKF.
+Learn how and why deployKF uses cert-manager.
+Learn how to integrate your existing cert-manager with deployKF.
 
 ---
 

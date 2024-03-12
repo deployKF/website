@@ -1,12 +1,14 @@
 ---
 icon: custom/istio
 description: >-
-  Learn how deployKF uses Istio and how to integrate your existing Istio with deployKF.
+  Learn how and why deployKF uses Istio.
+  Learn how to integrate your existing Istio with deployKF.
 ---
 
 # Istio
 
-Learn how deployKF uses Istio and how to integrate your existing Istio with deployKF.
+Learn how and why deployKF uses Istio.
+Learn how to integrate your existing Istio with deployKF.
 
 ---
 

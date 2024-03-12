@@ -2,11 +2,13 @@
 icon: custom/argocd
 description: >-
   Learn how and why deployKF uses Argo CD.
+  Learn how to use your existing Argo CD with deployKF.
 ---
 
 # Argo CD
 
 Learn how and why deployKF uses Argo CD.
+Learn how to use your existing Argo CD with deployKF.
 
 ---
 
