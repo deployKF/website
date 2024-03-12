@@ -1,7 +1,7 @@
 ---
 icon: material/wrench-clock
 description: >-
-  ML and Data Tools planned for future versions of deployKF.
+  A list of ML & Data tools which may be part of future versions of deployKF.
 
 ## Tools planned for future deployKF versions
 tools_planned:
@@ -30,12 +30,33 @@ tools_planned:
       - [__REST API__](https://www.mlflow.org/docs/latest/rest-api.html): A REST API for managing models.
     footnote: ""
 
+  - name: KServe
+    purpose: Model Serving
+    maintainer: Linux Foundation
+    docs_url: https://kserve.github.io/website/
+    github_repo: kserve/kserve
+    deploykf_priority: 1
+    introduction: |
+      [__KServe__](https://kserve.github.io/website/) provides comprehensive interfaces for deploying, managing, and monitoring ML models on Kubernetes.
+    description: |
+      The core features of KServe are:
+      
+      - [__Support for Many Frameworks__](https://kserve.github.io/website/0.10/modelserving/v1beta1/serving_runtime/): KServe natively supports many ML frameworks (e.g. PyTorch, TensorFlow, scikit-learn, XGBoost).
+      - [__Autoscaling, Even to Zero__](https://kserve.github.io/website/0.10/modelserving/autoscaling/autoscaling/): KServe can autoscale model replicas to meet demand, even scaling to zero when there are no requests.
+      - [__Model Monitoring__](https://kserve.github.io/website/0.10/modelserving/detect/alibi_detect/alibi_detect/): KServe integrates tools like [Alibi Detect](https://github.com/SeldonIO/alibi-detect) to provide model monitoring for drift and outlier detection.
+      - [__Model Explainability__](https://kserve.github.io/website/0.10/modelserving/explainer/explainer/): KServe integrates tools like [Alibi Explain](https://github.com/SeldonIO/alibi) to provide model explainability.
+      - [__Request Batching__](https://kserve.github.io/website/0.10/modelserving/batcher/batcher/): KServe can batch requests to your model, improving throughput and reducing cost.
+      - [__Canary Deployments__](https://kserve.github.io/website/0.10/modelserving/v1beta1/rollout/canary/): KServe can deploy new versions of your model alongside old versions, and route requests to the new version based on a percentage.
+      - [__Feature Transformers__](https://kserve.github.io/website/0.10/modelserving/v1beta1/transformer/feast/): KServe can do feature pre/post processing alongside model inference (e.g. using Feast).
+      - [__Inference Graphs__](https://kserve.github.io/website/0.10/modelserving/inference_graph/): KServe can chain multiple models together to form an inference graph.
+    footnote: ""
+
   - name: Apache Airflow
     purpose: Workflow Orchestration
     maintainer: Apache Software Foundation
     docs_url: https://airflow.apache.org/docs/
     github_repo: apache/airflow
-    deploykf_priority: 1
+    deploykf_priority: 2
     introduction: |
       [__Apache Airflow__](https://airflow.apache.org/) is by far the [most popular](https://github.com/apache/airflow/blob/main/INTHEWILD.md) open-source workflow orchestration tool in the world.
     description: |
@@ -79,33 +100,12 @@ tools_planned:
           A good feature store is __NOT a database__, but rather a __data access layer__ between your data sources and your ML models.
           Be very wary of any feature store that requires you to load your data into it directly.
 
-  - name: KServe
-    purpose: Model Serving
-    maintainer: Linux Foundation
-    docs_url: https://kserve.github.io/website/
-    github_repo: kserve/kserve
-    deploykf_priority: 2
-    introduction: |
-      [__KServe__](https://kserve.github.io/website/) provides comprehensive interfaces for deploying, managing, and monitoring ML models on Kubernetes.
-    description: |
-      The core features of KServe are:
-      
-      - [__Support for Many Frameworks__](https://kserve.github.io/website/0.10/modelserving/v1beta1/serving_runtime/): KServe natively supports many ML frameworks (e.g. PyTorch, TensorFlow, scikit-learn, XGBoost).
-      - [__Autoscaling, Even to Zero__](https://kserve.github.io/website/0.10/modelserving/autoscaling/autoscaling/): KServe can autoscale model replicas to meet demand, even scaling to zero when there are no requests.
-      - [__Model Monitoring__](https://kserve.github.io/website/0.10/modelserving/detect/alibi_detect/alibi_detect/): KServe integrates tools like [Alibi Detect](https://github.com/SeldonIO/alibi-detect) to provide model monitoring for drift and outlier detection.
-      - [__Model Explainability__](https://kserve.github.io/website/0.10/modelserving/explainer/explainer/): KServe integrates tools like [Alibi Explain](https://github.com/SeldonIO/alibi) to provide model explainability.
-      - [__Request Batching__](https://kserve.github.io/website/0.10/modelserving/batcher/batcher/): KServe can batch requests to your model, improving throughput and reducing cost.
-      - [__Canary Deployments__](https://kserve.github.io/website/0.10/modelserving/v1beta1/rollout/canary/): KServe can deploy new versions of your model alongside old versions, and route requests to the new version based on a percentage.
-      - [__Feature Transformers__](https://kserve.github.io/website/0.10/modelserving/v1beta1/transformer/feast/): KServe can do feature pre/post processing alongside model inference (e.g. using Feast).
-      - [__Inference Graphs__](https://kserve.github.io/website/0.10/modelserving/inference_graph/): KServe can chain multiple models together to form an inference graph.
-    footnote: ""
-
   - name: Seldon Core
     purpose: Model Serving
     maintainer: Seldon
     docs_url: https://docs.seldon.io/projects/seldon-core/en/latest/
     github_repo: SeldonIO/seldon-core
-    deploykf_priority: 2
+    deploykf_priority: 3
     introduction: |
       [__Seldon Core__](https://www.seldon.io/solutions/open-source-projects/core) provides interfaces for converting ML models into REST/gRPC microservices on Kubernetes.
     description: |
@@ -182,9 +182,9 @@ tools_planned:
     footnote: ""
 ---
 
-# Future ML & Data Tools
+# Future Tools
 
-This page lists the __ML & Data tools__ which are __planned for future versions__ of deployKF.
+A list of __ML & Data tools__ which may be part of __future__ versions of deployKF.
 
 !!! question_secondary "How do I request or contribute a tool?"
     

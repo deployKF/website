@@ -100,6 +100,8 @@ plugins:
       redirect_maps:
         'guides/install-deploykf-cli.md': 'guides/deploykf-cli.md'
         'guides/migrate-from-kubeflow-manifests.md': 'guides/kubeflow-distributions.md'
+        'guides/tools/external-mysql.md': 'guides/external/mysql.md'
+        'guides/tools/external-object-store.md': 'guides/external/object-store.md'
   - search
   - social:
       cards_layout_options:

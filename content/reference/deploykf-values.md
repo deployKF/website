@@ -1,5 +1,5 @@
 ---
-icon: material/tune
+icon: material/cogs
 description: >-
   Reference for the generator values (configs) available in deployKF.
 ---

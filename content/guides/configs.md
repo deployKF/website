@@ -1,5 +1,5 @@
 ---
-icon: material/tune
+icon: material/cog
 description: >-
   Learn how to configure deployKF to meet your organization's needs.
 ---
@@ -12,9 +12,12 @@ Learn how to configure deployKF to meet your organization's needs.
 
 ## Configuration Guides
 
-deployKF is incredibly configurable, so we provide a number of guides to help you get started with common configuration tasks.
+deployKF is incredibly configurable via its centralized [values system](#about-values).
+To help you get started with common configuration tasks, we have created the following guides.
 
 ### __Platform Configuration__
+
+The following guides help you configure the deployKF platform itself, including user authentication, authorization, and branding.
 
 <table markdown="span">
   <tr>
@@ -41,18 +44,12 @@ deployKF is incredibly configurable, so we provide a number of guides to help yo
 
 ### __Tool Configuration__
 
+The following guides help you configure the [ML & Data tools](../reference/tools.md#tool-index) which are part of the deployKF platform.
+
 <table markdown="span">
   <tr>
     <th>Guide<br><small>(Click for Details)</small></th>
     <th>Description</th>
-  </tr>
-  <tr markdown>
-    <td markdown>[Connect an external MySQL Database](./tools/external-mysql.md)</td>
-    <td>Replace the embedded MySQL instance with a production-ready external database service.</td>
-  </tr>
-  <tr markdown>
-    <td markdown>[Connect an external Object Store](./tools/external-object-store.md)</td>
-    <td>Replace the embedded MinIO instance with an external S3-compatible object store.</td>
   </tr>
   <tr markdown>
     <td markdown>[Configure Kubeflow Notebooks](./tools/kubeflow-notebooks.md)</td>

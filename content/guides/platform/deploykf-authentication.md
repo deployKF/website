@@ -4,7 +4,7 @@ description: >-
   Active Directory, Okta, GitHub, Google, AWS Cognito, and more.
 
 # disable the mkdocs-macros-plugin for this page
-ignore_macros: true
+render_macros: false
 ---
 
 # User Authentication and External Identity Providers

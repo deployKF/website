@@ -3,7 +3,7 @@ description: >-
   A detailed look at the architecture of deployKF and its components.
 
 # disable the mkdocs-macros-plugin for this page
-ignore_macros: true
+render_macros: false
 ---
 
 # Architecture of deployKF
