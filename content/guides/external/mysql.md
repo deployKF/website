@@ -1,13 +1,13 @@
 ---
 icon: custom/mysql
 description: >-
-  Learn how and why deployKF uses MySQL.
+  Learn how and why deployKF needs MySQL.
   Learn how to use an external MySQL database to improve the performance and reliability of __Kubeflow Pipelines__ and __Katib__.
 ---
 
 # MySQL
 
-Learn how and why deployKF uses MySQL.
+Learn how and why deployKF needs MySQL.
 Learn how to use an external MySQL database to improve the performance and reliability of __Kubeflow Pipelines__ and __Katib__.
 
 ---
@@ -19,12 +19,12 @@ Many of the world's largest applications use MySQL to store and manage their dat
 
 ---
 
-## __How does deployKF use MySQL?__
+## __Why does deployKF use MySQL?__
 
 MySQL is a dependency of the following ML & Data tools, which are part of deployKF:
 
-- [Kubeflow Pipelines](../../reference/tools.md#kubeflow-pipelines): stores metadata about pipelines, experiments, and runs
-- [Katib](../../reference/tools.md#katib): stores metadata about hyperparameter tuning experiments
+- [__Kubeflow Pipelines__](../../reference/tools.md#kubeflow-pipelines): stores metadata about pipelines, experiments, and runs
+- [__Katib__](../../reference/tools.md#katib): stores metadata about hyperparameter tuning experiments
 
 ---
 

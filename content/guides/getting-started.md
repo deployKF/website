@@ -99,7 +99,7 @@ Default StorageClass | The default [`StorageClass`](https://kubernetes.io/docs/c
          - [`deploykf_opt.deploykf_minio.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L901-L905)
          - [`deploykf_opt.deploykf_mysql.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1036-L1040)
     2. Disable components which require the StorageClass, and use external alternatives:
-         - [Connect an External S3-like Object Store](./tools/external-object-store.md)
+         - [Connect an External S3-compatible Object Store](./external/object-store.md#connect-an-external-object-store)
          - [Connect an External MySQL Database](./external/mysql.md#connect-an-external-mysql)
 
 ### __Cluster Dependencies__
@@ -127,8 +127,8 @@ The following table lists these dependencies and how to use an existing version:
 
 Dependencies | Purpose in deployKF | Use Existing Version
 --- | --- | ---
-[MySQL Database](./external/mysql.md#what-is-mysql) | [Persisting state in __Kubeflow Pipelines__ and __Katib__.](./external/mysql.md#how-does-deploykf-use-mysql) | [Optional](external/mysql.md#connect-an-external-mysql)<br><small>:material-alert: recommended :material-alert:</small>
-Object Store | Storing pipelines and their results in [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines). | [Optional](./tools/external-object-store.md)<br><small>:material-alert: recommended :material-alert:</small>
+[MySQL Database](./external/mysql.md#what-is-mysql) | [Persisting state in __Kubeflow Pipelines__ and __Katib__.](./external/mysql.md#why-does-deploykf-use-mysql) | [Optional](./external/mysql.md#connect-an-external-mysql)<br><small>:material-alert: recommended :material-alert:</small>
+[Object Store<br><small>(S3-compatible)</small>](./external/object-store.md#what-is-an-object-store) | [Storing pipelines and their results in __Kubeflow Pipelines__.](./external/object-store.md#why-does-deploykf-use-an-object-store) | [Optional](./external/object-store.md#connect-an-external-object-store)<br><small>:material-alert: recommended :material-alert:</small>
 
 ## 2. Platform Deployment
 

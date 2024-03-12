@@ -22,7 +22,7 @@ comparison_data:
   - aspect: Customization
     deploykf:
       - Allows selective deployment of MLOps tools through simple config values.
-      - Allows bringing custom versions of dependencies like [Istio](../guides/dependencies/istio.md), [cert-manager](../guides/dependencies/cert-manager.md), [MySQL](../guides/external/mysql.md), [S3](../guides/tools/external-object-store.md), and more.
+      - Allows bringing custom versions of dependencies like [Istio](../guides/dependencies/istio.md), [cert-manager](../guides/dependencies/cert-manager.md), [MySQL](../guides/external/mysql.md), [S3](../guides/external/object-store.md), and more.
     kubeflow_manifests:
       - Less customizable, and requires difficult patching of YAML manifests.
   - aspect: GitOps
@@ -38,7 +38,7 @@ comparison_data:
       - Automatically refreshes session cookies for active users in most cases (users will need to log in less often).
       - Uses Istio with [distroless images](https://istio.io/latest/docs/ops/configuration/security/harden-docker-images/) by default.
       - MinIO (or S3) access keys are isolated to each profile, not shared, and scoped to the minimum required permissions.
-      - Supports [using AWS IRSA](../guides/tools/external-object-store.md#irsa-based-authentication) instead of S3 access keys.
+      - Supports [using AWS IRSA](../guides/external/object-store.md#4-connect-kubeflow-pipelines) instead of S3 access keys.
     kubeflow_manifests:
       - Potentially more security vulnerabilities than deployKF.
       - Lacks session cookie refresh for active users in most cases.
