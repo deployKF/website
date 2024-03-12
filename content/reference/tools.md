@@ -1,7 +1,7 @@
 ---
-icon: material/wrench
+icon: material/tools
 description: >-
-  ML and Data tools available in deployKF.
+  A list of ML & Data tools which are currently available in deployKF.
 
 ## Tools in current deployKF versions
 tools_current:
@@ -104,15 +104,15 @@ tools_current:
     footnote: ""
 ---
 
-# Current ML & Data Tools
+# Current Tools
 
-This page lists __ML & Data tools__ which are __currently supported__ by deployKF.
+A list of __ML & Data tools__ which are __currently available__ in deployKF.
 
-!!! question_secondary "What versions of each tool are supported?"
+!!! info "Tool Versions"
     
     See the [version matrix](../releases/version-matrix.md) to learn which versions of each tool are supported by each version of deployKF.
 
-!!! question_secondary "What tools are planned for future releases?"
+!!! question_secondary "What tools are planned for future versions?"
 
     See the [future tools](future-tools.md) page for a list of tools which are planned for future releases.
 
