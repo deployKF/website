@@ -2,9 +2,6 @@
 icon: material/wan
 description: >-
   Learn how to make deployKF accessible to your users, and how to configure HTTPS/TLS.
-
-# TODO: remove status, after a while
-status: new
 ---
 
 # Expose Gateway and configure HTTPS
