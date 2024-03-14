@@ -28,10 +28,12 @@ For existing Kubeflow users, we have a _migration guide_:
 
 !!! value ""
 
-    You may also want to _join our community_ or learn about _support options_:
+    We encourage you to _join our community_ and learn about _support options_!
     
     [:material-account-group: Join the Community](../about/community.md){ .md-button .md-button--secondary }
     [:material-headset: Get Support](../about/support.md){ .md-button .md-button--secondary }
+
+---
 
 ## 1. Requirements
 
@@ -102,80 +104,68 @@ Default StorageClass | The default [`StorageClass`](https://kubernetes.io/docs/c
          - [Connect an External S3-compatible Object Store](./external/object-store.md#connect-an-external-object-store)
          - [Connect an External MySQL Database](./external/mysql.md#connect-an-external-mysql)
 
-### __Cluster Dependencies__
+## 2. Platform Configuration
 
-deployKF has a number of cluster-level dependencies.
-By default, we will install these dependencies into your cluster.
-If required, you may also connect an existing version of these dependencies.
-
-The following table lists these dependencies and how to use an existing version:
-
-Dependency | Purpose in deployKF | Use Existing Version
---- | --- | ---
-[Argo CD](./dependencies/argocd.md#what-is-argo-cd) | [Used to deploy and manage the lifecycle of the platform.](./dependencies/argocd.md#how-does-deploykf-use-argo-cd) | [Required](./dependencies/argocd.md#can-i-use-my-existing-argo-cd)
-[Cert-Manager](./dependencies/cert-manager.md#what-is-cert-manager) | [Generating and maintaining TLS/HTTPS certificates.](./dependencies/cert-manager.md#how-does-deploykf-use-cert-manager) | [Optional](./dependencies/cert-manager.md#can-i-use-my-existing-cert-manager)
-[Istio](./dependencies/istio.md#what-is-istio) | [Network service mesh for the platform, used to enforce client authentication and secure internal traffic.](./dependencies/istio.md#how-does-deploykf-use-istio) | [Optional](./dependencies/istio.md#can-i-use-my-existing-istio)
-[Kyverno](./dependencies/kyverno.md#what-is-kyverno) | [Mutating resources, replicating secrets across namespaces, and restarting Pods when configs change.](./dependencies/kyverno.md#how-does-deploykf-use-kyverno) | <s>[Optional](./dependencies/kyverno.md#can-i-use-my-existing-kyverno)</s><br><small>(coming soon)</small>
-
-### __External Dependencies__
-
-deployKF has some external (off-cluster) dependencies.
-By default, we will install an embedded version of these dependencies into your cluster.
-However, we recommend using an external version for better performance and reliability.
-
-The following table lists these dependencies and how to use an external version:
-
-Dependencies | Purpose in deployKF | Use External Version
---- | --- | ---
-[MySQL](./external/mysql.md#what-is-mysql) | [Persisting state in __Kubeflow Pipelines__ and __Katib__.](./external/mysql.md#why-does-deploykf-use-mysql) | [Optional](./external/mysql.md#connect-an-external-mysql)<br><small>:material-alert: recommended :material-alert:</small>
-[Object Store<br><small>(S3-compatible)</small>](./external/object-store.md#what-is-an-object-store) | [Storing pipelines and their results in __Kubeflow Pipelines__.](./external/object-store.md#why-does-deploykf-use-an-object-store) | [Optional](./external/object-store.md#connect-an-external-object-store)<br><small>:material-alert: recommended :material-alert:</small>
-
-## 2. Platform Deployment
-
-### __About Values__
-
-All aspects of deployKF are configured with YAML-based config "values".
-To learn more about configuring values, see the [configure deployKF](./configs.md#about-values) guide.
+deployKF is very configurable, you can use it to deploy a wide variety of machine learning platforms and integrate with your existing infrastructure.
 
 ### __deployKF Versions__
 
-Each deployKF version may include different ML & Data tools, or support different versions of cluster dependencies.
-See the [version matrix](../releases/version-matrix.md) for an overview, and the [changelog](../releases/changelog-deploykf.md) for detailed information about what changed in each release, including important tips for upgrading.
+Each deployKF version may include different [ML & Data tools](../reference/tools.md) or support different versions of cluster dependencies.
+See the [version matrix](../releases/version-matrix.md) for an overview, and the [changelog](../releases/changelog-deploykf.md) for detailed information about what changed in each release (including important tips for upgrading).
 
-!!! tip "Be notified about new releases"
+??? question_secondary "Can I be notified about new releases?"
 
-    Be notified about new deployKF releases by watching the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub,
-    at the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.
+    Yes. Watch the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub.
+    At the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.
+
+### __About Values__
+
+All aspects of deployKF are configured via a centralized set of YAML-based configs named "values".
+Learn more about __creating your own values files__ on the [values](./values.md) page.
+
+[Topic: Values](./values.md){ .md-button .md-button--secondary }
+
+### __Cluster Dependencies__
+
+deployKF has a number of cluster dependencies including __Istio__, __cert-manager__, and __Kyverno__.
+To learn about the cluster dependencies, and how to use your existing version (rather than the one which comes with deployKF), see the [cluster dependencies](./cluster-dependencies.md) guide.
+
+[Topic: Cluster Dependencies](./cluster-dependencies.md){ .md-button .md-button--secondary }
+
+### __External Dependencies__
+
+deployKF has a number of external dependencies including __MySQL__ and an __Object Store (like S3)__.
+To learn about the cluster dependencies, and how to connect to an external version (rather than the one which comes with deployKF), see the [external dependencies](./external-dependencies.md) guide.
+
+[Topic: External Dependencies](./external-dependencies.md){ .md-button .md-button--secondary }
+
+!!! warning "Embedded Dependencies"
+
+    We strongly recommend NOT using the embedded MySQL and MinIO instances in production.
+    See the [Connect an External MySQL](./external/mysql.md#connect-an-external-mysql) and [Connect an External Object Store](./external/object-store.md#connect-an-external-object-store) guides for more information.
 
 ### __Modes of Operation__
 
 There are two ways to use deployKF which we call ___"modes of operation"___.
 These modes change how the Kubernetes manifests are generated and applied to your cluster.
+Learn more on the [modes of operation](./modes.md) page.
 
-Mode | Description
---- | ---
-ArgoCD Plugin Mode | The [`deployKF ArgoCD Plugin`](./dependencies/argocd.md#what-is-the-deploykf-argocd-plugin) adds a new kind of ArgoCD `Application` which understands deployKF config values and can generate manifests directly, without requiring a git repo.
-Manifests Repo Mode | The [`deployKF CLI`](deploykf-cli.md#about-the-cli) is used to generate manifests which are committed to a git repo for ArgoCD to apply to your cluster.
+[Topic: Modes of Operation](./modes.md){ .md-button .md-button--secondary }
 
-!!! tip "Recommended Mode"
+!!! tip "Recommended _Mode of Operation_"
 
-    If you are unsure which mode to choose, we recommend using __ArgoCD Plugin Mode__.
-    It is the most user-friendly and requires the least amount of manual steps.
+    For most users, we recommend the __ArgoCD Plugin Mode__.
 
-??? question_secondary "Is ArgoCD always required?"
+---
 
-    Yes.
-    At this time, both modes __require ArgoCD to function__, this is because deployKF uses ArgoCD to [manage the lifecycle and state](./dependencies/argocd.md#how-does-deploykf-use-argo-cd) of the platform.
+## 3. Deploy the Platform
 
-??? question_secondary "Can I use an off-cluster ArgoCD?"
+To deploy the platform, you will need to create [ArgoCD `Applications`](./dependencies/argocd.md#argo-cd-applications), and then sync them.
 
-    Yes.
-    You can use an ArgoCD instance which is [not running on the same cluster as deployKF](./dependencies/argocd.md#can-i-use-an-off-cluster-argocd).
+### __:star: Create ArgoCD Applications :star:__
 
-### __Generate & Apply Manifests__
-
-deployKF uses ArgoCD to apply manifests to your Kubernetes cluster.
-How you generate and apply the manifests will depend on the [mode of operation](#modes-of-operation) you have chosen.
+deployKF [uses ArgoCD](./dependencies/argocd.md#how-does-deploykf-use-argo-cd) to manage the deployment of the platform.
+The process to generate the ArgoCD `Applications` will depend on the [mode of operation](#modes-of-operation) you have chosen.
 
 === ":star: ArgoCD Plugin Mode :star:"
 
@@ -474,7 +464,7 @@ How you generate and apply the manifests will depend on the [mode of operation](
         kubectl apply --filename GENERATOR_OUTPUT/app-of-apps.yaml
         ```
 
-### __Sync ArgoCD Applications__
+### __:star: Sync ArgoCD Applications :star:__
 
 Now that your deployKF app-of-apps has been applied, you must sync the ArgoCD applications to deploy your platform.
 Syncing an application will cause ArgoCD to reconcile the actual state in the cluster, to match the state defined by the application resource.
@@ -488,20 +478,24 @@ We recommend using the __automated sync script__.
 
 === ":star: Sync: Automated Script :star:"
     
-    We provide the [`sync_argocd_apps.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/sync_argocd_apps.sh) script to automatically sync the applications that make up deployKF.
-    Learn more about the automated sync script from the [`scripts` folder README](https://github.com/deployKF/deployKF/tree/main/scripts) .
+    !!! step "Step - Sync with the Automated Script"
 
-    ```bash
-    # clone the deploykf repo
-    # NOTE: we use 'main', as the latest script always lives there
-    git clone -b main https://github.com/deployKF/deployKF.git ./deploykf
+        We provide the [`sync_argocd_apps.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/sync_argocd_apps.sh) script to automatically sync the applications that make up deployKF.
+        Learn more about the automated sync script from the [`scripts` folder README](https://github.com/deployKF/deployKF/tree/main/scripts) .
     
-    # ensure the script is executable
-    chmod +x ./deploykf/scripts/sync_argocd_apps.sh
-    
-    # run the script
-    bash ./deploykf/scripts/sync_argocd_apps.sh
-    ```
+        For example, to run the script, you might use the following commands:
+
+        ```bash
+        # clone the deploykf repo
+        # NOTE: we use 'main', as the latest script always lives there
+        git clone -b main https://github.com/deployKF/deployKF.git ./deploykf
+        
+        # ensure the script is executable
+        chmod +x ./deploykf/scripts/sync_argocd_apps.sh
+        
+        # run the script
+        bash ./deploykf/scripts/sync_argocd_apps.sh
+        ```
     
     !!! note "About the sync script"
     
@@ -510,55 +504,20 @@ We recommend using the __automated sync script__.
         - There are a number of configuration variables at the top of the script which change the default behavior.
         - Learn more about the automated sync script from the [`scripts` folder README](https://github.com/deployKF/deployKF/tree/main/scripts) in the deployKF repo.
 
-    Please be aware of the following issue when using the automated sync script:
-    
-    ??? bug "Bug in ArgoCD v2.9"
-    
-        There is a known issue ([`deploykf/deploykf#70`](https://github.com/deployKF/deployKF/issues/70), [`argoproj/argo-cd#16266`](https://github.com/argoproj/argo-cd/issues/16266)) with all `2.9.X` versions of the ArgoCD CLI that will cause the sync script to fail with the following error:
-    
-        ```text
-        ==========================================================================================
-        Logging in to ArgoCD...
-        ==========================================================================================
-        FATA[0000] cannot find pod with selector: [app.kubernetes.io/name=] - use the --{component}-name flag in this command or set the environmental variable (Refer to https://argo-cd.readthedocs.io/en/stable/user-guide/environment-variables), to change the Argo CD component name in the CLI
-        ```
-    
-        ---
-    
-        Please downgrade to version `2.8.6` of the ArgoCD CLI if you encounter this issue.
-    
-        === "macOS"
-    
-            On macOS, you can use the following commands to downgrade the ArgoCD CLI:
-    
-            ```bash
-            # this URL is for version `2.8.6` of `argocd` brew formula
-            wget https://raw.githubusercontent.com/Homebrew/homebrew-core/67082a334f219440f90dd221ad939d0ef6756409/Formula/a/argocd.rb
-            
-            # remove any existing argocd
-            brew remove argocd
-            
-            # install from the local formula
-            brew install ./argocd.rb
-            
-            # pin the version to prevent `brew upgrade`
-            brew pin argocd
+        Please be aware of the following issue when using the automated sync script:
+        
+        ??? bug "Bug in ArgoCD v2.9"
+        
+            There is a known issue ([`deploykf/deploykf#70`](https://github.com/deployKF/deployKF/issues/70), [`argoproj/argo-cd#16266`](https://github.com/argoproj/argo-cd/issues/16266)) with all `2.9.X` versions of the ArgoCD CLI that will cause the sync script to fail with the following error:
+        
+            ```text
+            ==========================================================================================
+            Logging in to ArgoCD...
+            ==========================================================================================
+            FATA[0000] cannot find pod with selector: [app.kubernetes.io/name=] - use the --{component}-name flag in this command or set the environmental variable (Refer to https://argo-cd.readthedocs.io/en/stable/user-guide/environment-variables), to change the Argo CD component name in the CLI
             ```
-    
-        === "Linux"
-    
-            On Linux, replace your `argocd` binary with the version from the [`v2.8.6`](https://github.com/argoproj/argo-cd/releases/tag/v2.8.6) release:
-    
-            ```bash
-            VERSION="v2.8.6"
-            curl -sSL -o argocd-linux-amd64 "https://github.com/argoproj/argo-cd/releases/download/${VERSION}/argocd-linux-amd64"
-            sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
-            rm argocd-linux-amd64
-            ```
-    
-        === "Windows"
-    
-            On Windows, follow the "macOS" instructions to install version `2.8.6` from Homebrew in a WSL shell.
+        
+            Please upgrade your `argocd` CLI to at least version `2.10.0` to resolve this issue.
 
 === "Sync: ArgoCD Web UI"
 
@@ -568,13 +527,13 @@ We recommend using the __automated sync script__.
 
         For production usage, you may want to [expose ArgoCD with a `LoadBalancer` or `Ingress`](https://argo-cd.readthedocs.io/en/stable/getting_started/#3-access-the-argo-cd-api-server).
 
-        For testing, you may use `kubectl` port-forwarding:
+        For testing, you may use `kubectl` port-forwarding to expose the ArgoCD Web UI on your local machine:
 
         ```shell
         kubectl port-forward --namespace "argocd" svc/argocd-server 8090:https
         ```
 
-        The ArgoCD Web UI should now be available on your local machine at:
+        The ArgoCD Web UI should now be available at the following URL:
 
           :material-arrow-right-bold: [https://localhost:8090](https://localhost:8090)
 
@@ -658,22 +617,24 @@ We recommend using the __automated sync script__.
             - `kf-tools--training-operator`
             - `kf-tools--volumes--volumes-web-app`
 
-## 3. Use the Platform
+---
 
-Now that you have a working deployKF ML Platform, here are some things to try out!
+## 4. Use the Platform
 
-### __The Dashboard__
+Now that you have a working deployKF machine learning platform, here are some things to try out!
+
+### __:star: Expose the deployKF Dashboard :star:__
 
 The _deployKF dashboard_ is the web-based interface for deployKF, it gives users authenticated access to tools like [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines), [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks), and [Katib](../reference/tools.md#katib).
 
 ![deployKF Dashboard (Dark Mode)](../assets/images/deploykf-dashboard-DARK.png#only-dark)
 ![deployKF Dashboard (Light Mode)](../assets/images/deploykf-dashboard-LIGHT.png#only-light)
 
+All public deployKF services (including the dashboard) are accessed via the deployKF Istio Gateway, you will need to expose its Kubernetes Service.
+
 !!! step "Step 1 - Expose the Gateway"
 
-    All public deployKF services (including the dashboard) are accessed via the deployKF Istio Gateway, you will need to expose its Kubernetes Service.
-
-    You can expose the deployKF gateway in one of the following ways:
+    You may expose the deployKF Istio Gateway Service in a number of ways:
     
     - [Expose with: `kubectl port-forward`](./platform/deploykf-gateway.md#use-kubectl-port-forward) <small>(for local testing only)</small>
     - [Expose with: `LoadBalancer` Service](./platform/deploykf-gateway.md#use-a-loadbalancer-service)
@@ -693,7 +654,7 @@ The _deployKF dashboard_ is the web-based interface for deployKF, it gives users
 
         - This account is the [default "owner"](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L688-L694) of all profiles.
         - This account does NOT have access to "MinIO Console" or "Argo Server UI".
-        - We recommend removing the [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396) for this account, so it can't be used to log in.
+        - We recommend NOT using this account, and actually removing its [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396).
         - We recommend leaving this account as the default "owner", even with `@example.com` as the domain (because profile owners can't be changed).
 
     ??? key "Credentials: User 1"
@@ -718,9 +679,9 @@ The _deployKF dashboard_ is the web-based interface for deployKF, it gives users
 
     If you would like to make changes to the _deployKF dashboard_, such as adding custom links to the sidebar or homepage, see the [dashboard customization guide](./platform/deploykf-dashboard.md).
 
-### __ML & Data Tools__
+### __Explore the Tools__
 
-deployKF includes [many tools](../reference/tools.md#tool-index) that address different stages of the ML & Data lifecycle.
+deployKF includes many [ML & Data tools](../reference/tools.md#tool-index) that address different stages of the machine learning lifecycle.
 Here are a few popular tools to get started with:
 
 - [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines)
