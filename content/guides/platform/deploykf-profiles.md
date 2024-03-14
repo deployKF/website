@@ -1,4 +1,5 @@
 ---
+icon: material/shield-key
 description: >-
   Learn how to manage profiles and assign users to them in deployKF.
 ---

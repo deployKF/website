@@ -1,4 +1,5 @@
 ---
+icon: material/wan
 description: >-
   Learn how to make deployKF accessible to your users, and how to configure HTTPS/TLS.
 
