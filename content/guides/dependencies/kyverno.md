@@ -2,13 +2,13 @@
 icon: custom/kyverno
 description: >-
   Learn how and why deployKF uses Kyverno.
-  Learn how to integrate your existing Kyverno with deployKF.
+  Learn how to integrate your existing Kyverno with deployKF and Kubeflow.
 ---
 
 # Kyverno
 
 Learn how and why deployKF uses Kyverno.
-Learn how to integrate your existing Kyverno with deployKF.
+Learn how to integrate your existing Kyverno with deployKF and Kubeflow.
 
 ---
 
