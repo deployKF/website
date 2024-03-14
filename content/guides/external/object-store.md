@@ -264,7 +264,7 @@ The following sections will show you how to configure each method.
         objectStore:
           useExternal: true
           
-          ## this specifies the XML REST endpoint of your object store
+          ## this specifies the S3-compatible endpoint of your object store
           host: s3.amazonaws.com
           port: ""
           useSSL: true

@@ -1,21 +1,24 @@
 ---
 icon: material/sprout
 description: >-
-  Learn how to quickly try deployKF, on a local Kubernetes cluster.
-  Test our powerful Helm-like interface for deploying Kubeflow and other MLOps tools.
+  Quickly try deployKF on a local Kubernetes cluster.
+  Easily try out Kubeflow and other MLOps tools!
 ---
 
 # Local Quickstart
 
-Learn how to quickly try <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong>, on a __local__ Kubernetes cluster.
+Learn how to quickly try <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> on a __local__ Kubernetes cluster.
 
 ---
 
 ## Introduction
 
-This quickstart will guide you through setting up a local Kubernetes cluster, installing ArgoCD, and running deployKF on top of it.
+This quickstart will guide you through setting up a local `k3d` Kubernetes cluster, installing ArgoCD, and running deployKF on top of it.
 
-For production use, please see the [Getting Started](./getting-started.md) guide.
+!!! warning "Not for Production Use"
+
+    This quickstart is for __testing__ purposes only.
+    For production use, please see the [Getting Started](./getting-started.md) guide.
 
 ## 1. Requirements
 
@@ -23,83 +26,103 @@ The requirements for this quickstart depend on your operating system.
 
 === "macOS"
 
-    Requirement | Notes
-    --- | ---
-    Homebrew | [Install Guide](https://brew.sh/)
-    Docker Desktop | [Install Guide](https://docs.docker.com/docker-for-mac/install/)
-    Bash 4.2+ | RUN: `brew install bash`<br>*(macOS has bash `3.2` by default)*
-    CLI: [`argocd`](https://argo-cd.readthedocs.io/en/stable/cli_installation/) | RUN: `brew install argocd`
-    CLI: [`jq`](https://jqlang.github.io/jq/download/) | RUN: `brew install jq`
-    CLI: [`k3d`](https://k3d.io/) | RUN: `brew install k3d`
-    CLI: [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/) | RUN: `brew install kubectl`
-
     !!! danger "Apple Silicon"
 
-        Currently, deployKF does NOT natively support ARM64 clusters like Apple Silicon.
+        Currently, deployKF does NOT support `arm64` clusters like Apple Silicon.
         Furthermore, some core components don't work under rosetta emulation.
+        Please use an `x86_64` machine or cloud-instance to run this quickstart.
 
-        The next minor version of deployKF (`v0.2.0`) should have native ARM64 for all core components.
-        However, some upstream apps like _Kubeflow Pipelines_ will need extra work to be production ready ([`#10309`](https://github.com/kubeflow/pipelines/issues/10309), [`#10308`](https://github.com/kubeflow/pipelines/issues/10308)).
+    !!! step "Step 1 - Install Core Dependencies"
 
-    !!! warning "Resource Allocation"
+        First, install these core dependencies on your __macOS host__:
 
-        In Docker Desktop, you may need to increase the [resource allocation](https://docs.docker.com/desktop/settings/mac/#resources), we recommend allocating at least:
-        
-        - __4 CPU Cores__
-        - __10 GB RAM__
+        Requirement | Notes
+        --- | ---
+        Homebrew | [Install Guide](https://brew.sh/)
+        Docker Desktop | [Install Guide](https://docs.docker.com/docker-for-mac/install/)
 
-    ??? question_secondary "Can I use Podman instead of Docker Desktop?"
+        !!! warning "Resource Allocation"
+    
+            In Docker Desktop, you may need to increase the [resource allocation](https://docs.docker.com/desktop/settings/mac/#resources).
+            We recommend allocating at least the following resources:
+            
+            - __4 CPU Cores__
+            - __10 GB RAM__
 
-        Yes. While we recommend using Docker Desktop, you may use [Podman](https://podman.io/) instead.
-       
-        Follow these steps to [configure `k3d` to use Podman](https://k3d.io/stable/usage/advanced/podman/):
-        
-        1. [Install Podman](https://podman.io/docs/installation#macos)
-        2. Enable Podman socket: `sudo systemctl enable --now podman.socket`
-        3. Link Docker socket to Podman: `sudo ln -s /run/podman/podman.sock /var/run/docker.sock`
+        ??? question_secondary "Can I use Podman instead of Docker Desktop?"
+    
+            Yes. While we recommend using Docker Desktop, you may use [Podman](https://podman.io/) instead.
+           
+            Follow these steps to [configure `k3d` to use Podman](https://k3d.io/stable/usage/advanced/podman/):
+            
+            1. [Install Podman](https://podman.io/docs/installation#macos)
+            2. Enable Podman socket: `sudo systemctl enable --now podman.socket`
+            3. Link Docker socket to Podman: `sudo ln -s /run/podman/podman.sock /var/run/docker.sock`
+
+    !!! step "Step 2 - Install CLI Tools"
+
+        Next, install these CLI tools on your __macOS host__:
+
+        Requirement | Notes
+        --- | ---
+        Bash 4.2+ | RUN: `brew install bash`<br>*(macOS has bash `3.2` by default)*
+        CLI: [`argocd`](https://argo-cd.readthedocs.io/en/stable/cli_installation/) | RUN: `brew install argocd`
+        CLI: [`jq`](https://jqlang.github.io/jq/download/) | RUN: `brew install jq`
+        CLI: [`k3d`](https://k3d.io/) | RUN: `brew install k3d`
+        CLI: [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/) | RUN: `brew install kubectl`
 
 === "Linux"
 
-    Requirement | Notes
-    --- | ---
-    Docker Engine | [Install Guide](https://docs.docker.com/engine/install/)
-    CLI: `argocd` | [Install Guide](https://argo-cd.readthedocs.io/en/stable/cli_installation/) <sup>(also on Homebrew for Linux)</sup>
-    CLI: `jq` | [Install Guide](https://jqlang.github.io/jq/download/) <sup>(also on Homebrew for Linux)</sup>
-    CLI: `k3d` | [Install Guide](https://k3d.io/stable/#installation) <sup>(also on Homebrew for Linux)</sup>
-    CLI: `kubectl` | [Install Guide](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) <sup>(also on Homebrew for Linux)</sup>
+    !!! step "Step 1 - Install Core Dependencies"
 
-    !!! warning "Inotify Limits"
+        First, install these core dependencies on your __Linux host__:
 
+        Requirement | Notes
+        --- | ---
+        Docker Engine | [Install Guide](https://docs.docker.com/engine/install/)<br><small>Note, you do not need to use Docker Desktop, Docker Engine is sufficient.</small>
+    
+    !!! step "Step 2 - Install CLI Tools"
+
+        Next, install these CLI tools on your __Linux host__:
+
+        Requirement | Notes
+        --- | ---
+        CLI: `argocd` | [Install Guide](https://argo-cd.readthedocs.io/en/stable/cli_installation/) <sup>(also on Homebrew for Linux)</sup>
+        CLI: `jq` | [Install Guide](https://jqlang.github.io/jq/download/) <sup>(also on Homebrew for Linux)</sup>
+        CLI: `k3d` | [Install Guide](https://k3d.io/stable/#installation) <sup>(also on Homebrew for Linux)</sup>
+        CLI: `kubectl` | [Install Guide](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) <sup>(also on Homebrew for Linux)</sup>
+
+        ??? question_secondary "How do I use Homebrew for Linux?"
+    
+            An easy way to install the requirements is with [Homebrew](https://brew.sh/), while traditionally a macOS tool, it supports linux as well.
+    
+            The following commands will install `brew` and add it to your PATH:
+        
+            ```bash
+            # install Homebrew for Linux
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        
+            # add 'brew' to your PATH
+            # NOTE: reopen your shell for this to take effect
+            (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> ~/.profile
+            ```
+    
+            After Homebrew is installed, you may use commands like:
+    
+            ```bash
+            brew install argocd
+            brew install jq
+            brew install k3d
+            brew install kubectl
+            ```
+    !!! step "Step 3 - Inotify Limits"
+    
         On __Linux__, you may need to increase your system's open/watched file limits.
 
         1. Modify `/etc/sysctl.conf` to include the following lines:
             - `fs.inotify.max_user_instances = 1280`
             - `fs.inotify.max_user_watches = 655360`
         2. Reload sysctl configs by running `sudo sysctl -p`
-
-    ??? info "Homebrew for Linux"
-
-        An easy way to install the requirements is with [Homebrew](https://brew.sh/), while traditionally a macOS tool, it supports linux as well.
-
-        The following commands will install `brew` and add it to your PATH:
-    
-        ```bash
-        # install Homebrew for Linux
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    
-        # add 'brew' to your PATH
-        # NOTE: reopen your shell for this to take effect
-        (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> ~/.profile
-        ```
-
-        After Homebrew is installed, you may use commands like:
-
-        ```bash
-        brew install argocd
-        brew install jq
-        brew install k3d
-        brew install kubectl
-        ```
 
 === "Windows"
 
@@ -318,6 +341,8 @@ This allows us to define the platform using a single app-of-apps which only need
     kubectl config current-context
     ```
     
+    ---
+
     ??? question_secondary "How do I change my kubectl context?"
     
         We recommend using [`kubectx`](https://github.com/ahmetb/kubectx) to manage your `kubectl` contexts.
@@ -371,20 +396,24 @@ This allows us to define the platform using a single app-of-apps which only need
 
 ## 4. Create ArgoCD Applications
 
-### __About Values__
-
-All aspects of deployKF are configured with YAML-based config "values".
-To learn more about configuring values, see the [configure deployKF](./configs.md#about-values) guide.
-
-For this quickstart, we will be using the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file as our base.
-These sample values have all supported [ML & Data tools](../reference/tools.md#tool-index) enabled, along with some sensible security defaults.
-
 ### __deployKF Versions__
 
-Each deployKF version may include different ML & Data tools, or support different versions of cluster dependencies.
-See the [version matrix](../releases/version-matrix.md) for an overview, and the [changelog](../releases/changelog-deploykf.md) for detailed information about what changed in each release, including important tips for upgrading.
+Each deployKF version may include different [ML & Data tools](../reference/tools.md) or support different versions of cluster dependencies.
+See the [version matrix](../releases/version-matrix.md) for an overview, and the [changelog](../releases/changelog-deploykf.md) for detailed information about what changed in each release (including important tips for upgrading).
 
-For this quickstart, we will be using deployKF [`{{ latest_deploykf_version }}`](https://github.com/deployKF/deployKF/releases/tag/v{{ latest_deploykf_version }}).
+!!! step ""
+    
+    For this quickstart, we will be using deployKF [`{{ latest_deploykf_version }}`](https://github.com/deployKF/deployKF/releases/tag/v{{ latest_deploykf_version }}).
+
+### __About Values__
+
+All aspects of deployKF are configured via a centralized set of YAML-based configs named "values".
+Learn more about creating your own values files on the [values](./values.md) page.
+
+!!! step ""
+
+    For this quickstart, we will be using the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file as our base.
+    These sample values have all supported [ML & Data tools](../reference/tools.md#tool-index) enabled, along with some sensible security defaults.
 
 ### __Create an App-of-Apps__
 
@@ -571,25 +600,29 @@ Think of it as a _"single source of truth"_ for the desired state of your platfo
 
     === "Apply: ArgoCD Web UI"
 
-        You will need to retrieve the initial password for the `admin` user:
-        
-        ```shell
-        echo $(kubectl -n argocd get secret/argocd-initial-admin-secret \
-          -o jsonpath="{.data.password}" | base64 -d)
-        ```
-        
-        Next, use `kubectl` port-forwarding to access the ArgoCD Web UI:
+        Use `kubectl` port-forwarding to expose the ArgoCD Web UI on your local machine:
     
         ```shell
         kubectl port-forward --namespace "argocd" svc/argocd-server 8090:https
         ```
     
-        You will now be able to access ArgoCD at [https://localhost:8090](https://localhost:8090) in your browser.
+        The ArgoCD Web UI should now be available at the following URL:
+
+          :material-arrow-right-bold: [https://localhost:8090](https://localhost:8090)
     
+        ---
+
+        Retrieve the initial password for the `admin` user:
+        
+        ```shell
+        echo $(kubectl -n argocd get secret/argocd-initial-admin-secret \
+          -o jsonpath="{.data.password}" | base64 -d)
+        ```
+
         Log in with the `admin` user, and the password you retrieved above.
     
         ---
-    
+
         The ArgoCD Web UI will look like this (but without any applications):
     
         ![ArgoCD Web UI (Dark Mode)](../assets/images/argocd-ui-DARK.png#only-dark)
@@ -611,19 +644,24 @@ Now that your deployKF app-of-apps has been applied, you must sync the ArgoCD ap
 Syncing an application will cause ArgoCD to reconcile the actual state in the cluster, to match the state defined by the application resource.
 
 ArgoCD supports syncing applications both _graphically (Web UI)_ and _programmatically (CLI)_.
-For this quickstart, we will use the CLI via our automated [`sync_argocd_apps.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/sync_argocd_apps.sh) script.
 
-```bash
-# clone the deploykf repo
-# NOTE: we use 'main', as the latest script always lives there
-git clone -b main https://github.com/deployKF/deployKF.git ./deploykf
+!!! step "Step - Sync ArgoCD Applications"
 
-# ensure the script is executable
-chmod +x ./deploykf/scripts/sync_argocd_apps.sh
+    For this quickstart, we will use the ArgoCD CLI via our automated [`sync_argocd_apps.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/sync_argocd_apps.sh) script.
 
-# run the script
-bash ./deploykf/scripts/sync_argocd_apps.sh
-```
+    Run the following commands to use the sync script:
+    
+    ```bash
+    # clone the deploykf repo
+    # NOTE: we use 'main', as the latest script always lives there
+    git clone -b main https://github.com/deployKF/deployKF.git ./deploykf
+    
+    # ensure the script is executable
+    chmod +x ./deploykf/scripts/sync_argocd_apps.sh
+    
+    # run the script
+    bash ./deploykf/scripts/sync_argocd_apps.sh
+    ```
 
 !!! note "About the sync script"
 
@@ -632,55 +670,20 @@ bash ./deploykf/scripts/sync_argocd_apps.sh
     - There are a number of configuration variables at the top of the script which change the default behavior.
     - Learn more about the automated sync script from the [`scripts` folder README](https://github.com/deployKF/deployKF/tree/main/scripts) in the deployKF repo.
 
-Please be aware of the following issue when using the automated sync script:
-
-??? bug "Bug in ArgoCD v2.9"
-
-    There is a known issue ([`deploykf/deploykf#70`](https://github.com/deployKF/deployKF/issues/70), [`argoproj/argo-cd#16266`](https://github.com/argoproj/argo-cd/issues/16266)) with all `2.9.X` versions of the ArgoCD CLI that will cause the sync script to fail with the following error:
-
-    ```text
-    ==========================================================================================
-    Logging in to ArgoCD...
-    ==========================================================================================
-    FATA[0000] cannot find pod with selector: [app.kubernetes.io/name=] - use the --{component}-name flag in this command or set the environmental variable (Refer to https://argo-cd.readthedocs.io/en/stable/user-guide/environment-variables), to change the Argo CD component name in the CLI
-    ```
-
-    ---
-
-    Please downgrade to version `2.8.6` of the ArgoCD CLI if you encounter this issue.
-
-    === "macOS"
-
-        On macOS, you can use the following commands to downgrade the ArgoCD CLI:
-
-        ```bash
-        # this URL is for version `2.8.6` of `argocd` brew formula
-        wget https://raw.githubusercontent.com/Homebrew/homebrew-core/67082a334f219440f90dd221ad939d0ef6756409/Formula/a/argocd.rb
-        
-        # remove any existing argocd
-        brew remove argocd
-        
-        # install from the local formula
-        brew install ./argocd.rb
-        
-        # pin the version to prevent `brew upgrade`
-        brew pin argocd
+    Please be aware of the following issue when using the automated sync script:
+    
+    ??? bug "Bug in ArgoCD v2.9"
+    
+        There is a known issue ([`deploykf/deploykf#70`](https://github.com/deployKF/deployKF/issues/70), [`argoproj/argo-cd#16266`](https://github.com/argoproj/argo-cd/issues/16266)) with all `2.9.X` versions of the ArgoCD CLI that will cause the sync script to fail with the following error:
+    
+        ```text
+        ==========================================================================================
+        Logging in to ArgoCD...
+        ==========================================================================================
+        FATA[0000] cannot find pod with selector: [app.kubernetes.io/name=] - use the --{component}-name flag in this command or set the environmental variable (Refer to https://argo-cd.readthedocs.io/en/stable/user-guide/environment-variables), to change the Argo CD component name in the CLI
         ```
-
-    === "Linux"
-
-        On Linux, replace your `argocd` binary with the version from the [`v2.8.6`](https://github.com/argoproj/argo-cd/releases/tag/v2.8.6) release:
-
-        ```bash
-        VERSION="v2.8.6"
-        curl -sSL -o argocd-linux-amd64 "https://github.com/argoproj/argo-cd/releases/download/${VERSION}/argocd-linux-amd64"
-        sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
-        rm argocd-linux-amd64
-        ```
-
-    === "Windows"
-
-        On Windows, follow the "macOS" instructions to install version `2.8.6` from Homebrew in a WSL shell.
+    
+        Please upgrade your `argocd` CLI to at least version `2.10.0` to resolve this issue.
 
 ## 6. Try the Platform
 
@@ -775,7 +778,7 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
 
         - This account is the [default "owner"](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L688-L694) of all profiles.
         - This account does NOT have access to "MinIO Console" or "Argo Server UI".
-        - We recommend removing the [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396) for this account, so it can't be used to log in.
+        - We recommend NOT using this account, and actually removing its [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396).
         - We recommend leaving this account as the default "owner", even with `@example.com` as the domain (because profile owners can't be changed).
     
     ??? key "Credentials: User 1"

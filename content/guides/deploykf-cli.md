@@ -1,4 +1,5 @@
 ---
+icon: material/console
 description: >-
   Learn how to install the deployKF CLI.
 ---

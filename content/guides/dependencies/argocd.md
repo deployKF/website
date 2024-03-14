@@ -2,13 +2,13 @@
 icon: custom/argocd
 description: >-
   Learn how and why deployKF uses Argo CD.
-  Learn how to use your existing Argo CD with deployKF.
+  Learn how to use your existing Argo CD with deployKF and Kubeflow.
 ---
 
 # Argo CD
 
 Learn how and why deployKF uses Argo CD.
-Learn how to use your existing Argo CD with deployKF.
+Learn how to use your existing Argo CD with deployKF and Kubeflow.
 
 ---
 
@@ -39,7 +39,7 @@ An _"app of apps"_ is a pattern where a single Argo CD `Application` contains ot
 
 ### Argo CD Interfaces
 
-The _Argo CD Web Interface_ lets you visually manage your cluster, allowing you to view and make changes to Kubernetes resources (including [`Applications`](#argo-cd-applications)).
+The _Argo CD Web Interface_ lets you visually manage your cluster, allowing you to view and make changes to Kubernetes resources (including `Applications`).
 While the [CLI](https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd/) and [REST API](https://cd.apps.argoproj.io/swagger-ui) allow you to manage everything programmatically.
 
 !!! image ""
@@ -71,7 +71,7 @@ For example, we use Argo CD for:
 The [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) is an optional part of deployKF which removes the need to commit manifests to a Git repository.
 The plugin adds a special kind of Argo CD [`Application`](#argo-cd-applications) that produces deployKF manifests internally, similar to how Helm charts are used in Argo CD. 
 
-With the plugin, you manage the whole platform from a single _"app of apps"_ `Application` whose specification only needs your [values](../configs.md#about-values), and a specified [source version](../getting-started.md#deploykf-versions) of deployKF.
+With the plugin, you manage the whole platform from a single _"app of apps"_ `Application` whose specification only needs your [values](../values.md), and a specified [source version](../getting-started.md#deploykf-versions) of deployKF.
 For an example of this, see [__this section__](../local-quickstart.md#create-an-app-of-apps) of the local quickstart.
 
 ---

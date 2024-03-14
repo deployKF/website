@@ -1,12 +1,12 @@
 ---
 icon: material/bug
 description: >-
-  Learn about troubleshooting steps for common issues with deployKF.
+  Learn about common issues with deployKF and how to resolve them.
 ---
 
 # Troubleshooting
 
-Learn about __troubleshooting steps__ for common issues with deployKF.
+Learn about common issues with deployKF and how to resolve them.
 
 ---
 

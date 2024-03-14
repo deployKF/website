@@ -144,7 +144,7 @@ Value | Purpose
 The following values will connect Kubeflow Pipelines to an external MySQL database at `mysql.example.com` on port `3306`, using the `kfp_cache`, `kfp_metadata`, and `kfp_pipelines` databases, reading the username and password from a Kubernetes secret called `my-secret-name` (from the `kubeflow` namespace):
 
 ```yaml
-kubectl_tools:
+kubeflow_tools:
   pipelines:
     mysqlDatabases:
       cacheDatabase: kfp_cache

@@ -1,4 +1,5 @@
 ---
+icon: material/developer-board
 description: >-
   Learn how to access the Kubeflow Pipelines API with the Kubeflow Pipelines Python SDK and authenticate with deployKF.
 ---

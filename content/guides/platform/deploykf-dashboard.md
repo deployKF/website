@@ -1,4 +1,5 @@
 ---
+icon: material/monitor-dashboard
 description: >-
   Learn how to customize the deployKF Dashboard.
 ---

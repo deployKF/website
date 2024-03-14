@@ -1,8 +1,16 @@
 nav:
   - getting-started.md
   - local-quickstart.md
-  - troubleshooting.md
-  - configs.md
+  - Operations:
+     - configs.md
+     - troubleshooting.md
+     - upgrade.md
+     - uninstall.md
+  - Important Topics:
+     - values.md
+     - cluster-dependencies.md
+     - external-dependencies.md
+     - modes.md
   - Cluster Dependencies: dependencies
   - External Dependencies: external
   - Platform Configs: platform

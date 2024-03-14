@@ -1,4 +1,5 @@
 ---
+icon: material/git
 description: >-
   Learn how to use GitOps to manage Kubeflow Pipelines, including pipeline definitions and pipeline schedules.
 ---

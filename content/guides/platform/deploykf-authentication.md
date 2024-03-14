@@ -1,4 +1,5 @@
 ---
+icon: material/shield-account
 description: >-
   Learn about user authentication and connecting with external identity providers in deployKF.
   Active Directory, Okta, GitHub, Google, AWS Cognito, and more.
@@ -318,7 +319,9 @@ The following guides show provider-specific instructions for configuring Dex [co
                   - openid
                   - email
                   - profile
-                  - offline_access
+
+                ## cognito does not send the `name` claim
+                userNameKey: cognito:username
 
                 ## cognito does not always send the `email_verified` claim
                 insecureSkipEmailVerified: true
@@ -469,6 +472,9 @@ The following guides show provider-specific instructions for configuring Dex [co
                   - openid
                   - email
                   - profile
+                  ## NOTE: offline_access is required for refresh tokens
+                  ##  - ensure the Okta app has "Refresh Token" grant type enabled
+                  ##  - set the "Refresh Token Behavior" to "Rotate token after every use"
                   - offline_access
 
                 ## okta does not always send the `email_verified` claim
@@ -514,6 +520,7 @@ The following guides show provider-specific instructions for configuring Dex [co
                   - openid
                   - email
                   - profile
+                  ## NOTE: offline_access is required for refresh tokens
                   - offline_access
 
                 ## onelogin does not always send the `email_verified` claim
@@ -555,10 +562,14 @@ The following guides show provider-specific instructions for configuring Dex [co
                   - openid
                   - email
                   - profile
+                  ## NOTE: offline_access is required for refresh tokens
                   - offline_access
 
                 ## keycloak does not always send the `email_verified` claim
                 insecureSkipEmailVerified: true
+
+                ## if your Keycloak uses a self-signed certificate
+                #insecureSkipVerify: true
     ```
 
 ??? steps "Generic (OpenID Connect)"
@@ -597,6 +608,9 @@ The following guides show provider-specific instructions for configuring Dex [co
                   - openid
                   - email
                   - profile
+                  ## NOTE: offline_access is typically required for refresh tokens
+                  ##       if possible, configure your provider to only allow each
+                  ##       refresh token to be used once
                   - offline_access
 
                 ## set to true, if provider does not always send `email_verified` claim
