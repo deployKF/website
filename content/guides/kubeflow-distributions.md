@@ -1,4 +1,5 @@
 ---
+icon: material/swap-horizontal
 description: >-
   Learn about migrating to deployKF from Kubeflow Distributions like Kubeflow Manifests, Kubeflow on AWS, Kubeflow on GCP, and Charmed Kubeflow.
 ---
