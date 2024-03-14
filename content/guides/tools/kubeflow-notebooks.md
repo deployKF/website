@@ -1,4 +1,5 @@
 ---
+icon: custom/kubeflow
 description: >-
   Learn how to configure Kubeflow Notebooks in deployKF.
   Use custom environments, GPU acceleration, faster storage, and more!
