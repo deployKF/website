@@ -43,6 +43,10 @@ The following guides help you configure the deployKF platform itself, including 
     <td markdown>[Customize the Dashboard](./platform/deploykf-dashboard.md)</td>
     <td>Customize the deployKF dashboard with your own branding and links.</td>
   </tr>
+  <tr markdown>
+    <td markdown>[Image Pull Secrets and Private Registries](./platform/image-pull-secrets.md)</td>
+    <td>Configure image pull secrets, avoid Docker Hub rate limits, or use a private container registry.</td>
+  </tr>
 </table>
 
 ### __Tool Configuration Guides__

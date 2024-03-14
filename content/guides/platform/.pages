@@ -2,4 +2,6 @@ nav:
   - deploykf-authentication.md
   - deploykf-profiles.md
   - deploykf-gateway.md
+  - deploykf-dashboard.md
+  - image-pull-secrets.md
   - ...
