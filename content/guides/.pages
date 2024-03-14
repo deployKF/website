@@ -1,10 +1,11 @@
 nav:
   - getting-started.md
   - local-quickstart.md
-  - configs.md
-  - troubleshooting.md
-  - upgrade.md
-  - uninstall.md
+  - Operations:
+     - configs.md
+     - troubleshooting.md
+     - upgrade.md
+     - uninstall.md
   - Important Topics:
      - values.md
      - cluster-dependencies.md
