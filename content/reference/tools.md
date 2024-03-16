@@ -108,6 +108,12 @@ tools_current:
 
 A list of __ML & Data tools__ which are __currently available__ in deployKF.
 
+---
+
+## Tool Index
+
+The following is an index of currently supported tools, __grouped by ecosystem__.
+
 !!! info "Tool Versions"
     
     See the [version matrix](../releases/version-matrix.md) to learn which versions of each tool are supported by each version of deployKF.
@@ -115,12 +121,6 @@ A list of __ML & Data tools__ which are __currently available__ in deployKF.
 !!! question_secondary "What tools are planned for future versions?"
 
     See the [future tools](future-tools.md) page for a list of tools which are planned for future releases.
-
----
-
-## Tool Index
-
-The following is an index of currently supported tools, __grouped by ecosystem__.
 
 ### Kubeflow Ecosystem
 

@@ -82,12 +82,58 @@ Table Styling
 }
 
 /* A special wrapper class for the kubeflow vs deploykf table */
-.comparison-table td, .comparison-table th {
-    text-align: center !important;
-}
+.comparison-table {
 
-.comparison-table table {
-    table-layout: fixed;
+    /* we use fixed `width` percentages for each column */
+
+    table {
+        table-layout: fixed;
+    }
+
+    /* make the header text bigger */
+
+    th {
+        font-size: 110%;
+    }
+
+    /* center all text in the table */
+
+    td, th {
+        text-align: center !important;
+    }
+
+    /* vertical align text in the first column */
+
+    td:first-child {
+        vertical-align: middle !important;
+    }
+
+    /* top align text in all other columns */
+
+    td {
+        vertical-align: top !important;
+    }
+
+    /* make <hr> have less margin */
+
+    hr {
+        margin-top: 0.25rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+
+    /* style and color comparison icons */
+
+    .comparison-icon {
+        font-size: 0.9rem;
+    }
+
+    .comparison-icon--yes {
+        color: var(--success);
+    }
+
+    .comparison-icon--no {
+        color: var(--danger);
+    }
 }
 
 /*

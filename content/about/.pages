@@ -2,7 +2,8 @@ nav:
   - introduction.md
   - community.md
   - support.md
-  - kubeflow-vs-deploykf.md
-  - ...
+  - Comparisons:
+     - kubeflow-vs-deploykf.md
   - Advanced:
      - architecture.md
+  - ...

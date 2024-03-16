@@ -1,6 +1,8 @@
 :root {
     --deploykf-orange: #fd7e14;
     --deploykf-blue: #4279f4;
+    --success: #73A839;
+    --danger: #C71C22;
 }
 
 .deploykf-orange {

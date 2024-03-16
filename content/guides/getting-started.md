@@ -7,8 +7,8 @@ description: >-
 
 # Getting Started
 
-<strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> builds machine learning platforms on __Kubernetes__.
-We bring together the [best of Kubeflow](../reference/tools.md#kubeflow-ecosystem) and other tools into a complete platform which is easy to deploy and maintain.
+Learn how to use <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> in __production__.
+<br>Easily deploy the [best of Kubeflow](../reference/tools.md#kubeflow-ecosystem) and other MLOps tools as a complete platform!
 
 ---
 

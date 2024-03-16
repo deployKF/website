@@ -90,22 +90,9 @@
             <h3 class="mdx-hero__card_title">About deployKF</h3>
             <div class="mdx-hero__card_content">
               <div class="mdx-hero__card_content_paragraph">
-                deployKF builds world-class data and machine learning platforms on
-                <strong>any Kubernetes cluster</strong>,
-                in any cloud or environment.
-              </div>
-              <div class="mdx-hero__card_content_paragraph">
-                Our vision is that <strong>anyone with Kubernetes experience</strong> can effortlessly build and support a <em>custom data and machine learning platform</em> for their organization, without requiring specialized MLOps knowledge.
-              </div>
-            </div>
-          </div>
-
-          <!-- CARD - Key Features -->
-          <div class="mdx-hero__card">
-            <h3 class="mdx-hero__card_title">Key Features</h3>
-            <div class="mdx-hero__card_content">
-              <div class="mdx-hero__card_content_paragraph">
-                deployKF supports leading open-source Data and MLOps tools including
+                <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong>
+                builds machine learning platforms on <strong>Kubernetes</strong>.
+                We combine the best of
                 <a href="{{ 'reference/tools/#kubeflow-ecosystem' | url }}">
                   <span class="twemoji">{% include ".icons/custom/kubeflow-color.svg" %}</span>
                   <strong>Kubeflow</strong>
@@ -117,14 +104,7 @@
                 <a href="{{ 'reference/future-tools/#mlflow-model-registry' | url }}">
                   <span class="twemoji">{% include ".icons/custom/mlflow-color.svg" %}</span>
                   <strong>MLflow</strong><sup>†</sup>
-                </a>.
-              </div>
-              <div class="mdx-hero__card_content_paragraph">
-                With deployKF, you get <em>centralized configs</em>, seamless <em>in-place upgrades</em>, and the flexibility to run on any Kubernetes cluster.
-              </div>
-              <div class="mdx-hero__card_content_paragraph">
-                By combining the <em>ease of a managed service</em> with the flexibility of a self-hosted solution;
-                deployKF creates a platform tailored to your organization's needs, while not also requiring a team of MLOps experts to build and maintain it.
+                </a> into a complete platform that is easy to deploy and maintain.
               </div>
               <div class="mdx-hero__footnote">
                 <small>
@@ -134,17 +114,19 @@
             </div>
           </div>
 
-          <!-- CARD - Video -->
+          <!-- CARD - Key Features -->
           <div class="mdx-hero__card">
-            <h3 class="mdx-hero__card_title">Featured Video</h3>
+            <h3 class="mdx-hero__card_title">Key Features</h3>
             <div class="mdx-hero__card_content">
               <div class="mdx-hero__card_content_paragraph">
-                <div class="mdx-hero__video-container">
-                  <iframe src="https://www.youtube.com/embed/GDX4eLL_8E0?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
+                deployKF provides <a href="{{ 'guides/values/' | url }}"><em>centralized configs</em></a>,
+                seamless <a href="{{ 'guides/upgrade/' | url }}"><em>in-place upgrades</em></a>,
+                and the flexibility to run on <a href="{{ 'guides/getting-started/#kubernetes-cluster' | url }}"><em>any Kubernetes cluster</em></a>,
+                including self-hosted and cloud services.
               </div>
               <div class="mdx-hero__card_content_paragraph">
-                Our presentation from <strong>Kubeflow Summit 2023</strong>, where we introduced deployKF to the community.
+                Our goal is that <em><strong>any Kubernetes user</strong></em> can build a machine learning platform for their organization,
+                without needing specialized MLOps knowledge, or a team of experts to maintain it.
               </div>
             </div>
           </div>
@@ -183,6 +165,21 @@
                 <small>
                   <em>Have a story to share? <a href="{{ 'about/community/#contact-us' | url }}">Let us know!</a></em>
                 </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD - Video -->
+          <div class="mdx-hero__card">
+            <h3 class="mdx-hero__card_title">Featured Video</h3>
+            <div class="mdx-hero__card_content">
+              <div class="mdx-hero__card_content_paragraph">
+                <div class="mdx-hero__video-container">
+                  <iframe src="https://www.youtube.com/embed/GDX4eLL_8E0?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+              </div>
+              <div class="mdx-hero__card_content_paragraph">
+                Our presentation from <strong>Kubeflow Summit 2023</strong>, where we introduced deployKF to the community.
               </div>
             </div>
           </div>
