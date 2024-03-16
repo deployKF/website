@@ -32,8 +32,8 @@ An __introduction__ to deployKF.
 
     deployKF combines the _ease of a managed service_ with the flexibility of a self-hosted solution. 
 
-    Our vision is that ___anyone with Kubernetes experience___ can build a _machine learning platform_ for their organization, without needing _specialized MLOps knowledge_,
-    and a team of experts to maintain it.
+    Our goal is that __any Kubernetes user__ can build a machine learning platform for their organization, 
+    without needing specialized MLOps knowledge, or a team of experts to maintain it.
 
     The key features of deployKF are:
 

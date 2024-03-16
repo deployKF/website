@@ -1,5 +1,5 @@
 site_name: deployKF
-site_description: deployKF builds machine learning platforms on Kubernetes. We combine Kubeflow, Airflow, and MLflow into a complete platform.
+site_description: deployKF builds machine learning platforms on Kubernetes. We combine the best of Kubeflow, Airflow, and MLflow into a complete platform.
 site_url: https://www.deploykf.org/
 
 copyright: |-
