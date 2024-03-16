@@ -1,6 +1,6 @@
 import glob
 import os
-from typing import List
+from typing import List, Union
 
 from markdown.extensions.toc import slugify
 from mkdocs_macros.plugin import MacrosPlugin
@@ -22,7 +22,7 @@ MARKDOWN_SPAN = 'markdown="span"'
 
 def _html_body(
     th: List[str],
-    td: List[str],
+    tr: Union[List[str], List[List[str]]],
     md: bool = True,
     header_at_top: bool = False,
     th_widths: List[str] = None,
@@ -31,7 +31,8 @@ def _html_body(
 
     Args:
         th: List of table header cells.
-        td: List of table data cells.
+        tr: List of table rows, each being a list of cell values.
+            OR: a list of cells if `header_at_top` is False.
         md: Enable markdown in cells.
 
     Returns:
@@ -46,6 +47,10 @@ def _html_body(
 
     # generate the table row
     if header_at_top:
+        # require `tr` to be a list of lists
+        if not isinstance(tr[0], list):
+            raise ValueError("`header_at_top` is True, `tr` must be a list of lists")
+
         # add header
         output += f"<thead {_md}>"
         output += f"<tr {_md}>"
@@ -59,12 +64,19 @@ def _html_body(
 
         # add body
         output += f"<tbody {_md}>"
-        output += f"<tr {_md}>"
-        for cell in td:
-            output += f"<td {_md}>{cell}</td>"
-        output += "</tr>"
+        for td in tr:
+            output += f"<tr {_md}>"
+            for cell in td:
+                output += f"<td {_md}>{cell}</td>"
+            output += "</tr>"
         output += "</tbody>"
     else:
+        # require `tr` to be a list of cells
+        if not isinstance(tr[0], str):
+            raise ValueError("`header_at_top` is False, `tr` must be a list of cells")
+        else:
+            td = tr
+
         # add body
         output += f"<tbody {_md}>"
         output += f"<tr {_md}>"
@@ -78,26 +90,48 @@ def _html_body(
     return output
 
 
+def _bool_to_md(value: bool) -> str:
+    """Convert a boolean to a markdown checkmark or cross icon."""
+    if value:
+        return "<span class='comparison-icon comparison-icon--yes'> :fontawesome-solid-square-check: </span>"
+    else:
+        return "<span class='comparison-icon comparison-icon--no'> :fontawesome-solid-square-xmark: </span>"
+
+
 def define_env(env: MacrosPlugin):
     @env.macro
     def render_comparison_table(comparison_data):
         output_lines = []
 
         # For each aspect, render a table
-        for row in comparison_data:
-            aspect = row["aspect"]
+        for section in comparison_data:
+            aspect = section["aspect"]
 
             # Add header for the aspect
-            output_lines.append(f"### {aspect}")
+            output_lines.append(f"### Area: __{aspect}__")
             output_lines.append("")
 
-            # List of deploykf items
-            dkf_items = [f"<p>{item}</p>" for item in row["deploykf"]]
-            dkf_str = " ".join(dkf_items)
+            feature_list = []
+            dkf_list = []
+            kfm_list = []
 
-            # List of kubeflow manifests items
-            kfm_items = [f"<p>{item}</p>" for item in row["kubeflow_manifests"]]
-            kfm_str = " ".join(kfm_items)
+            for feature in section["features"]:
+                feature_name = feature["name"]
+                feature_list.append(f"{feature_name}")
+
+                dkf_data = feature["deploykf"]
+                dkf_feat_has = dkf_data["has_feature"]
+                dkf_feat_desc = dkf_data["description"].replace("\n", "<br>")
+                dkf_list.append(
+                    f"{_bool_to_md(dkf_feat_has)}<hr><small>{dkf_feat_desc}</small>"
+                )
+
+                kfm_data = feature["kubeflow_manifests"]
+                kfm_feat_has = kfm_data["has_feature"]
+                kfm_feat_desc = kfm_data["description"].replace("\n", "<br>")
+                kfm_list.append(
+                    f"{_bool_to_md(kfm_feat_has)}<hr><small>{kfm_feat_desc}</small>"
+                )
 
             # Render comparison table
             output_lines.append(f"<div {MARKDOWN_BLOCK} class='comparison-table'>")
@@ -105,12 +139,13 @@ def define_env(env: MacrosPlugin):
             output_lines.append(
                 _html_body(
                     [
+                        "Feature",
                         ":custom-deploykf-color: deployKF",
                         ":custom-kubeflow-color: Kubeflow Manifests",
                     ],
-                    [dkf_str, kfm_str],
+                    [[f, d, k] for f, d, k in zip(feature_list, dkf_list, kfm_list)],
                     header_at_top=True,
-                    th_widths=["50%", "50%"],
+                    th_widths=["30%", "35%", "35%"],
                 )
             )
             output_lines.append(f"</table>")

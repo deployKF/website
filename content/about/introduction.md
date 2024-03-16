@@ -2,7 +2,7 @@
 icon: material/lightbulb-on
 description: >-
   An introduction to deployKF.
-  Learn how deployKF helps you build and support a custom data and machine learning platform on Kubernetes.
+  Learn how deployKF combines the best of Kubeflow, Airflow, and MLflow.
 ---
 
 # Introduction
@@ -17,27 +17,32 @@ An __introduction__ to deployKF.
 
 !!! question_secondary ""
 
-    :custom-deploykf-color: <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> helps you build world-class data and machine learning platforms on __any Kubernetes cluster__, in any cloud or environment.
-    Our vision is that __anyone with Kubernetes experience__ can effortlessly build and support a _custom data and machine learning platform_ for their organization, without requiring specialized MLOps knowledge.
+    <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> builds machine learning platforms on __Kubernetes__.
+    We combine the best of 
+    [:custom-kubeflow-color: __Kubeflow__](../reference/tools.md#kubeflow-ecosystem), 
+    [:custom-airflow-color: __Airflow__](../reference/future-tools.md#apache-airflow)<sup>†</sup>, and 
+    [:custom-mlflow-color: __MLflow__](../reference/future-tools.md#mlflow-model-registry)<sup>†</sup>
+    into a complete platform that is easy to deploy and maintain.
+
+    <small><sup>†</sup>Coming soon, see our [current](../reference/tools.md) and [future](../reference/future-tools.md) tools.</small>
 
 ### __Why use deployKF?__
 
 !!! question_secondary ""
 
     deployKF combines the _ease of a managed service_ with the flexibility of a self-hosted solution. 
-    Create a platform that is tailored to your organization's needs, while not also requiring a team of MLOps experts to build and maintain it.
+
+    Our vision is that ___anyone with Kubernetes experience___ can build a _machine learning platform_ for their organization, without needing _specialized MLOps knowledge_,
+    and a team of experts to maintain it.
 
     The key features of deployKF are:
 
     - Run on [__any Kubernetes cluster__](../guides/getting-started.md#kubernetes-cluster), including on-premises and in the cloud
-    - Deploy leading Data and ML tools like [:custom-kubeflow-color: __Kubeflow__](../reference/tools.md#kubeflow-ecosystem), [:custom-airflow-color: __Airflow__](../reference/future-tools.md#apache-airflow)<sup>†</sup>, and [:custom-mlflow-color: __MLflow__](../reference/future-tools.md#mlflow-model-registry)<sup>†</sup>
     - Intuitive [__centralized configs__](../guides/values.md) for all aspects of the platform
     - Seamless [__in-place upgrades__](../guides/upgrade.md) and config updates
     - Connect your existing [:custom-istio-color: __Istio__](../guides/dependencies/istio.md#can-i-use-my-existing-istio), [:custom-cert-manager-color: __cert-manager__](../guides/dependencies/cert-manager.md#can-i-use-my-existing-cert-manager), [:custom-kyverno-color: __Kyverno__](../guides/dependencies/kyverno.md#can-i-use-my-existing-kyverno), [:custom-s3-color: __S3__](../guides/external/object-store.md#connect-an-external-object-store), and [:custom-mysql-color: __MySQL__](../guides/external/mysql.md#connect-an-external-mysql)
     - Use any [__identity provider__](../guides/platform/deploykf-authentication.md) via _OpenID Connect_ or _LDAP_
     - Native support for [__GitOps with ArgoCD__](../guides/dependencies/argocd.md#how-does-deploykf-use-argo-cd)
-
-    <small><sup>†</sup>Coming soon, see our [current](../reference/tools.md) and [future](../reference/future-tools.md) tools.</small>
 
 ### __Video Introduction__
 
