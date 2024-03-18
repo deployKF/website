@@ -656,6 +656,7 @@ deploykf_core:
         ## (OPTION 3):
         ##  - a user with password defined from a kubernetes secret
         - email: "kubernetes-secret@example.com"
-          existingSecret: "my-secret"
-          existingSecretKey: "password-key"
+          password:
+            existingSecret: "my-secret"
+            existingSecretKey: "password-key"
 ```
