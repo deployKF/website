@@ -617,6 +617,8 @@ The following guides show provider-specific instructions for configuring Dex [co
                 insecureSkipEmailVerified: true
     ```
 
+---
+
 ## Static User/Password Combinations
 
 deployKF supports defining static user/password combinations which are local to itself.

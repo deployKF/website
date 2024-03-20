@@ -37,7 +37,9 @@ Entity<br><small>(Click for Details)</small> | Description
     You must ONLY use the `deploykf_core.deploykf_profiles_generator` values to manage profile definitions or user assignments.
     Any manual changes using the UI or other manifests will result in undefined behaviour.
 
-### User Entities
+---
+
+## User Entities
 
 The [`deploykf_core.deploykf_profiles_generator.users`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L776-L786) value defines "user" entities.
 
@@ -61,7 +63,9 @@ deploykf_core:
 
     Users are identified by email address, which is provided from the identity provider or static accounts, this means that each `email` must be unique.
 
-### Group Entities
+---
+
+## Group Entities
 
 The [`deploykf_core.deploykf_profiles_generator.groups`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L788-L798) value defines "group" entities, which are __logical__ collections of "user" entities.
 
@@ -86,7 +90,9 @@ deploykf_core:
 
     Currently, groups must be __manually defined__ in the values, and can NOT be synced from an external identity provider.
 
-### Profile Definitions
+---
+
+## Profile Definitions
 
 The [`deploykf_core.deploykf_profiles_generator.profiles`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L800-L839) value defines the profiles (namespaces) to create, and the groups/users to assign to them.
 

@@ -258,8 +258,17 @@ How you configure an Ingress will depend on the platform you are using, for exam
         ## these values configure the deployKF Istio Gateway
         ##
         gateway:
-          ## when using an ingress, standard ports are required
-          ## (the default in 'sample-values.yaml' are 8080/8443)
+
+          ## the "base domain" for deployKF
+          ##  - this domain MUST align with your Ingress hostnames
+          ##  - this domain and its subdomains MUST be dedicated to deployKF
+          ##
+          hostname: deploykf.example.com
+
+          ## the ports that gateway Pods listen on
+          ##  - for an Ingress, these MUST be the standard 80/443
+          ##  - note, defaults from 'sample-values.yaml' are 8080/8443
+          ##
           ports:
             http: 80
             https: 443
@@ -338,8 +347,17 @@ How you configure an Ingress will depend on the platform you are using, for exam
         ## these values configure the deployKF Istio Gateway
         ##
         gateway:
-          ## when using an ingress, standard ports are required
-          ## (the default in 'sample-values.yaml' are 8080/8443)
+
+          ## the "base domain" for deployKF
+          ##  - this domain MUST align with your Ingress hostnames
+          ##  - this domain and its subdomains MUST be dedicated to deployKF
+          ##
+          hostname: deploykf.example.com
+
+          ## the ports that gateway Pods listen on
+          ##  - for an Ingress, these MUST be the standard 80/443
+          ##  - note, defaults from 'sample-values.yaml' are 8080/8443
+          ##
           ports:
             http: 80
             https: 443
@@ -419,8 +437,17 @@ How you configure an Ingress will depend on the platform you are using, for exam
         ## these values configure the deployKF Istio Gateway
         ##
         gateway:
-          ## when using an ingress, standard ports are required
-          ## (the default in 'sample-values.yaml' are 8080/8443)
+
+          ## the "base domain" for deployKF
+          ##  - this domain MUST align with your Ingress hostnames
+          ##  - this domain and its subdomains MUST be dedicated to deployKF
+          ##
+          hostname: deploykf.example.com
+
+          ## the ports that gateway Pods listen on
+          ##  - for an Ingress, these MUST be the standard 80/443
+          ##  - note, defaults from 'sample-values.yaml' are 8080/8443
+          ##
           ports:
             http: 80
             https: 443
@@ -450,7 +477,7 @@ There are a few important things to note when using an Ingress:
             matchSNI: false
     ```
 
-??? warning "HTTPS Redirection"
+??? info "HTTPS Redirection"
 
     By default, the deployKF Gateway redirects all HTTP requests to HTTPS.
     This means any proxy you place in front of the gateway will need to talk to the gateway over HTTPS.
@@ -482,14 +509,15 @@ There are a few important things to note when using an Ingress:
 
 Now that the deployKF Gateway Service has an IP address, you must configure DNS records which point to it.
 
+### __:star: Configure Hostname and Ports :star:__
+
+deployKF uses a combination of _hostnames_, _http paths_, and _ports_ to route requests to the correct internal service.
+
 !!! warning "Virtual Hostname Routing"
 
     You can't access deployKF using the IP address alone.
     This is because deployKF hosts multiple services on the same IP address using [virtual hostname routing](https://en.wikipedia.org/wiki/Virtual_hosting#Name-based).
 
-### __Hostname and Ports__
-
-deployKF uses a combination of _hostnames_, _http paths_, and _ports_ to route requests to the correct internal service.
 Depending on which tools you have enabled, the gateway may serve the following hostnames:
 
 Hostname | Description
@@ -506,7 +534,7 @@ deploykf_core:
   deploykf_istio_gateway:
     gateway:
       ## the "base domain" for deployKF
-      ##  - this domain and its subdomains should be dedicated to deployKF
+      ##  - this domain and its subdomains MUST be dedicated to deployKF
       ##
       hostname: deploykf.example.com
       
@@ -531,7 +559,7 @@ deploykf_core:
       #  https: ~
 ```
 
-### __Use External-DNS__
+### __:star: Use External-DNS :star:__
 
 [External-DNS](https://github.com/kubernetes-sigs/external-dns) is a Kubernetes controller that automatically configures DNS records for Kubernetes resources.
 The following steps explain how to install and configure External-DNS to set DNS records for the deployKF Gateway Service.
@@ -648,7 +676,7 @@ Therefore, if you are not using an external proxy to terminate TLS (like AWS ALB
 
 !!! info "In-Mesh Traffic to Gateway"
 
-    When Pods inside the Istio mesh make requests to the gateway [hostname/ports](#hostname-and-ports), this traffic bypasses your public LoadBalancer/Ingress and goes directly to the Gateway Deployment Pods (through the mesh).
+    When Pods inside the Istio mesh make requests to the gateway [hostname/ports](#configure-hostname-and-ports), this traffic bypasses your public LoadBalancer/Ingress and goes directly to the Gateway Deployment Pods (through the mesh).
 
     Therefore, even if your Ingress has its own valid TLS termination (e.g. from AWS ALB), in-mesh Pods will see the certificate of the Istio Gateway itself (which by default is self-signed).
 
@@ -670,7 +698,7 @@ Therefore, if you are not using an external proxy to terminate TLS (like AWS ALB
             - Note, we create a [trust-manager `Bundle`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/templates/manifests/deploykf-dependencies/cert-manager/templates/selfsigned-ca-issuer/Bundle.yaml) for this CA by default;
               All Namespaces with the label `deploykf.github.io/inject-root-ca-cert: "enabled"` will have a `ConfigMap` named `deploykf-gateway-issuer-root-ca-cert` with a key named `root-cert.pem` containing the CA certificate.
 
-### __Use Let's Encrypt with Cert-Manager__
+### __:star: Use Let's Encrypt with Cert-Manager :star:__
 
 For almost everyone, the best Certificate Authority (CA) is [Let's Encrypt](https://letsencrypt.org/).
 The following steps explain how to use Let's Encrypt with cert-manager to generate a valid TLS certificate for the deployKF Gateway.
