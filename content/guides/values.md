@@ -48,7 +48,7 @@ kubeflow_tools:
 ## Sample Values
 
 We recommend using the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file as a starting point for your custom values.
-Each version of deployKF has a corresponding `sample-values.yaml` file, and will have all supported [ML & Data tools](../reference/tools.md#tool-index) enabled, along with some sensible security defaults.
+Each version of deployKF has a corresponding `sample-values.yaml` file with all supported [ML & Data tools](../reference/tools.md#tool-index) enabled, along with some sensible security defaults.
 
 There are two main ways to use the sample values file:
 

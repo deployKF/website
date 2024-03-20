@@ -71,8 +71,9 @@ Configuration | Requirement
 --- | ---
 CPU Architecture | The cluster must have `x86_64` Nodes.
 Cluster Domain | The [`clusterDomain`](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) of your kubelet must be `"cluster.local"`.
-Service Type | By default, the cluster must have a `LoadBalancer` service type.<br><small>:material-alert: Be careful to not expose your platform to the public internet. :material-alert:</small>
+Service Type | By default, the cluster must have a `LoadBalancer` service type.<br><small>:material-alert: Be careful to not expose your platform to the public internet.</small>
 Default StorageClass | The default [`StorageClass`](https://kubernetes.io/docs/concepts/storage/storage-classes/) must support the `ReadWriteOnce` access mode.
+Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows](https://github.com/argoproj/argo-workflows) installed.<br><small>See [`deployKF/deployKF#116`](https://github.com/deployKF/deployKF/issues/116) to join the discussion.</small>
 
 ??? question_secondary "What about ARM Nodes?"
 
@@ -183,14 +184,15 @@ The process to generate the ArgoCD `Applications` will depend on the [mode of op
         The only resource you manually create is the `deploykf-app-of-apps`, this resource generates all the other `Application` resources.
         Think of it as a _"single source of truth"_ for the desired state of your platform.
 
-        Use the following sample as a starting point for your `deploykf-app-of-apps` resource.
-        If you want to customize the platform, see the [configure deployKF](./configs.md) guide.
-
         ---
 
-        This app-of-apps will use deployKF [version](#deploykf-versions) `{{ latest_deploykf_version }}`, 
+        Create a local file named `deploykf-app-of-apps.yaml` with the contents of the YAML below.
+
+        This will use deployKF [version](#deploykf-versions) `{{ latest_deploykf_version }}`, 
         read the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) from the `deploykf/deploykf` repo, 
         and combine those values with the overrides defined in the `values` parameter.
+
+        If you want to customize the platform, see the [configure deployKF](./configs.md) guide.
     
         ```yaml
         apiVersion: argoproj.io/v1alpha1
