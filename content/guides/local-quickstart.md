@@ -642,6 +642,11 @@ Think of it as a _"single source of truth"_ for the desired state of your platfo
 Now that your deployKF app-of-apps has been applied, you must sync the ArgoCD applications to deploy your platform.
 Syncing an application will cause ArgoCD to reconcile the actual state in the cluster, to match the state defined by the application resource.
 
+!!! warning "Sync Order"
+
+    The deployKF applications depend on each other, so you MUST sync them in the correct order to avoid errors.
+    If you really want to sync manually with the ArgoCD Web UI (not recommended), see the full [getting started guide](./getting-started.md#sync-argocd-applications) for the correct order.
+
 ArgoCD supports syncing applications both _graphically (Web UI)_ and _programmatically (CLI)_.
 
 !!! step "Step - Sync ArgoCD Applications"
