@@ -59,8 +59,8 @@ Note, we have listed the _S3-compatible Endpoint_ for each service.
 Platform | Object Store | S3-compatible Endpoint
 --- | --- | ---
 Amazon Web Services | [Amazon S3](https://aws.amazon.com/s3/) | `s3.amazonaws.com`
-Google Cloud | [Google Cloud Storage](https://cloud.google.com/storage) | [`storage.googleapis.com`](https://cloud.google.com/storage/docs/xml-api/overview)
-Microsoft Azure | [Azure Blob Storage](https://azure.microsoft.com/en-us/services/storage/blobs/) | No first-party S3 API, but translation layers like [S3Proxy](https://github.com/gaul/s3proxy) can be used.
+Google Cloud | [Google Cloud Storage](https://cloud.google.com/storage) | [`storage.googleapis.com`](https://cloud.google.com/storage/docs/xml-api/overview)<br><small>:material-alert: you must use [HMAC Keys](https://cloud.google.com/storage/docs/authentication/hmackeys) for authentication :material-alert:</small>
+Microsoft Azure | [Azure Blob Storage](https://azure.microsoft.com/en-us/services/storage/blobs/) | No first-party API.<br><small>Third-party translation layers like [S3Proxy](https://github.com/gaul/s3proxy) can be used.</small>
 Alibaba Cloud | [Alibaba Cloud Object Storage Service (OSS)](https://www.alibabacloud.com/product/oss) | [`s3.oss-{region}.aliyuncs.com`](https://www.alibabacloud.com/help/en/oss/developer-reference/use-amazon-s3-sdks-to-access-oss)
 IBM Cloud | [IBM Cloud Object Storage](https://www.ibm.com/cloud/object-storage) | [`	s3.{region}.cloud-object-storage.appdomain.cloud`](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints)
 Other | [MinIO](https://min.io/), [Ceph](https://ceph.io/), [Wasabi](https://wasabi.com/) | See provider documentation.
@@ -189,14 +189,56 @@ There are two authentication methods available:
 Method | Description
 --- | ---
 Key-Based Authentication | use access tokens to authenticate with your object store
-IRSA-Based Authentication <small>(Only on EKS)</small> | use [IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) to authenticate with S3
+IRSA-Based Authentication | use [IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) to authenticate with S3 (only supported for EKS + S3)
 
 The following sections will show you how to configure each method.
 
-=== "Key-Based Authentication"
+=== ":star: Key-Based Authentication :star:"
     
-    Key-based authentication is the simplest, it uses access tokens (`accessKey` and `secretKey`) to authenticate with your object store.
+    Key-based authentication is the simplest, clients will use _HMAC Keys_ (that is, an `access_key` and `secret_key`) to authenticate with your object store.
     
+    First, create the secret which the KFP backend will use:
+    
+    ```bash
+    ## create a secret for the KFP backend
+    kubectl create secret generic \
+      "kubeflow-pipelines--backend-object-store-auth" \
+      --namespace "kubeflow" \
+      --from-literal AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE \
+      --from-literal AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+    ```
+
+    !!! info
+
+        - The backend secret MUST be in the `kubeflow` namespace, as this is where the KFP backend is deployed.
+        - The backend secret should have access to all KFP artifacts in the bucket.
+          See the [Example IAM Policies](#2-create-buckets-and-iam-policies).
+
+    Next, create a secret for each profile that will use Kubeflow Pipelines:
+    
+    ```bash
+    ## create a secret for the "team-1" profile
+    kubectl create secret generic \
+      "kubeflow-pipelines--profile-object-store-auth--team-1" \
+      --namespace "my-namespace" \
+      --from-literal AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE \
+      --from-literal AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+
+    ## create a secret for the "team-2" profile
+    kubectl create secret generic \
+      "kubeflow-pipelines--profile-object-store-auth--team-2" \
+      --namespace "my-namespace" \
+      --from-literal AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE \
+      --from-literal AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+    ```
+
+    !!! info
+      
+        - The profile secrets can be in __any namespace__, deployKF will automatically clone the correct secret into the profile namespace and configure KFP to use it.
+        - It is common to store all the profile secrets in a single namespace, as this makes them easier to manage.
+        - Each profile secret should only have the minimum permissions required for that profile.
+          See the [Example IAM Policies](#2-create-buckets-and-iam-policies).
+
     The following values configure key-based authentication:
     
     Value | Purpose
@@ -211,36 +253,35 @@ The following sections will show you how to configure each method.
     deploykf_core:
       deploykf_profiles_generator:
         
-        ## NOTE: you may also define `tools.kubeflowPipelines.objectStoreAuth`
-        ##       in a specific profile to override the default auth for that profile
+        ## NOTE: each profile can override the defaults 
+        ##       see under `profiles` for an example of a profile 
+        ##       which overrides the default auth pattern
+        ##
         profileDefaults:
           tools:
             kubeflowPipelines:
               objectStoreAuth:
                 ## (OPTION 1):
                 ##  - all profiles share the same access key (NOT RECOMMENDED)
-                ##  - note, you will need to create the Kubernetes Secret
-                ##    named `existingSecret` in `existingSecretNamespace`
-                ##  - in this approach, the IAM Policy bound to this access key
-                ##    must have access to all KFP artifacts in the bucket
-                existingSecret: "my-secret-name"
-                existingSecretNamespace: "my-namespace"
-                existingSecretAccessKeyKey: "access_key"
-                existingSecretSecretKeyKey: "secret_key"
+                ##  - the `existingSecretAccessKeyKey` and `existingSecretSecretKeyKey`
+                ##    reference the KEY NAMES in the Kubernetes Secret you create
+                ##
+                #existingSecret: "my-secret-name"
+                #existingSecretNamespace: "my-namespace"
+                #existingSecretAccessKeyKey: "AWS_ACCESS_KEY_ID"
+                #existingSecretSecretKeyKey: "AWS_SECRET_ACCESS_KEY"
                 
                 ## (OPTION 2):
                 ##  - each profile has its own access key
-                ##  - for each profile you need to create a Kubernetes Secret 
-                ##    matching `existingSecret` in `existingSecretNamespace`,
                 ##  - instances of '{profile_name}' in `existingSecret` 
                 ##    are replaced with the profile name
-                ##  - the default `existingSecretNamespace` is the kubeflow namespace
-                ##  - in this approach, the IAM Policy bound to each access key
-                ##    can be restricted to only access KFP artifacts of the profile
-                #existingSecret: "kubeflow-pipelines--profile-object-store-auth--{profile_name}"
-                #existingSecretNamespace: "my-namespace"
-                #existingSecretAccessKeyKey: "access_key"
-                #existingSecretSecretKeyKey: "secret_key"
+                ##  - the `existingSecretAccessKeyKey` and `existingSecretSecretKeyKey`
+                ##    reference the KEY NAMES in the Kubernetes Secret you create
+                ##
+                existingSecret: "kubeflow-pipelines--profile-object-store-auth--{profile_name}"
+                existingSecretNamespace: "my-namespace"
+                existingSecretAccessKeyKey: "AWS_ACCESS_KEY_ID"
+                existingSecretSecretKeyKey: "AWS_SECRET_ACCESS_KEY"
     
         ## example of a profile which overrides the default auth
         #profiles:
@@ -251,8 +292,8 @@ The following sections will show you how to configure each method.
         #        objectStoreAuth:
         #          existingSecret: "my-secret-name"
         #          existingSecretNamespace: "" # defaults to the profile's namespace
-        #          existingSecretAccessKeyKey: "access_key"
-        #          existingSecretSecretKeyKey: "secret_key"
+        #          existingSecretAccessKeyKey: "AWS_ACCESS_KEY_ID"
+        #          existingSecretSecretKeyKey: "AWS_SECRET_ACCESS_KEY"
     
     kubeflow_tools:
       pipelines:
@@ -273,14 +314,14 @@ The following sections will show you how to configure each method.
           auth:
             ## (OPTION 1):
             ##  - set keys with values (NOT RECOMMENDED)
-            #accessKey: my-access-key
-            #secretKey: my-secret-key
+            #accessKey: "AKIAIOSFODNN7EXAMPLE"
+            #secretKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
     
             ## (OPTION 2):
             ##  - read a kubernetes secret from the 'kubeflow' namespace
-            ##  - note, `existingSecret*Key` specifies the KEY NAMES in the 
+            ##  - note, `existingSecretKey` specifies the KEY NAMES in the 
             ##    secret itself, which contain the secret values
-            existingSecret: "my-secret-name"
+            existingSecret: "kubeflow-pipelines--backend-object-store-auth"
             existingSecretAccessKeyKey: "AWS_ACCESS_KEY_ID"
             existingSecretSecretKeyKey: "AWS_SECRET_ACCESS_KEY"
     

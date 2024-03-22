@@ -350,7 +350,9 @@ This allows us to define the platform using a single app-of-apps which only need
         You may install `kubectx` from Homebrew on macOS or Linux:
 
         ```bash
-        brew install kubectx
+        # NOTE: the installing the 'fzf' package is optional,
+        #       it will make 'kubectx' interactive
+        brew install kubectx fzf
         ```
         
         To change your context with `kubectx`, run these commands:
@@ -361,14 +363,6 @@ This allows us to define the platform using a single app-of-apps which only need
     
         # set the current context to 'k3d-deploykf'
         kubectx "k3d-deploykf"
-        ```
-  
-        ---
-
-        Note, the `kubectx` command will be interactive if you install `fzf`:
-
-        ```bash
-        brew install fzf
         ```
 
 !!! step "Step 2 - Install ArgoCD"

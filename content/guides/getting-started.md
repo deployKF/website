@@ -69,9 +69,10 @@ The following table lists these configurations and their requirements:
 
 Configuration | Requirement
 --- | ---
+Node Resources | Your nodes must collectively have at least `4 vCPUs` and `16 GB RAM`.
 CPU Architecture | The cluster must have `x86_64` Nodes.
 Cluster Domain | The [`clusterDomain`](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) of your kubelet must be `"cluster.local"`.
-Service Type | By default, the cluster must have a `LoadBalancer` service type.<br><small>:material-alert: Be careful to not expose your platform to the public internet.</small>
+Service Type | By default, the cluster must have a `LoadBalancer` service type.<br><small>:material-alert: be careful not to expose your platform on the public internet by mistake :material-alert: </small>
 Default StorageClass | The default [`StorageClass`](https://kubernetes.io/docs/concepts/storage/storage-classes/) must support the `ReadWriteOnce` access mode.
 Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows](https://github.com/argoproj/argo-workflows) installed.<br><small>See [`deployKF/deployKF#116`](https://github.com/deployKF/deployKF/issues/116) to join the discussion.</small>
 
