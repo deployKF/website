@@ -12,7 +12,7 @@ Page Styling
 
 /* set background image for the main page (desktop) */
 @media screen and (min-width: 60em) {
-    .mdx-container {
+    body {
         background-image: url("/assets/images/moving-firefly-wide.svg");
         background-attachment: fixed;
         background-repeat: no-repeat;
@@ -23,7 +23,7 @@ Page Styling
 
 /* set background image for the main page (mobile) */
 @media screen and (max-width: 60em) {
-    .mdx-container {
+    body {
         background-image: url("/assets/images/moving-firefly-tall.svg");
         background-attachment: fixed;
         background-repeat: no-repeat;

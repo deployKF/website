@@ -3,6 +3,10 @@
 <!-- SEO Data -->
 {% block extrahead %}
 {% include "partials_custom/seo_data.html" %}
+{% if page and not page.is_homepage %}
+<!-- Remove background image from all pages except homepage, needed because of instant navigation. -->
+<style>body { background-image: unset }</style>
+{% endif %}
 {% endblock %}
 
 <!-- Announcement Bar/Banner -->
