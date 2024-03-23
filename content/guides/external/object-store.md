@@ -77,32 +77,37 @@ Other | [MinIO](https://min.io/), [Ceph](https://ceph.io/), [Wasabi](https://was
 You must create a bucket for Kubeflow Pipelines, and then configure _IAM Policies_ for the bucket and its contents.
 Please refer to the documentation for your object store for instructions on how to create buckets and IAM Policies.
 
-For example, if you are using S3 you may use one of the following methods:
+For example, if you are using AWS S3, you may use the following methods:
 
-- [Create bucket with AWS Console](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html)
-- [Create bucket with AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/s3api/create-bucket.html)
+- [Create S3 bucket (AWS Console)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html)
+- [Create S3 bucket (AWS CLI)](https://docs.aws.amazon.com/cli/latest/reference/s3api/create-bucket.html)
+- [Create IAM Policies (AWS Console)](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create-console.html)
+- [Create IAM Policies (AWS CLI)](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create-cli.html)
 
-!!! info "Object Prefixes"
+#### __Bucket IAM Policies__
 
-    The following table shows bucket object prefixes used by Kubeflow Pipelines:
-    
-    Object Prefix | Purpose | Config Value
-    --- | --- | ---
-    `/pipelines` | pipeline definitions | (can not be changed)
-    `/artifacts/{profile_name}` | pipeline run artifacts (KFP v1) | [`kubeflow_dependencies.kubeflow_argo_workflows.artifactRepository.keyFormat`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1229-L1232)
-    `/v2/artifacts/{profile_name}` | pipeline run artifacts (KFP v2) | [`kubeflow_tools.pipelines.kfpV2.defaultPipelineRoot`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1786-L1793)
+When using the embedded MinIO, deployKF will automatically generate IAM Policies for each profile, and for the KFP backend.
+You may use them as a reference when creating IAM Policies for your external object store.
+
+All Kubeflow Pipelines artifacts are stored in the same bucket, but are separated by _object key prefixes_.
+The following table shows the prefixes used by Kubeflow Pipelines:
+
+Key Prefix | Purpose | Config Value
+--- | --- | ---
+`/pipelines/` | pipeline definitions | (can not be changed)
+`/artifacts/{profile_name}/` | pipeline run artifacts (KFP v1) | [`kubeflow_dependencies.kubeflow_argo_workflows.artifactRepository.keyFormat`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1229-L1232)
+`/v2/artifacts/{profile_name}/` | pipeline run artifacts (KFP v2) | [`kubeflow_tools.pipelines.kfpV2.defaultPipelineRoot`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L1786-L1793)
+
+!!! tip "Key Format"
 
     Notice that the key format includes `{profile_name}` at the START of the key,
     this is so that prefix-based IAM Policies can ensure each profile only has access to its own artifacts.
 
-!!! info "Bucket IAM Policies"
+The Kubeflow Pipelines backend will need access to all artifacts, while each profile will only need access to its own artifacts.
 
-    When using the embedded MinIO, deployKF will automatically generate IAM Policies for each profile, and for the KFP backend.
-    You may use them as a reference when creating IAM Policies for your external object store.
+!!! code "IAM Policy - Backend"
 
-    ---
-
-    The following IAM Policy is used by the Kubeflow Pipelines BACKEND:
+    The following IAM Policy can be used by the __Kubeflow Pipelines BACKEND__, replace `<BUCKET_NAME>` with the name of your bucket.
 
     ```json
     {
@@ -135,9 +140,9 @@ For example, if you are using S3 you may use one of the following methods:
     }
     ```
 
-    ---
+!!! code "IAM Policy - Profile"
 
-    The following IAM Policy is used by each PROFILE:
+    The following IAM Policy can be used by __each PROFILE namespace__, replace `<BUCKET_NAME>` with the name of your bucket, and `<PROFILE_NAME>` with the name of the profile.
 
     ```json
     {
@@ -197,7 +202,7 @@ The following sections will show you how to configure each method.
     
     Key-based authentication is the simplest, clients will use _HMAC Keys_ (that is, an `access_key` and `secret_key`) to authenticate with your object store.
     
-    First, create the secret which the KFP backend will use:
+    First, create a secret for the Kubeflow Pipelines backend:
     
     ```bash
     ## create a secret for the KFP backend
@@ -212,7 +217,7 @@ The following sections will show you how to configure each method.
 
         - The backend secret MUST be in the `kubeflow` namespace, as this is where the KFP backend is deployed.
         - The backend secret should have access to all KFP artifacts in the bucket.
-          See the [Example IAM Policies](#2-create-buckets-and-iam-policies).
+        - See the [Example IAM Policies](#bucket-iam-policies).
 
     Next, create a secret for each profile that will use Kubeflow Pipelines:
     
@@ -237,7 +242,7 @@ The following sections will show you how to configure each method.
         - The profile secrets can be in __any namespace__, deployKF will automatically clone the correct secret into the profile namespace and configure KFP to use it.
         - It is common to store all the profile secrets in a single namespace, as this makes them easier to manage.
         - Each profile secret should only have the minimum permissions required for that profile.
-          See the [Example IAM Policies](#2-create-buckets-and-iam-policies).
+        - See the [Example IAM Policies](#bucket-iam-policies).
 
     The following values configure key-based authentication:
     
