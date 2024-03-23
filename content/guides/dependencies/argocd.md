@@ -81,7 +81,8 @@ For an example of this, see [__this section__](../local-quickstart.md#create-an-
 Yes, you must.
 
 See our [version matrix](../../releases/version-matrix.md#deploykf-dependencies) for a list of supported Argo CD versions.
-You may also need to install the _deployKF ArgoCD Plugin_ if you are using [ArgoCD Plugin Mode](../getting-started.md#modes-of-operation).
+<br>
+You may also need to install the [_deployKF ArgoCD Plugin_](#what-is-the-deploykf-argocd-plugin) if you are using [ArgoCD Plugin Mode](../modes.md).
 
 ### __Can I use <small>_&lt;other tool&gt;_</small> instead of Argo CD?__
     

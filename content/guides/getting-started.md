@@ -194,6 +194,8 @@ The process to generate the ArgoCD `Applications` will depend on the [mode of op
         and combine those values with the overrides defined in the `values` parameter.
 
         If you want to customize the platform, see the [configure deployKF](./configs.md) guide.
+        <br>
+        If you use a "management cluster" pattern, see the [off-cluster ArgoCD](./dependencies/argocd.md#can-i-use-an-off-cluster-argocd) guide.
     
         ```yaml
         apiVersion: argoproj.io/v1alpha1
@@ -205,7 +207,10 @@ The process to generate the ArgoCD `Applications` will depend on the [mode of op
             app.kubernetes.io/name: deploykf-app-of-apps
             app.kubernetes.io/part-of: deploykf
         spec:
+
+          ## NOTE: if not "default", you MUST ALSO set the `argocd.project` value
           project: "default"
+
           source:
             ## source git repo configuration
             ##  - we use the 'deploykf/deploykf' repo so we can read its 'sample-values.yaml'
@@ -253,6 +258,19 @@ The process to generate the ArgoCD `Applications` will depend on the [mode of op
                     ##    To include a section without overriding any values, set it to an empty map: `{}`
                     ##
         
+                    ## --------------------------------------------------------------------------------
+                    ##                                      argocd
+                    ## --------------------------------------------------------------------------------
+                    argocd:
+                      namespace: argocd
+                      project: default
+
+                    ## --------------------------------------------------------------------------------
+                    ##                                    kubernetes
+                    ## --------------------------------------------------------------------------------
+                    kubernetes:
+                      {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+
                     ## --------------------------------------------------------------------------------
                     ##                              deploykf-dependencies
                     ## --------------------------------------------------------------------------------
