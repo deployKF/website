@@ -481,7 +481,20 @@ Think of it as a _"single source of truth"_ for the desired state of your platfo
                 ##  - Do NOT include empty/null sections, as this will remove ALL values from that section.
                 ##    To include a section without overriding any values, set it to an empty map: `{}`
                 ##
-    
+
+                ## --------------------------------------------------------------------------------
+                ##                                      argocd
+                ## --------------------------------------------------------------------------------
+                argocd:
+                  namespace: argocd
+                  project: default
+
+                ## --------------------------------------------------------------------------------
+                ##                                    kubernetes
+                ## --------------------------------------------------------------------------------
+                kubernetes:
+                  {} # <-- REMOVE THIS, IF YOU INCLUDE VALUES UNDER THIS SECTION!
+
                 ## --------------------------------------------------------------------------------
                 ##                              deploykf-dependencies
                 ## --------------------------------------------------------------------------------
