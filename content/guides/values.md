@@ -47,31 +47,26 @@ kubeflow_tools:
 
 ## Sample Values
 
-We recommend using the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file as a starting point for your custom values.
-Each version of deployKF has a corresponding `sample-values.yaml` file with all supported [ML & Data tools](../reference/tools.md#tool-index) enabled, along with some sensible security defaults.
+Each version of deployKF has a corresponding [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file with all supported [ML & Data tools](../reference/tools.md#tool-index) enabled, along with some sensible security defaults.
+We recommend using these samples as a starting point for your custom values.
 
 There are two main ways to use the sample values file:
 
 1. __Directly:__ Copy the `sample-values.yaml` file and make changes directly to that file.
-2. __Overrides:__ Include the `sample-values.yaml` file first, and then override specific values in later files.
-   We provide the [`sample-values-overrides.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values-overrides.yaml) file as an example of this approach.
+2. __Overrides:__ Include the default `sample-values.yaml` file first, and then include one or more "overrides" files that only contain the values you want to change.
 
-The following commands will download the sample files for the latest deployKF version:
+The following command will download the sample values for the latest deployKF version:
 
 ```bash
-# download the `sample-values.yaml` file
 curl -fL -o "sample-values-{{ latest_deploykf_version }}.yaml" \
   "https://raw.githubusercontent.com/deployKF/deployKF/v{{ latest_deploykf_version }}/sample-values.yaml"
-  
-# download the `sample-values-overrides.yaml` file
-curl -fL -o "sample-values-overrides-{{ latest_deploykf_version }}.yaml" \
-  "https://raw.githubusercontent.com/deployKF/deployKF/v{{ latest_deploykf_version }}/sample-values-overrides.yaml"
 ```
 
-!!! info "All Values"
+We provide [`sample-values-overrides.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values-overrides.yaml) as an example of how you might structure an "overrides" file for the sample values.
+
+!!! info "Additional Values"
 
     The `sample-values.yaml` file is a great starting point, but it does NOT include all possible values.
-
     For your reference, ALL values and their defaults are listed on the [values reference](../reference/deploykf-values.md) page, 
     which is generated from the full [`default_values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/generator/default_values.yaml) file of the latest deployKF version.
 
