@@ -30,7 +30,7 @@ deploykf_core:
   deploykf_dashboard:
     navigation:
       externalLinks:
-        - name: "deployKF Website"
+        - text: "deployKF Website"
           url: "https://deployKF.org"
           icon: "launch"
 ```
