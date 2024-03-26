@@ -167,7 +167,9 @@ To deploy the platform, you will need to create [ArgoCD `Applications`](./depend
 ### __:star: Create ArgoCD Applications :star:__
 
 deployKF [uses ArgoCD](./dependencies/argocd.md#how-does-deploykf-use-argo-cd) to manage the deployment of the platform.
-The process to generate the ArgoCD `Applications` will depend on the [mode of operation](#modes-of-operation) you have chosen.
+
+The process to create the ArgoCD `Applications` will depend on which [mode of operation](#modes-of-operation) you have chosen.
+For most users, we recommend using __ArgoCD Plugin Mode__.
 
 === ":star: ArgoCD Plugin Mode :star:"
 
@@ -185,6 +187,8 @@ The process to generate the ArgoCD `Applications` will depend on the [mode of op
         The only resource you manually create is the `deploykf-app-of-apps`, this resource generates all the other `Application` resources.
         Think of it as a _"single source of truth"_ for the desired state of your platform.
 
+        If you want to customize the platform, see the [:star: __Configure deployKF__ :star:](./configs.md) guide.
+
         ---
 
         Create a local file named `deploykf-app-of-apps.yaml` with the contents of the YAML below.
@@ -193,10 +197,6 @@ The process to generate the ArgoCD `Applications` will depend on the [mode of op
         read the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) from the `deploykf/deploykf` repo, 
         and combine those values with the overrides defined in the `values` parameter.
 
-        If you want to customize the platform, see the [configure deployKF](./configs.md) guide.
-        <br>
-        If you use a "management cluster" pattern, see the [off-cluster ArgoCD](./dependencies/argocd.md#can-i-use-an-off-cluster-argocd) guide.
-    
         ```yaml
         apiVersion: argoproj.io/v1alpha1
         kind: Application
@@ -372,6 +372,13 @@ The process to generate the ArgoCD `Applications` will depend on the [mode of op
         kubectl apply -f ./deploykf-app-of-apps.yaml
         ```
 
+        ---
+
+        !!! tip "ArgoCD _Management Cluster_ Pattern"
+
+            If you use a "management cluster" pattern, see the [off-cluster ArgoCD](./dependencies/argocd.md#can-i-use-an-off-cluster-argocd) guide.
+
+
 === "Manifests Repo Mode"
 
     !!! step "Step 1 - Install ArgoCD"
@@ -435,6 +442,8 @@ The process to generate the ArgoCD `Applications` will depend on the [mode of op
 
         The `deploykf generate` command writes generated manifests into a folder, using one or more [values files](#about-values).
 
+        If you want to customize the platform, see the [:star: __Configure deployKF__ :star:](./configs.md) guide.
+
         For example, this command will use deployKF `{{ latest_deploykf_version }}` to generate manifests under `GENERATOR_OUTPUT/`, from a values file named `custom-values.yaml`:
     
         ```shell
@@ -444,16 +453,6 @@ The process to generate the ArgoCD `Applications` will depend on the [mode of op
             --output-dir ./GENERATOR_OUTPUT
         ```
 
-        The required arguments of the `deploykf generate` command are:
-    
-        Argument | Description
-        --- | ---
-        `--source-version` | the [version of deployKF](#deploykf-versions) to use
-        `--values` | one or more values files to use for generating the manifests
-        `--output-dir` | the directory where the generated manifests will be written
-    
-        ---
-
         !!! warning "Avoid Manual Changes"
         
             Manual changes in the `--output-dir` will be __overwritten__ each time the `deploykf generate` command runs.
@@ -462,7 +461,18 @@ The process to generate the ArgoCD `Applications` will depend on the [mode of op
         !!! info "Multiple Values Files"
             
             If you specify `--values` multiple times, they will be merged with later ones taking precedence.
-            Note, values which are YAML lists are NOT merged, they are replaced in full.
+            <br>
+            Learn more in the [merging values](./values.md#merging-values) guide.
+
+        !!! info "Required Arguments"
+
+            The required arguments of the `deploykf generate` command are:
+        
+            Argument | Description
+            --- | ---
+            `--source-version` | the [version of deployKF](#deploykf-versions) to use
+            `--values` | one or more values files to use for generating the manifests
+            `--output-dir` | the directory where the generated manifests will be written
 
     !!! step "Step 6 - Commit Generated Manifests"
 
@@ -477,13 +487,19 @@ The process to generate the ArgoCD `Applications` will depend on the [mode of op
 
     !!! step "Step 7 - Apply App-of-Apps Manifest"
 
-        The only manifest you need to manually apply is the ArgoCD [app-of-apps](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/#app-of-apps-pattern), which creates all the other ArgoCD applications.
-    
+        The only manifest you need to manually apply is the [app-of-apps](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/#app-of-apps-pattern), which creates all the other ArgoCD applications.
+
         The `app-of-apps.yaml` manifest is generated at the root of your `--output-dir` folder, so you can apply it with:
         
         ```shell
         kubectl apply --filename GENERATOR_OUTPUT/app-of-apps.yaml
         ```
+
+        ---
+
+        !!! tip "ArgoCD _Management Cluster_ Pattern"
+
+            If you use a "management cluster" pattern, see the [off-cluster ArgoCD](./dependencies/argocd.md#can-i-use-an-off-cluster-argocd) guide.
 
 ### __:star: Sync ArgoCD Applications :star:__
 
