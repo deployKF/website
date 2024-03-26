@@ -143,7 +143,9 @@ argocd:
       ##       The project used by internal Applications is set by the `argocd.project` value.
       project: default
 
-      spec:
+      source:
+        ...
+        ...
         ...
 
       destination:

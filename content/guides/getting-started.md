@@ -371,8 +371,8 @@ For most users, we recommend using __ArgoCD Plugin Mode__.
 
         In _ArgoCD Plugin Mode_, you can define custom values in two ways:
 
-        - Within the `app-of-apps` YAML itself, using the `values` plugin parameter.
-        - From files in the `repoURL` git repository, using the `values_files` plugin parameter.
+        1. Within the `app-of-apps` YAML itself, using the `values` plugin parameter.
+        2. From files in the `repoURL` git repository, using the `values_files` plugin parameter.
 
     !!! step "Step 4 - Apply App-of-Apps Resource"
 
