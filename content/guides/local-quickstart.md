@@ -418,11 +418,9 @@ Think of it as a _"single source of truth"_ for the desired state of your platfo
 
     Create a local file named `deploykf-app-of-apps.yaml` with the contents of the YAML below.
 
-    This will use deployKF [version](#deploykf-versions) `{{ latest_deploykf_version }}`, 
+    This will use [deployKF version](#deploykf-versions) `{{ latest_deploykf_version }}`, 
     read the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) from the `deploykf/deploykf` repo, 
     and combine those values with the overrides defined in the `values` parameter.
-
-    If you want to customize the platform, see the [configure deployKF](./configs.md) guide.
 
     ```yaml
     apiVersion: argoproj.io/v1alpha1

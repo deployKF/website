@@ -99,12 +99,12 @@ We think deployKF is good enough to try, even if you don't love Argo CD!
 ## __Can I use an off-cluster ArgoCD?__
 
 Yes.
-deployKF supports the ArgoCD "management cluster" pattern, where multiple clusters are managed by a single Argo CD.
+deployKF supports the ArgoCD "management cluster" pattern, where multiple target clusters are managed by a single ArgoCD.
 
-We provide the [`argocd.appNamePrefix`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L8-L13) value to prefix all ArgoCD `Application` names (multiple sets of them will exist in the management cluster).
-When `argocd.appNamePrefix` is non-empty, the [`argocd.destination`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L56-L61) MUST be a remote cluster (that is, you should not run deployKF on your management cluster).
+We provide the [`argocd.appNamePrefix`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L8-L13) value to prefix all ArgoCD `Application` names (which is needed because multiple sets of them may exist in the management cluster).
 
-The following values will prefix all application names with `"cluster1-"` and target them to the [remote cluster](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#clusters) named `"my-cluster1"`:
+For example, say you have [created a remote cluster named `"my-cluster1"`](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#clusters) in your Argo CD management cluster.
+The following values will prefix all application names with `"cluster1-"` and target them to the named destination `"my-cluster1"`:
 
 ```yaml
 argocd:
@@ -116,6 +116,46 @@ argocd:
     name: "my-cluster1"
 ```
 
+!!! warning "Destination MUST be remote"
+
+    When the `argocd.appNamePrefix` value is non-empty, the [`argocd.destination`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L56-L61) MUST be a remote cluster (that is, you should not run deployKF on your management cluster).
+
+!!! warning "About the App-of-Apps"
+
+    Your app-of-apps `Application` MUST target the management cluster, NOT the remote cluster.
+
+    Also, you must set the `app.kubernetes.io/part-of` label to `{argocd.appNamePrefix}deploykf`, so the sync script works correctly.
+
+    For example, your app-of-apps `Application` might look like this:
+
+    ```yaml
+    apiVersion: argoproj.io/v1alpha1
+    kind: Application
+    metadata:
+      name: {argocd.appNamePrefix}deploykf-app-of-apps
+      namespace: argocd
+      labels:
+        app.kubernetes.io/name: deploykf-app-of-apps
+        app.kubernetes.io/part-of: {argocd.appNamePrefix}deploykf
+    spec:
+      ## NOTE: This project ONLY applies to the app-of-apps itself, not the internal Applications.
+      ##       It needs to create Applications in the management cluster and Namespaces in the target.
+      ##       The project used by internal Applications is set by the `argocd.project` value.
+      project: default
+
+      source:
+        ...
+        ...
+        ...
+
+      destination:
+        ## OPTION 1: target the management cluster with `server`
+        server: "https://kubernetes.default.svc"
+
+        ## OPTION 2: target the management cluster with `name`
+        #name: "in-cluster"
+    ```
+
 !!! warning "Sync Script"
 
     By default, the [`sync_argocd_apps.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/sync_argocd_apps.sh) script assumes that `argocd.appNamePrefix` is not set.
@@ -124,3 +164,5 @@ argocd:
     ```bash
     ARGOCD_APP_NAME_PREFIX="cluster1-"
     ```
+
+    __TIP:__ make sure you have your `kubectl` context set to the __management cluster__ (NOT your target cluster), before running the sync script.
