@@ -7,33 +7,34 @@ description: >-
 
 # Getting Started
 
-Learn how to use <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> in __production__.
-<br>Easily deploy the [best of Kubeflow](../reference/tools.md#kubeflow-ecosystem) and other MLOps tools as a complete platform!
+Learn how to use <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> in production.
+<br>
+Easily deploy the [best of Kubeflow](../reference/tools.md#kubeflow-ecosystem) and other MLOps tools as a complete platform!
 
 ---
 
 ## Introduction
 
-This page is about __production-ready__ usage of deployKF.
-We will cover the requirements, deployment, and configuration of your machine learning platform.
+This page is about using deployKF in production, it will cover the [requirements](#1-requirements), [configuration options](#2-platform-configuration), [deployment process](#3-deploy-the-platform), and [basic usage](#4-use-the-platform) of the platform.
 
-We suggest new users start with the __About deployKF__ and __Local Quickstart__ pages:
+!!! question_secondary ""
 
-[About deployKF<br><small>(Introduction)</small>](../about/introduction.md#about-deploykf){ .md-button .md-button--secondary }
-[Local Quickstart<br><small>(Try Locally)</small>](./local-quickstart.md){ .md-button .md-button--secondary }
-
-For existing Kubeflow users, we have a _migration guide_:
-
-[Migrate from :custom-kubeflow: Kubeflow Distributions](./kubeflow-distributions.md#about-migrating){ .md-button .md-button--secondary }
+    We recommend __new users__ start by reading the [introduction](../about/introduction.md#why-use-deploykf) and trying a [local deployment](./local-quickstart.md#introduction):
+    
+    [Introduction<br><small>About deployKF</small>](../about/introduction.md#why-use-deploykf){ .md-button .md-button--secondary }
+    [Try Locally<br><small>Local Quickstart</small>](./local-quickstart.md#introduction){ .md-button .md-button--secondary }
 
 !!! value ""
 
-    We encourage you to _join our community_ and learn about _support options_!
+    We encourage you to [join our community](../about/community.md) and learn about [support options](../about/support.md)!
     
     [:material-account-group: Join the Community](../about/community.md){ .md-button .md-button--secondary }
     [:material-headset: Get Support](../about/support.md){ .md-button .md-button--secondary }
 
----
+    For existing Kubeflow users, we have a _migration guide_:
+        
+    [Migrate from :custom-kubeflow: Kubeflow Distributions](./kubeflow-distributions.md#about-migrating){ .md-button .md-button--secondary }
+
 
 ## 1. Requirements
 
@@ -76,12 +77,12 @@ Service Type | By default, the cluster must have a `LoadBalancer` service type.<
 Default StorageClass | The default [`StorageClass`](https://kubernetes.io/docs/concepts/storage/storage-classes/) must support the `ReadWriteOnce` access mode.
 Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows](https://github.com/argoproj/argo-workflows) installed.<br><small>See [`deployKF/deployKF#116`](https://github.com/deployKF/deployKF/issues/116) to join the discussion.</small>
 
-??? question_secondary "What about ARM Nodes?"
+??? info "ARM64 Support"
 
     The next minor version of deployKF (`v0.2.0`) should have native `ARM64` for all core components.
     However, some upstream apps like _Kubeflow Pipelines_ will need extra work to be production ready ([`#10309`](https://github.com/kubeflow/pipelines/issues/10309), [`#10308`](https://github.com/kubeflow/pipelines/issues/10308)).
 
-??? question_secondary "Can I use a different Service Type?"
+??? info "Other Service Types"
 
     For real-world usage, you should review the [Expose Gateway and configure HTTPS](./platform/deploykf-gateway.md) guide.
 
@@ -94,7 +95,7 @@ Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows]
           type: "NodePort" # or "ClusterIP"
     ```
 
-??? question_secondary "What if I don't have a default StorageClass?"
+??? info "Default StorageClass"
 
     If you do NOT have a compatible default StorageClass, you might consider the following options:
 
@@ -106,6 +107,8 @@ Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows]
          - [Connect an External S3-compatible Object Store](./external/object-store.md#connect-an-external-object-store)
          - [Connect an External MySQL Database](./external/mysql.md#connect-an-external-mysql)
 
+---
+
 ## 2. Platform Configuration
 
 deployKF is very configurable, you can use it to deploy a wide variety of machine learning platforms and integrate with your existing infrastructure.
@@ -113,46 +116,47 @@ deployKF is very configurable, you can use it to deploy a wide variety of machin
 ### __deployKF Versions__
 
 Each deployKF version may include different [ML & Data tools](../reference/tools.md) or support different versions of cluster dependencies.
-See the [version matrix](../releases/version-matrix.md) for an overview, and the [changelog](../releases/changelog-deploykf.md) for detailed information about what changed in each release (including important tips for upgrading).
+See the [version matrix](../releases/version-matrix.md) for an overview, and the [changelog](../releases/changelog-deploykf.md) for detailed information, including important tips for [upgrading](./upgrade.md).
 
-??? question_secondary "Can I be notified about new releases?"
+!!! info "Release Notifications"
 
-    Yes. Watch the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub.
+    Get notified about new releases by watching the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub.
+    <br>
     At the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.
 
 ### __About Values__
 
 All aspects of deployKF are configured via a centralized set of YAML-based configs named "values".
-Learn more about __creating your own values files__ on the [values](./values.md) page.
+Learn more about them on the [values](./values.md) page.
 
-[Topic: Values](./values.md){ .md-button .md-button--secondary }
+[Topic: <small>Values</small>](./values.md){ .md-button .md-button--secondary }
 
 ### __Cluster Dependencies__
 
 deployKF has a number of cluster dependencies including __Istio__, __cert-manager__, and __Kyverno__.
-To learn about the cluster dependencies, and how to use your existing version (rather than the one which comes with deployKF), see the [cluster dependencies](./cluster-dependencies.md) guide.
+Learn how to use your existing versions on the [cluster dependencies](./cluster-dependencies.md) page.
 
-[Topic: Cluster Dependencies](./cluster-dependencies.md){ .md-button .md-button--secondary }
+[Topic: <small>Cluster Dependencies</small>](./cluster-dependencies.md){ .md-button .md-button--secondary }
 
 ### __External Dependencies__
 
 deployKF has a number of external dependencies including __MySQL__ and an __Object Store (like S3)__.
-To learn about the cluster dependencies, and how to connect to an external version (rather than the one which comes with deployKF), see the [external dependencies](./external-dependencies.md) guide.
+Learn how to connect to external versions on the [external dependencies](./external-dependencies.md) page.
 
-[Topic: External Dependencies](./external-dependencies.md){ .md-button .md-button--secondary }
-
+[Topic: <small>External Dependencies</small>](./external-dependencies.md){ .md-button .md-button--secondary }
+    
 !!! warning "Embedded Dependencies"
 
-    We strongly recommend NOT using the embedded MySQL and MinIO instances in production.
-    See the [Connect an External MySQL](./external/mysql.md#connect-an-external-mysql) and [Connect an External Object Store](./external/object-store.md#connect-an-external-object-store) guides for more information.
+    We strongly recommend NOT using the embedded MySQL or MinIO in production.
+    <br>
+    See the [External MySQL](./external/mysql.md#connect-an-external-mysql) and [External Object Store](./external/object-store.md#connect-an-external-object-store) guides for more information.
 
 ### __Modes of Operation__
 
 There are two ways to use deployKF which we call _"modes of operation"_.
-These modes change how the Kubernetes manifests are generated and applied to your cluster.
 Learn more on the [modes of operation](./modes.md) page.
 
-[Topic: Modes of Operation](./modes.md){ .md-button .md-button--secondary }
+[Topic: <small>Modes of Operation</small>](./modes.md){ .md-button .md-button--secondary }
 
 !!! tip "Recommended _Mode of Operation_"
 
@@ -167,9 +171,7 @@ To deploy the platform, you will need to create [ArgoCD `Applications`](./depend
 ### __:star: Create ArgoCD Applications :star:__
 
 deployKF [uses ArgoCD](./dependencies/argocd.md#how-does-deploykf-use-argo-cd) to manage the deployment of the platform.
-
 The process to create the ArgoCD `Applications` will depend on which [mode of operation](#modes-of-operation) you have chosen.
-For most users, we recommend using __ArgoCD Plugin Mode__.
 
 === ":star: ArgoCD Plugin Mode :star:"
 

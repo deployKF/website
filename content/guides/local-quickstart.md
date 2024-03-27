@@ -11,8 +11,6 @@ Learn how to quickly try <strong><span class="deploykf-orange">deploy</span><spa
 
 ---
 
-## Introduction
-
 This quickstart will guide you through setting up a local `k3d` Kubernetes cluster, installing ArgoCD, and running deployKF on top of it.
 
 !!! warning "Not for Production Use"

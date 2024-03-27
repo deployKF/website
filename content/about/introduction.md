@@ -13,8 +13,6 @@ An __introduction__ to deployKF.
 
 ## About deployKF
 
-### __What is deployKF?__
-
 !!! question_secondary ""
 
     <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> builds machine learning platforms on __Kubernetes__.
@@ -46,7 +44,7 @@ An __introduction__ to deployKF.
 
 ### __Video Introduction__
 
-!!! abstract ""
+!!! info ""
 
     <div class="video-padding">
         <div class="youtube-video-container">
@@ -57,32 +55,18 @@ An __introduction__ to deployKF.
         Our presentation from [Kubeflow Summit 2023](https://www.kubeflow.org/events/kubeflow-summit-2023/), where we introduced deployKF to the community.
     </div>
 
-### __Featured Stories__
-
-!!! info ""
-
-    We are always excited to see __how and where__ deployKF is being used!
-
-    Here are some stories of deployKF being used in the wild:
-
-    Organization | Article / Video
-    --- | ---
-    :custom-cloudflare-color: Cloudflare | [_A look inside the Cloudflare ML Ops platform_](https://blog.cloudflare.com/mlops/)
-
-    <small>
-      <em>Have a story to share? [Let us know](community.md#contact-us)!</em>
-      <br>
-      <em>Also, you can add your organization to the [Adopters List](https://github.com/deployKF/deployKF/blob/main/ADOPTERS.md).</em>
-    </small>
-
 ---
 
 ## Use deployKF
 
-We have a number of guides to help you get started with deployKF.
+Now that you know what deployKF is, you can get started with the following guides:
 
-[Getting Started<br><small>(Production)</small>](../guides/getting-started.md){ .md-button .md-button--secondary }
-[Local Quickstart<br><small>(Try Locally)</small>](../guides/local-quickstart.md){ .md-button .md-button--secondary }
+<div class="mdx-hero__button-wrapper" markdown>
+
+[Full Deployment](../guides/getting-started.md){ .md-button .md-button--primary .md-button--primary-right }
+[Try Locally](../guides/local-quickstart.md){ .md-button .md-button--primary .md-button--primary-left }
+
+</div>
 
 ### __Support the Project__
 
@@ -119,7 +103,26 @@ We have a number of guides to help you get started with deployKF.
 
     [:fontawesome-brands-slack: Join the Slack](https://communityinviter.com/apps/kubeflow/slack){ .md-button .md-button--secondary }
 
-### __History__
+
+### __User Stories__
+
+!!! value ""
+
+    We are always excited to see __how and where__ deployKF is being used!
+
+    Here are some stories of deployKF being used in the wild:
+
+    Organization | Article / Video
+    --- | ---
+    :custom-cloudflare-color: Cloudflare | [_A look inside the Cloudflare ML Ops platform_](https://blog.cloudflare.com/mlops/)
+
+    <small>
+      <em>Have a story to share? [Let us know](community.md#contact-us)!</em>
+      <br>
+      <em>Also, you can add your organization to the [Adopters List](https://github.com/deployKF/deployKF/blob/main/ADOPTERS.md).</em>
+    </small>
+
+### __History of deployKF__
 
 !!! value ""
 
