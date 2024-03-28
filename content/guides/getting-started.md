@@ -111,6 +111,11 @@ Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows]
 
 deployKF is very configurable, you can use it to deploy a wide variety of machine learning platforms and integrate with your existing infrastructure.
 
+### __deployKF Values__
+
+All aspects of your deployKF platform are configured with YAML-based configs named __"values"__.
+See the [values](./values.md) page for more information.
+
 ### __deployKF Versions__
 
 Each deployKF version may include different [ML & Data tools](../reference/tools.md) or support different versions of cluster dependencies.
