@@ -11,6 +11,8 @@ Learn how to quickly try <strong><span class="deploykf-orange">deploy</span><spa
 
 ---
 
+## Introduction
+
 This quickstart will guide you through setting up a local `k3d` Kubernetes cluster, installing ArgoCD, and running deployKF on top of it.
 
 !!! warning "Not for Production Use"
@@ -69,6 +71,12 @@ The requirements for this quickstart depend on your operating system.
         CLI: [`k3d`](https://k3d.io/) | RUN: `brew install k3d`
         CLI: [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/) | RUN: `brew install kubectl`
 
+        For example, all commands can be run in your terminal like this:
+        
+        ```bash
+        brew install bash argocd jq k3d kubectl
+        ```
+
 === "Linux"
 
     !!! step "Step 1 - Install Core Dependencies"
@@ -92,8 +100,8 @@ The requirements for this quickstart depend on your operating system.
 
         ??? question_secondary "How do I use Homebrew for Linux?"
     
-            An easy way to install the requirements is with [Homebrew](https://brew.sh/), while traditionally a macOS tool, it supports linux as well.
-    
+            An easy way to install the requirements is with [Homebrew](https://brew.sh/).
+            While traditionally a macOS tool, Homebrew supports linux as well.
             The following commands will install `brew` and add it to your PATH:
         
             ```bash
@@ -105,14 +113,12 @@ The requirements for this quickstart depend on your operating system.
             (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> ~/.profile
             ```
     
-            After Homebrew is installed, you may use commands like:
+            After Homebrew is installed, you may install the requirements like this:
     
             ```bash
-            brew install argocd
-            brew install jq
-            brew install k3d
-            brew install kubectl
+            brew install argocd jq k3d kubectl
             ```
+
     !!! step "Step 3 - Inotify Limits"
     
         On __Linux__, you may need to increase your system's open/watched file limits.
@@ -174,7 +180,7 @@ The requirements for this quickstart depend on your operating system.
             - To see what changes we have made to the kernel, review [`deployKF/WSL2-Linux-Kernel`](https://github.com/deployKF/WSL2-Linux-Kernel).
             - Hopefully, once [`microsoft/WSL#8153`](https://github.com/microsoft/WSL/issues/8153) is resolved, we will no longer need a custom kernel.
 
-    !!! step "Step 3 - Install Homebrew"
+    !!! step "Step 3 - Install Homebrew and Dependencies"
 
         Install Homebrew for Linux within your __WSL environment__.
         
@@ -189,16 +195,11 @@ The requirements for this quickstart depend on your operating system.
         (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> ~/.profile
         ```
 
-    !!! step "Step 4 - Install WSL Dependencies"
-
-        Install these dependencies within your Ubuntu shell (search `Ubuntu` in start menu):
+        Now you can install the requirements like this:
         
-        Requirement | Notes
-        --- | ---
-        CLI: [`argocd`](https://argo-cd.readthedocs.io/en/stable/cli_installation/) | RUN: `brew install argocd`
-        CLI: [`jq`](https://jqlang.github.io/jq/download/) | RUN: `brew install jq`
-        CLI: [`k3d`](https://k3d.io/) | RUN: `brew install k3d`
-        CLI: [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/) | RUN: `brew install kubectl`
+        ```bash
+        brew install argocd jq k3d kubectl
+        ```
 
         For the rest of the guide, unless otherwise instructed, run all commands in an Ubuntu shell.
 
@@ -219,6 +220,8 @@ K3s is an extremely lightweight Kubernetes distribution that is fully compliant 
     k3d cluster create "deploykf" \
       --image "rancher/k3s:v1.27.10-k3s2"
     ```
+
+    ---
 
     ??? question_secondary "Can I use a different version of Kubernetes?"
     
@@ -387,27 +390,6 @@ This allows us to define the platform using a single app-of-apps which only need
     See how to do this with `k9s` or `kubectl` in the [previous section](#2-prepare-kubernetes).
 
 ## 4. Create ArgoCD Applications
-
-### __deployKF Versions__
-
-Each deployKF version may include different [ML & Data tools](../reference/tools.md) or support different versions of cluster dependencies.
-See the [version matrix](../releases/version-matrix.md) for an overview, and the [changelog](../releases/changelog-deploykf.md) for detailed information about what changed in each release (including important tips for upgrading).
-
-!!! step ""
-    
-    For this quickstart, we will be using deployKF [`{{ latest_deploykf_version }}`](https://github.com/deployKF/deployKF/releases/tag/v{{ latest_deploykf_version }}).
-
-### __About Values__
-
-All aspects of deployKF are configured via a centralized set of YAML-based configs named "values".
-Learn more about creating your own values files on the [values](./values.md) page.
-
-!!! step ""
-
-    For this quickstart, we will be using the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file as our base.
-    These sample values have all supported [ML & Data tools](../reference/tools.md#tool-index) enabled, along with some sensible security defaults.
-
-### __Create an App-of-Apps__
 
 The only resource you manually create is the `deploykf-app-of-apps`, this resource generates all the other `Application` resources.
 Think of it as a _"single source of truth"_ for the desired state of your platform.
@@ -590,11 +572,9 @@ Think of it as a _"single source of truth"_ for the desired state of your platfo
 
     === ":star: Apply: `kubectl` :star:"
     
-        Create a local file named `deploykf-app-of-apps.yaml` with the contents of the app-of-apps YAML above.
-
-        Next, ensure your `kubectl` context is set to the `k3d-deploykf` cluster.
-
-        Finally, apply the resource to your cluster with the following command:
+        1. Create a local file named `deploykf-app-of-apps.yaml` with the contents of the app-of-apps YAML above.
+        2. Ensure your `kubectl` context is set to the `k3d-deploykf` cluster.
+        3. Apply the resource to your cluster with the following command:
 
         ```bash
         kubectl apply -f ./deploykf-app-of-apps.yaml
@@ -645,10 +625,12 @@ Think of it as a _"single source of truth"_ for the desired state of your platfo
 Now that your deployKF app-of-apps has been applied, you must sync the ArgoCD applications to deploy your platform.
 Syncing an application will cause ArgoCD to reconcile the actual state in the cluster, to match the state defined by the application resource.
 
-!!! warning "Sync Order"
+!!! danger
 
-    The deployKF applications depend on each other, so you MUST sync them in the correct order to avoid errors.
-    If you really want to sync manually with the ArgoCD Web UI (not recommended), see the full [getting started guide](./getting-started.md#sync-argocd-applications) for the correct order.
+    __DO NOT__ sync all the `Applications` at once!!!
+
+    The deployKF `Applications` depend on each other, they MUST be synced in the correct order to avoid errors.
+    If you manually sync them all, you may need to delete your `k3d` cluster and start over.
 
 ArgoCD supports syncing applications both _graphically (Web UI)_ and _programmatically (CLI)_.
 

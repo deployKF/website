@@ -32,8 +32,8 @@
 }
 
 [data-md-color-scheme=slate][data-md-color-accent="deploykf-accent"] {
-     /* make transparent color darker in dark mode */
-    --md-accent-fg-color--transparent: rgba(253, 126, 20, 0.085);
+     /* make transparent color different in dark mode */
+    --md-accent-fg-color--transparent: rgba(253, 126, 20, 0.06);
 }
 
 [data-md-color-scheme=slate][data-md-color-primary="deploykf-primary"] {
