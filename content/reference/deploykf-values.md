@@ -8,6 +8,8 @@ description: >-
 
 The following is a summary of the __generator values__ (configs) available in __deployKF__.
 
+---
+
 !!! question_secondary "What are Generator Values?"
 
     The generator values configure all aspects of deployKF, including which tools are deployed, how they are configured, and what versions are used.
@@ -16,8 +18,6 @@ The following is a summary of the __generator values__ (configs) available in __
     This means you only need to configure them once, even though they control multiple internal Helm Charts and Kustomize apps.
 
     For more information, see the [values](../guides/values.md) page.
-
----
 
 <div class="use-compact-tables" markdown>
 

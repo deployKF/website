@@ -8,15 +8,20 @@ description: >-
 
 This changelog lists releases of __deployKF__ that are found in the [`deployKF/deployKF`](https://github.com/deployKF/deployKF/releases) repository.
 
-!!! tip "Be notified about deployKF releases"
+---
 
-    Be notified about new deployKF releases by watching the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub, at the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.
+!!! warning "Upgrade Steps"
+
+    Please review the _"Upgrade Notes"_ and/or _"Important Notes"_ __before__ upgrading deployKF.<br>For more information about upgrading, see the [upgrade guide](../guides/upgrade.md).
+
+!!! question_secondary "How can I get notified about new releases?"
+
+    Watch the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub.<br>At the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.
 
 !!! info "Pre-releases"
 
-    For a changelog that shows pre-releases, see [the full-changelog](./full-changelog-deploykf.md) page.
+    For a changelog that includes pre-releases, see the [full-changelog](./full-changelog-deploykf.md).
 
----
 
 ## [0.1.4](https://github.com/deployKF/deployKF/releases/tag/v0.1.4) - 2024-02-16
 ### Upgrade Notes

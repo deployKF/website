@@ -8,13 +8,13 @@ description: >-
 
 These tables summarize the __tools and dependency versions__ which are supported by __each version of deployKF__.
 
+---
+
 !!! info "Version Key"
 
     The version wrapped with `()` is the default version included with that version of deployKF.
 
     Versions that are <s>`struck through`</s> do not work with that version of deployKF.
-
----
 
 ## deployKF Dependencies
 

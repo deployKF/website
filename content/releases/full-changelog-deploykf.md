@@ -4,17 +4,20 @@ description: >-
   The full changelog for deployKF, including pre-releases.
 hide:
   - navigation
+search:
+  exclude: true
 ---
 
 # Changelog (all releases) - deployKF
 
 This changelog lists ALL releases of __deployKF__ (including pre-releases) that are found in the [`deployKF/deployKF`](https://github.com/deployKF/deployKF/releases) repository.
 
+---
+
 !!! info "Main Changelog"
 
-    For a changelog that hides pre-releases, see [the main changelog](./changelog-deploykf.md) page.
+    For a changelog that hides pre-releases, see the [__main changelog__](./changelog-deploykf.md).
 
----
 
 ## [0.1.4](https://github.com/deployKF/deployKF/releases/tag/v0.1.4) - 2024-02-16
 ### Upgrade Notes

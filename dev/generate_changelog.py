@@ -241,6 +241,11 @@ def main():
         help="Exclude prerelease GitHub releases",
     )
     parser.add_argument(
+        "--exclude-from-search",
+        action="store_true",
+        help="Exclude the page from search results",
+    )
+    parser.add_argument(
         "--write-version-file-path",
         default="",
         help="A path at which a text file containing the latest release version will be written",
@@ -272,12 +277,17 @@ def main():
     if args.output_hide_sections:
         changelog.append("hide:")
         changelog.extend([f"  - {section}" for section in args.output_hide_sections])
+    if args.exclude_from_search:
+        changelog.append("search:")
+        changelog.append("  exclude: true")
     changelog.append("---")
     changelog.append("")
 
     changelog.append(f"# {args.output_heading}")
     changelog.append("")
     changelog.append(f"{args.output_intro}")
+    changelog.append("")
+    changelog.append("---")
     changelog.append("")
 
     admonitions_list = list(
@@ -297,7 +307,6 @@ def main():
         changelog.append(f"    {admonition_content}")
         changelog.append("")
 
-    changelog.append("---")
     changelog.append("")
 
     total_releases = len(releases)

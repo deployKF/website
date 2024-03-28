@@ -462,7 +462,7 @@ How you configure an Ingress will depend on the platform you are using, for exam
 
 There are a few important things to note when using an Ingress:
 
-??? warning "Ingress TLS Termination / SNI Matching"
+??? warning "Considerations when terminating TLS at the Ingress"
 
     If you put the deployKF Gateway behind a proxy which terminates TLS (like AWS ALB), you will probably need to disable _SNI Matching_.
     This is because most proxies don't forward the original request's [Server Name Indication (SNI)](https://en.wikipedia.org/wiki/Server_Name_Indication) to the backend service after TLS termination.
@@ -477,7 +477,7 @@ There are a few important things to note when using an Ingress:
             matchSNI: false
     ```
 
-??? info "HTTPS Redirection"
+??? warning "Ingress must talk to the Gateway over HTTPS"
 
     By default, the deployKF Gateway redirects all HTTP requests to HTTPS.
     This means any proxy you place in front of the gateway will need to talk to the gateway over HTTPS.
@@ -509,14 +509,14 @@ There are a few important things to note when using an Ingress:
 
 Now that the deployKF Gateway Service has an IP address, you must configure DNS records which point to it.
 
-### __:star: Configure Hostname and Ports :star:__
+!!! warning "You can't use the Gateway's IP address"
 
-deployKF uses a combination of _hostnames_, _http paths_, and _ports_ to route requests to the correct internal service.
-
-!!! warning "Virtual Hostname Routing"
-
-    You can't access deployKF using the IP address alone.
+    You can't access deployKF using the Gateway's IP address.
     This is because deployKF hosts multiple services on the same IP address using [virtual hostname routing](https://en.wikipedia.org/wiki/Virtual_hosting#Name-based).
+
+### __:star: Base Domain and Ports :star:__
+
+You will need to tell deployKF which hostnames to use, and which ports to listen on.
 
 Depending on which tools you have enabled, the gateway may serve the following hostnames:
 
@@ -527,7 +527,7 @@ Hostname | Description
 `minio-api.deploykf.example.com` | MinIO API
 `minio-console.deploykf.example.com` | MinIO Console
 
-These values set the base domain to `deploykf.example.com`, and the ports to `80` and `443`:
+For example, the following values set the base domain to `deploykf.example.com`, and the ports to `80` and `443`:
 
 ```yaml
 deploykf_core:
@@ -626,7 +626,8 @@ The following steps explain how to install and configure External-DNS to set DNS
 
 ### __Manually Create DNS Records__
 
-This section explains how to manually configure DNS records with your DNS provider.
+Alternatively, you may manually configure DNS records with your DNS provider.
+The following steps explain how to manually create DNS records for the deployKF Gateway Service.
 
 ??? step "Step 1 - Get Service IP"
 
@@ -667,38 +668,14 @@ This section explains how to manually configure DNS records with your DNS provid
 
 deployKF uses [:custom-cert-manager-color: __cert-manager__](../dependencies/cert-manager.md#what-is-cert-manager) to manage TLS certificates.
 
-By default, we use a self-signed certificate for the deployKF Gateway.
-Therefore, if you are not using an external proxy to terminate TLS (like AWS ALB), you will likely want to configure a valid TLS certificate for the deployKF Gateway.
-
 !!! info "Existing cert-manager Installation"
 
     If your cluster already has a cert-manager installation, you should follow [these instructions](../dependencies/cert-manager.md#can-i-use-my-existing-cert-manager) to disable the deployKF cert-manager installation and use your own.
 
-!!! info "In-Mesh Traffic to Gateway"
-
-    When Pods inside the Istio mesh make requests to the gateway [hostname/ports](#configure-hostname-and-ports), this traffic bypasses your public LoadBalancer/Ingress and goes directly to the Gateway Deployment Pods (through the mesh).
-
-    Therefore, even if your Ingress has its own valid TLS termination (e.g. from AWS ALB), in-mesh Pods will see the certificate of the Istio Gateway itself (which by default is self-signed).
-
-    ??? question_secondary "Why does this happen?"
-
-        Traffic from in-mesh Pods gets intercepted by the Istio sidecar because of [this `ServiceEntry`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/templates/manifests/deploykf-core/deploykf-istio-gateway/templates/gateway/ServiceEntry-gateway.yaml), and because we enable Istio's [DNS Proxying](https://istio.io/latest/docs/ops/configuration/traffic-management/dns-proxy/) feature by setting `ISTIO_META_DNS_CAPTURE` and `ISTIO_META_DNS_AUTO_ALLOCATE` to `true`.
-
-    ??? question_secondary "How can I prevent these TLS errors?"
-
-        All core deployKF apps are configured to trust the default self-signed certificate (e.g. [oauth2-proxy](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/templates/manifests/deploykf-core/deploykf-auth/templates/oauth2-proxy/Deployment.yaml#L69-L70)).
-        However, your own in-mesh apps will need to do ONE of the following (unless you use a valid certificate):
-
-        1. Disable _Istio DNS Proxying_ on your app's Pods:
-            - Set the `proxy.istio.io/config` Pod annotation to `{"proxyMetadata": {"ISTIO_META_DNS_CAPTURE": "false", "ISTIO_META_DNS_AUTO_ALLOCATE": "false"}}`
-        2. Disable certificate validation in your app:
-            - _See your app's documentation for information on how to do this._
-        3. Trust the CA found in `Secret/selfsigned-ca-issuer-root-cert` (Namespace: `cert-manager`):
-            - _See your app's documentation for information on how to do this._
-            - Note, we create a [trust-manager `Bundle`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/templates/manifests/deploykf-dependencies/cert-manager/templates/selfsigned-ca-issuer/Bundle.yaml) for this CA by default;
-              All Namespaces with the label `deploykf.github.io/inject-root-ca-cert: "enabled"` will have a `ConfigMap` named `deploykf-gateway-issuer-root-ca-cert` with a key named `root-cert.pem` containing the CA certificate.
-
 ### __:star: Use Let's Encrypt with Cert-Manager :star:__
+
+By default, we use a self-signed certificate for the deployKF Gateway.
+Therefore, if you are not using an external proxy to terminate TLS (like AWS ALB), you will likely want to configure a valid TLS certificate for the deployKF Gateway.
 
 For almost everyone, the best Certificate Authority (CA) is [Let's Encrypt](https://letsencrypt.org/).
 The following steps explain how to use Let's Encrypt with cert-manager to generate a valid TLS certificate for the deployKF Gateway.
@@ -799,3 +776,31 @@ The following steps explain how to use Let's Encrypt with cert-manager to genera
           ## this value should match the name of your ClusterIssuer
           issuerName: "my-cluster-issuer"
     ```
+
+### __Terminate TLS with an External Proxy__
+
+If you place a proxy in front of the deployKF Gateway that terminates TLS (like AWS ALB), you may not need to configure a valid TLS certificate for the deployKF Gateway.
+
+!!! warning "In-Mesh Traffic to Gateway"
+
+    When Pods inside the Istio mesh make requests to the gateway [hostname/ports](#base-domain-and-ports), this traffic bypasses your public LoadBalancer/Ingress and goes directly to the Gateway Deployment Pods (through the mesh).
+
+    Therefore, even if your Ingress has its own valid TLS termination (e.g. from AWS ALB), in-mesh Pods will see the certificate of the Istio Gateway itself (which by default is self-signed).
+
+    ??? question_secondary "Why does this happen?"
+
+        Traffic from in-mesh Pods gets intercepted by the Istio sidecar because of [this `ServiceEntry`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/templates/manifests/deploykf-core/deploykf-istio-gateway/templates/gateway/ServiceEntry-gateway.yaml), and because we enable Istio's [DNS Proxying](https://istio.io/latest/docs/ops/configuration/traffic-management/dns-proxy/) feature by setting `ISTIO_META_DNS_CAPTURE` and `ISTIO_META_DNS_AUTO_ALLOCATE` to `true`.
+
+    ??? question_secondary "How can I prevent these TLS errors?"
+
+        All core deployKF apps are configured to trust the default self-signed certificate (e.g. [oauth2-proxy](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/templates/manifests/deploykf-core/deploykf-auth/templates/oauth2-proxy/Deployment.yaml#L69-L70)).
+        However, your own in-mesh apps will need to do ONE of the following (unless you use a valid certificate):
+
+        1. Disable _Istio DNS Proxying_ on your app's Pods:
+            - Set the `proxy.istio.io/config` Pod annotation to `{"proxyMetadata": {"ISTIO_META_DNS_CAPTURE": "false", "ISTIO_META_DNS_AUTO_ALLOCATE": "false"}}`
+        2. Disable certificate validation in your app:
+            - _See your app's documentation for information on how to do this._
+        3. Trust the CA found in `Secret/selfsigned-ca-issuer-root-cert` (Namespace: `cert-manager`):
+            - _See your app's documentation for information on how to do this._
+            - Note, we create a [trust-manager `Bundle`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/templates/manifests/deploykf-dependencies/cert-manager/templates/selfsigned-ca-issuer/Bundle.yaml) for this CA by default;
+              All Namespaces with the label `deploykf.github.io/inject-root-ca-cert: "enabled"` will have a `ConfigMap` named `deploykf-gateway-issuer-root-ca-cert` with a key named `root-cert.pem` containing the CA certificate.
