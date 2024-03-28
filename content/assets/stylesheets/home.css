@@ -421,6 +421,7 @@ Hero Cards
 .mdx-hero .mdx-hero__card_action_buttons .md-button {
     font-size: 80%;
     padding: 0.5em 1.3em;
+    opacity: 0.8;
 }
 
 .mdx-hero .mdx-hero__video-container {
