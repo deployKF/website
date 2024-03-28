@@ -1,19 +1,14 @@
 /*
 ========================================
-Page Styling
+Background Styling
 ========================================
 */
-
-/* ensure our primary div takes up the full screen */
-.mdx-container {
-    display: flex;
-    flex-grow: 1;
-}
 
 /* set background image for the main page (desktop) */
 @media screen and (min-width: 60em) {
     body {
-        background-image: url("/assets/images/moving-firefly-wide.svg");
+        /* NOTE: we set `background-image` in './overrides/home.html' and './overrides/404.html' */
+        /*background-image: url("/assets/images/moving-firefly-wide.svg");*/
         background-attachment: fixed;
         background-repeat: no-repeat;
         background-size: cover;
@@ -24,12 +19,25 @@ Page Styling
 /* set background image for the main page (mobile) */
 @media screen and (max-width: 60em) {
     body {
-        background-image: url("/assets/images/moving-firefly-tall.svg");
+        /* NOTE: we set `background-image` in './overrides/home.html' and './overrides/404.html' */
+        /*background-image: url("/assets/images/moving-firefly-tall.svg");*/
         background-attachment: fixed;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
     }
+}
+
+/*
+========================================
+Page Styling
+========================================
+*/
+
+/* ensure our primary div takes up the full screen */
+.mdx-container {
+    display: flex;
+    flex-grow: 1;
 }
 
 /*
@@ -271,48 +279,48 @@ Hero Actions
     }
 }
 
-[data-md-color-scheme=default] .mdx-hero .mdx-hero__actions .md-button--primary {
+[data-md-color-scheme=default] .mdx-hero__button-wrapper .md-button--primary {
     border: 0.1rem solid #3b4d7a;
     color: white !important;
 }
 
-[data-md-color-scheme=slate] .mdx-hero .mdx-hero__actions .md-button--primary {
+[data-md-color-scheme=slate] .mdx-hero__button-wrapper .md-button--primary {
     border: 0.1rem solid var(--md-primary-fg-color--light);
     color: hsla(234, 76%, 95%, 1) !important;
 }
 
-.mdx-hero .mdx-hero__actions .md-button--primary-left {
+.mdx-hero__button-wrapper .md-button--primary-left {
     background: linear-gradient(90deg, rgba(1, 75, 209, 0.8), rgba(253, 126, 20, 0.85));
 }
 
-.mdx-hero .mdx-hero__actions .md-button--primary-right {
+.mdx-hero__button-wrapper .md-button--primary-right {
     background: linear-gradient(90deg, rgba(253, 126, 20, 0.85), rgba(1, 75, 209, 0.8));
 }
 
-.mdx-hero .mdx-hero__actions .md-button--secondary {
+.mdx-hero__button-wrapper .md-button--secondary {
     -webkit-backdrop-filter: blur(0.25rem);
     backdrop-filter: blur(0.25rem);
 }
 
-[data-md-color-scheme=default] .mdx-hero .mdx-hero__actions .md-button--secondary {
+[data-md-color-scheme=default] .mdx-hero__button-wrapper .md-button--secondary {
     background: rgba(211, 156, 116, 0.03) !important;
     border: 0.1rem solid #3b4d7a;
     color: var(--md-primary-fg-color--light) !important;
 }
 
-[data-md-color-scheme=slate] .mdx-hero .mdx-hero__actions .md-button--secondary {
+[data-md-color-scheme=slate] .mdx-hero__button-wrapper .md-button--secondary {
     background: rgba(255, 186, 128, 0.03) !important;
     border-color: var(--md-primary-fg-color--light);
     color: hsla(234, 76%, 95%, 0.75) !important;
 }
 
-[data-md-color-scheme=default] .mdx-hero .mdx-hero__actions .md-button:focus,
-[data-md-color-scheme=default] .mdx-hero .mdx-hero__actions .md-button:hover {
+[data-md-color-scheme=default] .mdx-hero__button-wrapper .md-button:focus,
+[data-md-color-scheme=default] .mdx-hero__button-wrapper .md-button:hover {
     border-color: white;
 }
 
-[data-md-color-scheme=slate] .mdx-hero .mdx-hero__actions .md-button:focus,
-[data-md-color-scheme=slate] .mdx-hero .mdx-hero__actions .md-button:hover {
+[data-md-color-scheme=slate] .mdx-hero__button-wrapper .md-button:focus,
+[data-md-color-scheme=slate] .mdx-hero__button-wrapper .md-button:hover {
     border-color: white;
 }
 
@@ -404,6 +412,16 @@ Hero Cards
 
 .mdx-hero .mdx-hero__footnote {
     opacity: 0.7;
+}
+
+.mdx-hero .mdx-hero__card_action_buttons {
+    padding-top: 0.4em;
+}
+
+.mdx-hero .mdx-hero__card_action_buttons .md-button {
+    font-size: 80%;
+    padding: 0.5em 1.3em;
+    opacity: 0.8;
 }
 
 .mdx-hero .mdx-hero__video-container {

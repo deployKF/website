@@ -7,33 +7,32 @@ description: >-
 
 # Getting Started
 
-Learn how to use <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> in __production__.
-<br>Easily deploy the [best of Kubeflow](../reference/tools.md#kubeflow-ecosystem) and other MLOps tools as a complete platform!
+Learn how to use <strong><span class="deploykf-orange">deploy</span><span class="deploykf-blue">KF</span></strong> in production.
+<br>
+Easily deploy the [best of Kubeflow](../reference/tools.md#kubeflow-ecosystem) and other MLOps tools as a complete platform!
 
 ---
 
 ## Introduction
 
-This page is about __production-ready__ usage of deployKF.
-We will cover the requirements, deployment, and configuration of your machine learning platform.
+This page is about using deployKF in production, it will cover the requirements, configuration options, deployment process, and basic usage of the platform.
 
 We suggest new users start with the __About deployKF__ and __Local Quickstart__ pages:
 
 [About deployKF<br><small>(Introduction)</small>](../about/introduction.md#about-deploykf){ .md-button .md-button--secondary }
 [Local Quickstart<br><small>(Try Locally)</small>](./local-quickstart.md){ .md-button .md-button--secondary }
 
-For existing Kubeflow users, we have a _migration guide_:
-
-[Migrate from :custom-kubeflow: Kubeflow Distributions](./kubeflow-distributions.md#about-migrating){ .md-button .md-button--secondary }
-
 !!! value ""
 
-    We encourage you to _join our community_ and learn about _support options_!
+    We encourage you to [join our community](../about/community.md) and learn about [support options](../about/support.md)!
     
     [:material-account-group: Join the Community](../about/community.md){ .md-button .md-button--secondary }
     [:material-headset: Get Support](../about/support.md){ .md-button .md-button--secondary }
 
----
+    For existing Kubeflow users, we have a _migration guide_:
+        
+    [Migrate from :custom-kubeflow: Kubeflow Distributions](./kubeflow-distributions.md#about-migrating){ .md-button .md-button--secondary }
+
 
 ## 1. Requirements
 
@@ -76,12 +75,12 @@ Service Type | By default, the cluster must have a `LoadBalancer` service type.<
 Default StorageClass | The default [`StorageClass`](https://kubernetes.io/docs/concepts/storage/storage-classes/) must support the `ReadWriteOnce` access mode.
 Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows](https://github.com/argoproj/argo-workflows) installed.<br><small>See [`deployKF/deployKF#116`](https://github.com/deployKF/deployKF/issues/116) to join the discussion.</small>
 
-??? question_secondary "What about ARM Nodes?"
+??? info "ARM64 Support"
 
     The next minor version of deployKF (`v0.2.0`) should have native `ARM64` for all core components.
     However, some upstream apps like _Kubeflow Pipelines_ will need extra work to be production ready ([`#10309`](https://github.com/kubeflow/pipelines/issues/10309), [`#10308`](https://github.com/kubeflow/pipelines/issues/10308)).
 
-??? question_secondary "Can I use a different Service Type?"
+??? info "Other Service Types"
 
     For real-world usage, you should review the [Expose Gateway and configure HTTPS](./platform/deploykf-gateway.md) guide.
 
@@ -94,7 +93,7 @@ Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows]
           type: "NodePort" # or "ClusterIP"
     ```
 
-??? question_secondary "What if I don't have a default StorageClass?"
+??? info "Default StorageClass"
 
     If you do NOT have a compatible default StorageClass, you might consider the following options:
 
@@ -106,70 +105,65 @@ Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows]
          - [Connect an External S3-compatible Object Store](./external/object-store.md#connect-an-external-object-store)
          - [Connect an External MySQL Database](./external/mysql.md#connect-an-external-mysql)
 
+---
+
 ## 2. Platform Configuration
 
 deployKF is very configurable, you can use it to deploy a wide variety of machine learning platforms and integrate with your existing infrastructure.
 
+### __deployKF Values__
+
+All aspects of your deployKF platform are configured with YAML-based configs named __"values"__.
+See the [values](./values.md) page for more information.
+
 ### __deployKF Versions__
 
 Each deployKF version may include different [ML & Data tools](../reference/tools.md) or support different versions of cluster dependencies.
-See the [version matrix](../releases/version-matrix.md) for an overview, and the [changelog](../releases/changelog-deploykf.md) for detailed information about what changed in each release (including important tips for upgrading).
+See the [version matrix](../releases/version-matrix.md) for an overview, and the [changelog](../releases/changelog-deploykf.md) for detailed information, including important tips for [upgrading](./upgrade.md).
 
-??? question_secondary "Can I be notified about new releases?"
+!!! question_secondary "How can I get notified about new releases?"
 
-    Yes. Watch the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub.
+    Watch the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub.
+    <br>
     At the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.
-
-### __About Values__
-
-All aspects of deployKF are configured via a centralized set of YAML-based configs named "values".
-Learn more about __creating your own values files__ on the [values](./values.md) page.
-
-[Topic: Values](./values.md){ .md-button .md-button--secondary }
 
 ### __Cluster Dependencies__
 
 deployKF has a number of cluster dependencies including __Istio__, __cert-manager__, and __Kyverno__.
-To learn about the cluster dependencies, and how to use your existing version (rather than the one which comes with deployKF), see the [cluster dependencies](./cluster-dependencies.md) guide.
+See the [cluster dependencies](./cluster-dependencies.md) page for an overview.
 
-[Topic: Cluster Dependencies](./cluster-dependencies.md){ .md-button .md-button--secondary }
+!!! warning "Existing Cluster Dependencies"
+
+    deployKF installs its own versions of the cluster dependencies by default.
+    <br>
+    If you have existing versions on the cluster, you MUST configure deployKF to use them:
+
+    - [Use Existing __Istio__](./dependencies/istio.md#can-i-use-my-existing-istio)
+    - [Use Existing __cert-manager__](./dependencies/cert-manager.md#can-i-use-my-existing-cert-manager)
+    - [<s>Use Existing __Kyverno__</s>](./dependencies/kyverno.md#can-i-use-my-existing-kyverno) <small>(coming soon)</small>
 
 ### __External Dependencies__
 
-deployKF has a number of external dependencies including __MySQL__ and an __Object Store (like S3)__.
-To learn about the cluster dependencies, and how to connect to an external version (rather than the one which comes with deployKF), see the [external dependencies](./external-dependencies.md) guide.
+deployKF has a number of external dependencies including __MySQL__ and an __Object Store__.
+See the [external dependencies](./external-dependencies.md) page for an overview.
 
-[Topic: External Dependencies](./external-dependencies.md){ .md-button .md-button--secondary }
+!!! warning "Connect External Dependencies"
 
-!!! warning "Embedded Dependencies"
+    deployKF includes embedded versions of MySQL and MinIO for development and testing.
+    <br>
+    We strongly recommend connecting external versions for production use:
 
-    We strongly recommend NOT using the embedded MySQL and MinIO instances in production.
-    See the [Connect an External MySQL](./external/mysql.md#connect-an-external-mysql) and [Connect an External Object Store](./external/object-store.md#connect-an-external-object-store) guides for more information.
-
-### __Modes of Operation__
-
-There are two ways to use deployKF which we call _"modes of operation"_.
-These modes change how the Kubernetes manifests are generated and applied to your cluster.
-Learn more on the [modes of operation](./modes.md) page.
-
-[Topic: Modes of Operation](./modes.md){ .md-button .md-button--secondary }
-
-!!! tip "Recommended _Mode of Operation_"
-
-    For most users, we recommend the __ArgoCD Plugin Mode__.
+    - [Connect External __MySQL__](./external/mysql.md#connect-an-external-mysql)
+    - [Connect External __Object Store__](./external/object-store.md#connect-an-external-object-store)
 
 ---
 
 ## 3. Deploy the Platform
 
-To deploy the platform, you will need to create [ArgoCD `Applications`](./dependencies/argocd.md#argo-cd-applications), and then sync them.
-
 ### __:star: Create ArgoCD Applications :star:__
 
 deployKF [uses ArgoCD](./dependencies/argocd.md#how-does-deploykf-use-argo-cd) to manage the deployment of the platform.
-
-The process to create the ArgoCD `Applications` will depend on which [mode of operation](#modes-of-operation) you have chosen.
-For most users, we recommend using __ArgoCD Plugin Mode__.
+The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-cd-applications) will depend on which [mode of operation](modes.md) you have chosen.
 
 === ":star: ArgoCD Plugin Mode :star:"
 
@@ -358,14 +352,9 @@ For most users, we recommend using __ArgoCD Plugin Mode__.
     !!! step "Step 3 - Configure Values"
 
         deployKF is configured by [centralized values](./values.md) which define the desired state of the platform:
-  
-          - Learn about common configuration tasks in the [:star: __Configure deployKF__ :star:](./configs.md) guide.
-          - If you use an ArgoCD "management cluster" pattern, see the [off-cluster ArgoCD](./dependencies/argocd.md#can-i-use-an-off-cluster-argocd) guide.
 
-        ---
-
-        Each version of deployKF has [sample values](./values.md#sample-values) with all supported [ML & Data tools](../reference/tools.md#tool-index) enabled, along with some sensible security defaults.
-        We recommend using these samples as a base for your custom values.
+        - Learn about common configuration tasks in the [:star: __Configure deployKF__ :star:](./configs.md) guide.
+        - If you use an ArgoCD "management cluster" pattern, see the [off-cluster ArgoCD](./dependencies/argocd.md#can-i-use-an-off-cluster-argocd) guide.
 
         ---
 
@@ -373,6 +362,21 @@ For most users, we recommend using __ArgoCD Plugin Mode__.
 
         1. Within the `app-of-apps` YAML itself, using the `values` plugin parameter.
         2. From files in the `repoURL` git repository, using the `values_files` plugin parameter.
+
+        ---
+
+        Each version of deployKF has [sample values](./values.md#sample-values) with all supported [ML & Data tools](../reference/tools.md#tool-index) enabled, along with some sensible security defaults.
+        We recommend using these samples as a base for your custom values.
+
+        If you want to version your values files in git, you may update the `spec.source.repoURL` of your app-of-apps to any repo you have access to.
+        You will need to push the upstream `sample-values.yaml` file to your repo.
+        The following command will download the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file for deployKF `{{ latest_deploykf_version }}`:
+
+        ```bash
+        # download the `sample-values.yaml` file
+        curl -fL -o "sample-values-{{ latest_deploykf_version }}.yaml" \
+          "https://raw.githubusercontent.com/deployKF/deployKF/v{{ latest_deploykf_version }}/sample-values.yaml"
+        ```
 
     !!! step "Step 4 - Apply App-of-Apps Resource"
 
@@ -552,9 +556,9 @@ For most users, we recommend using __ArgoCD Plugin Mode__.
 
     !!! step "Step 5 - Generate Manifests"
 
-        The `deploykf generate` command writes generated manifests into a folder, using one or more [values files](#about-values).
+        The `deploykf generate` command writes generated manifests into a folder, using one or more values files.
 
-        The following command will use deployKF `{{ latest_deploykf_version }}` to generate manifests under `./GENERATOR_OUTPUT/`:
+        The following command will use [deployKF version](#deploykf-versions) `{{ latest_deploykf_version }}` to generate manifests under `./GENERATOR_OUTPUT/`:
     
         ```shell
         deploykf generate \
@@ -601,9 +605,12 @@ For most users, we recommend using __ArgoCD Plugin Mode__.
 Now that your deployKF app-of-apps has been applied, you must sync the ArgoCD applications to deploy your platform.
 Syncing an application will cause ArgoCD to reconcile the actual state in the cluster, to match the state defined by the application resource.
 
-!!! warning "Sync Order"
+!!! danger
 
-    The deployKF applications depend on each other, so you MUST sync them in the correct order to avoid errors.
+    __DO NOT__ sync all the `Applications` at once!!!
+
+    The deployKF `Applications` depend on each other, they MUST be synced in the correct order to avoid errors.
+    If you manually sync them all, you may need to [uninstall](./uninstall.md) and start over.
 
 There are a few ways to sync the applications, you only need to use ONE of them.
 We recommend using the __automated sync script__.

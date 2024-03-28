@@ -1,0 +1,9 @@
+{% extends "main.html" %}
+
+{% block content %}
+<!-- NOTE: the following styles are only applied to this page, and will be correctly unloaded on instant navigation.
+           we set styles on single line because our minification does not work with inline css -->
+<!-- We want to set a background image. -->
+<style>@media screen and (min-width: 60em) { body { background-image: url("/assets/images/moving-firefly-wide.svg"); } } @media screen and (max-width: 60em) { body { background-image: url("/assets/images/moving-firefly-tall.svg"); } }</style>
+<h1>404 - Not found</h1>
+{% endblock %}

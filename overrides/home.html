@@ -10,9 +10,13 @@
 {% endblock %}
 
 {% block container %}
-<!-- Just for the homepage, we want the md-main to cover the whole screen. -->
-<!-- The style is on a single line because our minification does not work with inline css. -->
+<!-- NOTE: the following styles are only applied to this page, and will be correctly unloaded on instant navigation.
+           we set styles on single line because our minification does not work with inline css -->
+<!-- We want to set a background image. -->
+<style>@media screen and (min-width: 60em) { body { background-image: url("/assets/images/moving-firefly-wide.svg"); } } @media screen and (max-width: 60em) { body { background-image: url("/assets/images/moving-firefly-tall.svg"); } }</style>
+<!-- We want the md-main to cover the whole screen. -->
 <style>.md-main { display: flex; flex-direction: column; } .md-main__inner { display: flex; flex-direction: column; flex-grow: 1; margin-top: 0 !important; width: 100%; max-width: none;}</style>
+
 <div class="mdx-container">
 
   <!-- Homepage Hero -->
@@ -54,7 +58,7 @@
         <!-- Action Buttons -->
         <div class="mdx-hero__actions">
           <div class="mdx-hero__button-wrapper">
-            <a href="{{ 'guides/getting-started/' | url }}" title="Getting Started" class="md-button md-button--primary md-button--primary-left">
+            <a href="{{ 'guides/getting-started/' | url }}" title="Getting Started" class="md-button md-button--primary md-button--primary-right">
             Get Started
             <br>
             <span class="twemoji mdx-button-icon">
@@ -127,6 +131,13 @@
               <div class="mdx-hero__card_content_paragraph">
                 Our goal is that <em><strong>any Kubernetes user</strong></em> can build a machine learning platform for their organization,
                 without needing specialized MLOps knowledge, or a team of experts to maintain it.
+              </div>
+              <div class="mdx-hero__card_action_buttons">
+                <div class="mdx-hero__button-wrapper">
+                  <a href="{{ 'about/introduction/#why-use-deploykf' | url }}" title="Introduction" class="md-button md-button--primary">
+                    Learn More
+                  </a>
+                </div>
               </div>
             </div>
           </div>
