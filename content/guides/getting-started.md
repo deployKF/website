@@ -3,6 +3,9 @@ icon: material/rocket-launch
 description: >-
   Learn how to use deployKF in production.
   Easily deploy Kubeflow and other MLOps tools as a complete platform!
+  
+search:
+  boost: 2
 ---
 
 # Getting Started

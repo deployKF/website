@@ -2,6 +2,9 @@
 icon: material/delete
 description: >-
   Learn how to uninstall deployKF.
+
+search:
+  boost: 1.5
 ---
 
 # Uninstall

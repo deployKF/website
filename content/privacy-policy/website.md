@@ -5,6 +5,9 @@ description: >-
 hide:
   - feedback
   - navigation
+
+search:
+  exclude: true
 ---
 
 # Website Privacy Policy

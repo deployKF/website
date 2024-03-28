@@ -1,12 +1,15 @@
 ---
 icon: material/arrow-up-circle
 description: >-
-  Learn how to upgrade your deployKF version and values.
+  Learn how to upgrade your deployKF version and update values.
+
+search:
+  boost: 2
 ---
 
 # Upgrading
 
-Learn how to upgrade your deployKF version and values.
+Learn how to upgrade your deployKF version and update values.
 
 ---
 
