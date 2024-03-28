@@ -15,12 +15,12 @@ Easily deploy the [best of Kubeflow](../reference/tools.md#kubeflow-ecosystem) a
 
 ## Introduction
 
-This page is about using deployKF in production, it will cover the [requirements](#1-requirements), [configuration options](#2-platform-configuration), [deployment process](#3-deploy-the-platform), and [basic usage](#4-use-the-platform) of the platform.
+This page is about using deployKF in production, it will cover the requirements, configuration options, deployment process, and basic usage of the platform.
 
-We recommend __new users__ start by reading the [introduction](../about/introduction.md#why-use-deploykf) and trying a [local deployment](./local-quickstart.md#introduction):
+We suggest new users start with the __About deployKF__ and __Local Quickstart__ pages:
 
-[Introduction<br><small>About deployKF</small>](../about/introduction.md#why-use-deploykf){ .md-button .md-button--secondary }
-[Try Locally<br><small>Local Quickstart</small>](./local-quickstart.md#introduction){ .md-button .md-button--secondary }
+[About deployKF<br><small>(Introduction)</small>](../about/introduction.md#about-deploykf){ .md-button .md-button--secondary }
+[Local Quickstart<br><small>(Try Locally)</small>](./local-quickstart.md){ .md-button .md-button--secondary }
 
 !!! value ""
 
