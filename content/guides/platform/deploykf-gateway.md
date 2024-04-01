@@ -37,14 +37,19 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
 
 ??? step "Step 1 - Modify Hosts"
     
-    The _deployKF Istio Gateway_ uses the HTTP `Host` header to route requests to the correct internal service.
-    This means that using `localhost` or `127.0.0.1` will NOT work.
+    You can NOT access the gateway using an IP address or `localhost`, you MUST use your [configured hostname](#base-domain-and-ports) (defaults to `deploykf.example.com`).
+    This is because deployKF hosts multiple services on the same IP address using [virtual hostname routing](https://en.wikipedia.org/wiki/Virtual_hosting#Name-based).
 
-    We must add a host entry so that `deploykf.example.com` resolves to `127.0.0.1`:
+    The `kubectl port-forward` command creates a tunnel from your local machine to the Kubernetes cluster.
+    You may modify the [hosts file](https://en.wikipedia.org/wiki/Hosts_(file)) on your local machine so that the hostnames resolve to `127.0.0.1` (the local loopback address).
     
+    !!! info "Local Machine"
+    
+        Edit the hosts file on your __local machine__ (where you run your web browser), NOT the Kubernetes cluster itself.
+
     === "macOS"
     
-        You will need to add the following lines to the END of your __local__ `/etc/hosts` file:
+        Add the following lines to the END of your `/etc/hosts` file:
     
         ```text
         127.0.0.1 deploykf.example.com
@@ -55,7 +60,7 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
     
     === "Linux"
     
-        You will need to add the following lines to the END of your __local__ `/etc/hosts` file:
+        Add the following lines to the END of your `/etc/hosts` file:
     
         ```text
         127.0.0.1 deploykf.example.com
@@ -66,7 +71,7 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
     
     === "Windows"
     
-        You will need to add the following lines to the END of your `C:\Windows\System32\drivers\etc\hosts` file:
+        Add the following lines to the END of your `C:\Windows\System32\drivers\etc\hosts` file:
     
         ```text
         127.0.0.1 deploykf.example.com
@@ -175,6 +180,41 @@ How you configure a LoadBalancer Service will depend on the platform you are usi
           ## for static IP addresses
           #loadBalancerIP: "192.168.XXX.XXX"
           #loadBalancerSourceRanges: ["192.168.XXX.XXX/32"]
+
+          ## the ports the gateway Service listens on
+          ##  - defaults to the corresponding port under `gateway.ports`
+          ##  - these are the "public" ports which clients will connect to
+          ##    (they impact the user-facing HTTP links)
+          ##
+          ports:
+            http: 80
+            https: 443
+    ```
+
+??? config "MetalLB"
+
+    [MetalLB](https://metallb.universe.tf/) is a popular LoadBalancer implementation for bare-metal Kubernetes clusters.
+
+    For example, you might set the following values to use MetalLB:
+
+    ```yaml
+    deploykf_core:
+      deploykf_istio_gateway:
+
+        ## these values configure the deployKF Gateway Service
+        ##
+        gatewayService:
+          name: "deploykf-gateway"
+          type: "LoadBalancer"
+          annotations:
+            ## for static IP addresses (specific IP)
+            metallb.universe.tf/loadBalancerIPs: 192.168.XXX.XXX
+
+            ## for static IP addresses (from IP pool)
+            #metallb.universe.tf/address-pool: my-pool-XXX
+
+            ## for external-dns integration (if not `--source=istio-gateway` config)
+            #external-dns.alpha.kubernetes.io/hostname: "deploykf.example.com, *.deploykf.example.com"
 
           ## the ports the gateway Service listens on
           ##  - defaults to the corresponding port under `gateway.ports`
@@ -674,11 +714,11 @@ deployKF uses [:custom-cert-manager-color: __cert-manager__](../dependencies/cer
 
 ### __:star: Use Let's Encrypt with Cert-Manager :star:__
 
-By default, we use a self-signed certificate for the deployKF Gateway.
-Therefore, if you are not using an external proxy to terminate TLS (like AWS ALB), you will likely want to configure a valid TLS certificate for the deployKF Gateway.
+By default, the deployKF Gateway will use a self-signed certificate.
+Therefore, if you are not using an [external proxy to terminate TLS](#terminate-tls-before-the-gateway), you will likely want to configure a valid TLS certificate for the gateway itself.
 
 For almost everyone, the best Certificate Authority (CA) is [Let's Encrypt](https://letsencrypt.org/).
-The following steps explain how to use Let's Encrypt with cert-manager to generate a valid TLS certificate for the deployKF Gateway.
+The following steps show how to use Let's Encrypt to generate valid TLS certificates for the Gateway.
 
 ??? step "Step 1 - Connect Cert-Manager to DNS Provider"
 
@@ -777,9 +817,68 @@ The following steps explain how to use Let's Encrypt with cert-manager to genera
           issuerName: "my-cluster-issuer"
     ```
 
-### __Terminate TLS with an External Proxy__
+### __Use a Custom Certificate__
 
-If you place a proxy in front of the deployKF Gateway that terminates TLS (like AWS ALB), you may not need to configure a valid TLS certificate for the deployKF Gateway.
+If you already have a valid TLS certificate for your domain, and don't want to configure cert-manager, you will need to [use an Ingress](#use-a-kubernetes-ingress) to terminate TLS before the Gateway using your certificate.
+
+Please note, not all Ingress controllers support reading a Kubernetes Secret for TLS termination, so this process may vary depending on your platform.
+
+??? step "Step 1 - Create Kubernetes Secret"
+
+    First, you will need to create a Kubernetes Secret containing your TLS certificate and key.
+
+    The following command will create a Secret named `my-tls-secret` in the `deploykf-istio-gateway` Namespace:
+
+    ```shell
+    kubectl create secret tls "my-tls-secret" \
+      --cert /path/to/tls.crt \
+      --key /path/to/tls.key \
+      --namespace "deploykf-istio-gateway"
+    ```
+
+??? step "Step 2 - Configure the Ingress"
+
+    Next, you will need to configure your Ingress resource to use the `my-tls-secret` Secret for TLS termination.
+
+    For example, your Ingress resource will probably look something like this:
+
+    ```yaml
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: deploykf-gateway
+      namespace: deploykf-istio-gateway
+      annotations:
+        ...
+        ...
+    spec:
+      ingressClassName: XXXXXX
+
+      tls:
+        ## this tells the Ingress to use `my-tls-secret` for TLS termination
+        - secretName: "my-tls-secret"
+
+        ## NOTE: some Ingress controllers allow multiple certificates to be specified
+        ##       for different hostnames
+        #- secretName: "other-tls-secret"
+        #  hosts:
+        #    - "deploykf.example.com"
+        #    - "argo-server.deploykf.example.com"
+        #    - "minio-api.deploykf.example.com"
+        #    - "minio-console.deploykf.example.com"
+
+      rules:
+        ...
+        ...
+    ```
+
+### __Terminate TLS before the Gateway__
+
+It is common to terminate TLS at a proxy in front of the deployKF Gateway.
+For example, you might be using an [Ingress](#use-a-kubernetes-ingress) to expose the deployKF Gateway Service (like AWS ALB), or have a proxy like [Cloudflare](https://www.cloudflare.com/) in front of your cluster.
+
+In both of these cases it may be unnecessary to configure a valid TLS certificate for the deployKF Gateway.
+Because, off-cluster clients will see the certificate of the proxy, not the Gateway itself.
 
 !!! warning "In-Mesh Traffic to Gateway"
 
