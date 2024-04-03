@@ -823,7 +823,35 @@ If you already have a valid TLS certificate for your domain, and don't want to c
 
 Please note, not all Ingress controllers support reading a Kubernetes Secret for TLS termination, so this process may vary depending on your platform.
 
-??? step "Step 1 - Create Kubernetes Secret"
+??? step "Step 1 - Get your TLS Certificate"
+
+    Create a [wildcard certificate](https://en.wikipedia.org/wiki/Wildcard_certificate) with the following fields,
+    replacing `deploykf.example.com` with the [base domain](#base-domain-and-ports) you have configured.
+    
+    Field | Value
+    --- | ---
+    Common Name (CN) | `*.deploykf.example.com`
+    Subject Alternative Name (SAN) | DNS Name: `*.deploykf.example.com`<br>DNS Name: `deploykf.example.com`
+
+    You will need the `.crt` and `.key` files for your TLS certificate.
+
+    The `.crt` file should contain the public certificate in PEM format, it should look something like this:
+
+    ```text
+    -----BEGIN CERTIFICATE-----
+    ...
+    -----END CERTIFICATE-----
+    ```
+
+    The `.key` file should contain the private signing key in PEM format, it should look something like this:
+
+    ```text
+    -----BEGIN RSA PRIVATE KEY-----
+    ...
+    -----END RSA PRIVATE KEY-----
+    ```
+
+??? step "Step 2 - Create Kubernetes Secret"
 
     First, you will need to create a Kubernetes Secret containing your TLS certificate and key.
 
@@ -836,7 +864,7 @@ Please note, not all Ingress controllers support reading a Kubernetes Secret for
       --namespace "deploykf-istio-gateway"
     ```
 
-??? step "Step 2 - Configure the Ingress"
+??? step "Step 3 - Configure the Ingress"
 
     Next, you will need to configure your Ingress resource to use the `my-tls-secret` Secret for TLS termination.
 
@@ -862,10 +890,8 @@ Please note, not all Ingress controllers support reading a Kubernetes Secret for
         ##       for different hostnames
         #- secretName: "other-tls-secret"
         #  hosts:
+        #    - "*.deploykf.example.com"
         #    - "deploykf.example.com"
-        #    - "argo-server.deploykf.example.com"
-        #    - "minio-api.deploykf.example.com"
-        #    - "minio-console.deploykf.example.com"
 
       rules:
         ...
