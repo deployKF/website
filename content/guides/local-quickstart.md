@@ -242,7 +242,7 @@ K3s is an extremely lightweight Kubernetes distribution that is fully compliant 
         kubectl get -A pods
         ```
     
-        The list of pods will look similar to this (see the `STATUS` column):
+        Wait for the list of pods to look like this (`STATUS` column is `Running` or `Completed`):
     
         ```text
         NAMESPACE    NAME                                      READY   STATUS      RESTARTS         AGE
@@ -385,9 +385,24 @@ This allows us to define the platform using a single app-of-apps which only need
     
 !!! step "Step 3 - Wait for ArgoCD to be Ready"
 
-    After the script completes, wait for all pods in the `argocd` Namespace to be in a `Running` state.
+    After the script completes, wait for all pods in the `argocd` Namespace to be in a `Running` state:
+    
+    ```bash
+    kubectl get --namespace argocd pods
+    ```
 
-    See how to do this with `k9s` or `kubectl` in the [previous section](#2-prepare-kubernetes).
+    Wait for the list of pods to look like this (`STATUS` column is `Running`):
+
+    ```text
+    NAME                                                READY   STATUS    RESTARTS   AGE
+    argocd-notifications-controller-c4bb67f9d-vbntb     1/1     Running   0          4m52s
+    argocd-applicationset-controller-769d968b56-p822z   1/1     Running   0          4m52s
+    argocd-redis-859479cd85-6l7nk                       1/1     Running   0          4m51s
+    argocd-dex-server-6b7ddc68db-kb2x5                  1/1     Running   0          4m52s
+    argocd-server-558686d846-5wmn6                      1/1     Running   0          4m52s
+    argocd-application-controller-0                     1/1     Running   0          4m52s
+    argocd-repo-server-bf7c47686-dd6w5                  2/2     Running   0          4m52s
+    ```
 
 ## 4. Create ArgoCD Applications
 
