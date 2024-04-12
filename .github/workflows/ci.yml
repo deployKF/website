@@ -9,22 +9,27 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ## all history is needed for `mkdocs-git-revision-date-localized-plugin`
           fetch-depth: 0
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: 3.11
           cache: "pip"
 
       - run: pip install -r ./requirements.txt
 
-      - uses: actions/cache@v2
+      ## refresh the cache daily
+      - run: echo "cache_id=$(date --utc '+%F')" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
         with:
-          key: ${{ github.ref }}
+          key: mkdocs-material-${{ env.cache_id }}
           path: .cache
+          restore-keys: |
+            mkdocs-material-
 
       - run: mkdocs gh-deploy --force
         env:
