@@ -172,12 +172,13 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
 
     !!! step "Step 1 - Install the ArgoCD Plugin"
 
-        Your ArgoCD instance must have the _deployKF ArgoCD plugin_ installed.
+        Your ArgoCD must have the [_deployKF ArgoCD Plugin_](./dependencies/argocd.md#what-is-the-deploykf-argocd-plugin).
 
-        Depending on your situation, you may either:
+        Depending on your situation, there are different ways to install the plugin:
 
-        - [Add the deployKF plugin to an existing ArgoCD](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---existing-argocd)
-        - [Install a new ArgoCD (with the deployKF plugin pre-installed)](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#install-plugin---new-argocd)
+        - [New ArgoCD](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#new-argocd)
+        - [Existing ArgoCD (Deployed with Helm)](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#existing-argocd---helm)
+        - [Existing ArgoCD (Deployed with Kustomize)](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#existing-argocd---kustomize)
 
     !!! step "Step 2 - Define an App-of-Apps"
 
