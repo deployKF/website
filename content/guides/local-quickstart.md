@@ -774,17 +774,6 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
 
     There are a few default credentials set in the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L469-L492) value:
 
-    ??? key "Credentials: Admin"
-
-        __Username:__ `admin@example.com`
-        <br>
-        __Password:__ `admin`
-
-        - This account is the [default "owner"](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L688-L694) of all profiles.
-        - This account does NOT have access to "MinIO Console" or "Argo Server UI".
-        - We recommend NOT using this account, and actually removing its [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396).
-        - We recommend leaving this account as the default "owner", even with `@example.com` as the domain (because profile owners can't be changed).
-    
     ??? key "Credentials: User 1"
 
         __Username:__ `user1@example.com`
@@ -802,6 +791,17 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
 
         - This account has [write access to `team-1` profile](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L830-L833).
         - This account has [read access to `team-1-prod`](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L837-L840).
+
+    ??? key "Credentials: Admin <small>(DO NOT USE - will be removed in future versions)</small>"
+
+        __Username:__ `admin@example.com`
+        <br>
+        __Password:__ `admin`
+
+        - This account is the [default "owner"](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L688-L694) of all profiles.
+        - This account does NOT have access to "MinIO Console" or "Argo Server UI".
+        - We recommend NOT using this account, and actually removing its [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396).
+        - We recommend leaving this account as the default "owner", even with `@example.com` as the domain (because profile owners can't be changed).
 
 ## Next Steps
 

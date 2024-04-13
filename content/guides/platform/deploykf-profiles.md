@@ -17,7 +17,7 @@ Learn how to __manage profiles__ and __assign users__ to them in deployKF.
 
 ## Introduction
 
-A deployKF profile has a 1:1 relationship with a Kubernetes namespace.
+A deployKF __profile__ has a 1:1 relationship with a Kubernetes __namespace__.
 The profiles which users are members of determine their level of access to resources/tools in the cluster.
 
 The core entities of the profile system are:
@@ -30,18 +30,19 @@ Entity<br><small>(Click for Details)</small> | Description
 
 !!! info "No Profile = No Access"
 
-    If a user is not a member of any profiles, they will NOT have any access, even though they may be able to log in.
-
-!!! warning "Use Profile Generator Only"
-
-    You must ONLY use the `deploykf_core.deploykf_profiles_generator` values to manage profile definitions or user assignments.
-    Any manual changes using the UI or other manifests will result in undefined behaviour.
+    If a [user](#user-entities) is not a member of any [profiles](#profile-definitions), they will NOT have any access, even though they may be able to log in.
 
 ---
 
 ## User Entities
 
-The [`deploykf_core.deploykf_profiles_generator.users`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L776-L786) value defines "user" entities.
+The [`deploykf_core.deploykf_profiles_generator.users`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L945-L955) value defines "user" entities.
+
+!!! warning "Email Address"
+
+    Users are identified by the __email address__ which is provided by the [identity provider](./deploykf-authentication.md#external-identity-providers) or [static account](./deploykf-authentication.md#static-userpassword-combinations).
+
+    This means that each `email` must be unique and only associated to a single `id`.
 
 For example, you might use the following values to define three users:
 
@@ -59,15 +60,16 @@ deploykf_core:
         email: "user3@example.com"
 ```
 
-!!! info "User Identifiers"
-
-    Users are identified by email address, which is provided from the identity provider or static accounts, this means that each `email` must be unique.
-
 ---
 
 ## Group Entities
 
-The [`deploykf_core.deploykf_profiles_generator.groups`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L788-L798) value defines "group" entities, which are __logical__ collections of "user" entities.
+The [`deploykf_core.deploykf_profiles_generator.groups`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L957-L967) value defines "group" entities, which are __logical__ collections of "user" entities.
+
+!!! warning "Groups from Identity Providers"
+
+    Currently, deployKF can NOT use any groups sent by your [external identity provider](./deploykf-authentication.md#external-identity-providers).
+    You must manually define the groups and their members in the `deploykf_profiles_generator` values.
 
 For example, you might use the following values to define two groups:
 
@@ -86,15 +88,21 @@ deploykf_core:
           - user-3
 ```
 
-!!! warning "Syncing External Groups"
-
-    Currently, groups must be __manually defined__ in the values, and can NOT be synced from an external identity provider.
 
 ---
 
 ## Profile Definitions
 
-The [`deploykf_core.deploykf_profiles_generator.profiles`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L800-L839) value defines the profiles (namespaces) to create, and the groups/users to assign to them.
+The [`deploykf_core.deploykf_profiles_generator.profiles`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L969-L1008) value defines the profiles (namespaces) to create, and the groups/users to assign to them.
+
+!!! info "Highest Level of Access"
+
+    If a user has multiple memberships in the same profile, the highest level of access will be used.
+
+!!! warning "Use Profile Generator Only"
+
+    You must ONLY use the `deploykf_core.deploykf_profiles_generator` values to manage profile definitions or user assignments.
+    Any manual changes using the UI or other manifests will result in undefined behaviour.
 
 For example, you might use the following values to define two profiles:
 
@@ -122,17 +130,14 @@ deploykf_core:
               notebooksAccess: false
 ```
 
-!!! info "Highest Level of Access"
-
-    If a user has multiple memberships in the same profile, the highest level of access will be used.
-
-!!! danger "Default Profile Owner"
+!!! danger "Profile Owners"
     
-    By default, [`"admin@example.com"` is the "owner" of all profiles](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L687-L693), but is not a "member" of any.
-    This means that it does not have access to the "MinIO Console" or "Argo Workflows Server" interfaces.
+    DO NOT set or change the owner of any profile:
 
-    ---
+    - It is NEVER nessasary to be an owner of a profile, being an owner grants no useful permissions and actually prevents you from accessing the MinIO and Argo Server UIs.
+    - It is NOT possible to change the owner of a profile once it is created ([`kubeflow/kubeflow#6576`](https://github.com/kubeflow/kubeflow/issues/6576)).
+    - By default, [`"admin@example.com"`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L852-L858) is the "owner" of all profiles, we recommend that you leave the default owner as `admin@example.com`.
 
-    Because it is NOT possible to change the owner of a profile ([`kubeflow/kubeflow#6576`](https://github.com/kubeflow/kubeflow/issues/6576)), we recommend that you leave the default owner as `admin@example.com`, and never log into that account.
-
-    For additional security, remove the `staticPasswords` entry for that email, so it can never be used to log in.
+    In a future release, any email which is the owner of a profile will be __blocked from logging in__.
+    <br>
+    Until then, we reccomend you remove the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L469-L492) entry for `"admin@example.com"`, so it can never be used to log in.

@@ -222,42 +222,50 @@ Fully Custom | You | You  | Always by deployKF
 
 If you already have an Istio installation, you may use it instead of the deployKF-managed one.
 
-deployKF uses an unmodified version of Istio with a few non-default mesh configs.
-See the [version matrix](../../releases/version-matrix.md#deploykf-dependencies) for information about which versions of Istio are supported by deployKF.
+See the [version matrix](../../releases/version-matrix.md#deploykf-dependencies) for which versions of Istio are supported by deployKF.
 
-!!! danger "Namespace Injection"
+!!! step "Step 1 - Disable embedded Istio"
 
-    Ensure that your Istio installation does NOT have [`sidecarInjectorWebhook.enableNamespacesByDefault`](https://istio.io/latest/docs/setup/additional-setup/sidecar-injection/#controlling-the-injection-policy) set to `true` (note, [the Istio Helm Chart defaults to `false`](https://github.com/istio/istio/blob/1.19.6/manifests/charts/istio-control/istio-discovery/values.yaml#L101-L104)).
+    Disable the embedded Istio installation by setting the [`deploykf_dependencies.istio.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L194) value to `false`:
+    
+    ```yaml
+    deploykf_dependencies:
+      istio:
+        enabled: false
+    ```
 
-First, disable the embedded Istio installation by setting the [`deploykf_dependencies.istio.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L194) value to `false`:
+!!! step "Step 2 - Configure your Istio"
 
-```yaml
-deploykf_dependencies:
-  istio:
-    enabled: false
-```
+    deployKF requires some non-default [mesh configs](https://istio.io/latest/docs/reference/config/istio.mesh.v1alpha1) which you MUST set in your Istio installation:
 
-Second, there are a number of [mesh configs](https://istio.io/latest/docs/reference/config/istio.mesh.v1alpha1/) which you MUST set in your Istio installation to ensure compatibility with deployKF:
+    Mesh Config | Value | Purpose
+    --- | --- | ---
+    `defaultConfig.holdApplicationUntilProxyStarts` | `true` | Ensures the Istio sidecar is fully initialized before application containers start. Prevents race-conditions where application containers start before the sidecar is ready.
+    `defaultConfig.proxyMetadata` | `{ "ISTIO_META_DNS_AUTO_ALLOCATE": "true", "ISTIO_META_DNS_CAPTURE": "true" }` | Enable [DNS Proxying](https://istio.io/latest/docs/ops/configuration/traffic-management/dns-proxy/), which deployKF requires.
 
-Mesh Config | Value | Purpose
---- | --- | ---
-`defaultConfig.holdApplicationUntilProxyStarts` | `true` | Ensures the Istio sidecar is fully initialized before application containers start. Prevents race-conditions where application containers start before the sidecar is ready.
-`defaultConfig.proxyMetadata` | `{"ISTIO_META_DNS_AUTO_ALLOCATE": "true", "ISTIO_META_DNS_CAPTURE": "true"}` | Enable [DNS Proxying](https://istio.io/latest/docs/ops/configuration/traffic-management/dns-proxy/), which deployKF requires.
+    !!! danger "Default Namespace Injection"
+    
+        Ensure you do NOT have [`sidecarInjectorWebhook.enableNamespacesByDefault`](https://istio.io/latest/docs/setup/additional-setup/sidecar-injection/#controlling-the-injection-policy) set to `true`.
+        <br>
+        (In the Istio Helm Chart this [defaults to `false`](https://github.com/istio/istio/blob/1.19.6/manifests/charts/istio-control/istio-discovery/values.yaml#L101-L104), but you should check to be sure).
 
-For example, if you are using the [Istio Helm Chart](https://github.com/istio/istio/tree/1.19.6/manifests/charts/istio-control/istio-discovery) to install Istio, you may set these Helm values:
+    For example, if you are using the [Istio Helm Chart](https://github.com/istio/istio/tree/1.19.6/manifests/charts/istio-control/istio-discovery) to install Istio, you may set these Helm values:
+    
+    ```yaml
+    meshConfig:
+      defaultConfig:
+        holdApplicationUntilProxyStarts: true
+        proxyMetadata:
+          ISTIO_META_DNS_AUTO_ALLOCATE: "true"
+          ISTIO_META_DNS_CAPTURE: "true"
 
-```yaml
-meshConfig:
-  defaultConfig:
-    holdApplicationUntilProxyStarts: true
-    proxyMetadata:
-      ISTIO_META_DNS_AUTO_ALLOCATE: "true"
-      ISTIO_META_DNS_CAPTURE: "true"
-```
+    sidecarInjectorWebhook:
+      enableNamespacesByDefault: false
+    ```
 
 !!! warning "Gateway Version Alignment"
 
-    If you are not also bringing [your own gateway deployment](#use-an-existing-gateway-deployment), you MUST ensure that the deployKF-managed gateway matches your Istio version.
+    If you are NOT also bringing [your own gateway deployment](#use-an-existing-gateway-deployment), you MUST ensure that the deployKF-managed gateway matches your Istio version.
     The [`deploykf_core.deploykf_istio_gateway.charts.istioGateway.version`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L699) value sets the version of the embedded gateway deployment.
 
     For example, the following deployKF values will deploy a gateway for Istio `1.19.6`:
@@ -274,90 +282,135 @@ meshConfig:
 
 ### __Use an existing gateway deployment__
 
-If you already have an Istio [gateway deployment](#gateways), you can use it instead of the deployKF-managed one.
-The minimum configuration is to create a gateway `Deployment` and an associated `Service` pointing to those Pods.
+If you have an existing Istio [gateway deployment](#gateways), you can use it instead of the deployKF-managed one.
 
-!!! danger "Dedicated Gateway Deployment"
+??? warning "Limitations in deployKF `0.1.3` and earlier"
 
-    In deployKF `0.1.3` and earlier, you MUST use a dedicated gateway deployment for deployKF.
-    This is because these versions apply [deployKF Authentication](../platform/deploykf-authentication.md) to all paths by default, so would block access to other services exposed on the gateway.
-    This limitation was removed in deployKF `0.1.4` (see: [`PR #66`](https://github.com/deployKF/deployKF/pull/66)).
+    In deployKF `0.1.3` and earlier, you MUST use a DEDICATED gateway deployment for deployKF.
+    That is, you can't expose non-deployKF services on the same gateway deployment as deployKF.
 
-First, disable the embedded gateway deployment by setting the [`deploykf_core.deploykf_istio_gateway.charts.istioGateway.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L696) value to `false`:
+    This limitation was [removed in deployKF `0.1.4`](https://github.com/deployKF/deployKF/pull/66).
 
-```yaml
-deploykf_core:
-  deploykf_istio_gateway:
-    charts:
-      istioGateway:
-        enabled: false
-```
+!!! step "Step 1 - Disable embedded Gateway Deployment"
 
-Ensure your gateway deployment pods have unique labels which can be used to select them, then update [`deploykf_core.deploykf_istio_gateway.gateway.selectorLabels`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L760-L764) to match those labels:
+    Disable the embedded gateway deployment by setting the [`deploykf_core.deploykf_istio_gateway.charts.istioGateway.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L696) value to `false`:
+    
+    ```yaml
+    deploykf_core:
+      deploykf_istio_gateway:
+        charts:
+          istioGateway:
+            enabled: false
+    ```
 
-```yaml
-deploykf_core:
-  deploykf_istio_gateway:
-    gateway:
-      selectorLabels:
-        app: my-gateway-deployment
-        istio: my-gateway-deployment
-```
+!!! step "Step 2 - Configure deployKF to use your Gateway Deployment"
 
-The ports which the gateway will listen on for each protocol are defined by the [`deploykf_core.deploykf_istio_gateway.gateway.ports`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L715-L724) values:
+    You must set the following deployKF values to match your existing gateway deployment:
 
-```yaml
-deploykf_core:
-  deploykf_istio_gateway:
-    gateway:
-      ## TIPS:
-      ##  - these are the "internal" ports which the gateway use, and can be different
-      ##    to the user-facing ports which the service listens on, see `gatewayService.ports`
-      ##  - if you have other Gateway resources which select this gateway deployment,
-      ##    they must use different server ports to avoid conflicts
-      ##  - when exposing a shared gateway deployment behind a single Ingress, you may need to
-      ##    use host-based routing to ensure that traffic is routed to the correct gateway port
-      ports:
-        http: 80
-        https: 443
-```
+    - [`deploykf_core.deploykf_istio_gateway.namespace`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L673)
+    - [`deploykf_core.deploykf_istio_gateway.gateway.ports`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L715-L724)
+    - [`deploykf_core.deploykf_istio_gateway.gateway.selectorLabels`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L760-L764)
+    - [`deploykf_core.deploykf_istio_gateway.gatewayDeployment.serviceAccount.name`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L794)
+    - [`deploykf_core.deploykf_istio_gateway.gatewayService.ports`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L814-L823) (depending on your setup)
 
-If clients will connect over different ports, you can set the [`deploykf_core.deploykf_istio_gateway.gatewayService.ports`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L814-L823) value to match your `Service` ports:
-
-```yaml
-deploykf_core:
-  deploykf_istio_gateway:
-    gatewayService:
-      ## TIPS:
-      ##  - if unset, they default to their corresponding port under `gateway.ports`
-      ##  - these are the "public" ports which clients are expected to connect to,
-      ##    and can be different to the "internal" ports defined in `gateway.ports`
-      ##  - when using your own gateway service, these values still affect the ports 
-      ##    presented in user-facing HTTP links
-      ports:
-        http: ~
-        https: ~
-```
-
-!!! info "Service Health Checks"
-
-    Many LoadBalancer Service implementations check the health of the service before allowing traffic to flow (e.g. AWS NLB/ALB), and will send health-check requests to one or more ports on the Service.
-
-    Istio gateway Pods will always return a [`200 OK` response on port `15021`, under the `/healthz/ready` HTTP path](https://istio.io/latest/docs/ops/deployment/requirements/#ports-used-by-istio) for this purpose.
-    So if you are using a custom LoadBalancer Service, you may need to expose the `15021` port on the Service, and configure the health-check path to `/healthz/ready`.
-
-!!! info "TLS Termination and SNI"
-
-    If you have an outer proxy which terminates TLS for users (e.g. an AWS ALB), you will likely need to disable `deploykf_core.deploykf_istio_gateway.gateway.tls.matchSNI`, as most proxies will not send the correct SNI header.
-    Read more about this in the [Expose Gateway and configure HTTPS](../platform/deploykf-gateway.md#expose-the-gateway-service) guide.
+    For example, you might set the following values:    
 
     ```yaml
     deploykf_core:
       deploykf_istio_gateway:
+
+        ## the namespace where your gateway deployment is running
+        namespace: my-gateway-namespace
+        
         gateway:
-          tls:
-            matchSNI: false
+          ## the label selector for your gateway deployment pods
+          selectorLabels:
+            app: my-gateway-deployment
+            istio: my-gateway-deployment
+
+          ## the ports on your gateway deployment which deployKF should use
+          ##  - the "internal" ports which deployKF will use on your gateway deployment
+          ##  - they must be different from any existing services on this gateway deployment
+          ##  - they may be different to the user-facing ports, as users might connect
+          ##    to the gateway through a Service or Ingress (see `gatewayService.ports`)
+          ports:
+            http: 80
+            https: 443
+
+        gatewayDeployment:
+          serviceAccount:
+            ## the name of the SERVICE ACCOUNT used by the gateway deployment pods
+            ##  - deployKF needs to know this so it can trust traffic from the gateway
+            ##    check the `serviceAccountName` field in your gateway Pods
+            name: my-gateway-service-account
+
+        #gatewayService:
+        #
+        #  ## the ports which clients are actually using to connect to the gateway
+        #  ##  - the "public" ports which clients are expected to connect to
+        #  ##  - they can be different to the "internal" ports defined in `gateway.ports`
+        #  ##  - these values affect the ports presented in user-facing HTTP links
+        #  ##  - if unset, they default to the corresponding value of `gateway.ports`
+        #  ports:
+        #    http: 80
+        #    https: 443
     ```
+
+    ??? question_secondary "What if my gateway deployment already uses ports `80` and `443`?"
+    
+        If you already have Istio VirtualServices on your gateway deployment using ports `80` and `443`, you will need to use non-standard ports like `18080` and `18443` for deployKF.
+    
+        For example, you might set the following values to use non-standard ports:
+    
+        ```yaml
+        deploykf_core:
+          deploykf_istio_gateway:
+            gateway:
+              ports:
+                http: 18080
+                https: 18443
+    
+            gatewayService:
+              ports:
+                http: 80
+                https: 443
+        ```
+
+        When using non-standard ports, you will probably need to [use an Ingress](../platform/deploykf-gateway.md#use-a-kubernetes-ingress) which listens on standard ports, and routes traffic to the correct gateway port based on the hostname.
+        
+        For example, your Ingress could route traffic like this:
+    
+        - `other-service.example.com` → gateway port `443`
+        - `deploykf.example.com` → gateway port `18443`
+        - `*.deploykf.example.com` → gateway port `18443`
+
+!!! step "Step 3 - Expose your Gateway Deployment"
+    
+    If you havent already, you will need to create a `Service` (and possibly `Ingress`) that selects your gateway deployment to expose it to external traffic.
+
+    !!! info "Service Health Checks"
+    
+        Many LoadBalancer Service implementations check the health of the service before allowing traffic to flow (e.g. AWS NLB/ALB), and will send health-check requests to one or more ports on the Service.
+    
+        Istio gateway Pods will always return a [`200 OK` response on port `15021`, under the `/healthz/ready` HTTP path](https://istio.io/latest/docs/ops/deployment/requirements/#ports-used-by-istio) for this purpose.
+        So if you are using a custom LoadBalancer Service, you may need to expose the `15021` port on the Service, and configure the health-check path to `/healthz/ready`.
+    
+    !!! info "TLS Termination and SNI"
+    
+        If you put the Gateway behind a proxy which terminates TLS (like AWS ALB), you will probably need to disable _SNI Matching_.
+        This is because most proxies don't forward the original request's [Server Name Indication (SNI)](https://en.wikipedia.org/wiki/Server_Name_Indication) to the backend service after TLS termination.
+
+        To disable _SNI Matching_, set [`deploykf_core.deploykf_istio_gateway.gateway.tls.matchSNI`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L741-L746) to `false`:
+
+        ```yaml
+        deploykf_core:
+          deploykf_istio_gateway:
+            gateway:
+              tls:
+                matchSNI: false
+        ```
+
+        Read more about this in the [Expose Gateway and configure HTTPS](../platform/deploykf-gateway.md#use-a-kubernetes-ingress) guide.
 
 ### __Use custom gateway resources__
 
