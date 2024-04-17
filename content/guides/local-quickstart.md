@@ -42,7 +42,7 @@ You will need to install the following dependencies:
 
         If you use a cloud-instance, ensure it meets the minimum requirements.
 
-    !!! step "Step 1 - Install Core Dependencies"
+    ??? step "Step 1 - Install Core Dependencies"
 
         First, install these core dependencies on your __macOS host__:
 
@@ -61,7 +61,7 @@ You will need to install the following dependencies:
             2. Enable Podman socket: `sudo systemctl enable --now podman.socket`
             3. Link Docker socket to Podman: `sudo ln -s /run/podman/podman.sock /var/run/docker.sock`
 
-    !!! warning "Resource Allocation"
+    ??? step "Step 2 - Configure Docker Desktop"
         
         You will need to allocate at least the following [resources](https://docs.docker.com/desktop/settings/mac/#resources) to Docker Desktop:
         
@@ -71,7 +71,7 @@ You will need to install the following dependencies:
         Memory | `10 GB`
         Storage | `64 GB`
 
-    !!! step "Step 2 - Install CLI Tools"
+    ??? step "Step 3 - Install CLI Tools"
 
         Next, install these CLI tools on your __macOS host__:
 
@@ -91,7 +91,7 @@ You will need to install the following dependencies:
 
 === "Linux"
 
-    !!! step "Step 1 - Install Core Dependencies"
+    ??? step "Step 1 - Install Core Dependencies"
 
         First, install these core dependencies on your __Linux host__:
 
@@ -99,7 +99,7 @@ You will need to install the following dependencies:
         --- | ---
         Docker Engine | [Install Guide](https://docs.docker.com/engine/install/)<br><small>Note, you do not need to use Docker Desktop, Docker Engine is sufficient.</small>
     
-    !!! step "Step 2 - Install CLI Tools"
+    ??? step "Step 2 - Install CLI Tools"
 
         Next, install these CLI tools on your __Linux host__:
 
@@ -131,7 +131,7 @@ You will need to install the following dependencies:
             brew install argocd jq k3d kubectl
             ```
 
-    !!! step "Step 3 - Inotify Limits"
+    ??? step "Step 3 - Inotify Limits"
     
         On __Linux__, you may need to increase your system's open/watched file limits.
 
@@ -142,7 +142,7 @@ You will need to install the following dependencies:
 
 === "Windows"
 
-    !!! step "Step 1 - Install Host Dependencies"
+    ??? step "Step 1 - Install Host Dependencies"
     
         Install these dependencies on your __Windows host__:
         
@@ -151,7 +151,7 @@ You will need to install the following dependencies:
         Windows Subsystem for Linux (WSL 2) | [Install Guide](https://learn.microsoft.com/en-us/windows/wsl/install)
         Docker Desktop | [Install Guide](https://docs.docker.com/desktop/install/windows-install/)
     
-    !!! step "Step 2 - Configure WSL"
+    ??? step "Step 2 - Configure WSL"
 
         Configure WSL to use our [__custom kernel__](https://github.com/deployKF/WSL2-Linux-Kernel) that properly supports Kubernetes (specifically Istio).
 
@@ -192,7 +192,7 @@ You will need to install the following dependencies:
             - To see what changes we have made to the kernel, review [`deployKF/WSL2-Linux-Kernel`](https://github.com/deployKF/WSL2-Linux-Kernel).
             - Hopefully, once [`microsoft/WSL#8153`](https://github.com/microsoft/WSL/issues/8153) is resolved, we will no longer need a custom kernel.
 
-    !!! step "Step 3 - Install Homebrew and Dependencies"
+    ??? step "Step 3 - Install Homebrew and Dependencies"
 
         Install Homebrew for Linux within your __WSL environment__.
         
@@ -223,7 +223,7 @@ For this quickstart, we will be using the [`k3d`](https://k3d.io/) command line 
 K3s is an extremely lightweight Kubernetes distribution that is fully compliant with the Kubernetes API, while also being very similar to a cloud-based cluster.
 
 
-!!! step "Step 1 - Create a k3d Cluster"
+??? step "Step 1 - Create a k3d Cluster"
 
     Run this command to create a local `k3d` cluster named `deploykf`:
     
@@ -240,7 +240,7 @@ K3s is an extremely lightweight Kubernetes distribution that is fully compliant 
         Yes. The `--image` flag allows you to specify the version of Kubernetes.
         You may use any version of the [`rancher/k3s`](https://hub.docker.com/r/rancher/k3s/tags) image which corresponds to a version of Kubernetes that is [supported by deployKF](../releases/version-matrix.md#deploykf-dependencies).
 
-!!! step "Step 2 - Wait for Cluster to be Ready"
+??? step "Step 2 - Wait for Cluster to be Ready"
 
     Wait until the cluster is ready before continuing, ensure all Pods are in a `Running` or `Completed` state.
 
@@ -342,7 +342,7 @@ deployKF uses [:custom-argocd-color: __ArgoCD__](./dependencies/argocd.md#what-i
 For this quickstart, we will use the [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) which adds a special kind of ArgoCD `Application` that produces deployKF manifests.
 This allows us to define the platform using a single app-of-apps which only needs your [values](#about-values), and a [deployKF version](#deploykf-versions).
 
-!!! step "Step 1 - Verify kubectl Context"
+??? step "Step 1 - Verify kubectl Context"
 
     We need to ensure that our `kubectl` context is set to the new `k3d` cluster.
     This is so we don't accidentally install ArgoCD into the wrong cluster.
@@ -378,7 +378,7 @@ This allows us to define the platform using a single app-of-apps which only need
         kubectx "k3d-deploykf"
         ```
 
-!!! step "Step 2 - Install ArgoCD"
+??? step "Step 2 - Install ArgoCD"
 
     We will now install ArgoCD (and the deployKF ArgoCD Plugin) by running a script from the deployKF repo:
 
@@ -395,7 +395,7 @@ This allows us to define the platform using a single app-of-apps which only need
     bash ./deploykf/argocd-plugin/install_argocd.sh
     ```
     
-!!! step "Step 3 - Wait for ArgoCD to be Ready"
+??? step "Step 3 - Wait for ArgoCD to be Ready"
 
     After the script completes, wait for all pods in the `argocd` Namespace to be in a `Running` state:
     
@@ -421,7 +421,7 @@ This allows us to define the platform using a single app-of-apps which only need
 The only resource you manually create is the `deploykf-app-of-apps`, this resource generates all the other `Application` resources.
 Think of it as a _"single source of truth"_ for the desired state of your platform.
 
-!!! step "Step 1 - Define App-of-Apps Resource" 
+??? step "Step 1 - Define App-of-Apps Resource" 
 
     Create a local file named `deploykf-app-of-apps.yaml` with the contents of the YAML below.
 
@@ -591,7 +591,7 @@ Think of it as a _"single source of truth"_ for the desired state of your platfo
         namespace: "argocd"
     ```
 
-!!! step "Step 2 - Apply App-of-Apps Resource"
+??? step "Step 2 - Apply App-of-Apps Resource"
 
     You will need to apply the `deploykf-app-of-apps` resource to your Kubernetes cluster.
 
@@ -661,7 +661,7 @@ Syncing an application will cause ArgoCD to reconcile the actual state in the cl
 
 ArgoCD supports syncing applications both _graphically (Web UI)_ and _programmatically (CLI)_.
 
-!!! step "Step - Sync ArgoCD Applications"
+??? step "Step - Sync ArgoCD Applications"
 
     For this quickstart, we will use the ArgoCD CLI via our automated [`sync_argocd_apps.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/sync_argocd_apps.sh) script.
 
@@ -806,7 +806,7 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
 
         For example: [https://deploykf.example.com:8443/](https://deploykf.example.com:8443/)
 
-!!! step "Step 1 - Modify Hosts"
+??? step "Step 1 - Modify Hosts"
 
     You __can't__ access deployKF using `localhost`, `127.0.0.1`, or any other IP address.
     Without an HTTP `Host` header, deployKF won't know which service you are trying to access, and so will return nothing.
@@ -876,7 +876,7 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
         127.0.0.1 minio-console.deploykf.example.com
         ```
 
-!!! step "Step 2 - Port-Forward the Gateway"
+??? step "Step 2 - Port-Forward the Gateway"
     
     The `kubectl port-forward` command creates a private tunnel to the Kubernetes cluster.
 
@@ -893,7 +893,7 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
         There is an upstream issue which can cause you to need to __restart__ the port-forward ([`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551)).
         If your browser suddenly stops working, press `CTRL+C` to stop the port-forward, and then run the command again.
 
-!!! step "Step 3 - Log in to the Dashboard"
+??? step "Step 3 - Log in to the Dashboard"
 
     The deployKF dashboard should now be available __on your local machine__ at:
         

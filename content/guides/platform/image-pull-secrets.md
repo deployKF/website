@@ -27,7 +27,7 @@ See [the `ClusterPolicy`](https://github.com/deployKF/deployKF/blob/v0.1.4/gener
 
 These steps will guide you through creating and using an image pull secret in deployKF.
 
-!!! step "Step 1 - Authenticate with your Container Registry"
+??? step "Step 1 - Authenticate with your Container Registry"
 
     You will need to use `docker login` to authenticate with your container registry.
 
@@ -54,7 +54,7 @@ These steps will guide you through creating and using an image pull secret in de
         If `~/.docker/config.json` contains a `credsStore` field, you won't be able to create the secret from the file directly.
         See the [upstream Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-secret-by-providing-credentials-on-the-command-line) for more details.
 
-!!! step "Step 2 - Create a Kubernetes Secret"
+??? step "Step 2 - Create a Kubernetes Secret"
 
     Next, you will need to create a Kubernetes secret from your `~/.docker/config.json` file.
 
@@ -67,7 +67,7 @@ These steps will guide you through creating and using an image pull secret in de
       --namespace "argocd"
     ```
 
-!!! step "Step 3 - Configure deployKF to use the Secret"
+??? step "Step 3 - Configure deployKF to use the Secret"
 
     The [`deploykf_dependencies.kyverno.clusterPolicies.imagePullSecrets`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L396-L417) values are used to configure [our Kyverno ClusterPolicy](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/templates/manifests/deploykf-dependencies/kyverno/templates/ClusterPolicy-image-pull-secrets.yaml).
 
