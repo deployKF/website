@@ -224,7 +224,7 @@ If you already have an Istio installation, you may use it instead of the deployK
 
 See the [version matrix](../../releases/version-matrix.md#deploykf-dependencies) for which versions of Istio are supported by deployKF.
 
-!!! step "Step 1 - Disable embedded Istio"
+??? step "Step 1 - Disable embedded Istio"
 
     Disable the embedded Istio installation by setting the [`deploykf_dependencies.istio.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.3/generator/default_values.yaml#L194) value to `false`:
     
@@ -234,7 +234,7 @@ See the [version matrix](../../releases/version-matrix.md#deploykf-dependencies)
         enabled: false
     ```
 
-!!! step "Step 2 - Configure your Istio"
+??? step "Step 2 - Configure your Istio"
 
     deployKF requires some non-default [mesh configs](https://istio.io/latest/docs/reference/config/istio.mesh.v1alpha1) which you MUST set in your Istio installation:
 
@@ -291,7 +291,7 @@ If you have an existing Istio [gateway deployment](#gateways), you can use it in
 
     This limitation was [removed in deployKF `0.1.4`](https://github.com/deployKF/deployKF/pull/66).
 
-!!! step "Step 1 - Disable embedded Gateway Deployment"
+??? step "Step 1 - Disable embedded Gateway Deployment"
 
     Disable the embedded gateway deployment by setting the [`deploykf_core.deploykf_istio_gateway.charts.istioGateway.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L696) value to `false`:
     
@@ -303,7 +303,7 @@ If you have an existing Istio [gateway deployment](#gateways), you can use it in
             enabled: false
     ```
 
-!!! step "Step 2 - Configure deployKF to use your Gateway Deployment"
+??? step "Step 2 - Configure deployKF to use your Gateway Deployment"
 
     You must set the following deployKF values to match your existing gateway deployment:
 
@@ -384,7 +384,7 @@ If you have an existing Istio [gateway deployment](#gateways), you can use it in
         - `deploykf.example.com` → gateway port `18443`
         - `*.deploykf.example.com` → gateway port `18443`
 
-!!! step "Step 3 - Expose your Gateway Deployment"
+??? step "Step 3 - Expose your Gateway Deployment"
     
     If you havent already, you will need to create a `Service` (and possibly `Ingress`) that selects your gateway deployment to expose it to external traffic.
 
