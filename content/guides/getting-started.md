@@ -617,11 +617,12 @@ Syncing an application will cause ArgoCD to reconcile the actual state in the cl
     If you manually sync them all, you may need to [uninstall](./uninstall.md) and start over.
 
 There are a few ways to sync the applications, you only need to use ONE of them.
-We recommend using the __automated sync script__.
 
 === ":star: Sync: Automated Script :star:"
+
+    The recommended way to sync the applications is with the automated script.
     
-    ??? step "Step - Sync with the Automated Script"
+    ??? step "Step - Run the Sync Script"
 
         We provide the [`sync_argocd_apps.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/sync_argocd_apps.sh) script to automatically sync the applications that make up deployKF.
         Learn more about the automated sync script from the [`scripts` folder README](https://github.com/deployKF/deployKF/tree/main/scripts) .
@@ -639,28 +640,30 @@ We recommend using the __automated sync script__.
         # run the script
         bash ./deploykf/scripts/sync_argocd_apps.sh
         ```
-    
-    !!! note "About the sync script"
-    
-        - The script can take around 5-10 minutes to run on first install.
-        - If the script fails or is interrupted, you can safely re-run it, and it will pick up where it left off.
-        - There are a number of configuration variables at the top of the script which change the default behavior.
-        - Learn more about the automated sync script from the [`scripts` folder README](https://github.com/deployKF/deployKF/tree/main/scripts) in the deployKF repo.
 
-        Please be aware of the following issue when using the automated sync script:
+        ---
+    
+        !!! note "About the sync script"
         
-        ??? bug "Bug in ArgoCD v2.9"
-        
-            There is a known issue ([`deploykf/deploykf#70`](https://github.com/deployKF/deployKF/issues/70), [`argoproj/argo-cd#16266`](https://github.com/argoproj/argo-cd/issues/16266)) with all `2.9.X` versions of the ArgoCD CLI that will cause the sync script to fail with the following error:
-        
-            ```text
-            ==========================================================================================
-            Logging in to ArgoCD...
-            ==========================================================================================
-            FATA[0000] cannot find pod with selector: [app.kubernetes.io/name=] - use the --{component}-name flag in this command or set the environmental variable (Refer to https://argo-cd.readthedocs.io/en/stable/user-guide/environment-variables), to change the Argo CD component name in the CLI
-            ```
-        
-            Please upgrade your `argocd` CLI to at least version `2.10.0` to resolve this issue.
+            - The script can take around 5-10 minutes to run on first install.
+            - If the script fails or is interrupted, you can safely re-run it, and it will pick up where it left off.
+            - There are a number of configuration variables at the top of the script which change the default behavior.
+            - Learn more about the automated sync script from the [`scripts` folder README](https://github.com/deployKF/deployKF/tree/main/scripts) in the deployKF repo.
+    
+            Please be aware of the following issue when using the automated sync script:
+            
+            ??? bug "Bug in ArgoCD v2.9"
+            
+                There is a known issue ([`deploykf/deploykf#70`](https://github.com/deployKF/deployKF/issues/70), [`argoproj/argo-cd#16266`](https://github.com/argoproj/argo-cd/issues/16266)) with all `2.9.X` versions of the ArgoCD CLI that will cause the sync script to fail with the following error:
+            
+                ```text
+                ==========================================================================================
+                Logging in to ArgoCD...
+                ==========================================================================================
+                FATA[0000] cannot find pod with selector: [app.kubernetes.io/name=] - use the --{component}-name flag in this command or set the environmental variable (Refer to https://argo-cd.readthedocs.io/en/stable/user-guide/environment-variables), to change the Argo CD component name in the CLI
+                ```
+            
+                Please upgrade your `argocd` CLI to at least version `2.10.0` to resolve this issue.
 
 === "Sync: ArgoCD Web UI"
 
@@ -818,22 +821,16 @@ All public deployKF services (including the dashboard) are accessed via the depl
         - We recommend NOT using this account, and actually removing its [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396).
         - We recommend leaving this account as the default "owner", even with `@example.com` as the domain (because profile owners can't be changed).
 
-??? step "Step 3 - Customize the Dashboard"
+??? step "Step 3 - Explore the Tools"
 
-    If you would like to make changes to the _deployKF dashboard_, such as adding custom links to the sidebar or homepage, see the [dashboard customization guide](./platform/deploykf-dashboard.md).
+    deployKF includes many [ML & Data tools](../reference/tools.md#tool-index) that address different stages of the machine learning lifecycle.
 
-### __Explore the Tools__
-
-deployKF includes many [ML & Data tools](../reference/tools.md#tool-index) that address different stages of the machine learning lifecycle.
-Here are a few popular tools to get started with:
-
-- [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines)
-- [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks)
-
-!!! tip "User Guides"
-
-    We provide a number of user-focused reference guides to help them deliver value with the platform faster.
-    You should share these guides with your users.
+    Here are a few popular tools to get started with:
+    
+    - [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines)
+    - [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks)
+   
+    We also provide a number of user-focused guides:
   
     <table markdown="span">
       <tr>

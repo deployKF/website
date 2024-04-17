@@ -659,11 +659,9 @@ Syncing an application will cause ArgoCD to reconcile the actual state in the cl
     The deployKF `Applications` depend on each other, they MUST be synced in the correct order to avoid errors.
     If you manually sync them all, you may need to delete your `k3d` cluster and start over.
 
-ArgoCD supports syncing applications both _graphically (Web UI)_ and _programmatically (CLI)_.
+For this quickstart, we will use the ArgoCD CLI via our automated [`sync_argocd_apps.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/sync_argocd_apps.sh) script.
 
-??? step "Step - Sync ArgoCD Applications"
-
-    For this quickstart, we will use the ArgoCD CLI via our automated [`sync_argocd_apps.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/sync_argocd_apps.sh) script.
+??? step "Step - Run the Sync Script"
 
     Run the following commands to use the sync script:
     
@@ -679,27 +677,29 @@ ArgoCD supports syncing applications both _graphically (Web UI)_ and _programmat
     bash ./deploykf/scripts/sync_argocd_apps.sh
     ```
 
-!!! note "About the sync script"
+    ---
 
-    - The script can take around 5-10 minutes to run on first install.
-    - If the script fails or is interrupted, you can safely re-run it, and it will pick up where it left off.
-    - There are a number of configuration variables at the top of the script which change the default behavior.
-    - Learn more about the automated sync script from the [`scripts` folder README](https://github.com/deployKF/deployKF/tree/main/scripts) in the deployKF repo.
-
-    Please be aware of the following issue when using the automated sync script:
+    !!! note "About the sync script"
     
-    ??? bug "Bug in ArgoCD v2.9"
+        - The script can take around 5-10 minutes to run on first install.
+        - If the script fails or is interrupted, you can safely re-run it, and it will pick up where it left off.
+        - There are a number of configuration variables at the top of the script which change the default behavior.
+        - Learn more about the automated sync script from the [`scripts` folder README](https://github.com/deployKF/deployKF/tree/main/scripts) in the deployKF repo.
     
-        There is a known issue ([`deploykf/deploykf#70`](https://github.com/deployKF/deployKF/issues/70), [`argoproj/argo-cd#16266`](https://github.com/argoproj/argo-cd/issues/16266)) with all `2.9.X` versions of the ArgoCD CLI that will cause the sync script to fail with the following error:
-    
-        ```text
-        ==========================================================================================
-        Logging in to ArgoCD...
-        ==========================================================================================
-        FATA[0000] cannot find pod with selector: [app.kubernetes.io/name=] - use the --{component}-name flag in this command or set the environmental variable (Refer to https://argo-cd.readthedocs.io/en/stable/user-guide/environment-variables), to change the Argo CD component name in the CLI
-        ```
-    
-        Please upgrade your `argocd` CLI to at least version `2.10.0` to resolve this issue.
+        Please be aware of the following issue when using the automated sync script:
+        
+        ??? bug "Bug in ArgoCD v2.9"
+        
+            There is a known issue ([`deploykf/deploykf#70`](https://github.com/deployKF/deployKF/issues/70), [`argoproj/argo-cd#16266`](https://github.com/argoproj/argo-cd/issues/16266)) with all `2.9.X` versions of the ArgoCD CLI that will cause the sync script to fail with the following error:
+        
+            ```text
+            ==========================================================================================
+            Logging in to ArgoCD...
+            ==========================================================================================
+            FATA[0000] cannot find pod with selector: [app.kubernetes.io/name=] - use the --{component}-name flag in this command or set the environmental variable (Refer to https://argo-cd.readthedocs.io/en/stable/user-guide/environment-variables), to change the Argo CD component name in the CLI
+            ```
+        
+            Please upgrade your `argocd` CLI to at least version `2.10.0` to resolve this issue.
 
 ## 6. Try the Platform
 
@@ -929,6 +929,15 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
         - This account does NOT have access to "MinIO Console" or "Argo Server UI".
         - We recommend NOT using this account, and actually removing its [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396).
         - We recommend leaving this account as the default "owner", even with `@example.com` as the domain (because profile owners can't be changed).
+
+??? step "Step 4 - Explore the Tools"
+
+    deployKF includes many [ML & Data tools](../reference/tools.md#tool-index) that address different stages of the machine learning lifecycle.
+
+    Here are a few popular tools to get started with:
+    
+    - [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines)
+    - [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks)
 
 ## Next Steps
 
