@@ -22,7 +22,15 @@ This quickstart will guide you through setting up a local `k3d` Kubernetes clust
 
 ## 1. Requirements
 
-The requirements for this quickstart depend on your operating system.
+Ensure your machine meets the following minimum requirements: 
+
+Resource | Minimum Requirement
+--- | ---
+CPU Cores | `4`
+RAM | `16 GB`
+Storage | `64 GB`
+
+You will need to install the following dependencies:
 
 === "macOS"
 
@@ -31,6 +39,8 @@ The requirements for this quickstart depend on your operating system.
         Currently, deployKF does NOT support `arm64` clusters like Apple Silicon.
         Furthermore, some core components don't work under rosetta emulation.
         Please use an `x86_64` machine or cloud-instance to run this quickstart.
+
+        If you use a cloud-instance, ensure it meets the minimum requirements.
 
     !!! step "Step 1 - Install Core Dependencies"
 
@@ -41,14 +51,6 @@ The requirements for this quickstart depend on your operating system.
         Homebrew | [Install Guide](https://brew.sh/)
         Docker Desktop | [Install Guide](https://docs.docker.com/docker-for-mac/install/)
 
-        !!! warning "Resource Allocation"
-    
-            In Docker Desktop, you may need to increase the [resource allocation](https://docs.docker.com/desktop/settings/mac/#resources).
-            We recommend allocating at least the following resources:
-            
-            - __4 CPU Cores__
-            - __10 GB RAM__
-
         ??? question_secondary "Can I use Podman instead of Docker Desktop?"
     
             Yes. While we recommend using Docker Desktop, you may use [Podman](https://podman.io/) instead.
@@ -58,6 +60,16 @@ The requirements for this quickstart depend on your operating system.
             1. [Install Podman](https://podman.io/docs/installation#macos)
             2. Enable Podman socket: `sudo systemctl enable --now podman.socket`
             3. Link Docker socket to Podman: `sudo ln -s /run/podman/podman.sock /var/run/docker.sock`
+
+    !!! warning "Resource Allocation"
+        
+        You will need to allocate at least the following [resources](https://docs.docker.com/desktop/settings/mac/#resources) to Docker Desktop:
+        
+        Resource | Minimum Allocation
+        --- | ---
+        CPU Cores | `4`
+        Memory | `10 GB`
+        Storage | `64 GB`
 
     !!! step "Step 2 - Install CLI Tools"
 
@@ -700,16 +712,123 @@ All public deployKF services (including the dashboard) are accessed via your _de
 
 For this quickstart, we will be using the port-forward feature of `kubectl` to expose the gateway locally on your machine:
 
+??? info "Running on a Remote Server"
+
+    If you are running this quickstart on a __remote server__ or __cloud-instance__ (rather than your local machine),
+    you will have to do some different steps that depend on your network setup:
+
+    ??? config "Direct Network Access"
+
+        If you have direct network access to the remote server (e.g. are on the same network, or VPN), make the following changes to the steps:
+
+        ---
+
+        <h3>Step 1:</h3>
+
+        When updating the hosts file, use the IP of the __remote server__, rather than `127.0.0.1`.
+        For example, if the IP of the remote server is `192.168.50.15`, you would update the hosts file like this:
+
+        ```text
+        192.168.50.15 deploykf.example.com
+        192.168.50.15 argo-server.deploykf.example.com
+        192.168.50.15 minio-api.deploykf.example.com
+        192.168.50.15 minio-console.deploykf.example.com
+        ```
+
+        *(NOTE: update the hosts file on your __local machine__, NOT the remote server)*
+
+        ---
+
+        <h3>Step 2:</h3>
+
+        Run `kubectl port-forward` on the __remote server__ with the `--address 0.0.0.0` argument, rather than your local machine.
+        For example, you might run the following command on the __remote server__:
+    
+        ```shell
+        kubectl port-forward \
+          --namespace "deploykf-istio-gateway" \
+          --address "0.0.0.0" \
+          svc/deploykf-gateway 8080:http 8443:https
+        ```
+
+        *(NOTE: ensure the firewall on the remote server allows ports `8080` and `8443`)*
+
+        *(WARNING: we don't recommend exposing the gateway to the public internet)*
+
+        ---
+
+        <h3>Step 3:</h3>
+
+        You still use the __hostname__ set in your hosts file (NOT the IP of the remote server).
+
+        For example: [https://deploykf.example.com:8443/](https://deploykf.example.com:8443/)
+
+    ??? config "Over SSH Tunnel"
+
+        If you do not have direct network access to the remote server, you can create an __SSH tunnel__.
+
+        For example, you might run the following command on your __local machine__ to create the tunnel:
+
+        ```shell
+        SSH_USER="user"
+        SSH_HOSTNAME="hostname"
+
+        ssh -N \
+          -L 8080:localhost:8080 \
+          -L 8443:localhost:8443 \
+          "${SSH_USER}@${SSH_HOSTNAME}"
+        ```
+
+        ---
+
+        <h3>Step 1:</h3>
+
+        As the tunnel listens on your local machine, you still use `127.0.0.1` in the hosts file.
+
+        ---
+
+        <h3>Step 2:</h3>
+
+        Run `kubectl port-forward` on the __remote instance__, rather than your local machine.
+        For example, you might run the following command on the __remote instance__:
+    
+        ```shell
+        kubectl port-forward \
+          --namespace "deploykf-istio-gateway" \
+          svc/deploykf-gateway 8080:http 8443:https
+        ```
+
+        ---
+
+        <h3>Step 3:</h3>
+
+        You still use the __hostname__ set in your hosts file to access the dashboard.
+
+        For example: [https://deploykf.example.com:8443/](https://deploykf.example.com:8443/)
+
 !!! step "Step 1 - Modify Hosts"
 
-    The _deployKF Istio Gateway_ uses the HTTP `Host` header to route requests to the correct internal service.
-    This means that using `localhost` or `127.0.0.1` will NOT work.
+    You __can't__ access deployKF using `localhost`, `127.0.0.1`, or any other IP address.
+    Without an HTTP `Host` header, deployKF won't know which service you are trying to access, and so will return nothing.
 
-    We must add a host entry so that `deploykf.example.com` resolves to `127.0.0.1`:
+    By default, deployKF uses `deploykf.example.com` and its subdomains, so modify the [hosts file](https://en.wikipedia.org/wiki/Hosts_(file)) on your __local machine__ to resolve these domains to `127.0.0.1`.
+
+    !!! warning "Local Machine"
     
+        Edit the hosts file on your __local machine__ (where you run your web browser), NOT the Kubernetes cluster itself.
+
     === "macOS"
+
+        The `/etc/hosts` can ONLY be edited by a user with _root_ privileges.
+
+        Run the following command to open the hosts file in a text editor:
     
-        You will need to add the following lines to the END of your __local__ `/etc/hosts` file:
+        ```shell
+        sudo nano /etc/hosts 
+        # OR: sudo vim /etc/hosts
+        ```
+    
+        Add the following lines to the END of your `/etc/hosts` file:
     
         ```text
         127.0.0.1 deploykf.example.com
@@ -720,7 +839,16 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
     
     === "Linux"
     
-        You will need to add the following lines to the END of your __local__ `/etc/hosts` file:
+        The `/etc/hosts` can ONLY be edited by a user with _root_ privileges.
+
+        Run the following command to open the hosts file in a text editor:
+    
+        ```shell
+        sudo nano /etc/hosts 
+        # OR: sudo vim /etc/hosts
+        ```
+
+        Add the following lines to the END of your `/etc/hosts` file:
     
         ```text
         127.0.0.1 deploykf.example.com
@@ -731,7 +859,15 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
     
     === "Windows"
     
-        You will need to add the following lines to the END of your `C:\Windows\System32\drivers\etc\hosts` file:
+        The hosts file can ONLY be edited by the Windows _Administrator_ user.
+
+        Run this PowerShell command to start an _Administrator_ Notepad:
+    
+        ```powershell
+        Start-Process notepad.exe -ArgumentList "C:\Windows\System32\drivers\etc\hosts" -Verb RunAs
+        ```
+
+        Add the following lines to the END of your `C:\Windows\System32\drivers\etc\hosts` file:
     
         ```text
         127.0.0.1 deploykf.example.com
@@ -739,38 +875,29 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
         127.0.0.1 minio-api.deploykf.example.com
         127.0.0.1 minio-console.deploykf.example.com
         ```
-      
-        !!! warning "Edit hosts file as Administrator"
-    
-            The hosts file can ONLY be edited by the Windows _Administrator_ user.
-    
-            Run this PowerShell command to start an _Administrator_ Notepad, which can edit the hosts file:
-        
-            ```powershell
-            Start-Process notepad.exe -ArgumentList "C:\Windows\System32\drivers\etc\hosts" -Verb RunAs
-            ```
 
 !!! step "Step 2 - Port-Forward the Gateway"
     
-    You may now port-forward the `deploykf-gateway` Service using this `kubectl` command:
+    The `kubectl port-forward` command creates a private tunnel to the Kubernetes cluster.
+
+    Run the following command on your __local machine__ to expose the `deploykf-gateway` Service on `127.0.0.1`:
     
     ```shell
     kubectl port-forward \
       --namespace "deploykf-istio-gateway" \
       svc/deploykf-gateway 8080:http 8443:https
     ```
-    
-    The deployKF dashboard should now be available on your local machine at:
-        
-      :material-arrow-right-bold: [https://deploykf.example.com:8443/](https://deploykf.example.com:8443/)
 
-    ---
-
-    !!! warning "Port-Forwards Known Issues"
+    !!! warning
     
-        There are upstream issues which can cause you to need to __restart the port-forward__, see [`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551) for more information.
+        There is an upstream issue which can cause you to need to __restart__ the port-forward ([`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551)).
+        If your browser suddenly stops working, press `CTRL+C` to stop the port-forward, and then run the command again.
 
 !!! step "Step 3 - Log in to the Dashboard"
+
+    The deployKF dashboard should now be available __on your local machine__ at:
+        
+      :material-arrow-right-bold: [https://deploykf.example.com:8443/](https://deploykf.example.com:8443/)
 
     There are a few default credentials set in the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L469-L492) value:
 

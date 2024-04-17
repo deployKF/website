@@ -37,17 +37,27 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
 
 ??? step "Step 1 - Modify Hosts"
     
-    You can NOT access the gateway using an IP address or `localhost`, you MUST use your [configured hostname](#base-domain-and-ports) (defaults to `deploykf.example.com`).
-    This is because deployKF hosts multiple services on the same IP address using [virtual hostname routing](https://en.wikipedia.org/wiki/Virtual_hosting#Name-based).
+    You __can't__ access deployKF using `localhost`, `127.0.0.1`, or any other IP address.
+    Without an HTTP `Host` header, deployKF won't know which service you are trying to access, and so will return nothing.
 
-    The `kubectl port-forward` command creates a tunnel from your local machine to the Kubernetes cluster.
-    You may modify the [hosts file](https://en.wikipedia.org/wiki/Hosts_(file)) on your local machine so that the hostnames resolve to `127.0.0.1` (the local loopback address).
-    
-    !!! info "Local Machine"
+    By default, deployKF uses `deploykf.example.com` and its subdomains, so modify the [hosts file](https://en.wikipedia.org/wiki/Hosts_(file)) on your __local machine__ to resolve these domains to `127.0.0.1`.
+
+    If you have [configured a custom domain](#base-domain-and-ports), replace `deploykf.example.com` with your domain.
+
+    !!! warning "Local Machine"
     
         Edit the hosts file on your __local machine__ (where you run your web browser), NOT the Kubernetes cluster itself.
 
     === "macOS"
+
+        The `/etc/hosts` can ONLY be edited by a user with _root_ privileges.
+
+        Run the following command to open the hosts file in a text editor:
+    
+        ```shell
+        sudo nano /etc/hosts 
+        # OR: sudo vim /etc/hosts
+        ```
     
         Add the following lines to the END of your `/etc/hosts` file:
     
@@ -60,6 +70,15 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
     
     === "Linux"
     
+        The `/etc/hosts` can ONLY be edited by a user with _root_ privileges.
+
+        Run the following command to open the hosts file in a text editor:
+    
+        ```shell
+        sudo nano /etc/hosts 
+        # OR: sudo vim /etc/hosts
+        ```
+
         Add the following lines to the END of your `/etc/hosts` file:
     
         ```text
@@ -71,6 +90,14 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
     
     === "Windows"
     
+        The hosts file can ONLY be edited by the Windows _Administrator_ user.
+
+        Run this PowerShell command to start an _Administrator_ Notepad:
+    
+        ```powershell
+        Start-Process notepad.exe -ArgumentList "C:\Windows\System32\drivers\etc\hosts" -Verb RunAs
+        ```
+
         Add the following lines to the END of your `C:\Windows\System32\drivers\etc\hosts` file:
     
         ```text
@@ -79,36 +106,29 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
         127.0.0.1 minio-api.deploykf.example.com
         127.0.0.1 minio-console.deploykf.example.com
         ```
-      
-        !!! warning "Edit hosts file as Administrator"
-    
-            The hosts file can ONLY be edited by the Windows _Administrator_ user.
-    
-            Run this PowerShell command to start an _Administrator_ Notepad, which can edit the hosts file:
-        
-            ```powershell
-            Start-Process notepad.exe -ArgumentList "C:\Windows\System32\drivers\etc\hosts" -Verb RunAs
-            ```
 
 ??? step "Step 2 - Port-Forward the Gateway"
     
-    You may now port-forward the `deploykf-gateway` Service using this `kubectl` command:
+    The `kubectl port-forward` command creates a private tunnel to the Kubernetes cluster.
+
+    Run the following command on your __local machine__ to expose the `deploykf-gateway` Service on `127.0.0.1`:
     
     ```shell
     kubectl port-forward \
       --namespace "deploykf-istio-gateway" \
       svc/deploykf-gateway 8080:http 8443:https
     ```
+
+    !!! warning
     
-    The deployKF dashboard should now be available on your local machine at:
+        There is an upstream issue which can cause you to need to __restart__ the port-forward ([`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551)).
+        If your browser suddenly stops working, press `CTRL+C` to stop the port-forward, and then run the command again.
+
+??? step "Step 3 - Log in to the Dashboard"
+
+    The deployKF dashboard should now be available __on your local machine__ at:
         
       :material-arrow-right-bold: [https://deploykf.example.com:8443/](https://deploykf.example.com:8443/)
-    
-    ---
-
-    !!! warning "Port-Forwards Known Issues"
-    
-        There are upstream issues which can cause you to need to __restart the port-forward__, see [`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551) for more information.
 
 ### __Use a LoadBalancer Service__
 
@@ -558,16 +578,7 @@ Now that the deployKF Gateway Service has an IP address, you must configure DNS 
 
 You will need to tell deployKF which hostnames to use, and which ports to listen on.
 
-Depending on which tools you have enabled, the gateway may serve the following hostnames:
-
-Hostname | Description
---- | ---
-`deploykf.example.com` | Base Domain (dashboard and other apps)
-`argo-server.deploykf.example.com` | Argo Server
-`minio-api.deploykf.example.com` | MinIO API
-`minio-console.deploykf.example.com` | MinIO Console
-
-For example, the following values set the base domain to `deploykf.example.com`, and the ports to `80` and `443`:
+The following values set the base domain to `deploykf.example.com` (default), and the ports to `80` and `443` (not default):
 
 ```yaml
 deploykf_core:
@@ -598,6 +609,15 @@ deploykf_core:
       #  http: ~
       #  https: ~
 ```
+
+Depending on which tools you have enabled, the gateway may serve the following hostnames:
+
+Hostname | Description
+--- | ---
+`deploykf.example.com` | Base Domain (dashboard and other apps)
+`argo-server.deploykf.example.com` | Argo Server
+`minio-api.deploykf.example.com` | MinIO API
+`minio-console.deploykf.example.com` | MinIO Console
 
 ### __:star: Use External-DNS :star:__
 
