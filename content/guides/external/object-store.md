@@ -63,7 +63,8 @@ Google Cloud | [Google Cloud Storage](https://cloud.google.com/storage) | [`stor
 Microsoft Azure | [Azure Blob Storage](https://azure.microsoft.com/en-us/services/storage/blobs/) | No first-party API.<br><small>Third-party translation layers like [S3Proxy](https://github.com/gaul/s3proxy) can be used.</small>
 Alibaba Cloud | [Alibaba Cloud Object Storage Service (OSS)](https://www.alibabacloud.com/product/oss) | [`s3.oss-{region}.aliyuncs.com`](https://www.alibabacloud.com/help/en/oss/developer-reference/use-amazon-s3-sdks-to-access-oss)
 IBM Cloud | [IBM Cloud Object Storage](https://www.ibm.com/cloud/object-storage) | [`	s3.{region}.cloud-object-storage.appdomain.cloud`](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-endpoints)
-Other | [MinIO](https://min.io/), [Ceph](https://ceph.io/), [Wasabi](https://wasabi.com/) | See provider documentation.
+Other | [Cloudflare R2](https://www.cloudflare.com/developer-platform/r2/) | [`{account_id}.r2.cloudflarestorage.com`](https://developers.cloudflare.com/r2/api/s3/api/)
+Self-Hosted | [MinIO](https://min.io/), [Ceph](https://ceph.io/), [Wasabi](https://wasabi.com/) | See provider documentation.
 
 !!! warning "S3-compatible APIs Only"
 

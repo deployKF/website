@@ -71,7 +71,7 @@ The following table lists these configurations and their requirements:
 
 Configuration | Requirement
 --- | ---
-Node Resources | Your nodes must collectively have at least `4 vCPUs` and `16 GB RAM`.
+Node Resources | The nodes must collectively have at least `4 vCPUs` and `16 GB RAM`, and `64 GB Storage`.
 CPU Architecture | The cluster must have `x86_64` Nodes.
 Cluster Domain | The [`clusterDomain`](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) of your kubelet must be `"cluster.local"`.
 Service Type | By default, the cluster must have a `LoadBalancer` service type.<br><small>:material-alert: be careful not to expose your platform on the public internet by mistake :material-alert: </small>
