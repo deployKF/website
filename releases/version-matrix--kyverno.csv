@@ -1,0 +1,5 @@
+deployKF Version → <br>[Kyverno](https://kyverno.io/) Version ↓,`0.1`
+`1.9.*`,:fontawesome-solid-xmark: <sup>[[1]](https://github.com/deployKF/deployKF/issues/43)</sup>
+`1.10.0`,:fontawesome-regular-circle-check:<br><small>:material-alert: WARNING: this is the ONLY working version :material-alert:</small>
+`1.10.1` - `1.10.3`,:fontawesome-solid-xmark: <sup>[[2]](https://github.com/kyverno/kyverno/issues/8447)</sup>
+`1.11.*`, :fontawesome-solid-xmark: <sup>[[3]](https://github.com/kyverno/kyverno/issues/9571)</sup>
