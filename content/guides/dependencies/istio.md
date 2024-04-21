@@ -222,7 +222,7 @@ Fully Custom | You | You  | Always by deployKF
 
 If you already have an Istio installation, you may use it instead of the deployKF-managed one.
 
-See the [version matrix](../../releases/version-matrix.md#deploykf-dependencies) for which versions of Istio are supported by deployKF.
+See the [version matrix](../../releases/version-matrix.md#istio) for which versions of Istio are supported by deployKF.
 
 ??? step "Step 1 - Disable embedded Istio"
 

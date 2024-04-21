@@ -184,22 +184,24 @@ tools_planned:
 
 # Future Tools
 
-A list of __ML & Data tools__ which may be part of __future__ versions of deployKF.
+A list of _ML & Data tools_ which may be part of __future__ versions of deployKF.
 
 ---
-
-## Tool Roadmap
-
-The following is a roadmap of planned tools, __grouped by priority__.
 
 !!! question_secondary "How do I request or contribute a tool?"
     
     If you would like to __request__ or __contribute__ support for a tool, please [raise an issue on GitHub](https://github.com/deployKF/deployKF/issues), or join the discussion on an existing issue.
 
+## Tool Roadmap
+
+The following is a roadmap of _ML & Data tools_ which are __planned__ for future versions of deployKF, grouped by priority.
+
 {{ render_planned_tools_index(tools_planned) }}
+
+---
 
 ## Tool Details
 
-The following sections provide details and descriptions for each tool.
+The following sections provide details and descriptions of each tool which is planned for future versions of deployKF.
 
 {{ render_planned_tools_details(tools_planned) }}

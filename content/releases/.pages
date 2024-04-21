@@ -1,4 +1,5 @@
 nav:
+  - tool-versions.md
   - version-matrix.md
   - Changelogs:
      - changelog-deploykf.md

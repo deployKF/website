@@ -1,0 +1,4 @@
+deployKF,`0.1.0+`
+[Notebooks Web App](https://github.com/kubeflow/kubeflow/tree/master/components/crud-web-apps/jupyter),`1.7.0`
+[Notebooks Controller](https://github.com/kubeflow/kubeflow/tree/master/components/notebook-controller),`1.7.0`
+[PodDefaults Webhook](https://github.com/kubeflow/kubeflow/tree/master/components/admission-webhook),`1.7.0`

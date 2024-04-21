@@ -42,7 +42,7 @@ We suggest new users start with the __About deployKF__ and __Local Quickstart__ 
 ### __Kubernetes Cluster__
 
 deployKF can run on any [:custom-kubernetes-color: __Kubernetes__](https://kubernetes.io/) cluster, in __any cloud or environment__.
-See the [__version matrix__](../releases/version-matrix.md#deploykf-dependencies) for a list of supported Kubernetes versions.
+See the [__version matrix__](../releases/version-matrix.md#kubernetes) for a list of supported Kubernetes versions.
 
 Here are some Kubernetes distributions which are supported by deployKF:
 
@@ -121,10 +121,11 @@ See the [values](./values.md) page for more information.
 
 ### __deployKF Versions__
 
-Each deployKF version may include different [ML & Data tools](../reference/tools.md) or support different versions of cluster dependencies.
-See the [version matrix](../releases/version-matrix.md) for an overview, and the [changelog](../releases/changelog-deploykf.md) for detailed information, including important tips for [upgrading](./upgrade.md).
+Each deployKF version may include different [ML & Data tools](../reference/tools.md) or support different [versions of dependencies](../releases/version-matrix.md).
 
-!!! question_secondary "How can I get notified about new releases?"
+See the [changelog](../releases/changelog-deploykf.md) for detailed information, including important tips for [upgrading](./upgrade.md).
+
+??? question_secondary "How can I get notified about new releases?"
 
     Watch the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub.
     <br>

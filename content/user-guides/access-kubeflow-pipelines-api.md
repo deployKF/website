@@ -25,7 +25,7 @@ Authentication Method<br><small>(Click for Details)</small> | In Cluster | Outsi
 
 !!! warning "Kubeflow Pipelines SDK Version"
 
-    All versions of deployKF `0.1.X` [include Kubeflow Pipelines V1](../releases/version-matrix.md#kubeflow-tools), specifically version `2.0.0-alpha.7`.
+    All versions of deployKF `0.1.X` [include Kubeflow Pipelines V1](../releases/tool-versions.md#kubeflow-pipelines), specifically version `2.0.0-alpha.7`.
     Confusingly, this 'alpha' version is actually part of the KFP V1 line, and NOT the V2 line.
 
     Therefore, when using deployKF `0.1.X`, you must have a `1.X.X` version of the `kfp` SDK installed.

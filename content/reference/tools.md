@@ -42,7 +42,7 @@ tools_current:
       - __Sharing & Access Control__: Access is managed via role-based-access-control (RBAC), enabling easier notebook sharing and collaboration across the organization.
     footnote: ""
 
-  - name: Katib
+  - name: Kubeflow Katib
     purpose: Automated Machine Learning
     maintainer: Kubeflow Project
     docs_url: https://www.kubeflow.org/docs/components/katib/
@@ -50,7 +50,7 @@ tools_current:
     deploykf_version: 0.1.0
     deploykf_values: kubeflow_tools.katib
     introduction: |
-      [__Katib__](https://www.kubeflow.org/docs/components/katib/overview/) is an [Automated Machine Learning (AutoML)](https://en.wikipedia.org/wiki/Automated_machine_learning) platform for Kubernetes.
+      [__Kubeflow Katib__](https://www.kubeflow.org/docs/components/katib/overview/) is an [Automated Machine Learning (AutoML)](https://en.wikipedia.org/wiki/Automated_machine_learning) platform for Kubernetes.
     description: |
       The key features of Katib are:
 
@@ -106,21 +106,21 @@ tools_current:
 
 # Current Tools
 
-A list of __ML & Data tools__ which are __currently available__ in deployKF.
+A list of _ML & Data tools_ which are __currently available__ in deployKF.
 
 ---
 
+!!! info "Versions of tools"
+    
+    The [tool versions](../releases/tool-versions.md) page lists which versions of these tools are included with each version of deployKF.
+
+!!! info "Future tools"
+
+    The [future tools](future-tools.md) page gives information about tools which are planned for future releases.
+
 ## Tool Index
 
-The following is an index of currently supported tools, __grouped by ecosystem__.
-
-!!! info "Tool Versions"
-    
-    See the [version matrix](../releases/version-matrix.md) to learn which versions of each tool are supported by each version of deployKF.
-
-!!! question_secondary "What tools are planned for future versions?"
-
-    See the [future tools](future-tools.md) page for a list of tools which are planned for future releases.
+The following is an index of _ML & Data tools_ which are _currently supported_ by deployKF, grouped by ecosystem.
 
 ### Kubeflow Ecosystem
 
@@ -134,8 +134,10 @@ The following is an index of currently supported tools, __grouped by ecosystem__
    
     Coming soon... See [future tools](future-tools.md) for more information.
 
+---
+
 ## Tool Details
 
-The following sections provide details and descriptions for each tool.
+The following sections provide _details and descriptions_ of each tool which is _currently available_ in deployKF.
 
 {{ render_current_tools_details(tools_current) }}
