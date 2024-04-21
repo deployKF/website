@@ -74,16 +74,6 @@ The plugin adds a special kind of Argo CD [`Application`](#argo-cd-applications)
 With the plugin, you manage the whole platform from a single _"app of apps"_ `Application` whose specification only needs your [values](../values.md), and a specified _source version_ of deployKF.
 For an example of this, see [__this section__](../local-quickstart.md#create-an-app-of-apps) of the local quickstart.
 
----
-
-## __Can I use my existing Argo CD?__
-
-Yes, you must.
-
-See our [version matrix](../../releases/version-matrix.md#deploykf-dependencies) for a list of supported Argo CD versions.
-<br>
-You may also need to install the [_deployKF ArgoCD Plugin_](#what-is-the-deploykf-argocd-plugin) if you are using [ArgoCD Plugin Mode](../modes.md).
-
 ### __Can I use <small>_&lt;other tool&gt;_</small> instead of Argo CD?__
     
 No, not yet.
@@ -96,7 +86,14 @@ We think deployKF is good enough to try, even if you don't love Argo CD!
 
     To learn more about this decision, and participate in the discussion, see [`deployKF/deployKF#110`](https://github.com/deployKF/deployKF/issues/110).
 
-## __Can I use an off-cluster ArgoCD?__
+---
+
+## __Can I use my existing Argo CD?__
+
+Yes, you must. See our [version matrix](../../releases/version-matrix.md#argo-cd) for a list of supported Argo CD versions.
+Then follow the [Getting Started](../getting-started.md) guide to install deployKF with your existing Argo CD.
+
+### __Can I use an off-cluster ArgoCD?__
 
 Yes.
 deployKF supports the ArgoCD "management cluster" pattern, where multiple target clusters are managed by a single ArgoCD.

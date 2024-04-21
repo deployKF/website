@@ -15,12 +15,12 @@ python ./dev/generate_changelog.py \
   --output-admonition-type 'warning' \
   --output-admonition-title 'Upgrade Steps' \
   --output-admonition-content 'Please review the _"Upgrade Notes"_ and/or _"Important Notes"_ __before__ upgrading deployKF.<br>For more information about upgrading, see the [upgrade guide](../guides/upgrade.md).' \
-  --output-admonition-type 'question_secondary' \
-  --output-admonition-title 'How can I get notified about new releases?' \
-  --output-admonition-content 'Watch the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub.<br>At the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.' \
   --output-admonition-type 'info' \
   --output-admonition-title 'Pre-releases' \
   --output-admonition-content 'For a changelog that includes pre-releases, see the [full-changelog](./full-changelog-deploykf.md).' \
+  --output-admonition-type 'question_secondary' \
+  --output-admonition-title 'How can I get notified about new releases?' \
+  --output-admonition-content 'Watch the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub.<br>At the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.' \
   --include-headings-h2 "Upgrade Notes" "Important Notes" "What's Changed" \
   --include-tag-names 'v[0-9]+\.[0-9]+\.[0-9]+(?:-.+)?' \
   --exclude-pre-releases

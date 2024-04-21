@@ -1,5 +1,6 @@
 import glob
 import os
+import textwrap
 from typing import List, Union
 
 from markdown.extensions.toc import slugify
@@ -194,43 +195,62 @@ def define_env(env: MacrosPlugin):
             else:
                 upstream_docs_link = "N/A"
 
-            # Render tool header
-            output_lines.append(f"### {tool_name}")
+            # Render admonition wrapper
+            output_lines.append(f'??? abstract "Details - _{tool_name}_"')
             output_lines.append("")
 
-            # Render introduction
-            output_lines.append(row["introduction"])
-            output_lines.append("")
+            # NOTE: we create a separate list here, so we can indent the admonition content
+            admonition_content = []
+
+            # Render tool header
+            admonition_content.append(f"#### {tool_name}")
+            admonition_content.append("")
 
             # Render details table
-            output_lines.append(f"<table {MARKDOWN_SPAN}>")
-            output_lines.append(_html_body(["Purpose"], [row["purpose"]]))
-            output_lines.append(_html_body(["Maintainer"], [row["maintainer"]]))
-            output_lines.append(
+            admonition_content.append(f"<table {MARKDOWN_SPAN}>")
+            admonition_content.append(_html_body(["Purpose"], [row["purpose"]]))
+            admonition_content.append(_html_body(["Maintainer"], [row["maintainer"]]))
+            admonition_content.append(
                 _html_body(["Documentation"], [upstream_docs_link]),
             )
-            output_lines.append(
+            admonition_content.append(
                 _html_body(["Source Code"], [upstream_repo_link]),
             )
-            output_lines.append(_html_body(["deployKF Configs"], [dkf_values_link]))
-            output_lines.append(
+            admonition_content.append(
+                _html_body(["deployKF Configs"], [dkf_values_link])
+            )
+            admonition_content.append(
                 _html_body(["Since deployKF"], [f'`{row["deploykf_version"]}`'])
             )
-            output_lines.append(f"</table>")
+            admonition_content.append(f"</table>")
+
+            # Render introduction
+            admonition_content.append(row["introduction"])
+            admonition_content.append("")
+
+            # Divider
+            admonition_content.append("")
+            admonition_content.append("---")
+            admonition_content.append("")
 
             # Render tool description
             tool_description = row["description"]
             if tool_description:
-                output_lines.append(f'!!! value ""')
                 for description_line in row["description"].splitlines():
-                    output_lines.append(f"     {description_line}")
-                output_lines.append("")
+                    admonition_content.append(description_line)
+                admonition_content.append("")
 
             # Render tool footnote
             tool_footnote = row["footnote"]
             if tool_footnote:
-                output_lines.append(tool_footnote)
-                output_lines.append("")
+                admonition_content.append(tool_footnote)
+                admonition_content.append("")
+
+            # Add the admonition content to the output
+            for line_content in admonition_content:
+                output_lines.append(textwrap.indent(line_content, "    "))
+
+            output_lines.append("")
 
         return "\n".join(output_lines)
 
@@ -288,51 +308,68 @@ def define_env(env: MacrosPlugin):
             else:
                 upstream_docs_link = "N/A"
 
-            # Render tool header
-            output_lines.append(f"### {tool_name}")
+            # Render admonition wrapper
+            output_lines.append(f'??? abstract "Details - _{tool_name}_"')
             output_lines.append("")
 
-            # Render introduction
-            output_lines.append(row["introduction"])
-            output_lines.append("")
+            # NOTE: we create a separate list here, so we can indent the admonition content
+            admonition_content = []
+
+            # Render tool header
+            admonition_content.append(f"#### {tool_name}")
+            admonition_content.append("")
 
             # Render details table
-            output_lines.append(f"<table {MARKDOWN_SPAN}>")
-            output_lines.append(_html_body(["Purpose"], [row["purpose"]]))
-            output_lines.append(_html_body(["Maintainer"], [row["maintainer"]]))
-            output_lines.append(
+            admonition_content.append(f"<table {MARKDOWN_SPAN}>")
+            admonition_content.append(_html_body(["Purpose"], [row["purpose"]]))
+            admonition_content.append(_html_body(["Maintainer"], [row["maintainer"]]))
+            admonition_content.append(
                 _html_body(
                     ["Documentation"],
                     [upstream_docs_link],
                 )
             )
-            output_lines.append(
+            admonition_content.append(
                 _html_body(
                     ["Source Code"],
                     [upstream_repo_link],
                 )
             )
-            output_lines.append(
+            admonition_content.append(
                 _html_body(
                     ["Roadmap Priority"],
                     [PRIORITY_TO_WORD[row["deploykf_priority"]]],
                 )
             )
-            output_lines.append(f"</table>")
+            admonition_content.append(f"</table>")
+
+            # Render introduction
+            admonition_content.append(row["introduction"])
+            admonition_content.append("")
+
+            # Divider
+            admonition_content.append("")
+            admonition_content.append("---")
+            admonition_content.append("")
 
             # Render tool description
             tool_description = row["description"]
             if tool_description:
-                output_lines.append(f'!!! value ""')
                 for description_line in row["description"].splitlines():
-                    output_lines.append(f"     {description_line}")
-                output_lines.append("")
+                    admonition_content.append(description_line)
+                admonition_content.append("")
 
             # Render tool footnote
             tool_footnote = row["footnote"]
             if tool_footnote:
-                output_lines.append(tool_footnote)
-                output_lines.append("")
+                admonition_content.append(tool_footnote)
+                admonition_content.append("")
+
+            # Add the admonition content to the output
+            for line_content in admonition_content:
+                output_lines.append(textwrap.indent(line_content, "    "))
+
+            output_lines.append("")
 
         return "\n".join(output_lines)
 
@@ -365,10 +402,23 @@ def define_env(env: MacrosPlugin):
             # Render the CSV file using the `read_csv` macro from the `mkdocs-table-reader-plugin`
             table_md = read_csv(file)
 
-            # Add a section for this CSV to the output
-            output_lines.append(f"### `{section_name}`")
+            # Render admonition wrapper
+            output_lines.append(f'??? value "`{section_name}`"')
             output_lines.append("")
-            output_lines.append(table_md)
+
+            # NOTE: we create a separate list here, so we can indent the admonition content
+            admonition_content = []
+
+            # Add a section for this CSV to the output
+            admonition_content.append(f"#### `{section_name}`")
+            admonition_content.append("")
+            admonition_content.append(table_md)
+            admonition_content.append("")
+
+            # Add the admonition content to the output
+            for line_content in admonition_content:
+                output_lines.append(textwrap.indent(line_content, "    "))
+
             output_lines.append("")
 
         return "\n".join(output_lines)

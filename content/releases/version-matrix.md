@@ -1,61 +1,53 @@
 ---
 icon: material/table
 description: >-
-  Version matrix for deployKF and its dependencies.
+  The versions of dependencies supported by each version of deployKF.
 ---
 
 # Version Matrix
 
-These tables summarize the __tools and dependency versions__ which are supported by __each version of deployKF__.
+The versions of __dependencies__ supported by each version of deployKF.
 
 ---
 
-!!! info "Version Key"
+!!! info "Table Key"
 
-    The version wrapped with `()` is the default version included with that version of deployKF.
+    - :fontawesome-solid-check: Supported
+    - :fontawesome-solid-xmark: Not Supported
+    - :fontawesome-regular-circle-check: Default Included Version
 
-    Versions that are <s>`struck through`</s> do not work with that version of deployKF.
+### Kubernetes
 
-## deployKF Dependencies
+{{ read_csv("./version-matrix--kubernetes.csv", colalign=("right",)) }}
 
-Dependencies of deployKF.
+### Argo CD
 
-{{ read_csv("./version-matrix--deploykf-dependencies.csv", colalign=("right",)) }}
+!!! info "Existing Argo CD"
 
-## deployKF Core
+    To use deployKF with your existing Argo CD installation, please see [this guide](../guides/dependencies/argocd.md#can-i-use-my-existing-argo-cd).
 
-Core components of deployKF like `deploykf-auth` and `deploykf-dashboard`.
+{{ read_csv("./version-matrix--argocd.csv", colalign=("right",)) }}
 
-{{ read_csv("./version-matrix--deploykf-core.csv", colalign=("right",)) }}
+### Cert-Manager
 
-## deployKF Opt
+!!! info "Existing Cert-Manager"
 
-Optional embedded applications that are used when external alternatives are not configured.
+    To use deployKF with your existing Cert-Manager installation, please see [this guide](../guides/dependencies/cert-manager.md#can-i-use-my-existing-cert-manager).
 
-{{ read_csv("./version-matrix--deploykf-opt.csv", colalign=("right",)) }}
+{{ read_csv("./version-matrix--cert-manager.csv", colalign=("right",)) }}
 
-## deployKF Tools
+### Istio
 
-MLOps tools from the deployKF ecosystem.
+!!! info "Existing Istio"
 
-!!! tip
+    To use deployKF with your existing Istio installation, please see [this guide](../guides/dependencies/istio.md#can-i-use-my-existing-istio).
 
-    For detailed information about each tool, see the [supported tools](../reference/tools.md) page.
+{{ read_csv("./version-matrix--istio.csv", colalign=("right",)) }}
 
-{{ read_csv("./version-matrix--deploykf-tools.csv", colalign=("right",)) }}
+### Kyverno
 
-## Kubeflow Dependencies
+!!! info "Existing Kyverno"
 
-Dependencies of Kubeflow's MLOps tools.
+    To use deployKF with your existing Kyverno installation, please see [this guide](../guides/dependencies/kyverno.md#can-i-use-my-existing-kyverno).
 
-{{ read_csv("./version-matrix--kubeflow-dependencies.csv", colalign=("right",)) }}
-
-## Kubeflow Tools
-
-MLOps tools from the Kubeflow ecosystem.
-
-!!! tip
-
-    See our current tools page for for [detailed information about each tool in the Kubeflow ecosystem](../reference/tools.md#kubeflow-ecosystem).
-
-{{ read_csv("./version-matrix--kubeflow-tools.csv", colalign=("right",)) }}
+{{ read_csv("./version-matrix--kyverno.csv", colalign=("right",)) }}

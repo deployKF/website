@@ -1,0 +1,3 @@
+deployKF,`0.1.0+`
+[TensorBoards Web App](https://github.com/kubeflow/kubeflow/tree/master/components/crud-web-apps/tensorboards),`1.7.0`
+[TensorBoards Controller](https://github.com/kubeflow/kubeflow/tree/master/components/tensorboard-controller),`1.7.0`

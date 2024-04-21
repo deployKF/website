@@ -1,6 +1,6 @@
 nav:
-  - deploykf-values.md
-  - Included Tools:
-     - tools.md
-     - future-tools.md
+  - tools.md
+  - future-tools.md
+  - API Reference:
+     - deploykf-values.md
   - ...

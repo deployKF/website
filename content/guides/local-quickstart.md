@@ -238,7 +238,7 @@ K3s is an extremely lightweight Kubernetes distribution that is fully compliant 
     ??? question_secondary "Can I use a different version of Kubernetes?"
     
         Yes. The `--image` flag allows you to specify the version of Kubernetes.
-        You may use any version of the [`rancher/k3s`](https://hub.docker.com/r/rancher/k3s/tags) image which corresponds to a version of Kubernetes that is [supported by deployKF](../releases/version-matrix.md#deploykf-dependencies).
+        You may use any version of the [`rancher/k3s`](https://hub.docker.com/r/rancher/k3s/tags) image which corresponds to a version of Kubernetes that is [supported by deployKF](../releases/version-matrix.md#kubernetes).
 
 ??? step "Step 2 - Wait for Cluster to be Ready"
 
