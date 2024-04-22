@@ -6,7 +6,7 @@ description: >-
 
 # Tool Versions
 
-The versions of __ML & Data tools__ included with each version of deployKF.
+The versions of [__ML & Data tools__](../reference/tools.md) included with each version of deployKF.
 
 ---
 

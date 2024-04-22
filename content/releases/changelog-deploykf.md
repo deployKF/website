@@ -14,6 +14,10 @@ This changelog lists releases of __deployKF__ that are found in the [`deployKF/d
 
     Carefully review the ___"Upgrade Notes"___ and ___"Important Notes"___ before [upgrading deployKF](../guides/upgrade.md) to a new version.
 
+!!! info "Tool and Dependency Versions"
+
+    See the [tool versions](./tool-versions.md) and [dependency version matrix](./version-matrix.md) pages to learn more about each release.
+
 ??? question_secondary "Can I be notified of new releases?"
 
     Yes. Watch the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub.<br>At the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.

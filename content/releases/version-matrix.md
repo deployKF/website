@@ -4,7 +4,7 @@ description: >-
   The versions of dependencies supported by each version of deployKF.
 ---
 
-# Version Matrix
+# Dependency Version Matrix
 
 The versions of __dependencies__ supported by each version of deployKF.
 
@@ -15,10 +15,6 @@ The versions of __dependencies__ supported by each version of deployKF.
     - :fontawesome-solid-check: Supported
     - :fontawesome-solid-xmark: Not Supported
     - :fontawesome-regular-circle-check: Default Included Version
-
-!!! info "ML & Data Tools"
-
-    Also see the [tool versions](./tool-versions.md) page which lists the versions of _ML & Data tools_.
 
 ## Kubernetes
 
