@@ -14,10 +14,7 @@ python ./dev/generate_changelog.py \
   --output-intro 'This changelog lists releases of __deployKF__ that are found in the [`deployKF/deployKF`](https://github.com/deployKF/deployKF/releases) repository.' \
   --output-admonition-type '!!! danger' \
   --output-admonition-title '' \
-  --output-admonition-content 'Carefully review the ___"Upgrade Notes"___ and ___"Important Notes"___ before [upgrading deployKF](../guides/upgrade.md) to a new version.' \
-  --output-admonition-type '!!! info' \
-  --output-admonition-title 'Tool and Dependency Versions' \
-  --output-admonition-content 'See the [tool versions](./tool-versions.md) and [dependency version matrix](./version-matrix.md) pages to learn more about each release.' \
+  --output-admonition-content 'Carefully review the ___"Upgrade Notes"___ and ___"Important Notes"___ before [upgrading deployKF](../guides/upgrade.md) to a new version.<br><br>Also review the [tool versions](./tool-versions.md) and [version matrix](./version-matrix.md) pages.' \
   --output-admonition-type '??? question_secondary' \
   --output-admonition-title 'Can I be notified of new releases?' \
   --output-admonition-content 'Yes. Watch the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub.<br>At the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.' \

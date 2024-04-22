@@ -12,11 +12,7 @@ This changelog lists releases of __deployKF__ that are found in the [`deployKF/d
 
 !!! danger
 
-    Carefully review the ___"Upgrade Notes"___ and ___"Important Notes"___ before [upgrading deployKF](../guides/upgrade.md) to a new version.
-
-!!! info "Tool and Dependency Versions"
-
-    See the [tool versions](./tool-versions.md) and [dependency version matrix](./version-matrix.md) pages to learn more about each release.
+    Carefully review the ___"Upgrade Notes"___ and ___"Important Notes"___ before [upgrading deployKF](../guides/upgrade.md) to a new version.<br><br>Also review the [tool versions](./tool-versions.md) and [version matrix](./version-matrix.md) pages.
 
 ??? question_secondary "Can I be notified of new releases?"
 
