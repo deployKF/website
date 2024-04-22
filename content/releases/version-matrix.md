@@ -16,11 +16,15 @@ The versions of __dependencies__ supported by each version of deployKF.
     - :fontawesome-solid-xmark: Not Supported
     - :fontawesome-regular-circle-check: Default Included Version
 
-### Kubernetes
+!!! info "ML & Data Tools"
+
+    Also see the [tool versions](./tool-versions.md) page which lists the versions of _ML & Data tools_.
+
+## Kubernetes
 
 {{ read_csv("./version-matrix--kubernetes.csv", colalign=("right",)) }}
 
-### Argo CD
+## Argo CD
 
 !!! info "Existing Argo CD"
 
@@ -28,7 +32,7 @@ The versions of __dependencies__ supported by each version of deployKF.
 
 {{ read_csv("./version-matrix--argocd.csv", colalign=("right",)) }}
 
-### Cert-Manager
+## Cert-Manager
 
 !!! info "Existing Cert-Manager"
 
@@ -36,7 +40,7 @@ The versions of __dependencies__ supported by each version of deployKF.
 
 {{ read_csv("./version-matrix--cert-manager.csv", colalign=("right",)) }}
 
-### Istio
+## Istio
 
 !!! info "Existing Istio"
 
@@ -44,7 +48,7 @@ The versions of __dependencies__ supported by each version of deployKF.
 
 {{ read_csv("./version-matrix--istio.csv", colalign=("right",)) }}
 
-### Kyverno
+## Kyverno
 
 !!! info "Existing Kyverno"
 
