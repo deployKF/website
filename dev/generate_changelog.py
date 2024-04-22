@@ -135,28 +135,48 @@ def filter_content(content: str, include_headings_h2: List[str]) -> str:
 
     last_line = ""
     include_section = False
+    line_indent = 0
     for line in lines:
         if line.startswith("# "):
             include_section = False
+            line_indent = 0
         elif line.startswith("## "):
             heading = line[3:]
             if heading in include_headings_h2:
                 # add a newline before this heading, if there is not one already
                 if last_line.strip() != "":
                     filtered_lines.append("")
-                # transform the heading to H3 (###)
-                filtered_lines.append(f"### {heading}")
+                # transform the heading into an admonition
+                if "upgrade" in heading.lower():
+                    admonition_type = "??? warning"
+                elif "note" in heading.lower():
+                    admonition_type = "??? info"
+                else:
+                    admonition_type = "??? abstract"
+                filtered_lines.append("\n" + f'{admonition_type} "{heading}"' + "\n")
+                line_indent = 4
                 include_section = True
             else:
                 include_section = False
+                line_indent = 0
         elif include_section:
             if line.strip() == "" and last_line.strip() == "":
                 include_section = False
-            elif re.match(r"^#+ ", line):
-                # transform headings to one level lower
-                filtered_lines.append(f"#{line}")
+                line_indent = 0
+            elif re.match(r"^(#+) (.*)", line):
+                group = re.match(r"^(#+) (.*)", line)
+                # transform headings to one level lower (e.g. H2 to H3)
+                # NOTE: we use <hX> rather than "###" to avoid MKDocs treating it as a heading for table of contents
+                h_level = len(group.group(1)) + 1
+                h_content = group.group(2)
+                filtered_lines.append(
+                    "\n"
+                    + line_indent * " "
+                    + f"<h{h_level}>{h_content}</h{h_level}>"
+                    + "\n"
+                )
             else:
-                filtered_lines.append(line)
+                filtered_lines.append(line_indent * " " + line)
 
         last_line = line
 
@@ -167,6 +187,12 @@ def format_release(release: Dict[str, str], include_headings_h2: List[str]) -> s
     version = release["tag_name"].lstrip("v")
     date = release["published_at"][:10]
     url = release["html_url"]
+
+    # Add a header with the version, date, and URL
+    # NOTE: using '{ #<version> }' attribute make the TOC anchor only the version number (not the release date)
+    header = f"## [__{version}__]({url}) ({date}) {{ #{version} }}"
+
+    # Filter and transform the release content
     content = filter_content(release["body"], include_headings_h2)
 
     # Replace links to pull requests and issues with markdown links
@@ -180,7 +206,7 @@ def format_release(release: Dict[str, str], include_headings_h2: List[str]) -> s
     # Replace @mentions with markdown links
     content = re.sub(r"@(\w+)", r"[@\1](https://github.com/\1)", content)
 
-    return f"## [{version}]({url}) - {date}\n{content}"
+    return f"{header}\n{content}"
 
 
 def main():
@@ -207,7 +233,7 @@ def main():
     parser.add_argument(
         "--output-admonition-type",
         action="append",
-        help="The type of the output admonition",
+        help="The type of the output admonition (e.g. '!!! warning' or '??? question_secondary')",
     )
     parser.add_argument(
         "--output-admonition-title",
@@ -295,20 +321,30 @@ def main():
             args.output_admonition_type,
             args.output_admonition_title,
             args.output_admonition_content,
+            # prevent zip from truncating to the shortest list
+            strict=True,
         )
     )
 
-    for admonition_type, admonition_title, admonition_content in admonitions_list:
-        if admonition_title:
-            changelog.append(f'!!! {admonition_type} "{admonition_title}"')
+    # Add custom admonitions
+    for (
+        admonition_type,
+        admonition_title,
+        admonition_content,
+    ) in admonitions_list:
+        if len(admonition_title) > 0:
+            changelog.append(f'{admonition_type} "{admonition_title}"')
         else:
-            changelog.append(f"!!! {admonition_type}")
+            changelog.append(f"{admonition_type}")
         changelog.append("")
         changelog.append(f"    {admonition_content}")
         changelog.append("")
 
     changelog.append("")
+    changelog.append("---")
+    changelog.append("")
 
+    # Add Release Notes
     total_releases = len(releases)
     for i, release in enumerate(releases):
         formatted_release = format_release(release, args.include_headings_h2)

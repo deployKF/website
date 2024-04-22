@@ -4,7 +4,7 @@ description: >-
   The versions of dependencies supported by each version of deployKF.
 ---
 
-# Version Matrix
+# Dependency Version Matrix
 
 The versions of __dependencies__ supported by each version of deployKF.
 
@@ -16,11 +16,11 @@ The versions of __dependencies__ supported by each version of deployKF.
     - :fontawesome-solid-xmark: Not Supported
     - :fontawesome-regular-circle-check: Default Included Version
 
-### Kubernetes
+## Kubernetes
 
 {{ read_csv("./version-matrix--kubernetes.csv", colalign=("right",)) }}
 
-### Argo CD
+## Argo CD
 
 !!! info "Existing Argo CD"
 
@@ -28,7 +28,7 @@ The versions of __dependencies__ supported by each version of deployKF.
 
 {{ read_csv("./version-matrix--argocd.csv", colalign=("right",)) }}
 
-### Cert-Manager
+## Cert-Manager
 
 !!! info "Existing Cert-Manager"
 
@@ -36,7 +36,7 @@ The versions of __dependencies__ supported by each version of deployKF.
 
 {{ read_csv("./version-matrix--cert-manager.csv", colalign=("right",)) }}
 
-### Istio
+## Istio
 
 !!! info "Existing Istio"
 
@@ -44,7 +44,7 @@ The versions of __dependencies__ supported by each version of deployKF.
 
 {{ read_csv("./version-matrix--istio.csv", colalign=("right",)) }}
 
-### Kyverno
+## Kyverno
 
 !!! info "Existing Kyverno"
 

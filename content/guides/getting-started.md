@@ -121,13 +121,12 @@ See the [values](./values.md) page for more information.
 
 ### __deployKF Versions__
 
-Each deployKF version may include different [ML & Data tools](../reference/tools.md) or support different [versions of dependencies](../releases/version-matrix.md).
+The __"version"__ of your platform is the version of the [generator package](../releases/changelog-deploykf.md) you are using.
+For information about upgrading, see the [upgrade guide](./upgrade.md#upgrading-versions) and [changelog](../releases/changelog-deploykf.md).
 
-See the [changelog](../releases/changelog-deploykf.md) for detailed information, including important tips for [upgrading](./upgrade.md).
+??? question_secondary "Can I be notified of new releases?"
 
-??? question_secondary "How can I get notified about new releases?"
-
-    Watch the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub.
+    Yes. Watch the [`deployKF/deployKF`](https://github.com/deployKF/deployKF) repo on GitHub.
     <br>
     At the top right, click `Watch` → `Custom` → `Releases` then confirm by selecting `Apply`.
 
