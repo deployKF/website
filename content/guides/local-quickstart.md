@@ -77,7 +77,7 @@ You will need to install the following dependencies:
 
         Requirement | Notes
         --- | ---
-        Bash 4.2+ | RUN: `brew install bash`<br>*(macOS has bash `3.2` by default)*
+        Bash 4.4+ | RUN: `brew install bash`<br>*(macOS has bash `3.2` by default)*
         CLI: [`argocd`](https://argo-cd.readthedocs.io/en/stable/cli_installation/) | RUN: `brew install argocd`
         CLI: [`jq`](https://jqlang.github.io/jq/download/) | RUN: `brew install jq`
         CLI: [`k3d`](https://k3d.io/) | RUN: `brew install k3d`
@@ -230,7 +230,7 @@ K3s is an extremely lightweight Kubernetes distribution that is fully compliant 
     ```bash
     # NOTE: this will change your kubectl context to the new cluster
     k3d cluster create "deploykf" \
-      --image "rancher/k3s:v1.27.10-k3s2"
+      --image "rancher/k3s:v1.28.8-k3s1"
     ```
 
     ---

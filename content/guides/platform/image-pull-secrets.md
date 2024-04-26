@@ -16,9 +16,9 @@ Learn how to configure __image pull secrets__ and __private container registries
 ## Overview
 
 You may need to configure image pull secrets in deployKF.
-For example, you may want to avoid Docker Hub [rate limits](https://www.docker.com/increase-rate-limits/) on public images, or use a private container registry that requires authentication.
-
 Image pull secrets tell Kubernetes how to authenticate with a container registry when pulling images.
+
+For example, you may want to avoid Docker Hub [rate limits](https://www.docker.com/increase-rate-limits/) on public images, or use a private container registry that requires authentication.
 
 ## Image Pull Secrets
 
@@ -108,7 +108,7 @@ These steps will guide you through creating and using an image pull secret in de
         - `*` - matches zero or many characters
         - `?` - matches at least one character
 
-## Private Registries
+## Private Container Registries
 
 In some situations, like when your cluster is not connected to the internet, you may need to use a private container registry for all container images.
 
@@ -124,112 +124,154 @@ In some situations, like when your cluster is not connected to the internet, you
     - [GitHub Container Registry](https://ghcr.io/) (`ghcr.io`)
     - [Quay](https://quay.io/) (`quay.io`)
 
-Currently, we don't have an out-of-the-box solution to mirror all the images to a private registry.
+??? step "Step 1 - Get list of Images"
 
-However, we have created values to override the default image locations for all images in deployKF.
-Almost all image values are under the `<path_to_tool>.images` key of each component, with the rest ending with an `image` suffix.
+    The first step is to determine which images and tags need to be mirrored to your private registry.
+    Currently, we don't have an out-of-the-box solution for this.
+    
+    However, we have created values to override all images in deployKF.
+    Almost all image values are under the `<path_to_tool>.images` key of each component, but some are in a different location (these end in an `image` suffix, to make them easier to find).
 
-For example, the images for Kubeflow Pipelines are under [`kubeflow_tools.pipelines.images`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L1772-L1814):
+    !!! tip
 
-```yaml
-kubeflow_tools:
-  pipelines:
-    images:
-      kfpCacheServer:
-        repository: gcr.io/ml-pipeline/cache-server
-        tag: ~
+        Search for `images:` and `image:` in the [`default_values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/generator/default_values.yaml) to find all current image values.
 
-      kfpMetadataEnvoy:
-        repository: gcr.io/ml-pipeline/metadata-envoy
-        tag: ~
+    For example, the images for Kubeflow Pipelines are under [`kubeflow_tools.pipelines.images`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L1772-L1814):
+    
+    ```yaml
+    kubeflow_tools:
+      pipelines:
+        images:
+          kfpCacheServer:
+            repository: gcr.io/ml-pipeline/cache-server
+            tag: ~
+    
+          kfpMetadataEnvoy:
+            repository: gcr.io/ml-pipeline/metadata-envoy
+            tag: ~
+    
+          kfpMetadataWriter:
+            repository: gcr.io/ml-pipeline/metadata-writer
+            tag: ~
+    
+          kfpApiServer:
+            repository: gcr.io/ml-pipeline/api-server
+            tag: ~
+    
+          kfpPersistenceagent:
+            repository: gcr.io/ml-pipeline/persistenceagent
+            tag: ~
+    
+          kfpScheduledworkflow:
+            repository: gcr.io/ml-pipeline/scheduledworkflow
+            tag: ~
+    
+          kfpFrontend:
+            repository: gcr.io/ml-pipeline/frontend
+            tag: ~
+    
+          kfpViewerCrdController:
+            repository: gcr.io/ml-pipeline/viewer-crd-controller
+            tag: ~
+    
+          kfpVisualizationServer:
+            repository: gcr.io/ml-pipeline/visualization-server
+            tag: ~
+    
+          tfxMlMetadataStoreServer:
+            repository: gcr.io/tfx-oss-public/ml_metadata_store_server
+            ## NOTE: this tag is not aligned to the other KFP images
+            tag: ~
+    ```
 
-      kfpMetadataWriter:
-        repository: gcr.io/ml-pipeline/metadata-writer
-        tag: ~
+    You will notice that the `tag` is not specified for some images.
+    This is because Helm/Kustomize will automatically set this at deploy time based on the version of the component.
+    
+    This makes determining the correct tag to mirror a bit more difficult.
+    The only way to determine the correct tag is to __render the manifests for each component__ and extract the images which are actually used.
 
-      kfpApiServer:
-        repository: gcr.io/ml-pipeline/api-server
-        tag: ~
+    For example, to print the images for __Kubeflow__ (which is a Kustomize app), you might run the following commands:
+    
+    ```shell
+    # Render the manifests
+    deploykf generate ... --output-dir ./GENERATOR_OUTPUT
+    
+    # Go to the component directory
+    cd ./GENERATOR_OUTPUT/manifests/kubeflow-tools/pipelines
+    
+    # Print the images
+    kustomize build . \
+      | perl -nle $'print $1 if /image: ["\']?([^ {"\']+)["\']?/'
+    ```
 
-      kfpPersistenceagent:
-        repository: gcr.io/ml-pipeline/persistenceagent
-        tag: ~
+    For example, to print the images for __Istio__ (which is a Helm chart), you might run the following commands:
+    
+    ```shell
+    # Render the manifests
+    deploykf generate ... --output-dir ./GENERATOR_OUTPUT
+    
+    # Go to the component directory
+    cd ./GENERATOR_OUTPUT/manifests/deploykf-dependencies/istio
+    
+    # Update the Helm dependencies
+    helm dependency update .
+    
+    # Print the images
+    # NOTE: the istio chart needs the namespace to be set
+    helm template . --namespace istio-system \
+      | perl -nle $'print $1 if /image: ["\']?([^ {"\']+)["\']?/'
+    ```
 
-      kfpScheduledworkflow:
-        repository: gcr.io/ml-pipeline/scheduledworkflow
-        tag: ~
+    !!! info "Regex"
+    
+        The above commands are using the regex `/image: ["']?([^ {"']+)["']?/` to extract parts of the manifest which look like `image: "xxxx"`, `image: 'xxxx'`, or `image: xxxx`.
 
-      kfpFrontend:
-        repository: gcr.io/ml-pipeline/frontend
-        tag: ~
+        We are not sure if this regex is sufficient for all cases, please let us know if you find a better one!
 
-      kfpViewerCrdController:
-        repository: gcr.io/ml-pipeline/viewer-crd-controller
-        tag: ~
+    !!! warning "Not all Images are in the Manifests"
+    
+        Some images are not technically "part of the manifests" (that is, not used in the `image` field of a PodSpec).
+        This means they will NOT show up with the above commands.
 
-      kfpVisualizationServer:
-        repository: gcr.io/ml-pipeline/visualization-server
-        tag: ~
+        For example, [Istio](../dependencies/istio.md) injects sidecar containers into Pod definitions at runtime (and the image used is configured by a ConfigMap).
+        However, all such images may still be overridden with their associated deployKF values.
 
-      tfxMlMetadataStoreServer:
-        repository: gcr.io/tfx-oss-public/ml_metadata_store_server
-        ## NOTE: this tag is not aligned to the other KFP images
-        tag: ~
-```
+??? step "Step 2 - Mirror the Images"
 
-You will notice that the `tag` is not specified for some images.
-This is because Helm/Kustomize will automatically set this at deploy time based on the version of the component.
+    Once you have the images and tags, you may use the `docker` command to pull the images and push them to your private registry.
 
-This makes determining the correct tag to mirror a bit more difficult.
-The only way to determine the correct tag is to render the manifests for each component and extract the tag from the rendered manifests.
+    For example, you might create a script which loops through each image and does the following:
 
-For example, to print the images for Kubeflow Pipelines (which is a Kustomize app), you might run the following commands:
+    ```shell
+    # set the source image
+    SOURCE_REGISTRY="gcr.io" # depending on image: "docker.io", "ghcr.io", "quay.io"
+    SOURCE_IMAGE="ml-pipeline/cache-server:X.Y.Z"
 
-```shell
-# Render the manifests
-deploykf generate ... --output-dir ./GENERATOR_OUTPUT
+    # set the destination image
+    DEST_REGISTRY="docker.example.com"
 
-# Go to the component directory
-cd ./GENERATOR_OUTPUT/manifests/kubeflow-tools/pipelines
+    # pull the images
+    docker pull "${SOURCE_REGISTRY}/${SOURCE_IMAGE}"
 
-# Print the images
-kustomize build . \
-  | perl -nle $'print $1 if /image: ["\']?([^ {"\']+)["\']?/'
-```
+    # tag the images
+    docker tag "${SOURCE_REGISTRY}/${SOURCE_IMAGE}" "${DEST_REGISTRY}/${SOURCE_IMAGE}"
 
-For example, to print the images for Istio (which is a Helm chart), you might run the following commands:
+    # push the images
+    docker push "${DEST_REGISTRY}/${SOURCE_IMAGE}"
+    ```
 
-```shell
-# Render the manifests
-deploykf generate ... --output-dir ./GENERATOR_OUTPUT
+    !!! tip "Image Names"
 
-# Go to the component directory
-cd ./GENERATOR_OUTPUT/manifests/deploykf-dependencies/istio
+        We recommend using the same image name as the source image, as this will make it easier to update the deployKF values.
 
-# Update the Helm dependencies
-helm dependency update .
+??? step "Step 3 - Set Image Values"
 
-# Print the images
-# NOTE: the istio chart needs the namespace to be set
-helm template . --namespace istio-system \
-  | perl -nle $'print $1 if /image: ["\']?([^ {"\']+)["\']?/'
-```
+    Finally, you will need to update all the deployKF image values to use the mirrored images.
+    Almost all image values are under the `<path_to_tool>.images` key of each component, but some are in a different location (these end in an `image` suffix, to make them easier to find).
 
-!!! info "Regex"
+    !!! tip
 
-    The above commands are using the `/image: ["']?([^ {"']+)["']?/` regex.
-    We are not sure if this regex is sufficent for all cases to extract the image string.
-
-!!! warning "Non-Manifest Images"
-
-    Some images are not technically "part of the manifests" of a component.
-    That is, they are not used in the `image` field of a `Deployment` or `StatefulSet`.
-
-    For example, Istio injects a sidecar into every Pod, and this sidecar is a separate image.
-    We have tried to expose all these images in the `<path_to_tool>.images` values, but we may have missed some.
-
-Once you have the images and tags, you can use the `docker` command to pull the images and push them to your private registry.
-Finally, you will need to update all corresponding deployKF image values to point to your private registry.
+        Search for `images:` and `image:` in the [`default_values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/generator/default_values.yaml) to find all current image values.
 
 !!! contribute "Help Us Improve"
 

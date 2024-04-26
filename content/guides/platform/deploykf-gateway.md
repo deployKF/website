@@ -8,7 +8,7 @@ description: >-
 
 Learn how to __make deployKF accessible__ to your users, and how to __configure HTTPS/TLS__.
 
-!!! contribute ""
+!!! contribute "Help Us Improve"
 
     This guide covers an incredibly broad topic with near limitless possible implementations.
     If you see anything incorrect or missing, please help us by [raising an issue](https://github.com/deployKF/website/issues/new/?title=[Feedback]+{{ page.title }})!
@@ -886,9 +886,10 @@ Please note, not all Ingress controllers support reading a Kubernetes Secret for
 
 ??? step "Step 3 - Configure the Ingress"
 
-    Next, you will need to configure your Ingress resource to use the `my-tls-secret` Secret for TLS termination.
+    Next, you will need to configure an Ingress resource to use the `my-tls-secret` Secret for TLS termination.
+    You may start from one of the [above examples](#use-a-kubernetes-ingress) and update the `tls` field to use your Secret.
 
-    For example, your Ingress resource will probably look something like this:
+    For example, your updated Ingress resource will probably look something like this:
 
     ```yaml
     apiVersion: networking.k8s.io/v1

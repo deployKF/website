@@ -90,36 +90,41 @@ We think deployKF is good enough to try, even if you don't love Argo CD!
 
 ## __Can I use my existing Argo CD?__
 
-Yes, you must. See our [version matrix](../../releases/version-matrix.md#argo-cd) for a list of supported Argo CD versions.
-Then follow the [Getting Started](../getting-started.md) guide to install deployKF with your existing Argo CD.
+Yes, you must. 
+
+See our [version matrix](../../releases/version-matrix.md#argo-cd) for a list of supported Argo CD versions, then follow the [Getting Started](../getting-started.md) guide to install deployKF with your existing Argo CD.
 
 ### __Can I use an off-cluster ArgoCD?__
 
 Yes.
-deployKF supports the ArgoCD "management cluster" pattern, where multiple target clusters are managed by a single ArgoCD.
+deployKF supports the Argo CD "management cluster" pattern, where multiple target clusters are managed by a single Argo CD.
 
-We provide the [`argocd.appNamePrefix`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L8-L13) value to prefix all ArgoCD `Application` names (which is needed because multiple sets of them may exist in the management cluster).
+??? step "Step 1 - Configure `destination` and `appNamePrefix`"
 
-For example, say you have [created a remote cluster named `"my-cluster1"`](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#clusters) in your Argo CD management cluster.
-The following values will prefix all application names with `"cluster1-"` and target them to the named destination `"my-cluster1"`:
+    When using an off-cluster ArgoCD, you must set the [`argocd.destination`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L56-L61) value to target the correct cluster.
+    
+    You must also set the [`argocd.appNamePrefix`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L8-L13) value to avoid conflicting ArgoCD application names (which is needed because multiple sets of them may exist in the management cluster).
 
-```yaml
-argocd:
-  ## a prefix to use for argocd application names
-  appNamePrefix: "cluster1-"
+    For example, say you have [defined a remote cluster](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#clusters) named `"my-cluster1"` on your Argo CD management cluster.
+    The following values will prefix all application names with `"cluster1-"` and target them to the named destination `"my-cluster1"`:
 
-  ## the destination used for deployKF argocd applications
-  destination:
-    name: "my-cluster1"
-```
+    ```yaml
+    argocd:
+      ## a prefix to use for argocd application names
+      appNamePrefix: "cluster1-"
+    
+      ## the destination used for deployKF argocd applications
+      destination:
+        name: "my-cluster1"
+    ```
 
-!!! warning "Destination MUST be remote"
+    !!! warning "Destination MUST be remote"
+    
+        When the `argocd.appNamePrefix` value is non-empty, the `argocd.destination` MUST be a remote cluster (that is, you should not run deployKF on your management cluster).
 
-    When the `argocd.appNamePrefix` value is non-empty, the [`argocd.destination`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L56-L61) MUST be a remote cluster (that is, you should not run deployKF on your management cluster).
+??? step "Step 2 - Update App-of-Apps"
 
-!!! warning "About the App-of-Apps"
-
-    Your app-of-apps `Application` MUST target the management cluster, NOT the remote cluster.
+    Your app-of-apps `Application` MUST target the management cluster, NOT the remote cluster, only the internal `Applications` will target the remote cluster.
 
     Also, you must set the `app.kubernetes.io/part-of` label to `{argocd.appNamePrefix}deploykf`, so the sync script works correctly.
 
@@ -153,9 +158,10 @@ argocd:
         #name: "in-cluster"
     ```
 
-!!! warning "Sync Script"
+??? step "Step 3 - Update Sync Script"
 
     By default, the [`sync_argocd_apps.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/sync_argocd_apps.sh) script assumes that `argocd.appNamePrefix` is not set.
+
     Update the `ARGOCD_APP_NAME_PREFIX` variable at the top of the script to match your `argocd.appNamePrefix` value.
 
     ```bash
