@@ -16,7 +16,7 @@ Learn how to use your existing Argo CD with deployKF and Kubeflow.
 
 [:custom-argocd-color: __Argo CD__](https://argo-cd.readthedocs.io/en/stable/) is an extremely widely-used tool that helps you programmatically manage the applications deployed on a Kubernetes cluster.
 
-!!! warning "Argo CD vs Argo Workflows"
+!!! warning ""
 
     Please note that _Argo CD_ is a __completely different tool__ from _Argo Workflows_, they just have similar names.
     

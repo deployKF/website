@@ -29,7 +29,7 @@ However, this may result in downtime, so you should plan accordingly.
 
 !!! warning "Private Container Registries"
 
-    If you [use a private container registry](./platform/image-pull-secrets.md) rather than the default image locations,
+    If you [use a private container registry](./platform/offline.md#private-container-registries) rather than the default image locations,
     check which images are used by the new version and ensure they are mirrored as well.
     Be careful to use the correct image tags when upgrading, otherwise you might break your deployment.
 

@@ -380,7 +380,7 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
           "https://raw.githubusercontent.com/deployKF/deployKF/v{{ latest_deploykf_version }}/sample-values.yaml"
         ```
 
-    ??? step "Step 4 - Store Values in Git (Optional)"
+    ??? step "Step 4 - Store Values in Git (optional)"
 
         If you want to version your values files in git, you may update the `spec.source.repoURL` of your app-of-apps to any repo you have access to.
         You may then push your values files to the repo, and update the `values_files` parameter in the app-of-apps to point to them.
@@ -396,7 +396,7 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
 
         ```bash
         # create a secret with your GitHub credentials
-        # NOTE: we use a pipe kubectl can't create and label a secret in one command, so 
+        # NOTE: kubectl can't create and label a secret in one command, so we use a pipe
         kubectl create secret generic --dry-run=client -o yaml \
             "argocd-repository--MY_GITHUB_REPO" \
             --namespace "argocd" \
@@ -445,7 +445,7 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
 
         ```bash
         # create a secret with your GitHub credentials
-        # NOTE: we use a pipe kubectl can't create and label a secret in one command, so 
+        # NOTE: kubectl can't create and label a secret in one command, so we use a pipe
         kubectl create secret generic --dry-run=client -o yaml \
             "argocd-repository--MY_GITHUB_REPO" \
             --namespace "argocd" \

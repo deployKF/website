@@ -4,4 +4,5 @@ nav:
   - deploykf-gateway.md
   - deploykf-dashboard.md
   - image-pull-secrets.md
+  - offline.md
   - ...
