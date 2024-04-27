@@ -137,7 +137,7 @@ In some situations, like when your cluster is not connected to the internet, you
     This makes determining the correct tag to mirror a bit more difficult.
     The only way to determine the correct tag is to __render the manifests for each component__ and extract the images which are actually used.
 
-    For example, to print the images for __Kubeflow__ (which is a Kustomize app), you might run the following commands:
+    For example, to print the images for __Kubeflow Pipelines__ (which is a Kustomize app), you might run the following commands:
     
     ```shell
     # Render the manifests
