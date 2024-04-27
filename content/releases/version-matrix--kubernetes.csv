@@ -1,4 +1,4 @@
-deployKF Version → <br>[Kubernetes](https://kubernetes.io/) Version ↓,`0.1`
+deployKF Version → <br>[Kubernetes](../guides/getting-started.md#kubernetes-cluster) Version ↓,`0.1`
 `1.21`,:fontawesome-solid-xmark:
 `1.22`,:fontawesome-solid-check:
 `1.23`,:fontawesome-solid-check:

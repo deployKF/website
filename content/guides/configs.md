@@ -44,8 +44,12 @@ The following guides help you configure the deployKF platform itself, including 
     <td>Customize the deployKF dashboard with your own branding and links.</td>
   </tr>
   <tr markdown>
-    <td markdown>[Image Pull Secrets and Private Registries](./platform/image-pull-secrets.md)</td>
+    <td markdown>[Image Pull Secrets](./platform/image-pull-secrets.md)</td>
     <td>Configure image pull secrets, avoid Docker Hub rate limits, or use a private container registry.</td>
+  </tr>
+  <tr markdown>
+    <td markdown>[Air-Gapped Clusters and Private Registries](./platform/offline.md)</td>
+    <td>Use deployKF in air-gapped environments, private container registries, and private Helm repositories.</td>
   </tr>
 </table>
 

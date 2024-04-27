@@ -170,15 +170,16 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
 
 === ":star: ArgoCD Plugin Mode :star:"
 
-    ??? step "Step 1 - Install the ArgoCD Plugin"
+    ??? step "Step 1 - Prepare ArgoCD"
 
-        Your ArgoCD must have the [_deployKF ArgoCD Plugin_](./dependencies/argocd.md#what-is-the-deploykf-argocd-plugin).
-
-        Depending on your situation, there are different ways to install the plugin:
+        You will need to have ArgoCD deployed on your cluster, this ArgoCD instance must have the [_deployKF ArgoCD Plugin_](./dependencies/argocd.md#what-is-the-deploykf-argocd-plugin) installed.
+        Follow the appropriate guide for your situation:
 
         - [New ArgoCD](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#new-argocd)
         - [Existing ArgoCD (Deployed with Helm)](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#existing-argocd---helm)
         - [Existing ArgoCD (Deployed with Kustomize)](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#existing-argocd---kustomize)
+
+        __TIP:__ If you use an ArgoCD "management cluster" pattern, see the [off-cluster ArgoCD](./dependencies/argocd.md#can-i-use-an-off-cluster-argocd) guide.
 
     ??? step "Step 2 - Define an App-of-Apps"
 
@@ -355,10 +356,9 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
 
     ??? step "Step 3 - Configure Values"
 
-        deployKF is configured by [centralized values](./values.md) which define the desired state of the platform:
+        deployKF is configured by centralized [values](./values.md) which define the desired state of the platform.
 
-        - Learn about common configuration tasks in the [:star: __Configure deployKF__ :star:](./configs.md) guide.
-        - If you use an ArgoCD "management cluster" pattern, see the [off-cluster ArgoCD](./dependencies/argocd.md#can-i-use-an-off-cluster-argocd) guide.
+        Learn about common configuration tasks in the [:star: __Configure deployKF__ :star:](./configs.md) guide.
 
         ---
 
@@ -372,8 +372,6 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
         Each version of deployKF has [sample values](./values.md#sample-values) with all supported [ML & Data tools](../reference/tools.md#tool-index) enabled, along with some sensible security defaults.
         We recommend using these samples as a base for your custom values.
 
-        If you want to version your values files in git, you may update the `spec.source.repoURL` of your app-of-apps to any repo you have access to.
-        You will need to push the upstream `sample-values.yaml` file to your repo.
         The following command will download the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file for deployKF `{{ latest_deploykf_version }}`:
 
         ```bash
@@ -382,7 +380,36 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
           "https://raw.githubusercontent.com/deployKF/deployKF/v{{ latest_deploykf_version }}/sample-values.yaml"
         ```
 
-    ??? step "Step 4 - Apply App-of-Apps Resource"
+    ??? step "Step 4 - Store Values in Git (optional)"
+
+        If you want to version your values files in git, you may update the `spec.source.repoURL` of your app-of-apps to any repo you have access to.
+        You may then push your values files to the repo, and update the `values_files` parameter in the app-of-apps to point to them.
+
+        If you use the upstream `sample-values.yaml` as a base, you will also need to push that file to your repo.
+
+        ---
+
+        We __STRONGLY RECOMMEND__ using a __PRIVATE__ repo for your values!
+
+        If your git repo is private, you must [configure ArgoCD](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/) with credentials to access the repo.
+        For example, for a GitHub repo, you might create a Secret with a [Personal Access Token (PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) as follows:
+
+        ```bash
+        # create a secret with your GitHub credentials
+        # NOTE: kubectl can't create and label a secret in one command, so we use a pipe
+        kubectl create secret generic --dry-run=client -o yaml \
+            "argocd-repository--MY_GITHUB_REPO" \
+            --namespace "argocd" \
+            --from-literal=type="git" \
+            --from-literal=url="https://github.com/MY_GITHUB_ORG/MY_GITHUB_REPO.git" \
+            --from-literal=username="MY_GITHUB_USERNAME" \
+            --from-literal=password="MY_GITHUB_PAT" \
+          | kubectl label --local --dry-run=client -o yaml -f - \
+            "argocd.argoproj.io/secret-type"="repository" \
+          | kubectl apply -f -
+        ```
+
+    ??? step "Step 5 - Apply App-of-Apps Resource"
 
         Create a local file named `deploykf-app-of-apps.yaml` with the contents of the app-of-apps YAML above.
 
@@ -394,11 +421,13 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
 
 === "Manifests Repo Mode"
 
-    ??? step "Step 1 - Install ArgoCD"
+    ??? step "Step 1 - Prepare ArgoCD"
 
-        If you have not already installed ArgoCD on your cluster, you will need to do so.
-
+        If you have not already deployed ArgoCD on your cluster, you will need to do so.
+        <br>
         Please see the [ArgoCD Getting Started Guide](https://argo-cd.readthedocs.io/en/stable/getting_started/) for instructions.
+
+        __TIP:__ If you use an ArgoCD "management cluster" pattern, see the [off-cluster ArgoCD](./dependencies/argocd.md#can-i-use-an-off-cluster-argocd) guide.
       
     ??? step "Step 2 - Install the deployKF CLI"
 
@@ -409,14 +438,31 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
     ??? step "Step 3 - Prepare a Git Repo"
 
         You will need to create a git repo to store your generated manifests.
-        If your repo is private (recommended), you will need to [configure ArgoCD with git credentials](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/) so it can access the repo.
+        We __STRONGLY RECOMMEND__ using a __PRIVATE__ repo, as attackers could gain valuable information from your manifests.
+
+        If your git repo is private, you must [configure ArgoCD](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/) with credentials to access the repo.
+        For example, for a GitHub repo, you might create a Secret with a [Personal Access Token (PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) as follows:
+
+        ```bash
+        # create a secret with your GitHub credentials
+        # NOTE: kubectl can't create and label a secret in one command, so we use a pipe
+        kubectl create secret generic --dry-run=client -o yaml \
+            "argocd-repository--MY_GITHUB_REPO" \
+            --namespace "argocd" \
+            --from-literal=type="git" \
+            --from-literal=url="https://github.com/MY_GITHUB_ORG/MY_GITHUB_REPO.git" \
+            --from-literal=username="MY_GITHUB_USERNAME" \
+            --from-literal=password="MY_GITHUB_PAT" \
+          | kubectl label --local --dry-run=client -o yaml -f - \
+            "argocd.argoproj.io/secret-type"="repository" \
+          | kubectl apply -f -
+        ```
 
     ??? step "Step 4 - Create Values Files"
 
-        deployKF is configured by centralized [values](./values.md) which define the desired state of the platform:
+        deployKF is configured by centralized [values](./values.md) which define the desired state of the platform.
 
-         - Learn about common configuration tasks in the [:star: __Configure deployKF__ :star:](./configs.md) guide.
-         - If you use an ArgoCD "management cluster" pattern, see the [off-cluster ArgoCD](./dependencies/argocd.md#can-i-use-an-off-cluster-argocd) guide.
+        Learn about common configuration tasks in the [:star: __Configure deployKF__ :star:](./configs.md) guide.
 
         ---
 
@@ -572,16 +618,18 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
             --output-dir ./GENERATOR_OUTPUT
         ```
 
-        !!! warning "Avoid Manual Changes"
+        !!! warning "Do NOT Edit Manifests Directly"
         
-            Manual changes in the `--output-dir` will be __overwritten__ each time the `deploykf generate` command runs.
-            If you find yourself needing to make manual changes, please [raise an issue](https://github.com/deployKF/deployKF/issues) so we may consider adding a new value to support your use-case.
+            In general, you should NOT edit the manifests generated by deployKF.
+            Changes in the `--output-dir` will be __overwritten__ each time the `deploykf generate` command runs.
+
+            If you need to change something which is not configurable via values, please [raise an issue](https://github.com/deployKF/deployKF/issues) so we can understand your use-case and potentially add a new configuration option.
     
         !!! info "Multiple Values Files"
             
             If you specify `--values` multiple times, they will be merged with later ones taking precedence.
-            <br>
-            Learn more in the [merging values](./values.md#merging-values) guide.
+
+            See the [merging values](./values.md#merging-values) guide.
 
     ??? step "Step 6 - Commit Generated Manifests"
 

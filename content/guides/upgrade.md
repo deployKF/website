@@ -20,19 +20,23 @@ By "upgrading", we mean updating the [version of deployKF](../releases/changelog
 
 ## Upgrading Versions
 
-Typically, you can upgrade deployKF in-place by updating your `--source-version` (or `source_version` when using the plugin) and then re-syncing your ArgoCD Applications as normal.
+Typically, you can upgrade deployKF in-place by updating your `source_version` and then re-syncing your ArgoCD Applications as normal.
+However, this may result in downtime, so you should plan accordingly.
 
-This may result in downtime, so you should plan accordingly.
-
-!!! danger
+!!! danger "Read the Changelog!"
     
     Before upgrading, review the [changelog](../releases/changelog-deploykf.md) for any upgrade notes.
 
+!!! warning "Private Container Registries"
+
+    If you [use a private container registry](./platform/offline.md#private-container-registries) rather than the default image locations,
+    check which images are used by the new version and ensure they are mirrored as well.
+    Be careful to use the correct image tags when upgrading, otherwise you might break your deployment.
+
 ## Updating Values
 
-Typically, you can update your deployKF values by simply changing them and re-syncing your ArgoCD Applications.
+Typically, you can update your deployKF [values](./values.md) by simply changing them and re-syncing your ArgoCD Applications.
 Depending on the changes, you may need to sync with __pruning enabled__ to remove old resources.
-
 
 !!! warning "Pruning"
 
