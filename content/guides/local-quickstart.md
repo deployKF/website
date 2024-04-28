@@ -891,7 +891,7 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
 
         If your browser suddenly stops working, press `CTRL+C` to stop the port-forward, and then run the command again ([`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551)).
 
-??? step "Step 3 - Log in to the Dashboard"
+??? step "Step 3 - Log In"
 
     You should now be presented with a "Log In" screen when you visit the exposed URL:
         
