@@ -392,7 +392,7 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
           "https://raw.githubusercontent.com/deployKF/deployKF/v{{ latest_deploykf_version }}/sample-values.yaml"
         ```
 
-    ??? step "Step 4 - Store Values in Git (optional)"
+    ??? step "Step 4 - Store Values in Git <small>(optional)</small>"
 
         If you want to version your values files in git, you may update the `spec.source.repoURL` of your app-of-apps to any repo you have access to.
         You may then push your values files to the repo, and update the `values_files` parameter in the app-of-apps to point to them.
@@ -727,9 +727,9 @@ There are a few ways to sync the applications, you only need to use ONE of them.
 
 === "Sync: ArgoCD Web UI"
 
-    You can sync the applications using the ArgoCD Web UI.
+    Alternatively, you can sync the applications using the ArgoCD Web UI.
 
-    ??? step "Step 1 - Access the ArgoCD Web UI"
+    ??? step "Step 1 - Access ArgoCD Web UI"
 
         For production usage, you may want to [expose ArgoCD with a `LoadBalancer` or `Ingress`](https://argo-cd.readthedocs.io/en/stable/getting_started/#3-access-the-argo-cd-api-server).
 
@@ -757,7 +757,7 @@ There are a few ways to sync the applications, you only need to use ONE of them.
         ![ArgoCD Web UI (Dark Mode)](../assets/images/argocd-ui-DARK.png#only-dark)
         ![ArgoCD Web UI (Light Mode)](../assets/images/argocd-ui-LIGHT.png#only-light)
 
-    ??? step "Step 2 - Sync deployKF Applications"
+    ??? step "Step 2 - Sync Applications"
 
         You MUST sync the deployKF applications in the correct order.
         For each application, click the `SYNC` button, and wait for the application to become "Healthy" before syncing the next.
@@ -856,7 +856,7 @@ All public deployKF services (including the dashboard) are accessed via the depl
 
         This step is __REQUIRED__, you __MUST__ configure DNS records or local `/etc/hosts` entries.
 
-??? step "Step 3 - Configure TLS"
+??? step "Step 3 - Configure TLS <small>(optional)</small>"
 
     We recommend configuring valid TLS/HTTPS certificates to avoid browser warnings for your users.
 
@@ -864,9 +864,11 @@ All public deployKF services (including the dashboard) are accessed via the depl
 
     !!! tip ""
 
-        If you want to set up TLS later, skip this step for now.
+        If you want to configure TLS later, just skip this step for now.
+        <br>
+        We use a self-signed certificate by default.
 
-??? step "Step 4 - User Authentication"
+??? step "Step 4 - User Authentication <small>(optional)</small>"
 
     See the following guides to configure user authentication on your platform:
 
@@ -875,11 +877,11 @@ All public deployKF services (including the dashboard) are accessed via the depl
 
     !!! tip ""
 
-        If you want to set up authentication later, skip this step for now.
+        If you want to configure authentication later, just skip this step for now.
+        <br>
+        We provide a few static credentials by default.
 
-        There are some default credentials in the next steps.
-
-??? step "Step 5 - Define Profiles"
+??? step "Step 5 - Define Profiles <small>(optional)</small>"
 
     deployKF uses the concept of "Profiles" to group users and resources together.
     You might define profiles for different teams, projects, or even individual users.
@@ -888,7 +890,9 @@ All public deployKF services (including the dashboard) are accessed via the depl
 
     !!! tip ""
 
-        If you want to define profiles later, skip this step for now.
+        If you want to define profiles later, just skip this step for now.
+        <br>
+        We provide default profiles named `team-1` and `team-1-prod`.
 
 ??? step "Step 6 - Log In"
 
