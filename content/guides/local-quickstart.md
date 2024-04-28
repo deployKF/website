@@ -809,11 +809,11 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
 ??? step "Step 1 - Modify Hosts"
 
     You __can't__ access deployKF using `localhost`, `127.0.0.1`, or any other IP address.
-    Without an HTTP `Host` header, deployKF won't know which service you are trying to access, and so will return nothing.
 
-    By default, deployKF uses `deploykf.example.com` and its subdomains, so modify the [hosts file](https://en.wikipedia.org/wiki/Hosts_(file)) on your __local machine__ to resolve these domains to `127.0.0.1`.
+    Without an HTTP _Host_ header, deployKF won't know which service you are trying to access.
+    You must update your [hosts file](https://en.wikipedia.org/wiki/Hosts_(file)) to resolve `deploykf.example.com` and its subdomains to `127.0.0.1`.
 
-    !!! warning "Local Machine"
+    !!! warning ""
     
         Edit the hosts file on your __local machine__ (where you run your web browser), NOT the Kubernetes cluster itself.
 
@@ -879,7 +879,6 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
 ??? step "Step 2 - Port-Forward the Gateway"
     
     The `kubectl port-forward` command creates a private tunnel to the Kubernetes cluster.
-
     Run the following command on your __local machine__ to expose the `deploykf-gateway` Service on `127.0.0.1`:
     
     ```shell
@@ -888,18 +887,23 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
       svc/deploykf-gateway 8080:http 8443:https
     ```
 
-    !!! warning
-    
-        There is an upstream issue which can cause you to need to __restart__ the port-forward ([`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551)).
-        If your browser suddenly stops working, press `CTRL+C` to stop the port-forward, and then run the command again.
+    !!! warning ""
+
+        If your browser suddenly stops working, press `CTRL+C` to stop the port-forward, and then run the command again ([`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551)).
 
 ??? step "Step 3 - Log in to the Dashboard"
 
-    The deployKF dashboard should now be available __on your local machine__ at:
+    You should now be presented with a "Log In" screen when you visit the exposed URL:
         
-      :material-arrow-right-bold: [https://deploykf.example.com:8443/](https://deploykf.example.com:8443/)
+    :material-arrow-right-bold: [__https://deploykf.example.com:8443/__](https://deploykf.example.com:8443/)
 
-    There are a few default credentials set in the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L469-L492) value:
+    !!! danger ""
+
+        Remember that you can __NOT__ access deployKF using `localhost` or `127.0.0.1`!
+
+    ---
+
+    By default, there are a few static credentials set by the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L469-L492) value:
 
     ??? key "Credentials: User 1"
 
@@ -932,12 +936,28 @@ For this quickstart, we will be using the port-forward feature of `kubectl` to e
 
 ??? step "Step 4 - Explore the Tools"
 
-    deployKF includes many [ML & Data tools](../reference/tools.md#tool-index) that address different stages of the machine learning lifecycle.
-
-    Here are a few popular tools to get started with:
+    deployKF includes many tools which address different stages of the data & machine learning lifecycle:
     
     - [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines)
     - [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks)
+    - [Other Tools](../reference/tools.md#tool-index)
+
+    We also provide a number of user-focused guides for these tools:
+  
+    <table markdown="span">
+      <tr>
+        <th>Tool</th>
+        <th>User Guide</th>
+      </tr>
+      <tr markdown>
+        <td markdown>Kubeflow Pipelines</td>
+        <td markdown>[Access Kubeflow Pipelines API](../user-guides/access-kubeflow-pipelines-api.md)</td>
+      </tr>
+      <tr markdown>
+        <td markdown>Kubeflow Pipelines</td>
+        <td markdown>[GitOps for Kubeflow Pipelines Schedules](../user-guides/gitops-for-kubeflow-pipelines.md)</td>
+      </tr>
+    </table>
 
 ## Next Steps
 
