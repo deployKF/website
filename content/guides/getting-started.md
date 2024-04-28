@@ -846,14 +846,59 @@ All public deployKF services (including the dashboard) are accessed via the depl
     - [Expose with: `LoadBalancer` Service](./platform/deploykf-gateway.md#use-a-loadbalancer-service)
     - [Expose with: `Ingress`](./platform/deploykf-gateway.md#use-a-kubernetes-ingress)
 
-??? step "Step 2 - Log in to the Dashboard"
+??? step "Step 2 - Configure DNS"
 
-    You should now be presented with a "Log In" screen when you visit the exposed URL.
+    Trying to access deployKF with an IP address will __NOT__ work, you __MUST__ use a domain name.
+
+    See [Configure DNS Records](./platform/deploykf-gateway.md#configure-dns-records) for more information.
+
+    !!! danger ""
+
+        This step is __REQUIRED__, you __MUST__ configure DNS records or local `/etc/hosts` entries.
+
+??? step "Step 3 - Configure TLS"
+
+    We recommend configuring valid TLS/HTTPS certificates to avoid browser warnings for your users.
+
+    See the [Configure TLS Certificates](./platform/deploykf-gateway.md#configure-tls-certificates) guide for more information.
+
+    !!! tip ""
+
+        If you want to set up TLS later, skip this step for now.
+
+??? step "Step 4 - User Authentication"
 
     See the following guides to configure user authentication on your platform:
 
     - [External Identity Providers](./platform/deploykf-authentication.md#external-identity-providers)
     - [Static User/Password Combinations](./platform/deploykf-authentication.md#static-userpassword-combinations)
+
+    !!! tip ""
+
+        If you want to set up authentication later, skip this step for now.
+
+        There are some default credentials in the next steps.
+
+??? step "Step 5 - Define Profiles"
+
+    deployKF uses the concept of "Profiles" to group users and resources together.
+    You might define profiles for different teams, projects, or even individual users.
+
+    See the [User Authorization and Profile Management](./platform/deploykf-profiles.md) guide for more information.
+
+    !!! tip ""
+
+        If you want to define profiles later, skip this step for now.
+
+??? step "Step 6 - Log In"
+
+    You should now be presented with a "Log In" screen when you visit the exposed URL.
+
+    !!! danger ""
+
+        Remember, you can __NOT__ access deployKF with an IP address, you __MUST__ use a domain name.
+
+    ---
 
     By default, there are a few static credentials set by the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L469-L492) value:
 
@@ -886,7 +931,7 @@ All public deployKF services (including the dashboard) are accessed via the depl
         - We recommend NOT using this account, and actually removing its [`staticPasswords` entry](https://github.com/deployKF/deployKF/blob/v0.1.2/generator/default_values.yaml#L394-L396).
         - We recommend leaving this account as the default "owner", even with `@example.com` as the domain (because profile owners can't be changed).
 
-??? step "Step 3 - Explore the Tools"
+??? step "Step 7 - Explore the Tools"
 
     deployKF includes many tools which address different stages of the data & machine learning lifecycle:
     
