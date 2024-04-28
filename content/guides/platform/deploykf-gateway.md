@@ -38,13 +38,11 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
 ??? step "Step 1 - Modify Hosts"
     
     You __can't__ access deployKF using `localhost`, `127.0.0.1`, or any other IP address.
-    Without an HTTP `Host` header, deployKF won't know which service you are trying to access, and so will return nothing.
 
-    By default, deployKF uses `deploykf.example.com` and its subdomains, so modify the [hosts file](https://en.wikipedia.org/wiki/Hosts_(file)) on your __local machine__ to resolve these domains to `127.0.0.1`.
+    Without an HTTP _Host_ header, deployKF won't know which service you are trying to access.
+    You must update your [hosts file](https://en.wikipedia.org/wiki/Hosts_(file)) to resolve `deploykf.example.com` and its subdomains to `127.0.0.1`.
 
-    If you have [configured a custom domain](#base-domain-and-ports), replace `deploykf.example.com` with your domain.
-
-    !!! warning "Local Machine"
+    !!! warning ""
     
         Edit the hosts file on your __local machine__ (where you run your web browser), NOT the Kubernetes cluster itself.
 
@@ -67,6 +65,8 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
         127.0.0.1 minio-api.deploykf.example.com
         127.0.0.1 minio-console.deploykf.example.com
         ```
+ 
+        If you have [configured a custom domain](#base-domain-and-ports), replace `deploykf.example.com` with your custom domain.
     
     === "Linux"
     
@@ -87,6 +87,8 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
         127.0.0.1 minio-api.deploykf.example.com
         127.0.0.1 minio-console.deploykf.example.com
         ```
+
+        If you have [configured a custom domain](#base-domain-and-ports), replace `deploykf.example.com` with your custom domain.
     
     === "Windows"
     
@@ -106,11 +108,12 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
         127.0.0.1 minio-api.deploykf.example.com
         127.0.0.1 minio-console.deploykf.example.com
         ```
+    
+        If you have [configured a custom domain](#base-domain-and-ports), replace `deploykf.example.com` with your custom domain.
 
 ??? step "Step 2 - Port-Forward the Gateway"
     
     The `kubectl port-forward` command creates a private tunnel to the Kubernetes cluster.
-
     Run the following command on your __local machine__ to expose the `deploykf-gateway` Service on `127.0.0.1`:
     
     ```shell
@@ -119,16 +122,19 @@ If you are just testing the platform, you may use [`kubectl port-forward`](https
       svc/deploykf-gateway 8080:http 8443:https
     ```
 
-    !!! warning
-    
-        There is an upstream issue which can cause you to need to __restart__ the port-forward ([`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551)).
-        If your browser suddenly stops working, press `CTRL+C` to stop the port-forward, and then run the command again.
+    !!! warning ""
 
-??? step "Step 3 - Log in to the Dashboard"
+        If your browser suddenly stops working, press `CTRL+C` to stop the port-forward, and then run the command again ([`kubernetes/kubernetes#74551`](https://github.com/kubernetes/kubernetes/issues/74551)).
+
+    ---
 
     The deployKF dashboard should now be available __on your local machine__ at:
         
-      :material-arrow-right-bold: [https://deploykf.example.com:8443/](https://deploykf.example.com:8443/)
+    :material-arrow-right-bold: [__https://deploykf.example.com:8443/__](https://deploykf.example.com:8443/)
+
+    !!! danger ""
+
+        Remember that you can __NOT__ access deployKF using `localhost` or `127.0.0.1`!
 
 ### __Use a LoadBalancer Service__
 

@@ -80,23 +80,35 @@ Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows]
 
 ??? info "ARM64 Support"
 
+    Currently, deployKF only supports `x86_64` architecture clusters.
+
     The next minor version of deployKF (`v0.2.0`) should have native `ARM64` for all core components.
     However, some upstream apps like _Kubeflow Pipelines_ will need extra work to be production ready ([`#10309`](https://github.com/kubeflow/pipelines/issues/10309), [`#10308`](https://github.com/kubeflow/pipelines/issues/10308)).
 
-??? info "Other Service Types"
+??? info "Air-Gapped Clusters"
 
-    For real-world usage, you should review the [Expose Gateway and configure HTTPS](./platform/deploykf-gateway.md) guide.
+    deployKF can be used in offline and air-gapped clusters, but there are additional steps required.
 
-    To use a different service type, you can override the `deploykf_core.deploykf_istio_gateway.gatewayService.type` value:
+    Please see the [Air-Gapped Clusters](./platform/offline.md) guide for more information.
+
+??? config "Override Service Type"
+
+    By default, deployKF uses a `LoadBalancer` service type for the gateway.
+
+    If you do not want this, you may override the service type to `ClusterIP` by setting the following value:
 
     ```yaml
     deploykf_core:
       deploykf_istio_gateway:
         gatewayService:
-          type: "NodePort" # or "ClusterIP"
+          type: "ClusterIP"
     ```
 
-??? info "Default StorageClass"
+    However, for real-world usage, you should review the [Expose the Gateway Service](./platform/deploykf-gateway.md#expose-the-gateway-service) guide.
+
+??? config "Override Default StorageClass"
+
+    By default, deployKF requires a __default StorageClass__ that supports the `ReadWriteOnce` access mode.
 
     If you do NOT have a compatible default StorageClass, you might consider the following options:
 
@@ -105,8 +117,8 @@ Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows]
          - [`deploykf_opt.deploykf_minio.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L901-L905)
          - [`deploykf_opt.deploykf_mysql.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1036-L1040)
     2. Disable components which require the StorageClass, and use external alternatives:
-         - [Connect an External S3-compatible Object Store](./external/object-store.md#connect-an-external-object-store)
-         - [Connect an External MySQL Database](./external/mysql.md#connect-an-external-mysql)
+         - [Connect an External __Object Store__](./external/object-store.md#connect-an-external-object-store)
+         - [Connect an External __MySQL__](./external/mysql.md#connect-an-external-mysql)
 
 ---
 
@@ -757,7 +769,7 @@ There are a few ways to sync the applications, you only need to use ONE of them.
             First, you must sync the app-of-apps application:
     
             1. `deploykf-app-of-apps`
-            2. `deploykf-namespaces` (will only appear if using a remote destination)
+            2. `deploykf-namespaces` (only exists when using [off-cluster ArgoCD](./dependencies/argocd.md#can-i-use-an-off-cluster-argocd))
     
         !!! stack "Group 1: "deploykf-dependencies""
         
@@ -836,9 +848,14 @@ All public deployKF services (including the dashboard) are accessed via the depl
 
 ??? step "Step 2 - Log in to the Dashboard"
 
-    See the authentication guide to [define static credentials](./platform/deploykf-authentication.md#static-userpassword-combinations), or [connect deployKF to an external identity provider](#external-identity-providers) like Okta or Active Directory.
+    You should now be presented with a "Log In" screen when you visit the exposed URL.
 
-    There are a few default credentials set in the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L469-L492) value:
+    See the following guides to configure user authentication on your platform:
+
+    - [External Identity Providers](./platform/deploykf-authentication.md#external-identity-providers)
+    - [Static User/Password Combinations](./platform/deploykf-authentication.md#static-userpassword-combinations)
+
+    By default, there are a few static credentials set by the [`deploykf_core.deploykf_auth.dex.staticPasswords`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L469-L492) value:
 
     ??? key "Credentials: User 1"
 
@@ -871,27 +888,26 @@ All public deployKF services (including the dashboard) are accessed via the depl
 
 ??? step "Step 3 - Explore the Tools"
 
-    deployKF includes many [ML & Data tools](../reference/tools.md#tool-index) that address different stages of the machine learning lifecycle.
-
-    Here are a few popular tools to get started with:
+    deployKF includes many tools which address different stages of the data & machine learning lifecycle:
     
     - [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines)
     - [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks)
-   
-    We also provide a number of user-focused guides:
+    - [Other Tools](../reference/tools.md#tool-index)
+
+    We also provide a number of user-focused guides for these tools:
   
     <table markdown="span">
       <tr>
+        <th>Tool</th>
         <th>User Guide</th>
-        <th>Description</th>
       </tr>
       <tr markdown>
+        <td markdown>Kubeflow Pipelines</td>
         <td markdown>[Access Kubeflow Pipelines API](../user-guides/access-kubeflow-pipelines-api.md)</td>
-        <td>Learn how to access the Kubeflow Pipelines API from both inside and outside the cluster with the _Kubeflow Pipelines SDK_.</td>
       </tr>
       <tr markdown>
+        <td markdown>Kubeflow Pipelines</td>
         <td markdown>[GitOps for Kubeflow Pipelines Schedules](../user-guides/gitops-for-kubeflow-pipelines.md)</td>
-        <td>Learn how to use GitOps to manage Kubeflow Pipelines schedules (rather than manually creating them with the UI or Python SDK).</td>
       </tr>
     </table>
 
