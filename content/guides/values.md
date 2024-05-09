@@ -156,8 +156,6 @@ In this example, we have two values files:
       source:
 
         ## source git repo configuration
-        ##  - assuming you have committed the following files:
-        ##    sample-values-{{ latest_deploykf_version }}.yaml, values-1.yaml, values-2.yaml
         ##
         repoURL: "https://github.com/<EXAMPLE_ORG>/<EXAMPLE_REPO>.git"
         targetRevision: "main"
@@ -191,6 +189,10 @@ In this example, we have two values files:
             #    ...
             #    values file contents
             #    ...
+
+      destination:
+        server: "https://kubernetes.default.svc"
+        namespace: "argocd"
     ```
 
 The resulting "merged" values will be as follows (with the default values omitted for brevity):
