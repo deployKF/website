@@ -193,13 +193,52 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
 
         __TIP:__ If you use an ArgoCD "management cluster" pattern, see the [off-cluster ArgoCD](./dependencies/argocd.md#can-i-use-an-off-cluster-argocd) guide.
 
-    ??? step "Step 2 - Define an App-of-Apps"
+    ??? step "Step 2 - Learn about Values"
+
+        deployKF is configured by [centralized values](./values.md) which define the desired state of the platform.
+
+        ---
+
+        <h4>Sample Values:</h4>
+
+        Each version of deployKF has [sample values](./values.md#sample-values) with all [ML & Data tools](../reference/tools.md#tool-index) enabled, along with some sensible security defaults.
+        We recommend using the sample values as a starting point for your custom values.
+
+        Here are the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) for deployKF `{{ latest_deploykf_version }}`.
+
+        ---
+
+        <h4>Custom Values:</h4>
+
+        In _ArgoCD Plugin Mode_, values can be defined __inline__ _(`values`)_, or from a  __git repository__ _(`values_files`)_.
+        
+        Both methods may be used together.
+        When a value is defined in multiple places, the result is calculated by [merging](./values.md#merging-values), with files listed later taking precedence, and inline values having the highest precedence.
+
+        !!! tip
+
+            Learn about common configuration tasks in the [:star: __Configure deployKF__ :star:](./configs.md) guide.
+
+    ??? step "Step 3 - Define an App-of-Apps"
 
         Create a local file named `deploykf-app-of-apps.yaml` with the contents of the YAML below.
 
-        This will use [deployKF version](#deploykf-versions) `{{ latest_deploykf_version }}`, 
-        read the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) from the `deploykf/deploykf` repo, 
-        and combine those values with the overrides defined in the `values` parameter.
+        In this example, we will define an app-of-apps that:
+
+        - Clones the `deploykf/deploykf` repo at the [`v{{ latest_deploykf_version }}`](https://github.com/deployKF/deployKF/tree/v{{ latest_deploykf_version }}) tag.
+        - Sets the `source_version` parameter to use [deployKF version](#deploykf-versions) `{{ latest_deploykf_version }}`.
+        - Sets the `values_files` parameter to read the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) from the repo.
+        - Sets the `values` parameter with inline values that override the `sample-values.yaml`.
+
+        ??? question_secondary "What is an App-of-Apps?"
+
+            An _app-of-apps_ is a special ArgoCD [`Application`](./dependencies/argocd.md#argo-cd-applications) which manages other applications.
+
+        ??? question_secondary "Can I read values from my own repo?"
+            
+            Yes.
+            In this example, we only use the `deploykf/deploykf` repo to easily read the default `sample-values.yaml` file.
+            See Step 4 to read values from a different repo.
 
         ```yaml
         apiVersion: argoproj.io/v1alpha1
@@ -366,45 +405,19 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
             namespace: "argocd"
         ```
 
-    ??? step "Step 3 - Configure Values"
+    ??? step "Step 4 - Read Values from Git <small>(optional)</small>"
 
-        deployKF is configured by centralized [values](./values.md) which define the desired state of the platform.
-
-        Learn about common configuration tasks in the [:star: __Configure deployKF__ :star:](./configs.md) guide.
-
-        ---
-
-        In _ArgoCD Plugin Mode_, you can define custom values in two ways:
-
-        1. Within the `app-of-apps` YAML itself, using the `values` plugin parameter.
-        2. From files in the `repoURL` git repository, using the `values_files` plugin parameter.
+        You may use the `values_files` parameter to read values from a git repo.
+        This lets you version your values files in git, and easily update them without changing the app-of-apps resource.
 
         ---
 
-        Each version of deployKF has [sample values](./values.md#sample-values) with all supported [ML & Data tools](../reference/tools.md#tool-index) enabled, along with some sensible security defaults.
-        We recommend using these samples as a base for your custom values.
+        !!! danger
 
-        The following command will download the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file for deployKF `{{ latest_deploykf_version }}`:
-
-        ```bash
-        # download the `sample-values.yaml` file
-        curl -fL -o "sample-values-{{ latest_deploykf_version }}.yaml" \
-          "https://raw.githubusercontent.com/deployKF/deployKF/v{{ latest_deploykf_version }}/sample-values.yaml"
-        ```
-
-    ??? step "Step 4 - Store Values in Git <small>(optional)</small>"
-
-        If you want to version your values files in git, you may update the `spec.source.repoURL` of your app-of-apps to any repo you have access to.
-        You may then push your values files to the repo, and update the `values_files` parameter in the app-of-apps to point to them.
-
-        If you use the upstream `sample-values.yaml` as a base, you will also need to push that file to your repo.
-
-        ---
-
-        We __STRONGLY RECOMMEND__ using a __PRIVATE__ repo for your values!
+            We __STRONGLY RECOMMEND__ using a __PRIVATE__ repo for your values files!
 
         If your git repo is private, you must [configure ArgoCD](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/) with credentials to access the repo.
-        For example, for a GitHub repo, you might create a Secret with a [Personal Access Token (PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) as follows:
+        For example, when using a GitHub repo, you might create a Secret with a [Personal Access Token (PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) as follows:
 
         ```bash
         # create a secret with your GitHub credentials
@@ -421,11 +434,84 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
           | kubectl apply -f -
         ```
 
+        ---
+
+        If you use the upstream `sample-values.yaml` as a base, you will also need to push that file to your repo.
+
+        The following command will download the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file for deployKF `{{ latest_deploykf_version }}`:
+
+        ```bash
+        # download the `sample-values.yaml` file
+        curl -fL -o "sample-values-{{ latest_deploykf_version }}.yaml" \
+          "https://raw.githubusercontent.com/deployKF/deployKF/v{{ latest_deploykf_version }}/sample-values.yaml"
+        ```
+
+        ---
+
+        For example, say you now have the following files in your repo:
+
+        - `sample-values-{{ latest_deploykf_version }}.yaml`
+        - `values-1.yaml`
+        - `values-2.yaml`
+
+        Your app-of-apps resource may then be updated to look like this:
+
+        ```yaml
+        apiVersion: argoproj.io/v1alpha1
+        kind: Application
+        metadata:
+          name: deploykf-app-of-apps
+          namespace: argocd
+          labels:
+            app.kubernetes.io/name: deploykf-app-of-apps
+            app.kubernetes.io/part-of: deploykf
+        spec:
+          project: "default"
+          source:
+
+            ## source git repo configuration
+            ##
+            repoURL: "https://github.com/MY_GITHUB_ORG/MY_GITHUB_REPO.git"
+            targetRevision: "main"
+            path: "."
+        
+            ## plugin configuration
+            ##
+            plugin:
+              name: "deploykf"
+              parameters:
+        
+                ## the deployKF generator version
+                ##
+                - name: "source_version"
+                  string: "{{ latest_deploykf_version }}"
+        
+                ## paths to values files within the `repoURL` repository
+                ##
+                - name: "values_files"
+                  array:
+                    - "./sample-values-{{ latest_deploykf_version }}.yaml"
+                    - "./values-1.yaml"
+                    - "./values-2.yaml"
+
+                ## a string containing the contents of a values file
+                ##  - this parameter allows defining values without needing to create a file in the repo
+                ##  - these values are merged with higher precedence than those defined in `values_files`
+                ##
+                #- name: "values"
+                #  string: |
+                #    ...
+                #    values file contents
+                #    ...
+        
+          destination:
+            server: "https://kubernetes.default.svc"
+            namespace: "argocd"
+        ```
+
     ??? step "Step 5 - Apply App-of-Apps Resource"
 
-        Create a local file named `deploykf-app-of-apps.yaml` with the contents of the app-of-apps YAML above.
-
-        Apply the resource to your cluster with the following command:
+        Apply the `deploykf-app-of-apps.yaml` file to your cluster with the following command:
 
         ```bash
         kubectl apply -f ./deploykf-app-of-apps.yaml
@@ -450,10 +536,13 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
     ??? step "Step 3 - Prepare a Git Repo"
 
         You will need to create a git repo to store your generated manifests.
-        We __STRONGLY RECOMMEND__ using a __PRIVATE__ repo, as attackers could gain valuable information from your manifests.
+
+        !!! danger
+
+            We __STRONGLY RECOMMEND__ using a __PRIVATE__ repo for your manifests!
 
         If your git repo is private, you must [configure ArgoCD](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/) with credentials to access the repo.
-        For example, for a GitHub repo, you might create a Secret with a [Personal Access Token (PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) as follows:
+        For example, when using a GitHub repo, you might create a Secret with a [Personal Access Token (PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) as follows:
 
         ```bash
         # create a secret with your GitHub credentials
@@ -472,15 +561,15 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
 
     ??? step "Step 4 - Create Values Files"
 
-        deployKF is configured by centralized [values](./values.md) which define the desired state of the platform.
-
-        Learn about common configuration tasks in the [:star: __Configure deployKF__ :star:](./configs.md) guide.
+        deployKF is configured by [centralized values](./values.md) which define the desired state of the platform.
 
         ---
 
-        Each version of deployKF has [sample values](./values.md#sample-values) with all supported [ML & Data tools](../reference/tools.md#tool-index) enabled, along with some sensible security defaults.
-        We recommend using these samples as a starting point for your custom values.
-        
+        <h4>Sample Values:</h4>
+
+        Each version of deployKF has [sample values](./values.md#sample-values) with all [ML & Data tools](../reference/tools.md#tool-index) enabled, along with some sensible security defaults.
+        We recommend using the sample values as a starting point for your custom values.
+
         The following command will download the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) file for deployKF `{{ latest_deploykf_version }}`:
 
         ```bash
@@ -491,8 +580,17 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
 
         ---
 
-        To make upgrades easier, we recommend using the sample values as a base, and applying custom override files with only the values you want to change.
-        This will help you swap out the sample values for a newer version in the future.
+        <h4>Custom Values:</h4>
+
+        In _Manifests Repo Mode_, values are passed to the `deploykf generate` command as YAML files.
+        When a value is defined in multiple files, the result is calculated by [merging](./values.md#merging-values), with files listed later taking precedence.
+
+        To make upgrades easier, we recommend using the sample values as a base, and applying custom override files with _only the values you want to change_.
+        This allows you to swap out the sample values for a newer version in the future.
+
+        !!! tip
+
+            Learn about common configuration tasks in the [:star: __Configure deployKF__ :star:](./configs.md) guide.
 
         For example, you might structure your `custom-overrides.yaml` file like this:
 
@@ -618,9 +716,10 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
 
     ??? step "Step 5 - Generate Manifests"
 
-        The `deploykf generate` command writes generated manifests into a folder, using one or more values files.
+        The `deploykf generate` command writes manifests into a folder based on your values.
+        When more than one `--values` file is provided, they are [merged](./values.md#merging-values), with later files taking precedence.
 
-        The following command will use [deployKF version](#deploykf-versions) `{{ latest_deploykf_version }}` to generate manifests under `./GENERATOR_OUTPUT/`:
+        For example, to generate manifests using [deployKF version](#deploykf-versions) `{{ latest_deploykf_version }}` under `./GENERATOR_OUTPUT/`:
     
         ```shell
         deploykf generate \
@@ -636,12 +735,6 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
             Changes in the `--output-dir` will be __overwritten__ each time the `deploykf generate` command runs.
 
             If you need to change something which is not configurable via values, please [raise an issue](https://github.com/deployKF/deployKF/issues) so we can understand your use-case and potentially add a new configuration option.
-    
-        !!! info "Multiple Values Files"
-            
-            If you specify `--values` multiple times, they will be merged with later ones taking precedence.
-
-            See the [merging values](./values.md#merging-values) guide.
 
     ??? step "Step 6 - Commit Generated Manifests"
 
