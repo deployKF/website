@@ -74,9 +74,9 @@ Configuration | Requirement
 Node Resources | The nodes must collectively have at least `4 vCPUs` and `16 GB RAM`, and `64 GB Storage`.
 CPU Architecture | The cluster must have `x86_64` Nodes.
 Cluster Domain | The [`clusterDomain`](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) of your kubelet must be `"cluster.local"`.
-Service Type | By default, the cluster must have a `LoadBalancer` service type.<br><small>:material-alert: be careful not to expose your platform on the public internet by mistake :material-alert: </small>
-Default StorageClass | The default [`StorageClass`](https://kubernetes.io/docs/concepts/storage/storage-classes/) must support the `ReadWriteOnce` access mode.
-Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows](https://github.com/argoproj/argo-workflows) installed.<br><small>See [`deployKF/deployKF#116`](https://github.com/deployKF/deployKF/issues/116) to join the discussion.</small>
+Service Type | By default, the cluster must have a `LoadBalancer` service type.<br><small>:material-cog-outline: see "Override Service Type" :material-cog-outline:</small>
+Default StorageClass | The default [`StorageClass`](https://kubernetes.io/docs/concepts/storage/storage-classes/) must support the `ReadWriteOnce` access mode.<br><small>:material-cog-outline: see "Override Default StorageClass" :material-cog-outline:</small>
+Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows](https://github.com/argoproj/argo-workflows) installed.<br><small>:material-chat-outline: see [`deployKF/deployKF#116`](https://github.com/deployKF/deployKF/issues/116) to join the discussion :material-chat-outline:</small>
 
 ??? info "ARM64 Support"
 
@@ -94,6 +94,11 @@ Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows]
 ??? config "Override Service Type"
 
     By default, deployKF uses a `LoadBalancer` service type for the gateway.
+
+    !!! danger
+
+        In some clusters, the `LoadBalancer` service type will create a public IP address.
+        Consider the security implications before deploying, or use a different service type.
 
     If you do not want this, you may override the service type to `ClusterIP` by setting the following value:
 
@@ -114,8 +119,8 @@ Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows]
 
     1. Configure [a default StorageClass](https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/) that has `ReadWriteOnce` support
     2. Explicitly set the `storageClass` value for the following components:
-         - [`deploykf_opt.deploykf_minio.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L901-L905)
-         - [`deploykf_opt.deploykf_mysql.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1036-L1040)
+         - [`deploykf_opt.deploykf_minio.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L1070-L1074)
+         - [`deploykf_opt.deploykf_mysql.persistence.storageClass`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L1205-L1209)
     2. Disable components which require the StorageClass, and use external alternatives:
          - [Connect an External __Object Store__](./external/object-store.md#connect-an-external-object-store)
          - [Connect an External __MySQL__](./external/mysql.md#connect-an-external-mysql)
