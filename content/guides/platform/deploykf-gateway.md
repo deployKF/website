@@ -145,6 +145,12 @@ How you configure a LoadBalancer Service will depend on the platform you are usi
 
     The [AWS Load Balancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/) is commonly used to configure LoadBalancer services on EKS.
 
+    !!! tip
+
+        AWS EKS does NOT have the _AWS Load Balancer Controller_ installed by default.
+        <br>
+        Follow the [official instructions](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html) to install the controller.
+
     For example, you might set the following values to use a [Network Load Balancer (NLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html):
 
     ```yaml
@@ -261,6 +267,12 @@ How you configure an Ingress will depend on the platform you are using, for exam
 
     The [AWS Load Balancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/) is commonly used to configure Ingress resources on EKS.
 
+    !!! tip
+
+        AWS EKS does NOT have the _AWS Load Balancer Controller_ installed by default.
+        <br>
+        Follow the [official instructions](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html) to install the controller.
+
     Because ALB does NOT support TLS-passthrough, you must manually create an [AWS Certificate Manager (ACM)](https://aws.amazon.com/certificate-manager/) wildcard certificate for your domain.
     The `alb.ingress.kubernetes.io/certificate-arn` Ingress annotation will be used to select the certificate and allow the Ingress to terminate TLS before forwarding to the Gateway Service.
 
@@ -362,7 +374,7 @@ How you configure an Ingress will depend on the platform you are using, for exam
     In the following example, we are configuring the GKE Ingress to use the same TLS certificate as the deployKF Gateway Service (found in `Secret/deploykf-istio-gateway-cert`).
     Later in this guide you will learn how to [make this certificate valid](#configure-tls-certificates), and not self-signed.
 
-    !!! warning "Google Managed Certificates"
+    !!! warning
 
         _Google Managed Certificates_ are [only supported](https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs#prerequisites) by EXTERNAL Application Load Balancers (ALB).
         Because using an EXTERNAL ALB would expose deployKF to the public internet, we instead strongly recommend [configuring cert-manager](#configure-tls-certificates) to generate a valid certificate.
