@@ -1,3 +1,3 @@
 deployKF,`0.1.0` - `0.1.4`, `0.1.5+`
 Kubeflow Pipelines,`2.0.0-alpha.7`, `2.1.0-deploykf.0`
-Argo Workflows,"`3.3`, <s>`3.4`</s><sup>[[1]](https://github.com/kubeflow/pipelines/issues/8935)</sup> <sup>[[2]](https://github.com/kubeflow/pipelines/issues/8942)</sup>","`3.3`, <s>`3.4`</s>"
+Argo Workflows,"`3.3`, <s>`3.4`</s><sup>[[1]](https://github.com/kubeflow/pipelines/issues/8935)</sup> <sup>[[2]](https://github.com/kubeflow/pipelines/issues/8942)</sup>","`3.3`, <s>`3.4`</s><sup>[[1]](https://github.com/kubeflow/pipelines/issues/8935)</sup> <sup>[[2]](https://github.com/kubeflow/pipelines/issues/8942)</sup>"

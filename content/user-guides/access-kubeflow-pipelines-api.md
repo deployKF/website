@@ -23,16 +23,21 @@ Authentication Method<br><small>(Click for Details)</small> | In Cluster | Outsi
 [Dex Static Credentials](#dex-static-credentials) | :octicons-check-16: | :octicons-check-16: | :octicons-check-16:
 [Kubernetes ServiceAccount Token](#kubernetes-serviceaccount-token) | :octicons-check-16: | :octicons-x-16: | :octicons-check-16:
 
-!!! warning "Kubeflow Pipelines SDK Version"
+!!! warning "Kubeflow Pipelines SDK Versions"
 
-    All versions of deployKF `0.1.X` [include Kubeflow Pipelines V1](../releases/tool-versions.md#kubeflow-pipelines), specifically version `2.0.0-alpha.7`.
-    Confusingly, this 'alpha' version is actually part of the KFP V1 line, and NOT the V2 line.
+    You MUST use the correct version of the [Kubeflow Pipelines Python SDK](https://pypi.org/project/kfp/), using the wrong version of the SDK will result in errors.
+    The following table shows the correct SDK version to use with each version of deployKF:
 
-    Therefore, when using deployKF `0.1.X`, you must have a `1.X.X` version of the `kfp` SDK installed.
-    For example, to install version [`1.8.22`](https://pypi.org/project/kfp/1.8.22/) of the `kfp` SDK, run:
+    deployKF Version | Kubeflow Pipelines | SDK Version
+    --- | --- | ---
+    `0.1.4` and earlier | v1 | `pip install kfp==1.18.22`
+    `0.1.5` and later | v2 | `pip install kfp>=2.0.0,<3`
 
-    ```bash
-    pip install kfp==1.8.22
+    To check the version of the `kfp` SDK, run the following Python code:
+
+    ```python
+    import kfp
+    print(kfp.__version__)
     ```
 
 ---
@@ -795,21 +800,4 @@ print(experiments)
     # test the client by listing experiments
     experiments = kfp_client.list_experiments(namespace="my-profile")
     print(experiments)
-    ```
-
-!!! warning "SDK Compatibility"
-
-    The `kfp` SDK version used in the Pod must be compatible with the Kubeflow Pipelines API version, and new enough to support token authentication.
-
-    When using deployKF `0.1.X`, we recommend using `1.8.22` of the `kfp` SDK:
-
-    ```bash
-    pip install kfp==1.8.22
-    ```
-
-    To check the version of the `kfp` SDK, run the following Python code:
-
-    ```python
-    import kfp
-    print(kfp.__version__)
     ```

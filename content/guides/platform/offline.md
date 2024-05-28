@@ -44,7 +44,7 @@ If you still want the convenience of using the plugin (as opposed to [_Manifests
 
     For the [version of deployKF](../../releases/changelog-deploykf.md) that you want to use, download the `deploykf-<version>-generator.zip` generator package from the [`deployKF/deployKF` GitHub releases page](https://github.com/deployKF/deployKF/releases).
 
-    For example, to download the generator package for version `0.1.4`, you might run the following command:
+    For example, to download the generator package for version `{{ latest_deploykf_version }}`, you might run the following command:
 
     ```shell
     curl -fL -o "deploykf-{{ latest_deploykf_version }}-generator.zip" \
@@ -126,7 +126,7 @@ In some situations, like when your cluster is not connected to the internet, you
     
     However, we have created values to override all images in deployKF.
     Almost all image values are under the `<path_to_tool>.images` key of each component, but some are in a different location (these end in an `image` suffix, to make them easier to find).
-    For example, the images for Kubeflow Pipelines are under [`kubeflow_tools.pipelines.images`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L1772-L1814) and [`kubeflow_tools.pipelines.kfpV2.xxxxImage`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L1898-L1928).
+    For example, the images for Kubeflow Pipelines are under [`kubeflow_tools.pipelines.images`](https://github.com/deployKF/deployKF/blob/v0.1.5/generator/default_values.yaml#L1785-L1825) and [`kubeflow_tools.pipelines.kfpV2.xxxxImage`](https://github.com/deployKF/deployKF/blob/v0.1.5/generator/default_values.yaml#L1926-L1938).
 
     !!! tip
 
@@ -176,7 +176,7 @@ In some situations, like when your cluster is not connected to the internet, you
         However, all such images should have an associated deployKF value, so you can find them in the [`default_values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/generator/default_values.yaml).
 
         For example, [Istio](../dependencies/istio.md) injects sidecar containers into Pod definitions at runtime (and the image used is configured by a ConfigMap).
-        Its associated image value is [`deploykf_dependencies.istio.images.istioProxy`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L250-L252).
+        Its associated image value is [`deploykf_dependencies.istio.images.istioProxy`](https://github.com/deployKF/deployKF/blob/v0.1.5/generator/default_values.yaml#L250-L252).
 
     !!! info "Regex"
     
@@ -193,8 +193,8 @@ In some situations, like when your cluster is not connected to the internet, you
 
     ```shell
     # set the source image
-    SOURCE_REGISTRY="gcr.io" # depending on image: "docker.io", "ghcr.io", "quay.io"
-    SOURCE_IMAGE="ml-pipeline/cache-server:X.Y.Z"
+    SOURCE_REGISTRY="ghcr.io" # depending on image: "docker.io", "grc.io", "ghcr.io", "quay.io"
+    SOURCE_IMAGE="deploykf/kubeflow-pipelines/cache-server:X.Y.Z"
 
     # set the destination image
     DEST_REGISTRY="docker.example.com"
@@ -225,55 +225,59 @@ In some situations, like when your cluster is not connected to the internet, you
 
         Search for `images:` and `image:` in the [`default_values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/generator/default_values.yaml) to find all current image values.
 
-    For example, the images for Kubeflow Pipelines are under [`kubeflow_tools.pipelines.images`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L1772-L1814) and [`kubeflow_tools.pipelines.kfpV2.xxxxImage`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L1898-L1928):
+    For example, the images for Kubeflow Pipelines are under [`kubeflow_tools.pipelines.images`](https://github.com/deployKF/deployKF/blob/v0.1.5/generator/default_values.yaml#L1785-L1825) and [`kubeflow_tools.pipelines.kfpV2.xxxxImage`](https://github.com/deployKF/deployKF/blob/v0.1.5/generator/default_values.yaml#L1926-L1938):
     
     ```yaml
     kubeflow_tools:
       pipelines:
         images:
           kfpCacheServer:
-            repository: docker.example.com/ml-pipeline/cache-server
+            repository: docker.example.com/deploykf/kubeflow-pipelines/cache-server
             tag: X.Y.Z
     
           kfpMetadataEnvoy:
-            repository: docker.example.com/ml-pipeline/metadata-envoy
+            repository: docker.example.com/deploykf/kubeflow-pipelines/metadata-envoy
             tag: X.Y.Z
     
           kfpMetadataWriter:
-            repository: docker.example.com/ml-pipeline/metadata-writer
+            repository: docker.example.com/deploykf/kubeflow-pipelines/metadata-writer
             tag: X.Y.Z
     
           kfpApiServer:
-            repository: docker.example.com/ml-pipeline/api-server
+            repository: docker.example.com/deploykf/kubeflow-pipelines/api-server
             tag: X.Y.Z
     
           kfpPersistenceagent:
-            repository: docker.example.com/ml-pipeline/persistenceagent
+            repository: docker.example.com/deploykf/kubeflow-pipelines/persistenceagent
             tag: X.Y.Z
     
           kfpScheduledworkflow:
-            repository: docker.example.com/ml-pipeline/scheduledworkflow
+            repository: docker.example.com/deploykf/kubeflow-pipelines/scheduledworkflow
             tag: X.Y.Z
     
           kfpFrontend:
-            repository: docker.example.com/ml-pipeline/frontend
+            repository: docker.example.com/deploykf/kubeflow-pipelines/frontend
             tag: X.Y.Z
     
           kfpViewerCrdController:
-            repository: docker.example.com/ml-pipeline/viewer-crd-controller
+            repository: docker.example.com/deploykf/kubeflow-pipelines/viewer-crd-controller
             tag: X.Y.Z
     
           kfpVisualizationServer:
-            repository: docker.example.com/ml-pipeline/visualization-server
+            repository: docker.example.com/deploykf/kubeflow-pipelines/visualization-server
             tag: X.Y.Z
     
           tfxMlMetadataStoreServer:
-            repository: docker.example.com/tfx-oss-public/ml_metadata_store_server
+            repository: docker.example.com/deploykf/ml_metadata_store_server
             ## NOTE: this tag is not aligned to the other KFP images
             tag: X.Y.Z
 
         kfpV2:
-          launcherImage: "docker.example.com/ml-pipeline/kfp-launcher:X.Y.Z"
+          driverImage: "docker.example.com/deploykf/kubeflow-pipelines/kfp-driver:X.Y.Z"
+          launcherImage: "docker.example.com/deploykf/kubeflow-pipelines/kfp-launcher:X.Y.Z"
+
+          ## NOTE: this tag is not aligned to the other KFP images
+          v2CompatibleLauncherImage: "docker.example.com/deploykf/kubeflow-pipelines/kfp-launcher:1.8.22-deploykf.0"
     ```
 
 !!! contribute "Help Us Improve"
@@ -287,7 +291,7 @@ In some situations, like when your cluster is not connected to the internet, you
 A small number of deployKF components use an upstream Helm repository.
 If your cluster does not have internet access, you may need to mirror these Helm charts to a private repository, or install these components manually.
 
-=== "Mirror the Helm Charts"
+=== ":star: Mirror the Helm Charts :star:"
 
     If you are able to mirror Helm charts to a private repository, you can tell deployKF to use this repository instead of the default ones.
 

@@ -18,26 +18,32 @@ Easily deploy the [best of Kubeflow](../reference/tools.md#kubeflow-ecosystem) a
 
 ## Introduction
 
-This page is about using deployKF in production, it will cover the requirements, configuration options, deployment process, and basic usage of the platform.
-
-We suggest new users start with the __About deployKF__ and __Local Quickstart__ pages:
-
-[About deployKF<br><small>(Introduction)</small>](../about/introduction.md#about-deploykf){ .md-button .md-button--secondary }
-[Local Quickstart<br><small>(Try Locally)</small>](./local-quickstart.md){ .md-button .md-button--secondary }
+This page is about using deployKF in production.
+We will cover requirements, configuration, the deployment process, and basic usage of the platform.
 
 !!! value ""
 
-    We encourage you to [join our community](../about/community.md) and learn about [support options](../about/support.md)!
+    We suggest __new users__ start with the _introduction_ and _local quickstart_ pages.
     
-    [:material-account-group: Join the Community](../about/community.md){ .md-button .md-button--secondary }
-    [:material-headset: Get Support](../about/support.md){ .md-button .md-button--secondary }
+    [About deployKF<br><small>(Introduction)</small>](../about/introduction.md#about-deploykf){ .md-button .md-button--primary }
+    [Local Quickstart<br><small>(Try Locally)</small>](./local-quickstart.md){ .md-button .md-button--primary }
 
-    For existing Kubeflow users, we have a _migration guide_:
+!!! value ""
+
+    For __existing Kubeflow users__, we have a _migration guide_.
         
-    [Migrate from :custom-kubeflow: Kubeflow Distributions](./kubeflow-distributions.md#about-migrating){ .md-button .md-button--secondary }
+    [Migrate from :custom-kubeflow: Kubeflow Distributions](./kubeflow-distributions.md#about-migrating){ .md-button .md-button--primary }
 
+!!! value ""
+
+    We encourage __everyone__ to _join our community_ and learn how to _get support_!
+
+    [:material-account-group: Join the Community](../about/community.md){ .md-button .md-button--primary }
+    [:material-headset: Get Support](../about/support.md){ .md-button .md-button--primary }
 
 ## 1. Requirements
+
+Please ensure you meet the following requirements before using deployKF in production.
 
 ### __Kubernetes Cluster__
 
@@ -63,29 +69,41 @@ Local Machine | [k3d](https://k3d.io/) // [Kind](https://kind.sigs.k8s.io/) // [
 
     <small>If you are unable to create a new Kubernetes cluster, you may consider using [vCluster](https://github.com/loft-sh/vcluster) to create a virtual Kubernetes cluster within an existing one.</small>
 
+### __Argo CD__
+
+deployKF depends on [:custom-argocd-color: __Argo CD__](./dependencies/argocd.md#what-is-argo-cd) for managing the platform.
+
+You may either use deployKF with an existing ArgoCD instance, or deploy a new one with the platform.
+Both options are covered later in this guide.
+
 ### __Kubernetes Configurations__
 
 deployKF requires some specific Kubernetes configurations to work correctly.
 
 The following table lists these configurations and their requirements:
 
-Configuration | Requirement
---- | ---
+Configuration | Requirement | Notes
+--- | --- | ---
 Node Resources | The nodes must collectively have at least `4 vCPUs` and `16 GB RAM`, and `64 GB Storage`.
-CPU Architecture | The cluster must have `x86_64` Nodes.
+CPU Architecture | The cluster must have  `x86_64` CPU Nodes. | [ARM64 Support](#arm64-support)
+Internet Access | The cluster must have internet access for pulling images and installing dependencies. | [Offline Clusters](#offline-clusters)
 Cluster Domain | The [`clusterDomain`](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) of your kubelet must be `"cluster.local"`.
-Service Type | By default, the cluster must have a `LoadBalancer` service type.<br><small>:material-cog-outline: see "Override Service Type" :material-cog-outline:</small>
-Default StorageClass | The default [`StorageClass`](https://kubernetes.io/docs/concepts/storage/storage-classes/) must support the `ReadWriteOnce` access mode.<br><small>:material-cog-outline: see "Override Default StorageClass" :material-cog-outline:</small>
-Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows](https://github.com/argoproj/argo-workflows) installed.<br><small>:material-chat-outline: see [`deployKF/deployKF#116`](https://github.com/deployKF/deployKF/issues/116) to join the discussion :material-chat-outline:</small>
+Service Type | By default, the cluster must have a `LoadBalancer` service type. | [Override Service Type](#override-service-type)
+Default StorageClass | The default [`StorageClass`](https://kubernetes.io/docs/concepts/storage/storage-classes/) must support the `ReadWriteOnce` access mode. | [Override StorageClass](#override-storageclass)
+Existing Argo Workflows | The cluster __must NOT__ already have _Argo Workflows_ installed. Note, other Argo tools like _Argo CD_ are fine. | [Join the discussion: `deployKF#116`](https://github.com/deployKF/deployKF/issues/116)
 
-??? info "ARM64 Support"
+??? config "ARM64 Support"
+
+    #### ARM64 Support
 
     Currently, deployKF only supports `x86_64` architecture clusters.
 
     The next minor version of deployKF (`v0.2.0`) should have native `ARM64` for all core components.
     However, some upstream apps like _Kubeflow Pipelines_ will need extra work to be production ready ([`#10309`](https://github.com/kubeflow/pipelines/issues/10309), [`#10308`](https://github.com/kubeflow/pipelines/issues/10308)).
 
-??? info "Air-Gapped Clusters"
+??? config "Offline Clusters"
+
+    #### Offline Clusters
 
     deployKF can be used in offline and air-gapped clusters, but there are additional steps required.
 
@@ -93,25 +111,29 @@ Existing Argo Workflows | The cluster __must NOT__ already have [Argo Workflows]
 
 ??? config "Override Service Type"
 
+    #### Override Service Type
+
     By default, deployKF uses a `LoadBalancer` service type for the gateway.
 
-    !!! danger
+    For real-world usage, you should review the [Expose the Gateway Service](./platform/deploykf-gateway.md#expose-the-gateway-service) guide.
+
+    !!! danger ""
 
         In some clusters, the `LoadBalancer` service type will create a public IP address.
         Consider the security implications before deploying, or use a different service type.
 
-    If you do not want this, you may override the service type to `ClusterIP` by setting the following value:
+        If you do not want this, you may override the service type to `ClusterIP` by setting the following value:
+    
+        ```yaml
+        deploykf_core:
+          deploykf_istio_gateway:
+            gatewayService:
+              type: "ClusterIP"
+        ```
 
-    ```yaml
-    deploykf_core:
-      deploykf_istio_gateway:
-        gatewayService:
-          type: "ClusterIP"
-    ```
+??? config "Override StorageClass"
 
-    However, for real-world usage, you should review the [Expose the Gateway Service](./platform/deploykf-gateway.md#expose-the-gateway-service) guide.
-
-??? config "Override Default StorageClass"
+    #### Override StorageClass
 
     By default, deployKF requires a __default StorageClass__ that supports the `ReadWriteOnce` access mode.
 
@@ -196,7 +218,10 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
         - [Existing ArgoCD (Deployed with Helm)](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#existing-argocd---helm)
         - [Existing ArgoCD (Deployed with Kustomize)](https://github.com/deployKF/deployKF/tree/main/argocd-plugin#existing-argocd---kustomize)
 
-        __TIP:__ If you use an ArgoCD "management cluster" pattern, see the [off-cluster ArgoCD](./dependencies/argocd.md#can-i-use-an-off-cluster-argocd) guide.
+        !!! tip "Tips"
+
+            - If you use the ArgoCD "management cluster" pattern, please see: [Off-Cluster ArgoCD](./dependencies/argocd.md#can-i-use-an-off-cluster-argocd)
+            - If you have an offline cluster, please see: [Air-Gapped Clusters](./platform/offline.md)
 
     ??? step "Step 2 - Learn about Values"
 
@@ -788,15 +813,18 @@ There are a few ways to sync the applications, you only need to use ONE of them.
         For example, to run the script, you might use the following commands:
 
         ```bash
-        # clone the deploykf repo
-        # NOTE: we use 'main', as the latest script always lives there
-        git clone -b main https://github.com/deployKF/deployKF.git ./deploykf
+        # download the latest version of the script
+        curl -fL -o "sync_argocd_apps.sh" \
+          "https://raw.githubusercontent.com/deployKF/deployKF/main/scripts/sync_argocd_apps.sh"
         
         # ensure the script is executable
-        chmod +x ./deploykf/scripts/sync_argocd_apps.sh
+        chmod +x ./sync_argocd_apps.sh
         
+        # ensure your kubectl context is set correctly
+        kubectl config current-context
+
         # run the script
-        bash ./deploykf/scripts/sync_argocd_apps.sh
+        bash ./sync_argocd_apps.sh
         ```
 
         ---
