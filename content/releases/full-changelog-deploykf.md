@@ -21,6 +21,91 @@ This changelog lists ALL releases of __deployKF__ (including pre-releases) that 
 
 ---
 
+## [__0.1.5__](https://github.com/deployKF/deployKF/releases/tag/v0.1.5) (2024-05-28) { #0.1.5 }
+
+??? warning "Upgrade Notes"
+
+    
+    - We strongly recommend updating to this version for security reasons.
+    - As always, if your deployKF platform is critical to your organization, you should test this upgrade in a non-production cluster. We have done extensive testing, but you could encounter unexpected issues.
+    - Please update your [`sync_argocd_apps.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/sync_argocd_apps.sh) script version BEFORE SYNCING 0.1.5.
+    - The sample values for 0.1.4 had some values that will conflict with 0.1.5, __YOU MUST REMOVE THEM__ from your custom values when upgrading:
+         - `kubeflow_tools.pipelines.kfpV2.defaultPipelineRoot`
+         - `kubeflow_tools.pipelines.kfpV2.minioFix`
+         - `kubeflow_tools.pipelines.kfpV2.launcherImage`
+    - We have updated the default embedded Istio version to 1.17.8. To make the process of updating the sidecar images easier, we now provide the [`update_istio_sidecars.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/update_istio_sidecars.sh) script to restart pods with incorrect istio sidecar container versions. Warning, running this script will cause DISRUPTION, especially to Notebooks, so ensure your users have saved their work!
+    - If you have followed the [Air-Gapped Clusters](https://www.deploykf.org/guides/platform/offline/) guide, you must mirror the new images/charts used in 0.1.5, and update the corresponding values. For an overview of which images have changed, see the [diff of `default_values.yaml`](https://gist.github.com/thesuperzapper/68094346da699f91b5e0c6fb9eb2b17f/revisions?diff=split) from 0.1.4 to 0.1.5. Warning, DO NOT continue using the old images/charts with 0.1.5, as this will not work.
+    
+
+??? info "Important Notes"
+
+    
+    - __deployKF Dashboard:__
+        - We have grouped the sidebar links from Kubeflow Pipelines into their own section.
+        - Users can now see their profiles with "view" and "edit" access on the "Manage Contributors" page.
+    - __Kubeflow Pipelines:__
+         - This release includes a [patched version](https://github.com/deployKF/kubeflow-pipelines) of Kubeflow Pipelines 2.1.0 which is specially designed to be backward compatible with all V1 and V2-compatible pipelines.
+         - When doing an in-place upgrade, you will not automatically have the V2 tutorial pipelines added to your cluster. You may want to upload them manually as "shared" pipeline definitions (find the YAML files attached to the GitHub release).
+    - __Kubeflow Notebooks:__
+         - We have updated the default Kubeflow Notebooks images to the ones shipped with upstream 1.8.0, these provide significant version bumps for all packages, including TensorFlow 2.13.0 and PyTorch 2.1.0. These images will be updated further in the next release.
+         - Please note, we have only updated the DEFAULT IMAGES, which will not affect any existing notebooks. To update existing Notebooks, you must delete and recreate them (data stored in the home directory PVC will be persisted, and you can re-attach it to the new notebooks).
+    - __ARM Support:__
+         - For those waiting on full ARM64 support, there are now only two remaining components preventing this. The Kubeflow Notebooks backend (which will be updated in the next release), and Kubeflow Pipelines (which needs some help upstream, see [#10309](https://github.com/kubeflow/pipelines/issues/10309) to help).
+    - __Istio:__
+         - While the default version of Istio (`1.17.8`) is very old, you can easily update to a newer version that is [supported by deployKF](https://www.deploykf.org/releases/version-matrix/#istio) by updating the [`deploykf_dependencies.istio.charts`](https://github.com/deployKF/deployKF/blob/v0.1.5/generator/default_values.yaml#L233-L244) and [`deploykf_core.deploykf_istio_gateway.charts.istioGateway`](https://github.com/deployKF/deployKF/blob/v0.1.5/generator/default_values.yaml#L691-L700) values.
+         - We provide the [`update_istio_sidecars.sh`](https://github.com/deployKF/deployKF/blob/main/scripts/update_istio_sidecars.sh) script to restart pods with incorrect Istio sidecar container versions. Warning, running this script will cause DISRUPTION, especially to Notebooks, so ensure your users have saved their work!
+         - In the next minor release, we will do a significant update to the default Istio version, and drop out-of-the-box support for very old Kubernetes versions.
+    - __Kyverno:__
+         - We still have a [hard dependency](https://www.deploykf.org/releases/version-matrix/#kyverno) on Kyverno 1.10.0 due to issues upstream. Hopefully, this will change in the next deployKF version as we test and implement support for the recently released Kyverno 1.12 (which is NOT supported in deployKF 0.1.5).
+         - This means that you are still unable to bring your own Kyverno deployment (unless it happens to be the 1.10.0 version). Once this is not the case, we will release a proper "use existing Kyverno" guide like we have [for Istio](https://www.deploykf.org/guides/dependencies/istio/#can-i-use-my-existing-istio).
+    
+
+??? abstract "What's Changed"
+
+
+    <h4>Significant Changes</h4>
+
+    * docs: add `update_istio_sidecars.sh` script by [@thesuperzapper](https://github.com/thesuperzapper) in [#132](https://github.com/deployKF/deployKF/pull/132)
+    * feat: update to Kubeflow Pipelines 2.1.0 by [@thesuperzapper](https://github.com/thesuperzapper) in [#122](https://github.com/deployKF/deployKF/pull/122)
+    * feat: update dashboard to 0.1.1 + update sidebar links by [@thesuperzapper](https://github.com/thesuperzapper) in [#163](https://github.com/deployKF/deployKF/pull/163)
+    * feat: update default notebook images to 1.8.0 by [@thesuperzapper](https://github.com/thesuperzapper) in [#164](https://github.com/deployKF/deployKF/pull/164)
+
+    <h4>New Features</h4>
+
+    * feat: update oauth2-proxy to 7.6.0 by [@thesuperzapper](https://github.com/thesuperzapper) in [#152](https://github.com/deployKF/deployKF/pull/152)
+    * feat: update cert-manager to 1.12.10 by [@thesuperzapper](https://github.com/thesuperzapper) in [#153](https://github.com/deployKF/deployKF/pull/153)
+    * feat: update dex to 2.39.1 by [@thesuperzapper](https://github.com/thesuperzapper) in [#155](https://github.com/deployKF/deployKF/pull/155)
+    * feat: update kubectl container to 1.26.15 by [@thesuperzapper](https://github.com/thesuperzapper) in [#156](https://github.com/deployKF/deployKF/pull/156)
+    * feat: update default istio to 1.17.8 by [@thesuperzapper](https://github.com/thesuperzapper) in [#157](https://github.com/deployKF/deployKF/pull/157)
+    * feat: update default minio to `RELEASE.2024-05-10T01-41-38Z` by [@thesuperzapper](https://github.com/thesuperzapper) in [#158](https://github.com/deployKF/deployKF/pull/158)
+    * feat: update default mysql to 8.0.37 by [@thesuperzapper](https://github.com/thesuperzapper) in [#159](https://github.com/deployKF/deployKF/pull/159)
+    * feat: update profile-controller and kfam to 1.8.0 by [@thesuperzapper](https://github.com/thesuperzapper) in [#162](https://github.com/deployKF/deployKF/pull/162)
+    * feat: update trust-manager to 0.9.2 by [@thesuperzapper](https://github.com/thesuperzapper) in [#154](https://github.com/deployKF/deployKF/pull/154)
+
+    <h4>Improvements</h4>
+
+    * improve: support `argocd.appNamePrefix` in argocd sync script by [@thesuperzapper](https://github.com/thesuperzapper) in [#108](https://github.com/deployKF/deployKF/pull/108)
+    * improve: add robots.txt to deny all user-agents by [@thesuperzapper](https://github.com/thesuperzapper) in [#106](https://github.com/deployKF/deployKF/pull/106)
+
+    <h4>Bug Fixes</h4>
+
+    * fix: argocd sync script only seeing first app in each group by [@thesuperzapper](https://github.com/thesuperzapper) in [#109](https://github.com/deployKF/deployKF/pull/109)
+    * fix: require pruning in sync script by [@thesuperzapper](https://github.com/thesuperzapper) in [#123](https://github.com/deployKF/deployKF/pull/123)
+    * fix: require bash 4.4+ for sync script by [@thesuperzapper](https://github.com/thesuperzapper) in [#126](https://github.com/deployKF/deployKF/pull/126)
+    * fix: script should sync apps that failed their last sync by [@thesuperzapper](https://github.com/thesuperzapper) in [#151](https://github.com/deployKF/deployKF/pull/151)
+    * fix: minio not starting, upstream removed curl by [@thesuperzapper](https://github.com/thesuperzapper) in [#165](https://github.com/deployKF/deployKF/pull/165)
+    * fix: stop embedded mysql log spam about `mysql_native_password` by [@thesuperzapper](https://github.com/thesuperzapper) in [#167](https://github.com/deployKF/deployKF/pull/167)
+
+    <h4>Documentation</h4>
+
+    * docs: update default argocd to 2.10.4 by [@thesuperzapper](https://github.com/thesuperzapper) in [#114](https://github.com/deployKF/deployKF/pull/114)
+    * docs: add argocd helm example for plugin by [@thesuperzapper](https://github.com/thesuperzapper) in [#121](https://github.com/deployKF/deployKF/pull/121)
+    * docs: remove confusing sample values by [@thesuperzapper](https://github.com/thesuperzapper) in [#160](https://github.com/deployKF/deployKF/pull/160)
+    * docs: update default argocd to 2.10.11 by [@thesuperzapper](https://github.com/thesuperzapper) in [#166](https://github.com/deployKF/deployKF/pull/166)
+    
+
+---
+
 ## [__0.1.4__](https://github.com/deployKF/deployKF/releases/tag/v0.1.4) (2024-02-16) { #0.1.4 }
 
 ??? warning "Upgrade Notes"
