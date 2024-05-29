@@ -339,11 +339,6 @@ The following sections show how to configure each method:
                 existingSecret: "kubeflow-pipelines--backend-object-store-auth"
                 existingSecretAccessKeyKey: "AWS_ACCESS_KEY_ID"
                 existingSecretSecretKeyKey: "AWS_SECRET_ACCESS_KEY"
-        
-            ## NOTE: only required if you are using 'sample-values.yaml' as a base
-            ##       as `minioFix` can only be 'true' when using the embedded MinIO
-            #kfpV2:
-            #  minioFix: false
         ```
 
 === "IRSA-Based Authentication"
@@ -467,9 +462,20 @@ The following sections show how to configure each method:
                 ## setting `fromEnv` to `true` disables all other auth methods
                 ## so the AWS Credential Provider Chain will try to use IRSA-based auth
                 fromEnv: true
-        
-            ## NOTE: only required if you are using 'sample-values.yaml' as a base
-            ##       as `minioFix` can only be 'true' when using the embedded MinIO
-            #kfpV2:
-            #  minioFix: false
         ```
+
+??? warning "deployKF `0.1.4` and earlier"
+
+    If you are using deployKF `0.1.4` or earlier, you will need to explicitly set `kubeflow_tools.pipelines.kfpV2.minioFix` to `false`.
+    Note that newer versions of deployKF do not have this value, as the MinIO issue has been resolved.
+
+    For example:
+
+    ```yaml
+    kubeflow_tools:
+      pipelines:
+        kfpV2:
+          ## NOTE: only required if you are using 'sample-values.yaml' as a base
+          ##       as `minioFix` can only be 'true' when using the embedded MinIO
+          minioFix: false
+    ```

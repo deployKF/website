@@ -666,15 +666,18 @@ For this quickstart, we will use the ArgoCD CLI via our automated [`sync_argocd_
     Run the following commands to use the sync script:
     
     ```bash
-    # clone the deploykf repo
-    # NOTE: we use 'main', as the latest script always lives there
-    git clone -b main https://github.com/deployKF/deployKF.git ./deploykf
+    # download the latest version of the script
+    curl -fL -o "sync_argocd_apps.sh" \
+      "https://raw.githubusercontent.com/deployKF/deployKF/main/scripts/sync_argocd_apps.sh"
     
     # ensure the script is executable
-    chmod +x ./deploykf/scripts/sync_argocd_apps.sh
+    chmod +x ./sync_argocd_apps.sh
     
+    # ensure your kubectl context is set correctly
+    kubectl config current-context
+
     # run the script
-    bash ./deploykf/scripts/sync_argocd_apps.sh
+    bash ./sync_argocd_apps.sh
     ```
 
     ---

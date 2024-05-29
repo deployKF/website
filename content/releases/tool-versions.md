@@ -4,7 +4,7 @@ description: >-
   The versions of ML & Data tools included with each version of deployKF.
 ---
 
-# Tool Versions
+# Tool Version Matrix
 
 The versions of [__ML & Data tools__](../reference/tools.md) included with each version of deployKF.
 
@@ -21,9 +21,15 @@ The [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines) component ver
 {{ read_csv("./tool-versions--kubeflow-pipelines.csv", colalign=("right",)) }}
 
 
-!!! warning "Warning, `2.0.0-alpha.7` is NOT Kubeflow Pipelines v2"
+!!! warning "Kubeflow Pipelines SDK Versions"
 
-    Confusingly, the `2.0.0-alpha.7` version is actually part of the KFP v1 line, so you must use `1.X.X` SDK versions with it, for example: [`kfp==1.8.22`](https://pypi.org/project/kfp/1.8.22/).
+    You MUST use the correct version of the [Kubeflow Pipelines Python SDK](https://pypi.org/project/kfp/), using the wrong version of the SDK will result in errors.
+    The following table shows the correct SDK version to use with each version of deployKF:
+
+    deployKF Version | Kubeflow Pipelines | SDK Version
+    --- | --- | ---
+    `0.1.4` and earlier | v1 | `pip install kfp==1.18.22`
+    `0.1.5` and later | v2 | `pip install kfp>=2.0.0,<3`
 
 ??? question_secondary "What does the `-deploykf.X` version suffix mean?"
 
