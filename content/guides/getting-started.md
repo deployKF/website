@@ -787,6 +787,18 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
         kubectl apply --filename GENERATOR_OUTPUT/app-of-apps.yaml
         ```
 
+??? config "Required Values - Azure AKS"
+
+    When deploying on [Azure AKS](https://azure.microsoft.com/en-us/products/kubernetes-service), you __MUST__ set the following values, or the platform will not work correctly:
+
+    ```yaml
+    kubernetes:
+      azure:
+        admissionsEnforcerFix: true
+    ```
+
+    For more information, please see the PR which introduced this value [`deployKF/deployKF#85`](https://github.com/deployKF/deployKF/pull/85).
+
 ### __:star: Sync ArgoCD Applications :star:__
 
 Now that your deployKF app-of-apps has been applied, you must sync the ArgoCD applications to deploy your platform.
