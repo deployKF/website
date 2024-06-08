@@ -72,7 +72,7 @@ The [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argo
 The plugin adds a special kind of Argo CD [`Application`](#argo-cd-applications) that produces deployKF manifests internally, similar to how Helm charts are used in Argo CD. 
 
 With the plugin, you manage the whole platform from a single _"app of apps"_ `Application` whose specification only needs your [values](../values.md), and a specified _source version_ of deployKF.
-For an example of this, see [__this section__](../local-quickstart.md#create-an-app-of-apps) of the local quickstart.
+For an example of this, see [__this section__](../local-quickstart.md#4-create-argocd-applications) of the local quickstart.
 
 ### __Can I use <small>_&lt;other tool&gt;_</small> instead of Argo CD?__
     

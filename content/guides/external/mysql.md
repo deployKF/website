@@ -24,7 +24,7 @@ Many of the world's largest applications use MySQL to store and manage their dat
 MySQL is a dependency of the following ML & Data tools, which are part of deployKF:
 
 - [__Kubeflow Pipelines__](../../reference/tools.md#kubeflow-pipelines): stores metadata about pipelines, experiments, and runs
-- [__Katib__](../../reference/tools.md#katib): stores metadata about hyperparameter tuning experiments
+- [__Katib__](../../reference/tools.md#kubeflow-katib): stores metadata about hyperparameter tuning experiments
 
 ---
 
