@@ -6,157 +6,157 @@
     </url>
     <url>
          <loc>https://www.deploykf.org/faq/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-03-16T02:08:02+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/about/architecture/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-03-14T06:09:45+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/about/community/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-03-14T06:09:45+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/about/introduction/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-03-28T02:38:25+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/about/kubeflow-vs-deploykf/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-03-16T02:08:02+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/about/support/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-06-09T00:03:39+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/cluster-dependencies/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-03-14T06:09:45+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/configs/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-04-27T05:28:15+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/deploykf-cli/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-03-14T06:09:45+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/external-dependencies/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-03-14T06:09:45+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/getting-started/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-06-09T00:03:39+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/kubeflow-distributions/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-03-16T02:08:02+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/local-quickstart/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-06-09T00:03:39+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/modes/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-03-14T06:09:45+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/troubleshooting/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-03-14T06:09:45+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/uninstall/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-03-28T19:17:16+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/upgrade/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-04-27T05:28:15+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/values/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-05-09T00:20:28+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/dependencies/argocd/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-06-09T00:03:39+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/dependencies/cert-manager/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-04-27T21:56:10+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/dependencies/istio/</loc>
-         <lastmod>2024-05-29T00:58:36+00:00</lastmod>
+         <lastmod>2024-04-27T21:56:10+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/dependencies/kyverno/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-03-14T06:09:45+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/external/mysql/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-06-09T00:03:39+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/external/object-store/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-05-29T00:57:48+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/deploykf-authentication/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-03-20T09:11:21+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/deploykf-dashboard/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-03-26T20:00:31+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/deploykf-gateway/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-05-10T01:08:48+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/deploykf-profiles/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-04-13T00:16:35+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/image-pull-secrets/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-04-27T05:28:15+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/platform/offline/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-05-29T00:57:48+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/guides/tools/kubeflow-notebooks/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-03-14T06:09:45+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
@@ -165,57 +165,57 @@
     </url>
     <url>
          <loc>https://www.deploykf.org/reference/deploykf-values/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-03-28T19:17:16+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/reference/future-tools/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-04-21T22:11:59+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/reference/tools/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-04-21T22:11:59+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/changelog-deploykf-cli/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-04-22T22:20:16+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/changelog-deploykf/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-05-29T00:57:48+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/full-changelog-deploykf-cli/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-04-22T22:20:16+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/full-changelog-deploykf/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-05-29T00:57:48+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/tool-versions/</loc>
-         <lastmod>2024-05-29T00:58:37+00:00</lastmod>
+         <lastmod>2024-05-29T00:57:48+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/releases/version-matrix/</loc>
-         <lastmod>2024-05-29T00:58:38+00:00</lastmod>
+         <lastmod>2024-04-22T22:20:16+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/user-guides/access-kubeflow-pipelines-api/</loc>
-         <lastmod>2024-05-29T00:58:38+00:00</lastmod>
+         <lastmod>2024-05-29T00:57:48+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.deploykf.org/user-guides/gitops-for-kubeflow-pipelines/</loc>
-         <lastmod>2024-05-29T00:58:38+00:00</lastmod>
+         <lastmod>2024-03-14T06:09:45+00:00</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
