@@ -2,11 +2,12 @@
 # WARNING: when updating `mkdocs-material`, remember to update `overrides/`
 # WARNING: if you update the fork, bump the version in its `material/__init__.py`, otherwise it will not reinstall
 mkdocs-material @ git+https://github.com/deployKF/mkdocs-material.git@4ed7f280d4473945f028ad1e4b8dbd55ab4536e5 # v9.4.14
+mkdocs==1.6.0
 mkdocs-awesome-pages-plugin==2.9.2
-mkdocs-git-revision-date-localized-plugin==1.2.1
+mkdocs-git-revision-date-localized-plugin==1.2.6
 mkdocs-macros-plugin==1.0.5
 mkdocs-minify-plugin==0.7.1
 mkdocs-redirects==1.2.1
-mkdocs-table-reader-plugin==2.0.3
+mkdocs-table-reader-plugin==2.2.2
 cairosvg==2.7.1
 pillow==10.1.0

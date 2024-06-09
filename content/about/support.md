@@ -28,7 +28,7 @@ See options for commercial support, open-source support, reporting a bug, or req
     We provide best-effort support to open-source users of deployKF through the following channels:
     
     1. Post a message on the [Slack](community.md#slack)
-    2. Start a thread on the [Users Mailing List](community.md#users-mailing-list)
+    2. Start a thread on the [Users Mailing List](community.md#mailing-lists)
 
 ## Report a Bug / Request a Feature
 

@@ -787,6 +787,18 @@ The process to create the ArgoCD [`Applications`](./dependencies/argocd.md#argo-
         kubectl apply --filename GENERATOR_OUTPUT/app-of-apps.yaml
         ```
 
+??? config "Required Values - Azure AKS"
+
+    When deploying on [Azure AKS](https://azure.microsoft.com/en-us/products/kubernetes-service), you __MUST__ set the following values, or the platform will not work correctly:
+
+    ```yaml
+    kubernetes:
+      azure:
+        admissionsEnforcerFix: true
+    ```
+
+    For more information, please see the PR which introduced this value [`deployKF/deployKF#85`](https://github.com/deployKF/deployKF/pull/85).
+
 ### __:star: Sync ArgoCD Applications :star:__
 
 Now that your deployKF app-of-apps has been applied, you must sync the ArgoCD applications to deploy your platform.
@@ -957,7 +969,7 @@ Now that you have a working deployKF machine learning platform, here are some th
 
 ### __:star: Expose the deployKF Dashboard :star:__
 
-The _deployKF dashboard_ is the web-based interface for deployKF, it gives users authenticated access to tools like [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines), [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks), and [Katib](../reference/tools.md#katib).
+The _deployKF dashboard_ is the web-based interface for deployKF, it gives users authenticated access to tools like [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines), [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks), and [Katib](../reference/tools.md#kubeflow-katib).
 
 ![deployKF Dashboard (Dark Mode)](../assets/images/deploykf-dashboard-DARK.png#only-dark)
 ![deployKF Dashboard (Light Mode)](../assets/images/deploykf-dashboard-LIGHT.png#only-light)

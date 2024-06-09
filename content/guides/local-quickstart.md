@@ -340,7 +340,7 @@ K3s is an extremely lightweight Kubernetes distribution that is fully compliant 
 deployKF uses [:custom-argocd-color: __ArgoCD__](./dependencies/argocd.md#what-is-argo-cd) to apply manifests to your Kubernetes cluster.
 
 For this quickstart, we will use the [deployKF ArgoCD Plugin](https://github.com/deployKF/deployKF/tree/main/argocd-plugin) which adds a special kind of ArgoCD `Application` that produces deployKF manifests.
-This allows us to define the platform using a single app-of-apps which only needs your [values](#about-values), and a [deployKF version](#deploykf-versions).
+This allows us to define the platform using a single app-of-apps which only needs your [values](./values.md), and a [deployKF version](../releases/changelog-deploykf.md).
 
 ??? step "Step 1 - Verify kubectl Context"
 
@@ -425,7 +425,7 @@ Think of it as a _"single source of truth"_ for the desired state of your platfo
 
     Create a local file named `deploykf-app-of-apps.yaml` with the contents of the YAML below.
 
-    This will use [deployKF version](#deploykf-versions) `{{ latest_deploykf_version }}`, 
+    This will use deployKF version [`{{ latest_deploykf_version }}`](../releases/changelog-deploykf.md#{{ latest_deploykf_version }}), 
     read the [`sample-values.yaml`](https://github.com/deployKF/deployKF/blob/v{{ latest_deploykf_version }}/sample-values.yaml) from the `deploykf/deploykf` repo, 
     and combine those values with the overrides defined in the `values` parameter.
 
@@ -706,7 +706,7 @@ For this quickstart, we will use the ArgoCD CLI via our automated [`sync_argocd_
 
 ## 6. Try the Platform
 
-The _deployKF dashboard_ is the web-based interface for deployKF, it gives users authenticated access to tools like [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines), [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks), and [Katib](../reference/tools.md#katib).
+The _deployKF dashboard_ is the web-based interface for deployKF, it gives users authenticated access to tools like [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines), [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks), and [Katib](../reference/tools.md#kubeflow-katib).
 
 ![deployKF Dashboard (Dark Mode)](../assets/images/deploykf-dashboard-DARK.png#only-dark)
 ![deployKF Dashboard (Light Mode)](../assets/images/deploykf-dashboard-LIGHT.png#only-light)
