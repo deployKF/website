@@ -54,7 +54,7 @@ You might consider using one of the following services:
 
 Platform | Object Store | S3-compatible Endpoint
 --- | --- | ---
-Amazon Web Services | [Amazon S3](https://aws.amazon.com/s3/) | `s3.amazonaws.com`
+Amazon Web Services | [Amazon S3](https://aws.amazon.com/s3/) | [`s3.{region}.amazonaws.com`](https://docs.aws.amazon.com/general/latest/gr/s3.html)
 Google Cloud | [Google Cloud Storage](https://cloud.google.com/storage) | [`storage.googleapis.com`](https://cloud.google.com/storage/docs/xml-api/overview)<br><small>:material-alert: you must use [HMAC Keys](https://cloud.google.com/storage/docs/authentication/hmackeys) for authentication :material-alert:</small>
 Microsoft Azure | [Azure Blob Storage](https://azure.microsoft.com/en-us/services/storage/blobs/) | No first-party API.<br><small>Third-party translation layers like [S3Proxy](https://github.com/gaul/s3proxy) can be used.</small>
 Alibaba Cloud | [Alibaba Cloud Object Storage Service (OSS)](https://www.alibabacloud.com/product/oss) | [`s3.oss-{region}.aliyuncs.com`](https://www.alibabacloud.com/help/en/oss/developer-reference/use-amazon-s3-sdks-to-access-oss)
@@ -321,7 +321,9 @@ The following sections show how to configure each method:
               useExternal: true
               
               ## this specifies the S3-compatible endpoint of your object store
-              host: s3.amazonaws.com
+              ##  - for S3 itself, you may need to use the region-specific endpoint
+              ##  - don't set a port unless it is non-standard
+              host: "s3.amazonaws.com"
               port: ""
               useSSL: true
         
@@ -448,14 +450,13 @@ The following sections show how to configure each method:
         
             bucket:
               name: kubeflow-pipelines
-              region: ""
+              region: "us-west-2"
         
             objectStore:
               useExternal: true
               
-              ## for IRSA, this should always be 's3.amazonaws.com'
-              host: s3.amazonaws.com
-              port: ""
+              ## for IRSA, this should always be "s3.{region}.amazonaws.com" or similar
+              host: "s3.us-west-2.amazonaws.com"
               useSSL: true
         
               auth:
