@@ -359,9 +359,32 @@ The following guides show provider-specific instructions for configuring Dex [co
                 ## NOTE: this must be an allowed redirect URI in the GitHub app
                 redirectURI: https://deploykf.example.com/dex/callback
 
-                ## a list of GitHub organizations to allow users from
+                ## a list of GitHub organizations and teams to allow users from
                 orgs:
-                  - my-org
+                  ## allow ALL users from "my-organization"
+                  - name: my-organization
+
+                  ## allow users from "my-organization" who are in the listed teams
+                  #- name: my-organization
+                  #  teams:
+                  #    - red-team
+                  #    - blue-team
+            
+                ## how the team names are formatted
+                ##  - If "name", the full team name is used (default)
+                ##    EXAMPLE: "Site Reliability Engineers"
+                ##  - If "slug", the slug of the team name is used
+                ##    EXAMPLE: "site-reliability-engineers"
+                teamNameField: slug
+
+                ## how to determine the user's email
+                ##  - WARNING: tell users to REMOVE any PUBLIC emails from their 
+                ##    GitHub profiles, currently, public emails override this setting.
+                ##  - When 'preferredEmailDomain' is set, the first email matching this 
+                ##    domain is returned, falling back to the primary email if no match is found.
+                ##  - To allow multiple subdomains, you may specify a wildcard like "*.example.com"
+                ##    which will match "aaaa.example.com" and "bbbb.example.com", but NOT "example.com".
+                preferredEmailDomain: "example.com"
 
                 ## only required for GitHub Enterprise
                 #hostName: github.example.com
