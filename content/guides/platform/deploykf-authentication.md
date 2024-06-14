@@ -252,7 +252,11 @@ The following guides show provider-specific instructions for configuring Dex [co
                   baseDN: cn=Groups,dc=example,dc=com
     
                   ## an additional search filter to apply
-                  ## NOTE: you may need to limit the search to prevent a large number of results
+                  ## WARNING: if too many groups are returned, you will exceed the HTTP header size limit.
+                  ##          you may need to apply a filter like: "(&(objectClass=group)(cn=*deployKF*))" 
+                  ##          which will only return groups with "deployKF" in the name. However, note that
+                  ##          deployKF does not currently use these groups, so you are mostly preparing 
+                  ##          for the future.
                   filter: "(objectClass=group)"
 
                   ## list of user-attribute to group-attribute pairs
@@ -362,13 +366,13 @@ The following guides show provider-specific instructions for configuring Dex [co
                 ## a list of GitHub organizations and teams to allow users from
                 orgs:
                   ## allow ALL users from "my-organization"
-                  - name: my-organization
+                  - name: "my-organization"
 
                   ## allow users from "my-organization" who are in the listed teams
-                  #- name: my-organization
+                  #- name: "my-organization"
                   #  teams:
-                  #    - red-team
-                  #    - blue-team
+                  #    - "red-team"
+                  #    - "blue-team"
             
                 ## how the team names are formatted
                 ##  - If "name", the full team name is used (default)
