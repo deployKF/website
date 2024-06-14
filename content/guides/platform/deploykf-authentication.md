@@ -388,7 +388,7 @@ The following guides show provider-specific instructions for configuring Dex [co
                 ##    domain is returned, falling back to the primary email if no match is found.
                 ##  - To allow multiple subdomains, you may specify a wildcard like "*.example.com"
                 ##    which will match "aaaa.example.com" and "bbbb.example.com", but NOT "example.com".
-                preferredEmailDomain: "example.com"
+                #preferredEmailDomain: "example.com"
 
                 ## only required for GitHub Enterprise
                 #hostName: github.example.com
