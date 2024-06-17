@@ -55,6 +55,19 @@ An __introduction__ to deployKF.
         Our presentation from [Kubeflow Summit 2023](https://www.kubeflow.org/events/kubeflow-summit-2023/), where we introduced deployKF to the community.
     </div>
 
+### __User Stories__
+
+!!! value ""
+
+    We are always excited to see __how__ and __where__ deployKF is being used!
+
+    Here are some stories of deployKF being used in the wild:
+
+    Organization | Article / Video
+    --- | ---
+    :custom-cloudflare-color: Cloudflare | [_A look inside the Cloudflare ML Ops platform_](https://blog.cloudflare.com/mlops/)
+    _Your Organization here!_ | [Join `ADOPTERS.md` List](https://github.com/deployKF/deployKF/blob/main/ADOPTERS.md) // [Contact Us](community.md#contact-us)
+
 ---
 
 ## Use deployKF
@@ -84,43 +97,23 @@ Now that you know what deployKF is, you can get started with the following guide
 
 ## Other Resources
 
-### __Commercial Support__
+### __Community__
 
 !!! support ""
 
-    To discuss commercial support options for deployKF, please connect with [:custom-aranui-solutions-color: __Aranui Solutions__](https://www.aranui.solutions/), the company started by the creators of deployKF.
-    
-    [:material-open-in-new: Visit Website](https://www.aranui.solutions/){ .md-button .md-button--secondary }
-    [:fontawesome-solid-envelope: Email Aranui Solutions](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
+    The [deployKF community](community.md) has a __Slack__ server for informal discussions among users and contributors:
 
-### __Community__
+    [Join the Slack<br>:fontawesome-brands-slack:](https://communityinviter.com/apps/deploykf/slack){ .md-button .md-button--primary }
 
-!!! value ""
+### __Support__
 
-    The deployKF [community](community.md) uses the __Kubeflow Slack__ for informal discussions among users and contributors.
+!!! support ""
 
-    After you join, connect with us on the [`#deploykf`](https://kubeflow.slack.com/archives/C054H6WLNCB) channel!
+    Both __commercial__ and __open-source__ support is available for deployKF.
 
-    [:fontawesome-brands-slack: Join the Slack](https://communityinviter.com/apps/kubeflow/slack){ .md-button .md-button--secondary }
-
-
-### __User Stories__
-
-!!! value ""
-
-    We are always excited to see __how and where__ deployKF is being used!
-
-    Here are some stories of deployKF being used in the wild:
-
-    Organization | Article / Video
-    --- | ---
-    :custom-cloudflare-color: Cloudflare | [_A look inside the Cloudflare ML Ops platform_](https://blog.cloudflare.com/mlops/)
-
-    <small>
-      <em>Have a story to share? [Let us know](community.md#contact-us)!</em>
-      <br>
-      <em>Also, you can add your organization to the [Adopters List](https://github.com/deployKF/deployKF/blob/main/ADOPTERS.md).</em>
-    </small>
+    [:material-briefcase: Commercial Support](support.md#commercial-support){ .md-button .md-button--primary }
+    <br>
+    [:material-hospital-box: Open-Source Support](support.md#open-source-support){ .md-button .md-button--secondary }
 
 ### __History of deployKF__
 
