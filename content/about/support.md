@@ -16,10 +16,13 @@ See options for commercial support, open-source support, reporting a bug, or req
 
 !!! support ""
 
-    To discuss commercial support options for deployKF, please connect with [:custom-aranui-solutions-color:  __Aranui Solutions__](https://www.aranui.solutions/), the company started by the creators of deployKF.
-    
-    [:material-open-in-new: Visit Website](https://www.aranui.solutions/){ .md-button .md-button--secondary }
-    [:fontawesome-solid-envelope: Email Aranui Solutions](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
+    Commercial support is available for deployKF.
+
+    Please connect with [:custom-aranui-solutions-color: __Aranui Solutions__](https://www.aranui.solutions/), the company started by the creators of deployKF:
+
+    [:fontawesome-solid-envelope: Email our Team](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--primary }
+    <br>
+    [:material-open-in-new: Visit our Website](https://www.aranui.solutions/){ .md-button .md-button--secondary }
 
 ## Open-Source Support
 
@@ -27,17 +30,20 @@ See options for commercial support, open-source support, reporting a bug, or req
 
     We provide best-effort support to open-source users of deployKF through the following channels:
     
-    1. Post a message on the [Slack](community.md#slack)
-    2. Start a thread on the [Users Mailing List](community.md#mailing-lists)
+    1. Post a message on the [__Slack__](community.md#slack)
+    2. Start a [__GitHub Discussion__](https://github.com/orgs/deployKF/discussions)
+    3. Start a thread on the [__Users Mailing List__](community.md#mailing-lists)
 
-## Report a Bug / Request a Feature
+## Bugs and Feature Requests
 
 !!! value ""
 
-    If you have found a bug or have a feature request, you can raise an issue on the relevant GitHub repository:
+    We welcome your feedback!
+
+    To report a __bug__ or request a __feature__, please raise an __issue__ on the relevant deployKF repository:
     
-    Component | Repository
-    --- | ---
-    __deployKF__ | [`deployKF/deployKF`](https://github.com/deployKF/deployKF/issues)
-    __deployKF CLI__ | [`deployKF/cli`](https://github.com/deployKF/cli/issues)
-    __deployKF Website__ | [`deployKF/website`](https://github.com/deployKF/website/issues)
+    Component | Repository | Issues
+    --- | --- | ---
+    deployKF | [`deployKF/deployKF`](https://github.com/deployKF/deployKF) | [:fontawesome-solid-bug: Issues](https://github.com/deployKF/deployKF/issues)
+    deployKF CLI | [`deployKF/cli`](https://github.com/deployKF/cli) | [:fontawesome-solid-bug: Issues](https://github.com/deployKF/cli/issues)
+    deployKF Website | [`deployKF/website`](https://github.com/deployKF/website) | [:fontawesome-solid-bug: Issues](https://github.com/deployKF/website/issues)
