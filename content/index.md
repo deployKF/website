@@ -8,5 +8,5 @@ schema:
   - "@context": https://schema.org
     "@type": Organization
     url: https://www.deploykf.org/
-    logo: https://www.deploykf.org/assets/images/logo_1/logo_wide.svg
+    logo: https://www.deploykf.org/assets/images/logo/logo_wide.svg?v=2
 ---
