@@ -30,7 +30,7 @@ theme:
 
   icon:
     repo: fontawesome/brands/github
-  logo: assets/images/logo/logo.svg?v=2
+  logo: assets/images/logo/logo.svg
   logo_banner: assets/images/logo/logo_banner.svg?v=2
   logo_wide: assets/images/logo/logo_wide.svg?v=2
   favicon: favicon.ico?v=2
