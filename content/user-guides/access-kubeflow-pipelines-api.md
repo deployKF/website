@@ -679,7 +679,7 @@ spec:
 
 #### Automatically Mount a Token Volume with PodDefaults
 
-Kubeflow includes a special CRD called [PodDefault](https://github.com/kubeflow/kubeflow/tree/master/components/admission-webhook) which will mutate Pods at admission time based on the presence of certain labels.
+Kubeflow includes a special CRD called [PodDefault](../guides/tools/kubeflow-poddefaults.md) which will mutate Pods at admission time based on the presence of certain labels.
 You may use a PodDefault to automatically inject a token volume into a Pod when it is created.
 
 ??? code "Example - _PodDefault for ServiceAccount Token Volume_"
@@ -744,7 +744,7 @@ spec:
 
 !!! info "Kubeflow Notebooks Integration"
 
-    [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks) detects any PodDefaults which are in a Profile Namespace.
+    [Kubeflow Notebooks](../reference/tools.md#kubeflow-notebooks) detects any [PodDefaults](../guides/tools/kubeflow-poddefaults.md) which are in a Profile Namespace.
     Users may tick a checkbox under `"Advanced Options"` → `"Configurations"` to apply a PodDefault when spawning a new Notebook.
     
     If you wish to apply a PodDefault to ALL new Notebooks, see the "advanced pod options" section of [Configure Kubeflow Notebooks](../guides/tools/kubeflow-notebooks.md#advanced-pod-options).
