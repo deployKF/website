@@ -20,7 +20,7 @@ As the cluster administrator, you may configure which options are available to u
 - Container Images
 - Container Resources (CPU, Memory, GPU)
 - Storage Volumes
-- Advanced Pod Options (Affinity, Tolerations, PodDefaults)
+- Advanced Pod Options (Affinity, Tolerations, [PodDefaults](./kubeflow-poddefaults.md))
 - Idle Notebook Culling
 
 !!! warning "Kubeflow Notebooks Limitations"
@@ -194,7 +194,7 @@ The following values configure the advanced options for Notebook Pods:
 ??? config "PodDefault for Kubeflow Pipelines Authentication"
 
     The [`kubeflow_tools.pipelines.profileResourceGeneration.kfpApiTokenPodDefault`](https://github.com/deployKF/deployKF/blob/v0.1.1/generator/default_values.yaml#L1803-L1811) value 
-    configures if a `PodDefault` named `"kubeflow-pipelines-api-token"` is automatically generated in each profile namespace.
+    configures if a [`PodDefault`](./kubeflow-poddefaults.md) named `"kubeflow-pipelines-api-token"` is automatically generated in each profile namespace.
 
     If the user selects this "configuration" when spawning their Notebook, they will be able to use the __Kubeflow Pipelines Python SDK__ from the Notebook without needing to manually authenticate.
 
@@ -228,3 +228,57 @@ kubeflow_tools:
 !!! warning "Jupyter Notebooks Only"
 
     Currently, only Jupyter Notebooks are supported for idle culling, see the upstream [design proposal](https://github.com/kubeflow/kubeflow/blob/master/components/proposals/20220121-jupyter-notebook-idleness.md) for more information.
+
+## Override Notebook Template
+
+Sometimes, you may need to make additional changes that are not possible with the `spawnerFormDefaults` values. 
+To achieve this, you may override the `Notebook` YAML template with the [`kubeflow_tools.notebooks.notebookTemplate`](https://github.com/deployKF/deployKF/blob/v0.1.5/generator/default_values.yaml#L1731-L1736) value.
+
+!!! info "Default Notebook Template"
+
+    You must include a FULL `Notebook` YAML template, this is because setting `notebookTemplate` completely replaces the default.
+
+    Find the default `Notebook` template by checking which [version of Kubeflow Notebooks](../../releases/tool-versions.md#kubeflow-notebooks) is included with your version of deployKF.
+    Next, retrieve the default template from the `kubeflow/kubeflow` repository under [`./components/crud-web-apps/jupyter/backend/apps/common/yaml/notebook_template.yaml`](https://github.com/kubeflow/kubeflow/blob/v1.7.0/components/crud-web-apps/jupyter/backend/apps/common/yaml/notebook_template.yaml) (select the appropriate git tag).
+
+For example, the following values set a container `securityContext` on all Notebook Pods:
+
+```yaml
+kubeflow_tools:
+  notebooks:
+    notebookTemplate: |
+      apiVersion: kubeflow.org/v1
+      kind: Notebook
+      metadata:
+        name: {name}
+        namespace: "{namespace}"
+        labels:
+          app: {name}
+        annotations:
+          notebooks.kubeflow.org/server-type: ""
+      spec:
+        template:
+          spec:
+            serviceAccountName: {serviceAccount}
+            containers:
+              - name: {name}
+                image: ""
+                ## ============= BEGIN: Changes =============
+                securityContext:
+                  allowPrivilegeEscalation: false
+                  capabilities:
+                    drop:
+                    - ALL
+                  readOnlyRootFilesystem: true
+                  runAsNonRoot: true
+                ## ============= END: Changes ===============
+                volumeMounts: []
+                env: []
+                resources:
+                  requests:
+                    cpu: "0.1"
+                    memory: "0.1Gi"
+            volumes: []
+            tolerations: []
+```
+

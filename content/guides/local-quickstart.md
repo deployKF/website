@@ -217,7 +217,7 @@ You will need to install the following dependencies:
 
 ## 2. Prepare Kubernetes
 
-deployKF can run on any [:custom-kubernetes-color: __Kubernetes__](https://kubernetes.io/) cluster, in any cloud or local environment.
+deployKF can run on any [:custom-kubernetes-color: __Kubernetes__](https://kubernetes.io/docs/concepts/overview/) cluster, in any cloud or local environment.
 
 For this quickstart, we will be using the [`k3d`](https://k3d.io/) command line tool which runs [K3s Clusters](https://k3s.io/) inside Docker.
 K3s is an extremely lightweight Kubernetes distribution that is fully compliant with the Kubernetes API, while also being very similar to a cloud-based cluster.

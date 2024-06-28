@@ -47,7 +47,7 @@ Please ensure you meet the following requirements before using deployKF in produ
 
 ### __Kubernetes Cluster__
 
-deployKF can run on any [:custom-kubernetes-color: __Kubernetes__](https://kubernetes.io/) cluster, in __any cloud or environment__.
+deployKF can run on any [:custom-kubernetes-color: __Kubernetes__](https://kubernetes.io/docs/concepts/overview/) cluster, in __any cloud or environment__.
 See the [__version matrix__](../releases/version-matrix.md#kubernetes) for a list of supported Kubernetes versions.
 
 Here are some Kubernetes distributions which are supported by deployKF:
