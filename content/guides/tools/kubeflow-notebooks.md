@@ -247,7 +247,7 @@ For example, the following values set a container `securityContext` on all Noteb
 kubeflow_tools:
   notebooks:
     notebookTemplate: |
-      apiVersion: kubeflow.org/v1
+      apiVersion: kubeflow.org/v1beta1
       kind: Notebook
       metadata:
         name: {name}
@@ -265,12 +265,17 @@ kubeflow_tools:
                 image: ""
                 ## ============= BEGIN: Changes =============
                 securityContext:
+                  ## WARNING: these settings will NOT work until Kubeflow 1.9.0 / deployKF 0.2.0
+                  ##          https://github.com/kubeflow/kubeflow/pull/7622
                   allowPrivilegeEscalation: false
                   capabilities:
                     drop:
-                    - ALL
-                  readOnlyRootFilesystem: true
+                      - ALL
                   runAsNonRoot: true
+      
+                  ## WARNING: setting `readOnlyRootFilesystem` to `true` will NOT work,
+                  ##          there are currently no plans to support this feature
+                  #readOnlyRootFilesystem: true
                 ## ============= END: Changes ===============
                 volumeMounts: []
                 env: []
