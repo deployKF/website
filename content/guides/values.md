@@ -84,9 +84,9 @@ This means that if a value is defined in multiple files, the last one wins.
 
 ### Example
 
-This example will demonstrate how values are merged together.
-Including both map-type and list-type values.
-In this example, we have two values files:
+This example shows how values are merged together, including both map-type and list-type values.
+
+Consider the following two values files:
 
 ??? code "values-1.yaml"
 
@@ -126,17 +126,7 @@ In this example, we have two values files:
           host: "mysql_NEW.example.com"
     ```
 
-=== "Manifests Repo Mode"
-
-    In [manifests repo mode](./modes.md), if you pass these files to the `deploykf` command in the following order:
-    
-    ```bash
-    deploykf generate \
-      --source-version "{{ latest_deploykf_version }}" \
-      --values ./values-1.yaml \
-      --values ./values-2.yaml \
-      --output-dir ./GENERATOR_OUTPUT
-    ```
+How you pass these files to deployKF will depend on the [mode of operation](./modes.md) you are using.
 
 === "ArgoCD Plugin Mode"
 
@@ -193,6 +183,18 @@ In this example, we have two values files:
       destination:
         server: "https://kubernetes.default.svc"
         namespace: "argocd"
+    ```
+
+=== "Manifests Repo Mode"
+
+    In [manifests repo mode](./modes.md), if you pass these files to the `deploykf` command in the following order:
+    
+    ```bash
+    deploykf generate \
+      --source-version "{{ latest_deploykf_version }}" \
+      --values ./values-1.yaml \
+      --values ./values-2.yaml \
+      --output-dir ./GENERATOR_OUTPUT
     ```
 
 The resulting "merged" values will be as follows (with the default values omitted for brevity):
