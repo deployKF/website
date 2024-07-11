@@ -23,15 +23,15 @@ Authentication Method<br><small>(Click for Details)</small> | In Cluster | Outsi
 [Dex Static Credentials](#dex-static-credentials) | :octicons-check-16: | :octicons-check-16: | :octicons-check-16:
 [Kubernetes ServiceAccount Token](#kubernetes-serviceaccount-token) | :octicons-check-16: | :octicons-x-16: | :octicons-check-16:
 
-!!! warning "Kubeflow Pipelines SDK Versions"
+!!! warning "Python SDK Versions"
 
     You MUST use the correct version of the [Kubeflow Pipelines Python SDK](https://pypi.org/project/kfp/), using the wrong version of the SDK will result in errors.
-    The following table shows the correct SDK version to use with each version of deployKF:
+    This table shows which SDK version can be used with each version of deployKF:
 
-    deployKF Version | Kubeflow Pipelines | SDK Version
+    deployKF Version | `pip install kfp==1.18.22` | `pip install kfp>=2.0.0,<3`
     --- | --- | ---
-    `0.1.4` and earlier | v1 | `pip install kfp==1.18.22`
-    `0.1.5` and later | v2 | `pip install kfp>=2.0.0,<3`
+    `0.1.4` and earlier | :octicons-check-16: | :octicons-x-16:
+    `0.1.5` and later | :octicons-check-16: | :octicons-check-16:
 
     To check the version of the `kfp` SDK, run the following Python code:
 
