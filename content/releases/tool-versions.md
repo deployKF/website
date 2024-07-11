@@ -21,15 +21,22 @@ The [Kubeflow Pipelines](../reference/tools.md#kubeflow-pipelines) component ver
 {{ read_csv("./tool-versions--kubeflow-pipelines.csv", colalign=("right",)) }}
 
 
-!!! warning "Kubeflow Pipelines SDK Versions"
+??? question_secondary "Which versions of the `kfp` Python SDK are supported?"
 
     You MUST use the correct version of the [Kubeflow Pipelines Python SDK](https://pypi.org/project/kfp/), using the wrong version of the SDK will result in errors.
-    The following table shows the correct SDK version to use with each version of deployKF:
+    This table shows which SDK version can be used with each version of deployKF:
 
-    deployKF Version | Kubeflow Pipelines | SDK Version
+    deployKF Version | `pip install kfp==1.18.22` | `pip install kfp>=2.0.0,<3`
     --- | --- | ---
-    `0.1.4` and earlier | v1 | `pip install kfp==1.18.22`
-    `0.1.5` and later | v2 | `pip install kfp>=2.0.0,<3`
+    `0.1.4` and earlier | :octicons-check-16: | :octicons-x-16:
+    `0.1.5` and later | :octicons-check-16: | :octicons-check-16:
+
+    To check the version of the `kfp` SDK, run the following Python code:
+
+    ```python
+    import kfp
+    print(kfp.__version__)
+    ```
 
 ??? question_secondary "What does the `-deploykf.X` version suffix mean?"
 
