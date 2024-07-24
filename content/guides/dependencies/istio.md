@@ -358,7 +358,7 @@ You may do this even when using the deployKF-managed Istio installation.
     
         Many LoadBalancer Service implementations require a "health check" to pass before allowing traffic to flow (e.g. AWS NLB/ALB), and will send health-check requests to one or more ports on the Service.
     
-        Istio gateway Pods will always return a [`200 OK` response on port `15021`, under the `/healthz/ready` HTTP path](https://istio.io/latest/docs/ops/deployment/requirements/#ports-used-by-istio) for this purpose.
+        Istio gateway Pods will always return a [`200 OK` response on port `15021`, under the `/healthz/ready` HTTP path](https://istio.io/v1.22/docs/ops/deployment/application-requirements/#ports-used-by-istio) for this purpose.
         Therefore, you can expose the `15021` port on the Service, and configure the health-check path to `/healthz/ready`.
     
     !!! config "TLS Termination and SNI"
