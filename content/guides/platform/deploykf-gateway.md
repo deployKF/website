@@ -303,6 +303,7 @@ How you configure an Ingress will depend on the platform you are using, for exam
                 ## the 'deploykf-gateway' service has a named "status-port" pointing to Istio's 15021 health port
                 ## see: https://istio.io/latest/docs/ops/deployment/requirements/#ports-used-by-istio
                 alb.ingress.kubernetes.io/healthcheck-port: "status-port"
+                alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
                 alb.ingress.kubernetes.io/healthcheck-path: "/healthz/ready"
 
                 alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
