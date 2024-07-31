@@ -454,9 +454,17 @@ How you configure an Ingress will depend on the platform you are using, for exam
             #cloud.google.com/neg: '{"ingress": true}'
     ```
 
-??? config "Nginx Ingress"
+??? config "Nginx - Kubernetes Community"
 
-    Many clusters are configured with the [Nginx Ingress Controller](https://kubernetes.github.io/ingress-nginx/).
+    Many clusters are configured with the [Nginx Ingress Controller](https://kubernetes.github.io/ingress-nginx/) made by the Kubernetes community.
+
+    !!! warning
+
+        There are two independant Nginx Ingress Controller projects, each with their own configuration options.
+        We have guides for both, so make sure you are using the correct one.
+
+        - [`kubernetes/ingress-nginx`](https://github.com/kubernetes/ingress-nginx) - made by the Kubernetes community
+        - [`nginxinc/kubernetes-ingress`](https://github.com/nginxinc/kubernetes-ingress) - made by NGINX, Inc.
 
     In the following example, we are configuring the Nginx Ingress to use the same TLS certificate as the deployKF Gateway Service (found in `Secret/deploykf-istio-gateway-cert`).
     Later in this guide you will learn how to [make this certificate valid](#configure-tls-certificates), and not self-signed.
@@ -530,6 +538,99 @@ How you configure an Ingress will depend on the platform you are using, for exam
           ports:
             http: 80
             https: 443
+
+        ## these values configure the deployKF Gateway Service
+        ##
+        gatewayService:
+          name: "deploykf-gateway"
+          type: "ClusterIP"
+          annotations: {}
+    ```
+
+??? config "Nginx - NGINX, Inc."
+
+    You may be using the [Nginx Ingress Controller](https://docs.nginx.com/nginx-ingress-controller/) made by NGINX, Inc.
+
+    !!! warning
+
+        There are two independant Nginx Ingress Controller projects, each with their own configuration options.
+        We have guides for both, so make sure you are using the correct one.
+
+        - [`kubernetes/ingress-nginx`](https://github.com/kubernetes/ingress-nginx) - made by the Kubernetes community
+        - [`nginxinc/kubernetes-ingress`](https://github.com/nginxinc/kubernetes-ingress) - made by NGINX, Inc.
+
+    In the following example, we are configuring the Nginx Ingress to use the same TLS certificate as the deployKF Gateway Service (found in `Secret/deploykf-istio-gateway-cert`).
+    Later in this guide you will learn how to [make this certificate valid](#configure-tls-certificates), and not self-signed.
+
+    For example, you might set the following values:
+
+    ```yaml
+    deploykf_core:
+      deploykf_istio_gateway:
+
+        ## this value adds arbitrary manifests to the generated output
+        ##
+        extraManifests:
+          - |
+            apiVersion: networking.k8s.io/v1
+            kind: Ingress
+            metadata:
+              name: deploykf-gateway
+              annotations:
+                ## this annoataion must be set to the name of the Service
+                ## it tells Nginx to talk to the Service over HTTPS
+                nginx.org/ssl-services: "deploykf-gateway"
+            spec:
+              ingressClassName: nginx
+              tls:
+                ## NOTE: this secret is created as part of the deployKF installation
+                - secretName: "deploykf-istio-gateway-cert"
+              rules:
+                - host: "deploykf.example.com"
+                  http:
+                    paths:
+                      - path: "/"
+                        pathType: Prefix
+                        backend:
+                          service:
+                            name: "deploykf-gateway"
+                            port:
+                              name: https
+                - host: "*.deploykf.example.com"
+                  http:
+                    paths:
+                      - path: "/"
+                        pathType: Prefix
+                        backend:
+                          service:
+                            name: "deploykf-gateway"
+                            port:
+                              name: https
+
+        ## these values configure the deployKF Istio Gateway
+        ##
+        gateway:
+
+          ## the "base domain" for deployKF
+          ##  - this domain MUST align with your Ingress hostnames
+          ##  - this domain and its subdomains MUST be dedicated to deployKF
+          ##
+          hostname: deploykf.example.com
+
+          ## the ports that gateway Pods listen on
+          ##  - for an Ingress, these MUST be the standard 80/443
+          ##  - note, defaults from 'sample-values.yaml' are 8080/8443
+          ##
+          ports:
+            http: 80
+            https: 443
+
+          ## these values configure TLS
+          ##
+          tls:
+            ## nginx does NOT forward the SNI after TLS termination, 
+            ## so we must disable SNI matching in the gateway
+            matchSNI: false
 
         ## these values configure the deployKF Gateway Service
         ##
