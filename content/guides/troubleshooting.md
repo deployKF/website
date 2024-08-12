@@ -28,13 +28,11 @@ Learn about common issues with deployKF and how to resolve them.
 
 ??? bug "Pods fail with "too many open files" error"
 
-    Users may see errors like this in their Pod logs:
+    If your Kubernetes nodes are running __Linux__, you may need to increase the `fs.inotify.max_user_*` sysctl values or you may see errors like this in your Pod logs:
 
     > `too many open files`
 
-    This error has been discussed in the upstream Kubeflow repo ([`kubeflow/manifests#2087`](https://github.com/kubeflow/manifests/issues/2087)), to resolve it, you will need to increase your system's open/watched file limits.
-
-    On __linux__, you may need to increase the `fs.inotify.max_user_*` sysctl values:
+    This error has been discussed in the upstream Kubeflow repo ([`kubeflow/manifests#2087`](https://github.com/kubeflow/manifests/issues/2087)), to resolve it, you will need to increase your system's open/watched file limits:
 
     1. Modify `/etc/sysctl.conf` to include the following lines:
         - `fs.inotify.max_user_instances = 1280`

@@ -86,6 +86,7 @@ Configuration | Requirement | Notes
 --- | --- | ---
 Node Resources | The nodes must collectively have at least `4 vCPUs` and `16 GB RAM`, and `64 GB Storage`.
 CPU Architecture | The cluster must have  `x86_64` CPU Nodes. | [ARM64 Support](#arm64-support)
+Inotify Limits | Linux nodes must have sufficient `inotify` limits. Note, common distributions like _Ubuntu_ do not ship with sufficient defaults. | [Increase Inotify Limits](#increase-inotify-limits)
 Internet Access | The cluster must have internet access for pulling images and installing dependencies. | [Offline Clusters](#offline-clusters)
 Cluster Domain | The [`clusterDomain`](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) of your kubelet must be `"cluster.local"`.
 Service Type | By default, the cluster must have a `LoadBalancer` service type. | [Override Service Type](#override-service-type)
@@ -100,6 +101,21 @@ Existing Argo Workflows | The cluster __must NOT__ already have _Argo Workflows_
 
     The next minor version of deployKF (`v0.2.0`) should have native `ARM64` for all core components.
     However, some upstream apps like _Kubeflow Pipelines_ will need extra work to be production ready ([`#10309`](https://github.com/kubeflow/pipelines/issues/10309), [`#10308`](https://github.com/kubeflow/pipelines/issues/10308)).
+
+??? config "Increase Inotify Limits"
+
+    #### Increase Inotify Limits
+
+    If your Kubernetes nodes are running __Linux__, you may need to increase the `fs.inotify.max_user_*` sysctl values or you may see errors like this in your Pod logs:
+
+    > `too many open files`
+
+    This error has been discussed in the upstream Kubeflow repo ([`kubeflow/manifests#2087`](https://github.com/kubeflow/manifests/issues/2087)), to resolve it, you will need to increase your system's open/watched file limits:
+
+    1. Modify `/etc/sysctl.conf` to include the following lines:
+        - `fs.inotify.max_user_instances = 1280`
+        - `fs.inotify.max_user_watches = 655360`
+    2. Reload sysctl configs by running `sudo sysctl -p`
 
 ??? config "Offline Clusters"
 
