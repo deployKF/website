@@ -47,10 +47,10 @@ Please ensure you meet the following requirements before using deployKF in produ
 
 ### __Kubernetes Cluster__
 
-deployKF can run on any [:custom-kubernetes-color: __Kubernetes__](https://kubernetes.io/docs/concepts/overview/) cluster, in __any cloud or environment__.
-See the [__version matrix__](../releases/version-matrix.md#kubernetes) for a list of supported Kubernetes versions.
+deployKF can run on _any [:custom-kubernetes-color: Kubernetes](https://kubernetes.io/docs/concepts/overview/) cluster_, in _any cloud or environment_.
+See the [version matrix](../releases/version-matrix.md#kubernetes) for a list of supported Kubernetes versions.
 
-Here are some Kubernetes distributions which are supported by deployKF:
+For example, deployKF can run on the following Kubernetes distributions:
 
 Target Platform | Kubernetes Distribution
 --- | ---
@@ -69,24 +69,32 @@ Local Machine | [k3d](https://k3d.io/) // [Kind](https://kind.sigs.k8s.io/) // [
 
     <small>If you are unable to create a new Kubernetes cluster, you may consider using [vCluster](https://github.com/loft-sh/vcluster) to create a virtual Kubernetes cluster within an existing one.</small>
 
-### __Argo CD__
+### __Argo CD Dependency__
 
-deployKF depends on [:custom-argocd-color: __Argo CD__](./dependencies/argocd.md#what-is-argo-cd) for managing the platform.
+deployKF requires [:custom-argocd-color: Argo CD](./dependencies/argocd.md#what-is-argo-cd) for managing the platform.
 
-You may either use deployKF with an existing ArgoCD instance, or deploy a new one with the platform.
-Both options are covered later in this guide.
+You may either use deployKF with an existing ArgoCD, or deploy a new one (if you don't already have it), both options are covered later in this guide.
 
-### __Kubernetes Configurations__
+??? question_secondary "Can I use <small>_&lt;other tool&gt;_</small> instead of Argo CD?"
 
-deployKF requires some specific Kubernetes configurations to work correctly.
+    Not yet.
+    
+    While we believe that Argo CD is currently the best in its category, we recognize that it's not the only option.
+    In the future, we may support other Kubernetes GitOps tools (like [Flux CD](https://fluxcd.io/)), or even build a deployKF-specific solution.
 
-The following table lists these configurations and their requirements:
+    deployKF will make your MLOps life so much easier, that it's still worth using, even if you don't already love Argo CD.
+    If you want, you can largely treat Argo CD as a "black box" and just use the provided sync scripts to manage the platform.
+
+    To learn more about this decision, and participate in the discussion, see [`deployKF/deployKF#110`](https://github.com/deployKF/deployKF/issues/110).
+
+### __Kubernetes Requirements__
+
+Your Kubernetes cluster must meet the following requirements:
 
 Configuration | Requirement | Notes
 --- | --- | ---
 Node Resources | The nodes must collectively have at least `4 vCPUs` and `16 GB RAM`, and `64 GB Storage`.
 CPU Architecture | The cluster must have  `x86_64` CPU Nodes. | [ARM64 Support](#arm64-support)
-Inotify Limits | Linux nodes must have sufficient `inotify` limits. Note, common distributions like _Ubuntu_ do not ship with sufficient defaults. | [Increase Inotify Limits](#increase-inotify-limits)
 Internet Access | The cluster must have internet access for pulling images and installing dependencies. | [Offline Clusters](#offline-clusters)
 Cluster Domain | The [`clusterDomain`](https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) of your kubelet must be `"cluster.local"`.
 Service Type | By default, the cluster must have a `LoadBalancer` service type. | [Override Service Type](#override-service-type)
@@ -101,21 +109,6 @@ Existing Argo Workflows | The cluster __must NOT__ already have _Argo Workflows_
 
     The next minor version of deployKF (`v0.2.0`) should have native `ARM64` for all core components.
     However, some upstream apps like _Kubeflow Pipelines_ will need extra work to be production ready ([`#10309`](https://github.com/kubeflow/pipelines/issues/10309), [`#10308`](https://github.com/kubeflow/pipelines/issues/10308)).
-
-??? config "Increase Inotify Limits"
-
-    #### Increase Inotify Limits
-
-    If your Kubernetes nodes are running __Linux__, you may need to increase the `fs.inotify.max_user_*` sysctl values or you may see errors like this in your Pod logs:
-
-    > `too many open files`
-
-    This error has been discussed in the upstream Kubeflow repo ([`kubeflow/manifests#2087`](https://github.com/kubeflow/manifests/issues/2087)), to resolve it, you will need to increase your system's open/watched file limits:
-
-    1. Modify `/etc/sysctl.conf` to include the following lines:
-        - `fs.inotify.max_user_instances = 1280`
-        - `fs.inotify.max_user_watches = 655360`
-    2. Reload sysctl configs by running `sudo sysctl -p`
 
 ??? config "Offline Clusters"
 
@@ -162,6 +155,91 @@ Existing Argo Workflows | The cluster __must NOT__ already have _Argo Workflows_
     2. Disable components which require the StorageClass, and use external alternatives:
          - [Connect an External __Object Store__](./external/object-store.md#connect-an-external-object-store)
          - [Connect an External __MySQL__](./external/mysql.md#connect-an-external-mysql)
+
+### __Linux Node Requirements__
+
+If you are self-hosting your Kubernetes cluster, you must ensure that your Linux nodes meet the following requirements:
+
+Configuration | Requirement | Notes
+--- | --- | ---
+Inotify Limits | Linux nodes must have sufficient `inotify` limits. Note, common distributions like _Ubuntu_ do not ship with sufficient defaults. | [Increase Inotify Limits](#increase-inotify-limits)
+Kernel Modules | Linux nodes must have the required kernel modules for Istio. | [Istio Kernel Modules](#istio-kernel-modules)
+
+??? config "Increase Inotify Limits"
+
+    #### Increase Inotify Limits
+
+    You may need to increase the `fs.inotify.max_user_*` sysctl values on your nodes (only for Linux nodes).
+    Otherwise, you may encounter Pod crashes with an error message like this:
+
+    > `too many open files`
+
+    This error has been discussed in the upstream Kubeflow repo ([`kubeflow/manifests#2087`](https://github.com/kubeflow/manifests/issues/2087)), to resolve it, you will need to increase your system's open/watched file limits:
+
+    1. Modify `/etc/sysctl.conf` to include the following lines:
+
+        ```bash
+        fs.inotify.max_user_instances = 1280
+        fs.inotify.max_user_watches = 655360
+        ```
+
+    2. Now, apply immediately the changes with the following command:
+
+        ```bash
+        sudo sysctl -p
+        ```
+
+??? config "Istio Kernel Modules"
+
+    #### Istio Kernel Modules
+
+    Your nodes must have the required kernel modules for Istio.
+    Otherwise, you may encounter crashes in the Istio sidecars or other strange network behaviour.
+
+    1. Get a list of the currently loaded kernel modules by running `lsmod`:
+
+        ```bash
+        lsmod | awk '{print $1}' | sort
+        ```
+
+    2. At the time of writing, the following command will enable the [required kernel modules](https://istio.io/latest/docs/ops/deployment/platform-requirements/) on boot:
+
+        ```bash
+        ## NOTE: if you are using Istio ambient mode, there are additional modules required
+        cat <<EOF | sudo tee /etc/modules-load.d/99-istio-modules.conf
+        br_netfilter
+        ip_tables
+        iptable_filter
+        iptable_mangle
+        iptable_nat
+        iptable_raw
+        nf_nat
+        x_tables
+        xt_REDIRECT
+        xt_conntrack
+        xt_multiport
+        xt_owner
+        xt_tcpudp
+        EOF
+        ```
+
+    3. Now, either reboot your nodes or immediately load the modules with the following commands (which will also indicate if any modules are missing):
+
+        ```bash
+        sudo modprobe br_netfilter
+        sudo modprobe ip_tables
+        sudo modprobe iptable_filter
+        sudo modprobe iptable_mangle
+        sudo modprobe iptable_nat
+        sudo modprobe iptable_raw
+        sudo modprobe nf_nat
+        sudo modprobe x_tables
+        sudo modprobe xt_REDIRECT
+        sudo modprobe xt_conntrack
+        sudo modprobe xt_multiport
+        sudo modprobe xt_owner
+        sudo modprobe xt_tcpudp
+        ```
 
 ---
 
