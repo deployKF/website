@@ -76,11 +76,13 @@ For an example of this, see [__this section__](../local-quickstart.md#4-create-a
 
 ### __Can I use <small>_&lt;other tool&gt;_</small> instead of Argo CD?__
     
-No, not yet.
+Not yet.
+
 While we believe that Argo CD is currently the best in its category, we recognize that it's not the only option.
 In the future, we may support other Kubernetes GitOps tools (like [Flux CD](https://fluxcd.io/)), or even build a deployKF-specific solution.
 
-We think deployKF is good enough to try, even if you don't love Argo CD!
+deployKF will make your MLOps life so much easier, that it's still worth using, even if you don't already love Argo CD.
+If you want, you can largely treat Argo CD as a "black box" and just use the provided sync scripts to manage the platform.
 
 !!! info
 
