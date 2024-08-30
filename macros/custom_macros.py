@@ -141,10 +141,10 @@ def define_env(env: MacrosPlugin):
                 _html_body(
                     [
                         "Feature",
-                        ":custom-deploykf-color: deployKF",
                         ":custom-kubeflow-color: Kubeflow Manifests",
+                        ":custom-deploykf-color: deployKF",
                     ],
-                    [[f, d, k] for f, d, k in zip(feature_list, dkf_list, kfm_list)],
+                    [[f, d, k] for f, d, k in zip(feature_list, kfm_list, dkf_list)],
                     header_at_top=True,
                     th_widths=["30%", "35%", "35%"],
                 )
