@@ -3,9 +3,6 @@ icon: custom/kubeflow
 description: >-
   Learn how to use Kubeflow PodDefaults to mutate Pods as they are created.
   Make changes like adding sidecars, volumes, environment variables, and more.
-
-# TODO: remove status, after a while
-status: new
 ---
 
 # Use Kubeflow PodDefaults
