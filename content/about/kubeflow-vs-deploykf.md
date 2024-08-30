@@ -77,6 +77,7 @@ comparison_data:
           has_feature: true
           description: |-
             Each tool has as single `enabled` value.
+            [Enable or disable tools](../guides/tools/choose-tools.md).
         kubeflow_manifests:
           has_feature: false
           description: |-
@@ -219,6 +220,12 @@ comparison_data:
 
 Understand the differences between Kubeflow and deployKF.
 
+!!! tip "Migrate to deployKF"
+
+    When you're ready to start migrating from vanilla Kubeflow to deployKF, check out our migration guide:
+
+    [Migrate from :custom-kubeflow: Kubeflow Distributions](../guides/kubeflow-distributions.md#steps-to-migrate){ .md-button .md-button--secondary }
+
 ---
 
 ## Introduction
@@ -234,21 +241,15 @@ Project | What is it?
 :custom-kubeflow-color: __Kubeflow__ | A CNCF project to develop [MLOps tools](../reference/tools.md#kubeflow-ecosystem) that run on Kubernetes.
 :custom-kubeflow-color: __Kubeflow Manifests__ | A collection of Kustomize manifests provided by the Kubeflow project.
 
-!!! tip "Migrate to deployKF"
-
-    When you're ready to start migrating from vanilla Kubeflow to deployKF, check out our migration guide:
-
-    [Migrate from :custom-kubeflow: Kubeflow Distributions](../guides/kubeflow-distributions.md#steps-to-migrate){ .md-button .md-button--secondary }
-
 ## **deployKF vs Kubeflow Manifests**
 
 _deployKF_ and _Kubeflow Manifests_ are both used to deploy Kubeflow.
 However, they are designed for different purposes and have different features.
 
-|| :custom-deploykf-color: deployKF | :custom-kubeflow-color: Kubeflow Manifests
+|| :custom-kubeflow-color: Kubeflow Manifests | :custom-deploykf-color: deployKF
 --- | --- | ---
-__Purpose__ | Enable organizations to build their Data and ML Platforms on Kubernetes. | To be used as a base for packaged Kubeflow distributions by vendors.
-__Key Feature__ | A [centralized config system](../guides/values.md) to manage all aspects of the platform, very similar to Helm Chart values. | A collection of Kustomize manifests requiring significant manual patching to use in production.
+__Purpose__ | To be used as a base for packaged Kubeflow distributions by vendors. | Enable organizations to build their Data and ML Platforms on Kubernetes.
+__Key Feature__ | A collection of Kustomize manifests requiring significant manual patching to use in production. | A [centralized config system](../guides/values.md) to manage all aspects of the platform, very similar to Helm Chart values.
 
 {{ render_comparison_table(comparison_data) }}
 
