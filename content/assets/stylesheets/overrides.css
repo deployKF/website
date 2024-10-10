@@ -1,23 +1,106 @@
 /*
 ========================================
+Navigation Styling
+========================================
+*/
+
+/* "deployKF Enterprise" nav link */
+.dkf-enterprise {
+    border-radius: 6px;
+    .dkf-enterprise_inner {
+        padding: 0.5rem;
+    }
+}
+
+/* mobile (light mode) */
+.md-sidebar .dkf-enterprise {
+    font-size: 105%;
+    color: #22b96e;
+    border: 1.5px solid #22b96e;
+}
+.md-sidebar .dkf-enterprise:hover {
+    color: var(--aranui-green);
+    border: 1.5px solid var(--aranui-green);
+}
+
+/* mobile (dark mode) */
+[data-md-color-scheme=slate] .md-sidebar .dkf-enterprise {
+    opacity: 0.7;
+    color: var(--aranui-green);
+    border: 1.5px solid var(--aranui-green);
+}
+[data-md-color-scheme=slate] .md-sidebar .dkf-enterprise:hover {
+    opacity: 1;
+}
+
+/* desktop (light & dark mode) */
+.md-header .dkf-enterprise {
+    color: var(--aranui-green);
+    border: 1.5px solid var(--aranui-green);
+}
+
+/*
+========================================
 Banner Styling
 ========================================
 */
 
-.md-banner__inner {
-    color: var(--md-footer-fg-color--light);
+.md-banner {
+    background: linear-gradient(90deg, var(--aranui-green), #334773 80%);
+    border-bottom: 2px solid rgba(226, 228, 233, 0.6);
 }
 
-.md-banner .md-banner__inner {
-    font-size: 0.75rem;
+.md-banner__inner .md-banner__content {
+    color: #ffffff;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-.md-banner .md-banner__inner .md-banner__link {
-    color: #6c91d5;
+.md-banner__inner .md-banner__content:hover {
+    /* slightly the white color on hover */
+    color: #e4e4e4;
+
+    .md-banner__pill {
+        background-color: #e4e4e4;
+    }
 }
 
-.md-banner .md-banner__inner .md-banner__link:hover {
-    color: #fd7e14;
+.md-banner__inner .md-banner__pill {
+    font-size: 0.6rem;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    padding: 0.09rem 0.5rem;
+    margin-right: 0.65rem;
+    border-radius: 0.5rem;
+
+    /* make text transparent cut through the background */
+    mix-blend-mode: screen;
+    color: #000000;
+    background: #ffffff;
+
+    /* never shrink smaller than the content */
+    flex-shrink: 0;
+}
+
+.md-banner__inner .md-banner__text {
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+.md-banner__inner .md-banner__text-secondary {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.7rem;
+}
+
+.md-banner__inner .md-banner__desktop-only {
+    display: none;
+
+    @media screen and (min-width: 576px) {
+        display: inline-block;
+    }
 }
 
 /*

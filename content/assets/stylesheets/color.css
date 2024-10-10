@@ -1,6 +1,8 @@
 :root {
     --deploykf-orange: #fd7e14;
     --deploykf-blue: #4279f4;
+    --aranui-green: #26d07c;
+
     --success: #73A839;
     --danger: #C71C22;
 }
@@ -14,13 +16,13 @@
 }
 
 [data-md-color-primary="deploykf-primary"] {
-    --md-primary-fg-color: #294275;
-    --md-primary-fg-color--light: #697A9E;
-    --md-primary-fg-color--lighter: #8394B8;
-    --md-primary-fg-color--dark: #1c2e51;
-    --md-primary-fg-color-transparent: #294275b3;
-    --md-primary-bg-color: #fff;
-    --md-primary-bg-color--light: #ffffffb3;
+    --md-primary-fg-color: #334773;
+    --md-primary-fg-color--light: #5b6b8f;
+    --md-primary-fg-color--lighter: #8490ab;
+    --md-primary-fg-color--dark: #233150;
+    --md-primary-fg-color-transparent: rgba(51, 71, 115, 0.68);
+    --md-primary-bg-color: #ffffff;
+    --md-primary-bg-color--light: rgba(255, 255, 255, 0.7);
 }
 
 [data-md-color-accent="deploykf-accent"] {
@@ -32,7 +34,7 @@
 }
 
 [data-md-color-scheme=slate][data-md-color-accent="deploykf-accent"] {
-     /* make transparent color different in dark mode */
+    /* make transparent color different in dark mode */
     --md-accent-fg-color--transparent: rgba(253, 126, 20, 0.06);
 }
 
@@ -40,39 +42,39 @@
     --md-typeset-a-color: #6c91d5;
 
     /* default text is too dark */
-    --md-default-fg-color: hsla(var(--md-hue), 15%, 95%, 0.86);
+    --md-default-fg-color: hsla(var(--md-hue), 15%, 93%, 1);
 
     /* default background is too dark */
-    --md-default-bg-color: hsla(var(--md-hue), 15%, 17%, 1);
+    --md-default-bg-color: hsla(var(--md-hue), 10%, 19%, 1);
 
     /* admonition background */
-    --md-admonition-bg-color: hsla(230, 10%, 17%, 0.8);
+    --md-admonition-bg-color: hsla(var(--md-hue), 9%, 20%, 1);
 
     /* table background */
-    --md-table-bg-color: hsla(230, 10%, 17%, 0.8);
+    --md-table-bg-color: hsla(var(--md-hue), 9%, 20%, 1);
 
     /* table header background */
-    --md-table-head-color: hsla(230, 18%, 20%, 1);
+    --md-table-head-color: hsla(var(--md-hue), 19%, 19%, 1);
 
     /* default code is too light */
-    --md-code-bg-color: hsla(var(--md-hue), 14%, 13%, 1);
+    --md-code-bg-color: hsla(var(--md-hue), 8%, 14%, 1);
 
-    /* header text is to bright */
+    /* header github/dark-mode buttons are too bright */
     .md-header {
-        color: hsla(var(--md-hue),15%,90%,1.0);
+        color: hsla(var(--md-hue), 15%, 93%, 1);
     }
 
     /* make nav section less bold */
     @media screen and (min-width: 76.25em) {
         .md-nav--primary {
-            opacity: 0.78;
+            opacity: 0.75;
         }
     }
 
     /* make toc section less bold */
     @media screen and (min-width: 60em) {
         .md-nav--secondary {
-            opacity: 0.78;
+            opacity: 0.75;
         }
     }
 
@@ -93,25 +95,25 @@
     --md-typeset-a-color: #4d5fc4;
 
     /* admonition background */
-    --md-admonition-bg-color: var(--md-default-bg-color);
+    --md-admonition-bg-color: hsl(30, 7%, 98%);
 
     /* table background */
-    --md-table-bg-color: hsla(230, 10%, 99%, 0.8);
+    --md-table-bg-color: hsl(30, 7%, 98%);
 
     /* table header background */
-    --md-table-head-color: hsla(230, 15%, 85%, 0.8);
+    --md-table-head-color: hsl(228, 19%, 85%);
 
     /* make nav section less bold */
     @media screen and (min-width: 76.25em) {
         .md-nav--primary {
-            opacity: 0.78;
+            opacity: 0.75;
         }
     }
 
     /* make toc section less bold */
     @media screen and (min-width: 60em) {
         .md-nav--secondary {
-            opacity: 0.78;
+            opacity: 0.75;
         }
     }
 

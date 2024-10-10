@@ -44,10 +44,11 @@ faq_schema:
     pre_expand_answer: true
     admonition_type: support
     answer: |-
-      To discuss commercial support options for deployKF, please connect with [:custom-aranui-solutions-color: __Aranui Solutions__](https://www.aranui.solutions/), the company started by the creators of deployKF.
-
-      [:material-open-in-new: Visit Website](https://www.aranui.solutions/){ .md-button .md-button--secondary }
-      [:fontawesome-solid-envelope: Email Aranui Solutions](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--secondary }
+      [__deployKF Enterprise__](https://www.aranui.solutions/deploykf) comes with additional tools, features, and commercial support options.
+      <br>
+      Connect with [:custom-aranui-solutions-color: __Aranui Solutions__](https://www.aranui.solutions/) for more information.
+      
+      [:material-open-in-new: deployKF Enterprise](https://www.aranui.solutions/deploykf){ .md-button .md-button--secondary }
 
   - question: Which ML and AI tools are in deployKF?
     include_in_schema: true
