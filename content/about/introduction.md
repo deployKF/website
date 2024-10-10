@@ -33,6 +33,8 @@ An __introduction__ to deployKF.
     Our goal is that __any Kubernetes user__ can build a machine learning platform for their organization, 
     without needing specialized MLOps knowledge, or a team of experts to maintain it.
 
+    ---
+
     The key features of deployKF are:
 
     - Run on [__any Kubernetes cluster__](../guides/getting-started.md#kubernetes-cluster), including on-premises and in the cloud
@@ -55,31 +57,28 @@ An __introduction__ to deployKF.
         Our presentation from [Kubeflow Summit 2023](https://www.kubeflow.org/events/kubeflow-summit-2023/), where we introduced deployKF to the community.
     </div>
 
-### __User Stories__
-
-!!! value ""
-
-    We are always excited to see __how__ and __where__ deployKF is being used!
-
-    Here are some stories of deployKF being used in the wild:
-
-    Organization | Article / Video
-    --- | ---
-    :custom-cloudflare-color: Cloudflare | [_A look inside the Cloudflare ML Ops platform_](https://blog.cloudflare.com/mlops/)
-    _Your Organization here!_ | [Join `ADOPTERS.md` List](https://github.com/deployKF/deployKF/blob/main/ADOPTERS.md) // [Contact Us](community.md#contact-us)
-
 ---
 
 ## Use deployKF
 
-Now that you know what deployKF is, you can get started with the following guides:
+!!! value ""
 
-<div class="mdx-hero__button-wrapper" markdown>
+    Now that you know what deployKF is, get started with the following guides:
+    
+    <div class="mdx-hero__button-wrapper" markdown>
+    
+    [Full Deployment<br>:material-rocket-launch:](../guides/getting-started.md){ .md-button .md-button--primary .md-button--primary-right }
+    [Try Locally<br>:material-sprout:](../guides/local-quickstart.md){ .md-button .md-button--primary .md-button--primary-left }
+    
+    </div>
 
-[Full Deployment](../guides/getting-started.md){ .md-button .md-button--primary .md-button--primary-right }
-[Try Locally](../guides/local-quickstart.md){ .md-button .md-button--primary .md-button--primary-left }
+    Everyone is welcome to join our _Slack_ server to ask questions share feedback:
 
-</div>
+    [Join our Slack :fontawesome-brands-slack:](https://communityinviter.com/apps/deploykf/slack){ .md-button .md-button--primary }
+
+---
+
+## Other Resources
 
 ### __Support the Project__
 
@@ -93,27 +92,30 @@ Now that you know what deployKF is, you can get started with the following guide
     ![deployKF GitHub Star History (Dark Mode)](https://api.star-history.com/svg?repos=deployKF/deployKF&type=Date&theme=dark#only-dark){ .star-history_image }
     ![deployKF GitHub Star History (Light Mode)](https://api.star-history.com/svg?repos=deployKF/deployKF&type=Date#only-light){ .star-history_image }
 
----
-
-## Other Resources
-
-### __Community__
+### __Support Options__
 
 !!! support ""
 
-    The [deployKF community](community.md) has a __Slack__ server for informal discussions among users and contributors:
+    __deployKF Enterprise__ comes with additional tools, features, and __commercial support__ options:
+    
+    [:material-open-in-new: deployKF Enterprise](https://www.aranui.solutions/deploykf){ .md-button .md-button--secondary }
 
-    [Join the Slack<br>:fontawesome-brands-slack:](https://communityinviter.com/apps/deploykf/slack){ .md-button .md-button--primary }
+    For open-source users, we provide best-effort support through the following channels:
 
-### __Support__
-
-!!! support ""
-
-    Both __commercial__ and __open-source__ support is available for deployKF.
-
-    [:material-briefcase: Commercial Support](support.md#commercial-support){ .md-button .md-button--primary }
-    <br>
     [:material-hospital-box: Open-Source Support](support.md#open-source-support){ .md-button .md-button--secondary }
+
+### __User Stories__
+
+!!! value ""
+
+    We are always excited to see __how__ and __where__ deployKF is being used!
+
+    Here are some stories of deployKF being used in the wild:
+
+    Organization | Article / Video
+    --- | ---
+    :custom-cloudflare-color: Cloudflare | [_A look inside the Cloudflare ML Ops platform_](https://blog.cloudflare.com/mlops/)
+    _Your Organization here!_ | [Join `ADOPTERS.md` List](https://github.com/deployKF/deployKF/blob/main/ADOPTERS.md) // [Contact Us](community.md#contact-us)
 
 ### __History of deployKF__
 

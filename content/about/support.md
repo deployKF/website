@@ -16,13 +16,11 @@ See options for commercial support, open-source support, reporting a bug, or req
 
 !!! support ""
 
-    Commercial support is available for deployKF.
-
-    Please connect with [:custom-aranui-solutions-color: __Aranui Solutions__](https://www.aranui.solutions/), the company started by the creators of deployKF:
-
-    [:fontawesome-solid-envelope: Email our Team](mailto:sales@aranui.solutions?subject=%5BdeployKF%5D%20MY_SUBJECT){ .md-button .md-button--primary }
+    [__deployKF Enterprise__](https://www.aranui.solutions/deploykf) comes with additional tools, features, and commercial support options.
     <br>
-    [:material-open-in-new: Visit our Website](https://www.aranui.solutions/){ .md-button .md-button--secondary }
+    Connect with [:custom-aranui-solutions-color: __Aranui Solutions__](https://www.aranui.solutions/) for more information.
+    
+    [:material-open-in-new: deployKF Enterprise](https://www.aranui.solutions/deploykf){ .md-button .md-button--secondary }
 
 ## Open-Source Support
 

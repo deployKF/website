@@ -6,7 +6,7 @@ Admonition Styles
 
 /* make border radius smaller */
 .md-typeset .admonition, .md-typeset details {
-    border-width: 0.04rem;
+    border-width: 1.2px;
 }
 
 /*

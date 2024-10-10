@@ -23,23 +23,20 @@ We will cover requirements, configuration, the deployment process, and basic usa
 
 !!! value ""
 
-    We suggest __new users__ start with the _introduction_ and _local quickstart_ pages.
-    
-    [About deployKF<br><small>(Introduction)</small>](../about/introduction.md#about-deploykf){ .md-button .md-button--primary }
-    [Local Quickstart<br><small>(Try Locally)</small>](./local-quickstart.md){ .md-button .md-button--primary }
+    We recommend new users start with the _Introduction_ and _Try Locally_ guides:
 
-!!! value ""
+    <div class="mdx-hero__button-wrapper" markdown>
+    [Introduction<br>:material-lightbulb-on:](../about/introduction.md#about-deploykf){ .md-button .md-button--primary .md-button--primary-left }
+    [Try Locally<br>:material-sprout:](./local-quickstart.md){ .md-button .md-button--primary .md-button--primary-right }
+    </div>
 
-    For __existing Kubeflow users__, we have a _migration guide_.
-        
-    [Migrate from :custom-kubeflow: Kubeflow Distributions](./kubeflow-distributions.md#about-migrating){ .md-button .md-button--primary }
+    ---
 
-!!! value ""
+    Existing Kubeflow users should use the _Migration_ guide, and everyone is welcome to join our _Slack_:
 
-    We encourage __everyone__ to _join our community_ and learn how to _get support_!
-
-    [:material-account-group: Join the Community](../about/community.md){ .md-button .md-button--primary }
-    [:material-headset: Get Support](../about/support.md){ .md-button .md-button--primary }
+    [Migrate from Kubeflow :custom-kubeflow:](./kubeflow-distributions.md#about-migrating){ .md-button .md-button--primary }
+    <br>
+    [Join our Slack :fontawesome-brands-slack:](https://communityinviter.com/apps/deploykf/slack){ .md-button .md-button--primary }
 
 ## 1. Requirements
 
