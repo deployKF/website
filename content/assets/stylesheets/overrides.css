@@ -16,18 +16,18 @@ Navigation Styling
 .md-sidebar .dkf-enterprise {
     font-size: 105%;
     color: #22b96e;
-    border: 1.5px solid #22b96e;
+    border: 2px solid #22b96e;
 }
 .md-sidebar .dkf-enterprise:hover {
     color: var(--aranui-green);
-    border: 1.5px solid var(--aranui-green);
+    border: 2px solid var(--aranui-green);
 }
 
 /* mobile (dark mode) */
 [data-md-color-scheme=slate] .md-sidebar .dkf-enterprise {
     opacity: 0.7;
     color: var(--aranui-green);
-    border: 1.5px solid var(--aranui-green);
+    border: 2px solid var(--aranui-green);
 }
 [data-md-color-scheme=slate] .md-sidebar .dkf-enterprise:hover {
     opacity: 1;
@@ -36,7 +36,7 @@ Navigation Styling
 /* desktop (light & dark mode) */
 .md-header .dkf-enterprise {
     color: var(--aranui-green);
-    border: 1.5px solid var(--aranui-green);
+    border: 2px solid var(--aranui-green);
 }
 
 /*
@@ -46,8 +46,7 @@ Banner Styling
 */
 
 .md-banner {
-    background: linear-gradient(90deg, var(--aranui-green), #334773 80%);
-    border-bottom: 2px solid rgba(226, 228, 233, 0.6);
+    background: linear-gradient(150deg, var(--deploykf-orange) 40%, var(--deploykf-blue) 60%);
 }
 
 .md-banner__inner .md-banner__content {
@@ -58,8 +57,8 @@ Banner Styling
     align-items: center;
 }
 
-.md-banner__inner .md-banner__content:hover {
-    /* slightly the white color on hover */
+.md-banner__inner .md-banner__content:hover, .md-banner__inner .md-banner__content:focus {
+    /* slightly darken the white color on hover */
     color: #e4e4e4;
 
     .md-banner__pill {
@@ -72,7 +71,7 @@ Banner Styling
     font-weight: bold;
     text-transform: uppercase;
 
-    padding: 0.09rem 0.5rem;
+    padding: 0.09rem 0.6rem;
     margin-right: 0.65rem;
     border-radius: 0.5rem;
 
@@ -91,8 +90,7 @@ Banner Styling
 }
 
 .md-banner__inner .md-banner__text-secondary {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.7rem;
+    font-size: 85%;
 }
 
 .md-banner__inner .md-banner__desktop-only {
