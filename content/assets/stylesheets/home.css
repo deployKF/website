@@ -386,11 +386,11 @@ Hero Cards
 }
 
 [data-md-color-scheme=default] .mdx-hero .mdx-hero__card .mdx-hero__card_title {
-    color: var(--md-primary-fg-color--light)
+    color: var(--deploykf-orange);
 }
 
 [data-md-color-scheme=slate] .mdx-hero .mdx-hero__card .mdx-hero__card_title {
-    color: var(--md-primary-fg-color--lighter);
+    color: var(--deploykf-orange);
 }
 
 
