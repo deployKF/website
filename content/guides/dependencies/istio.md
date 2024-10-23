@@ -283,7 +283,14 @@ See the [version matrix](../../releases/version-matrix.md#istio) for which versi
 If you have an existing Istio [gateway deployment](#gateways), you can use it instead of the deployKF-managed one.
 You may do this even when using the deployKF-managed Istio installation.
 
-??? step "Step 1 - Disable embedded Gateway Deployment"
+??? step "Step 1 - Use an existing Istio Installation"
+
+    To use an existing gateway deployment, you must configure deployKF to use your existing Istio installation.
+    That is, you cant have deployKF manage the Istio installation.
+
+    Follow the steps in [Use an existing Istio Installation](#use-an-existing-istio-installation) to disable the deployKF-managed Istio installation.
+
+??? step "Step 2 - Disable embedded Gateway Deployment"
 
     Disable the embedded gateway deployment by setting the [`deploykf_core.deploykf_istio_gateway.charts.istioGateway.enabled`](https://github.com/deployKF/deployKF/blob/v0.1.4/generator/default_values.yaml#L696) value to `false`:
     
@@ -297,7 +304,7 @@ You may do this even when using the deployKF-managed Istio installation.
             enabled: false
     ```
 
-??? step "Step 2 - Configure deployKF"
+??? step "Step 3 - Configure deployKF"
 
     You must set the following deployKF values to match your existing gateway deployment:
 
@@ -350,7 +357,7 @@ You may do this even when using the deployKF-managed Istio installation.
         #    https: 443
     ```
 
-??? step "Step 3 - Expose your Gateway Deployment"
+??? step "Step 4 - Expose your Gateway Deployment"
     
     If you havent already, you will need to create a `Service` (and possibly `Ingress`) that selects your gateway deployment to expose it to external traffic.
 
