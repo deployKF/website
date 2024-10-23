@@ -554,6 +554,11 @@ The following guides show provider-specific instructions for configuring Dex [co
                 insecureSkipEmailVerified: true
     ```
 
+    !!! warning "Use Kubernetes Secrets"
+
+        Consider using `configExistingSecret` instead of `config` to avoid storing secrets in your values,
+        see the [Connector Values](#connector-values) section for more details.
+
 ??? steps "Keycloak"
 
     ###### Keycloak
@@ -599,6 +604,11 @@ The following guides show provider-specific instructions for configuring Dex [co
                 #insecureSkipVerify: true
     ```
 
+    !!! warning "Use Kubernetes Secrets"
+
+        Consider using `configExistingSecret` instead of `config` to avoid storing secrets in your values,
+        see the [Connector Values](#connector-values) section for more details.
+
 ??? steps "Generic (OpenID Connect)"
 
     ###### Generic (OpenID Connect)
@@ -643,6 +653,11 @@ The following guides show provider-specific instructions for configuring Dex [co
                 ## set to true, if provider does not always send `email_verified` claim
                 insecureSkipEmailVerified: true
     ```
+
+    !!! warning "Use Kubernetes Secrets"
+
+        Consider using `configExistingSecret` instead of `config` to avoid storing secrets in your values,
+        see the [Connector Values](#connector-values) section for more details.
 
 ---
 
